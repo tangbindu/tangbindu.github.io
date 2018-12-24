@@ -582,9 +582,9 @@
 
   |名字|中文|解释|demo|
   |-|-|-|-|
-  mix|混合|混合进一个数，用一定的比列。例如：mix(1.0,.2,.5)等于.6|[demo](https://tangbindu.github.io/knowledge/webgl/example/181221glslmix/dist/html/index.html)|
-  |mix|混合|可以使用百分比混合2个不同的值|[demo](https://tangbindu.github.io/knowledge/webgl/example/181221glslmix/dist/html/index.html)|
-  |mix|混合|可以使用百分比混合2个不同的值|[demo](https://tangbindu.github.io/knowledge/webgl/example/181221glslmix/dist/html/index.html)|
+  mix|混合|混合进一个数，用一定的比列。例如：mix(1.0,.2,.5)等于.6。非常非常非常适合通道之间用来混合颜色|[demo](https://tangbindu.github.io/knowledge/webgl/example/181221glslmix/dist/html/index.html)|
+  |step|插值函数|第一个是极限或阀值，第二个是我们想要检测或通过的值|[demo](https://tangbindu.github.io/knowledge/webgl/example/181224glslstep/dist/html/index.html)|
+  |smoothstep|混合|第一个是极限或阀值，第二个是我们想要检测或通过的值|[demo](https://tangbindu.github.io/knowledge/webgl/example/181221glslmix/dist/html/index.html)|
   |mix|混合|可以使用百分比混合2个不同的值|[demo](https://tangbindu.github.io/knowledge/webgl/example/181221glslmix/dist/html/index.html)|
   |mix|混合|可以使用百分比混合2个不同的值|[demo](https://tangbindu.github.io/knowledge/webgl/example/181221glslmix/dist/html/index.html)|
   

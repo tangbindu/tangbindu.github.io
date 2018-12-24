@@ -19,13 +19,14 @@ void main() {
 
   vec4 t=texture2D(u_Sampler, v_TexCoord);
 
-  t.r=mix(t.g,t.b,.5);
+  t.r=mix(t.g,t.b,.5);//绿色
+  t.b=mix(t.r,mix(t.r,t.g,.2),.5);//绿色
   // t.r=t.g;
   // t.b=t.g;
   // t.b=mix(t.r,t.g,.5);
-  t.r=pow(t.r,8.0*abs(cos(time / 500.0)));
-  t.g=pow(t.g,8.0*abs(cos(time / 500.0)));
-  t.b=pow(t.b,8.0*abs(cos(time / 500.0)));
+  // t.r=pow(t.r,8.0*abs(cos(time / 500.0)));
+  // t.g=pow(t.g,8.0*abs(cos(time / 500.0)));
+  // t.b=pow(t.b,8.0*abs(cos(time / 500.0)));
   // 渲染纹理
   gl_FragColor = t;
 }
