@@ -310,10 +310,7 @@
       <div class="history-space c-border-t">
         <div class="history">
           <div class="date-view">
-            <div class="left"><span class="day">{{timeLine.today}}</span><span class="min">/</span><span class="month min">{{timeLine.month+1 | to2}}</span>
-              <!-- span.min /-->
-              <!-- span.year.min {{timeLine.year}}-->
-            </div>
+            <div class="left"><span class="day">{{today}}</span><span class="min">/</span><span class="month min">{{timeLine.month+1 | to2}}</span><span class="min">/</span><span class="year min">{{timeLine.year}}</span></div>
             <div class="right">
               <div v-on:click="timelinePrew" class="btn prew">
                 <div class="icon-font icon-arrow-up"></div>

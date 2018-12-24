@@ -18,7 +18,9 @@ timeLine.prototype = {
     this.month=month;
     var today=new Date();
     this.today=today.getDate();
-    for(var i=1;i<new Date(year,month,0).getDate();i++){
+    // console.log(month)
+    for(var i=1;i<new Date(year,month+1,0).getDate()+1;i++){
+      // console.log(i)
       var date=new Date(year,month,i);
       //星期几
       var day=date.getDay(),isToday=false;

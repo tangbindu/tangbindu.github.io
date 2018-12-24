@@ -107,11 +107,11 @@ html(data-use-rem)
         .history
           .date-view 
             .left 
-              span.day {{timeLine.today}}
+              span.day {{today}}
               span.min /
               span.month.min {{timeLine.month+1 | to2}}
-              // span.min /
-              // span.year.min {{timeLine.year}}
+              span.min /
+              span.year.min {{timeLine.year}}
             .right 
               .btn.prew(v-on:click="timelinePrew")
                 .icon-font.icon-arrow-up

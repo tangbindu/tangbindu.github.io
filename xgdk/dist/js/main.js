@@ -140,6 +140,7 @@ xgdk.init();
 var vm=new Vue({
   el: '#app',
   data: {
+    today:new Date(Number(xgdk.currentDay + "00000")).getDate(),
     //状态
     showDelBtn: false,
     //数据
@@ -270,6 +271,7 @@ var vm=new Vue({
     //查看某天的任务
     viewTasksByDay:function(event){
       xgdk.currentDay=event.target.dataset.time;
+      this.today=new Date(Number(xgdk.currentDay + "00000")).getDate();
       //标记当天任务
       xgdk.showTasksByDay();  
       // xgdk.currentTask=null;
@@ -288,13 +290,13 @@ var vm=new Vue({
     timelinePrew: function() {
       xgdk.tl.prewMonth();
       xgdk.tl.isCurrentMonth() && xgdk.tl.setViewDay(xgdk.currentDay);
-      xgdk.tl.isFinished(xgdk.taskTimeLine.timeLine["i" + xgdk.currentTask.id]);
+      xgdk.currentTask && xgdk.tl.isFinished(xgdk.taskTimeLine.timeLine["i" + xgdk.currentTask.id]);
     },
     //下个月
     timelineNext: function() {
       xgdk.tl.nextMonth();
       xgdk.tl.isCurrentMonth() && xgdk.tl.setViewDay(xgdk.currentDay);
-      xgdk.tl.isFinished(xgdk.taskTimeLine.timeLine["i" + xgdk.currentTask.id]);
+      xgdk.currentTask && xgdk.tl.isFinished(xgdk.taskTimeLine.timeLine["i" + xgdk.currentTask.id]);
     },
     up:function(){
         $("#app").addClass("z-edit");
