@@ -1,0 +1,18 @@
+//一组icon
+.lm-ico-level{
+  width:0.59rem;
+  height:0.3rem;
+  background-image:url(../../img/lottery_turntable/level.png);
+  background-position:center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  &.z-level1{
+    background-position: 0 0;
+  }
+  &.z-level2{
+    background-position: 0 0;
+  }
+  &.z-level3{
+    background-position: 0 0;
+  }
+} 

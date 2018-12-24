@@ -1,0 +1,21 @@
+.ec-grid-img{
+  .grid-img{
+    position: relative;
+    padding-top: 100%;
+    background-color: #f2f2f2;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADYAAAAqBAMAAAAKf7UOAAAAHlBMVEXt7e3m5ubt7e3m5ubt7e3m5uYAAADm5ubt7e3q6uplzcalAAAAB3RSTlPx8a2tJyYAgMlYNwAAAMhJREFUOMulzyEOAjEQheEJQeAJwSKxKCwKj+EEcACC6NYRDNMTdHpbAtk3Fe0j2TCu/fJPWrnuQn+WZzkFNivZU7vLmtpNAp+/LJZCzVQzsaiqiZipIpxkOqUr3KJmt+FjoY5p6v5hPGZYKCMhc6tTM019M/+SdDKE0skQSpshhMXsGcbNUs18qeAqI6tLBVcJWQ3FrzIyD8U3vZD5fA2PttaGcX/NqmG/tTb4oTXjFpWbcYvKzX7YgtJDttSecqA2l8uG0Oz4BtBpL8bhuKvDAAAAAElFTkSuQmCC);
+    background-position:center center;
+    background-repeat: no-repeat;
+    background-size: 27px auto;
+    span{
+      position:absolute;
+      left:0;
+      top:0;
+      width: 100%;
+      height:100%;
+      background-position:left top;
+      background-repeat: no-repeat;
+      background-size:cover;
+    }
+  }
+}

@@ -1,0 +1,29 @@
+.c-row{
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-orient:horizontal;
+  -webkit-box-pack: center;
+  .tb{
+    width: auto;
+  }
+  .tb-1{
+    width: 0;
+    -webkit-box-flex:1;
+  }
+  .tb-2{
+    width: 0;
+    -webkit-box-flex:2;
+  }
+  .tb-3{
+    width: 0;
+    -webkit-box-flex:3;
+  }
+  .tb-4{
+    width: 0;
+    -webkit-box-flex:4;
+  }
+  .tb-5{
+    width: 0;
+    -webkit-box-flex:5;
+  }
+}

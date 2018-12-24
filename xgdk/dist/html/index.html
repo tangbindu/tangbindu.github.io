@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html data-use-rem>
+  <head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <!-- 适用于 Retina 屏的 iPad-->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../app144x144.png">
+    <!-- 适用于 Retina 屏的 iPhone-->
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="../app120x120.png">
+    <title>习惯打卡</title>
+    <link rel="stylesheet" href="../css/index.css">
+  </head>
+  <body ontouchstart="">
+    <!-- .test.hide-->
+    <!--   .icon-font.icon-add-->
+    <!--   .icon-font.icon-19wubangzhu-->
+    <!--   .icon-font.icon-cc-delete-->
+    <!--   .icon-font.icon-create-->
+    <!--   .icon-font.icon-error-->
+    <!--   .icon-font.icon-add1-->
+    <!--   .icon-font.icon-shibai-->
+    <!--   .icon-font.icon-mark-->
+    <!--   .icon-font.icon-pause-->
+    <!--   .icon-font.icon-yingyongintouch01-->
+    <!--   .icon-font.icon-kaishi-->
+    <!--   .icon-font.icon-flower1-->
+    <!--   .icon-font.icon-flower2-->
+    <script></script>
+    <div id="app" class="page-single z-platform-pc">
+      <!--.z-edit-->
+      <!--edit-space-->
+      <div class="edit-space c-border-b">
+        <div v-on:click="foldEditSpace" class="fold">
+          <div class="icon-font icon-pen"></div>
+        </div>
+        <div class="taskname-shadow">{{currentTask.name}}</div>
+        <div class="form-wrap">
+          <div class="form">
+            <div class="row">
+              <div class="th">任务名称</div>
+              <div class="tb">
+                <input type="text" v-model="currentTask.name" placeholder="任务名称" id="taskname" class="input read">
+              </div>
+            </div>
+            <div class="row choise-times">
+              <div class="th">几步完成</div>
+              <div class="tb">
+                <div class="times">
+                  <label class="input-wrap">
+                    <input type="radio" v-model="currentTask.totalClockInNums" name="howtimes" value="1" class="input">
+                    <div class="num">1</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="radio" v-model="currentTask.totalClockInNums" name="howtimes" value="2" class="input">
+                    <div class="num">2</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="radio" v-model="currentTask.totalClockInNums" name="howtimes" value="3" class="input">
+                    <div class="num">3</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="radio" v-model="currentTask.totalClockInNums" name="howtimes" value="4" class="input">
+                    <div class="num">4</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="radio" v-model="currentTask.totalClockInNums" name="howtimes" value="5" class="input">
+                    <div class="num">5</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="radio" v-model="currentTask.totalClockInNums" name="howtimes" value="6" class="input">
+                    <div class="num">6</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="radio" v-model="currentTask.totalClockInNums" name="howtimes" value="7" class="input">
+                    <div class="num">7</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="radio" v-model="currentTask.totalClockInNums" name="howtimes" value="8" class="input">
+                    <div class="num">8</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="radio" v-model="currentTask.totalClockInNums" name="howtimes" value="9" class="input">
+                    <div class="num">9</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="radio" v-model="currentTask.totalClockInNums" name="howtimes" value="10" class="input">
+                    <div class="num">10</div>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div type="1" class="row choise-week">
+              <div class="th">定日打卡</div>
+              <div class="tb">
+                <div class="one-day">
+                  <label v-for="day in dayTimes" class="input-wrap large">
+                    <input type="checkbox" name="oneday" v-model="currentTask.workDayTime" v-bind:value="day" class="input text-hide">
+                    <div class="text">{{day | sdate}}</div>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div type="2" class="row choise-week">
+              <div class="th">每周打卡</div>
+              <div class="tb">
+                <div class="week-days">
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workWeekTime" name="choiseweek" value="1" class="input">
+                    <div class="num">一</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workWeekTime" name="choiseweek" value="2" class="input">
+                    <div class="num">二</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workWeekTime" name="choiseweek" value="3" class="input">
+                    <div class="num">三</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workWeekTime" name="choiseweek" value="4" class="input">
+                    <div class="num">四</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workWeekTime" name="choiseweek" value="5" class="input">
+                    <div class="num">五</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workWeekTime" name="choiseweek" value="6" class="input">
+                    <div class="num">六</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workWeekTime" name="choiseweek" value="7" class="input">
+                    <div class="num">日</div>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div type="3" class="row choise-month">
+              <div class="th">每月打卡</div>
+              <div class="tb">
+                <div class="month-days">
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="1" class="input">
+                    <div class="num">1</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="2" class="input">
+                    <div class="num">2</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="3" class="input">
+                    <div class="num">3</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="4" class="input">
+                    <div class="num">4</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="5" class="input">
+                    <div class="num">5</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="6" class="input">
+                    <div class="num">6</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="7" class="input">
+                    <div class="num">7</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="8" class="input">
+                    <div class="num">8</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="9" class="input">
+                    <div class="num">9</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="10" class="input">
+                    <div class="num">10</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="11" class="input">
+                    <div class="num">11</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="12" class="input">
+                    <div class="num">12</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="13" class="input">
+                    <div class="num">13</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="14" class="input">
+                    <div class="num">14</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="15" class="input">
+                    <div class="num">15</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="16" class="input">
+                    <div class="num">16</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="17" class="input">
+                    <div class="num">17</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="18" class="input">
+                    <div class="num">18</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="19" class="input">
+                    <div class="num">19</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="20" class="input">
+                    <div class="num">20</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="21" class="input">
+                    <div class="num">21</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="22" class="input">
+                    <div class="num">22</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="23" class="input">
+                    <div class="num">23</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="24" class="input">
+                    <div class="num">24</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="25" class="input">
+                    <div class="num">25</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="26" class="input">
+                    <div class="num">26</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="27" class="input">
+                    <div class="num">27</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="28" class="input">
+                    <div class="num">28</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="29" class="input">
+                    <div class="num">29</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="30" class="input">
+                    <div class="num">30</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="31" class="input">
+                    <div class="num">31</div>
+                  </label>
+                  <label class="input-wrap">
+                    <input type="checkbox" v-model="currentTask.workMonthTime" name="choisemonth" value="32" class="input">
+                    <div class="num">32</div>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row btns-row">
+              <div class="th"></div>
+              <div class="tb">
+                <button v-if="showDelBtn" v-on:click="deleteTask" id="currentTask.id" class="btn btn-danger">删除</button>
+                <button v-on:click="createTask" class="btn btn-create">新建打卡</button>
+              </div>
+            </div>
+            <!--任务商店-->
+            <div class="tasks-store">
+              <div class="scroll">
+                <div class="card-group">
+                  <div v-for="task in tasks" v-on:click.self="showTask" v-bind:data-id="task.id" v-if="task.isWork" v-bind:class="['type_'+task.type,task.isActive?'current':'']" class="card">
+                    <div class="info">
+                      <div class="task-name">{{task.name | formatName}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--打卡区域-->
+      <div class="work-space">
+        <div v-for="task in tasks" v-on:click.self="clockIn" v-bind:data-id="task.id" v-if="task.show" v-bind:class="[task.isActive?'current':'']" class="card">
+          <div class="info">
+            <div class="task-name">{{task.name | formatName}}</div>
+          </div>
+          <div v-bind:style="{width:task.clockInNums/task.totalClockInNums*100+'%'}" class="progress"></div>
+        </div>
+      </div>
+      <!--打卡历史-->
+      <div class="history-space c-border-t">
+        <div class="history">
+          <div class="date-view">
+            <div class="left"><span class="day">{{timeLine.today}}</span><span class="min">/</span><span class="month min">{{timeLine.month+1 | to2}}</span>
+              <!-- span.min /-->
+              <!-- span.year.min {{timeLine.year}}-->
+            </div>
+            <div class="right">
+              <div v-on:click="timelinePrew" class="btn prew">
+                <div class="icon-font icon-arrow-up"></div>
+              </div>
+              <div v-on:click="timelineNext" class="btn next">
+                <div class="icon-font icon-arrow-up"></div>
+              </div>
+            </div>
+          </div>
+          <div class="time-line">
+            <div v-for="day in timeLine.days" v-on:click.self="viewTasksByDay" v-bind:data-time="day.time" v-bind:class="[day.weekend?'weekend':'',day.viewDay?'current':'']" class="day">
+              <div class="num">{{day.isToday?"今":(day.weekend? "休" : day.day)}}</div>
+              <div v-if="day.isFinished" class="icon-font icon-flower_fill"></div>
+              <!-- .icon-font.icon-cry-fill(v-if="day.day%2==1")-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="loading" class="page-single loading">
+      <p class="result">正在加载用户数据...</p>
+    </div>
+    <script src="../js/zepto.min.js"></script>
+    <script src="../js/hammer.js"></script>
+    <script src="../js/vue.js"></script>
+    <script src="../js//wilddog.js"></script>
+    <script src="../js/util.js"></script>
+    <script src="../js/task.js"></script>
+    <script src="../js/tasksManage.js"></script>
+    <script src="../js/timeLine.js"></script>
+    <script src="../js/data.js"></script>
+    <script src="../js/taskTimeLine.js"></script>
+    <script src="../js/main.js"></script>
+  </body>
+</html>

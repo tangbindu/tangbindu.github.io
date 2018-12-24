@@ -1,0 +1,13 @@
+.c-title{
+  position: relative;
+  height: 55px;
+  line-height: 55px;
+  font-size: 18px;
+  color: #000;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  -webkit-box-sizing:border-box;
+}

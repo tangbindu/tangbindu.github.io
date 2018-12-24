@@ -1,0 +1,29 @@
+doctype html
+html(style="font-size:50px")
+    head
+        meta(charset="UTF-8")
+        title cui文档-mobile
+        link(rel="stylesheet", href="../css/cui.css")
+        link(rel="stylesheet", href="../css/ui-demo.css")
+    //.ui-full-view
+    body.ui-full-view(style="font-size:14px")
+        script.
+            var rm=function(){var doc=window.document,html=doc.documentElement,option=html.getAttribute("data-use-rem");if(option===null){return}var baseWidth=parseInt(option).toString()=="NaN"?750:parseInt(option);var grids=baseWidth/100;var clientWidth=355;html.style.fontSize=clientWidth/grids+"px"}
+            window.onload=rm;
+            window.onresize=function(){setTimeout(function(){rm()},1000)};
+        .wrapper.ui-demo
+            section.ui-group#ui-group
+            section.ui-code#ui-code
+                pre#ui-code-jade.ui-code-jade.prettyprint
+                pre#ui-code-sass.ui-code-sass.prettyprint
+                pre#ui-code-html.ui-code-html.prettyprint
+                pre#ui-code-css.ui-code-css.prettyprint
+            section.ui-view#ui-view
+            #full_screen_view ▷
+        script(src="https://tangbindu.github.io/cui/ui/dist/js/zepto.min.js")
+        script(src="../js/jquery.js")
+        script(src="../js/CUIData.js")
+        script(src="../js/run_prettify.js")
+        script(src="../js/index.js")
+        style(type="text/css").
+            body{-webkit-user-select:inherit !important;}

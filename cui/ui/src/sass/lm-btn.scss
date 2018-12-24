@@ -1,0 +1,59 @@
+.lm-btn{
+  position: relative;
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+  -webkit-background-clip: padding-box;
+  height:30px;
+  line-height: 30px;
+  padding: 0 16px;
+  min-width: 55px;
+  vertical-align: top;
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid #c3c3cc;
+  border-radius: 2px;
+  background-color: #fff;
+  color: #000;
+  //按压态
+  &:not(.disabled):not(:disabled):active,&.active{
+    -webkit-background-clip: padding-box;
+    background: #f0f0f0;
+    color: #000;
+  }
+  //禁用
+  &.disabled,
+  &:disabled{
+    border: 0;
+    color: #ccc;
+    background: #e9ebec;
+    background-clip: padding-box;
+  }
+  @media screen and (-webkit-min-device-pixel-ratio: 2) {
+    border: 0;
+    //按压态
+    &:not(.disabled):not(:disabled):active:before,&.active:before{
+      border-color: #D0D1D2;
+    }
+    //禁用
+    &.disabled:before,
+    &:disabled:before{
+        border: 1px solid #e9ebec;
+    }
+    // 高清描边方案
+    &:before{
+      content:"";
+      width: 200%;
+      height: 200%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: 1px solid #cacccd;
+      -webkit-transform:scale(.5);
+      -webkit-transform-origin: 0 0;
+      padding: 1px;
+      -webkit-box-sizing: border-box;
+      border-radius:4px;
+      pointer-events: none;
+    }
+  }
+}

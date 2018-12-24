@@ -1,0 +1,42 @@
+//lm-list 遵循QUI规范
+.lm-list {
+  background-color: #fff;
+  width: 100%;
+  >li{
+    position: relative;
+    margin-left: 12px;
+    display: -webkit-box;
+    min-height: 46px;
+    h4 {
+      position:relative;
+      font-size: 18px;
+      line-height: 1.5em;
+      text-align: justify;
+    }
+    p{
+      position:relative;
+      color: #777;
+      font-size: 12px;
+      line-height: 1.3em;
+      text-align: justify;
+    }
+  }
+  &.c-border-tb>li{
+    &:last-child .list-info.c-border-b{
+      border: none;
+      background-image: none; 
+    }
+  }
+  .list-info{
+    position:relative;
+    -webkit-box-flex: 1;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-pack: center;
+    padding-right: 12px;
+  }
+  //常备
+  .lm-avatar{
+    margin:8px 12px 8px 0;
+  }
+}

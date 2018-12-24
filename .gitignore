@@ -1,0 +1,11 @@
+*.o
+.sass-cache/
+node_modules/
+project.js
+.DS_Store
+*.DS_Store
+.DS_Store?
+*/.DS_Store
+.idea/
+.config
+config.rb

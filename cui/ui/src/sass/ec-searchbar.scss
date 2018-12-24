@@ -1,0 +1,98 @@
+
+.ec-searchbar-wrap{
+  .ec-icon-close {
+    display: inline-block;
+    height:0px;
+    position: relative;
+    overflow: visible;
+    width:31px;
+    height: 31px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    &:before{
+      background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeBAMAAADJHrORAAAAHlBMVEWOjpMAAACOjpGWlpqWlpaPj5OJrYCkpG2NjZKoqKioBz39AAAACnRSTlOZAI5OM20cDl4jadkg/QAAANRJREFUGNNtkb0KwkAQhAdjEi0vJopdBBXLnGDvD4JtwBeIhdimsvYVfGJn9+4MEQfy8zHLze4ejNPTfx1fSgyu7ZePEG1azzc4LR3nJbxeynsEjYSntIMO5AxYBV6TWd5IQDQBYjKj9UhrQAdzADU7iAx9WMg7ZoE1FYAFCmjBSW2kyKAFRm0kjlE7G0PPViI6jsKQYxTO3rmCVPOYLT1oXq52JT3IxNIvaDNC/hqdx0p2/OCj83ZKfvZh/+yL5/b3ad69fVNbxbgJbM69+6Jmd5LoA7jiHJ9vfz8RAAAAAElFTkSuQmCC) no-repeat 0px 0px;  
+      -webkit-background-size: 100% auto;
+      content:"";
+      position: absolute;
+      left:0px; 
+      width: 15px;
+      height: 15px;
+      margin: 8px;
+    }
+  }
+  .ec-icon-search{
+    display: inline-block;
+    height:0px;
+    position: relative;
+    overflow: visible;
+    width: 16px;
+    margin: 4px;
+    &:before{
+      content:"";
+      background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAALVBMVEUAAAAXAAClpaWkpKSWlpqnp6elpaWlpaWmpqaWlpakpG2oqKiJrYCmpqampqbto5oMAAAADnRSTlMAC+XITmWXsoEzDiMcpFwgyK0AAADoSURBVCjPYwADQThggAJGQQFBQQEBASiXpd24wpEBAVj13r179ygAzue2e+bDsOXe4wMwgUlvQUzuOk2YAj2IYo5HUCXMT6EyfQYQOq6AASrzBELrTYAKcD6GUM/h1tltADviKVygD2w620u4gF8CiGR/AxeYBxF4jSbA9gShpQFs6Au4QJ4DiOR5DBfQWwCx3QEWCs+hOq2gAougDmB7CxWoS4DQXHZVYHo53LDFjxzA4YiwP+9RqkuY3qNHG+CBeg8YyGpH3lnBlXC5doQAQwoREFDr3jWgidg9RRM49AhNgNOMgRgAAFeLP+ibi1d2AAAAAElFTkSuQmCC) no-repeat 0px 0px;  
+      -webkit-background-size: 100% auto;
+      position: absolute;
+      left:0px;  
+      top: -9px;
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+.ec-searchbar-wrap{
+  display: -webkit-box;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  background-color: #fff;
+  button {
+    margin-right: 10px; 
+  }
+  .ec-searchbar-cancel{
+    color: #777;
+    font-size: 16px;
+    padding: 4px 8px;
+  }
+  .ec-searchbar-input,button,.ec-icon-close{
+    display: none;
+  }
+  &.focus{
+    -webkit-box-pack:start;
+    .ec-searchbar-input,button,.ec-icon-close{
+      display: block;
+    }
+    .ec-searchbar-text{
+      display: none;
+    }
+  }
+}
+.ec-searchbar{
+  border-radius: 4px;
+  height: 30px;
+  margin: 7px 10px;
+  background: #EEEFF3;
+  font-size: 14px;
+  line-height: 30px;
+  position: relative;
+  padding-left: 4px;
+  -webkit-box-flex:1;
+  display: -webkit-box;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  color: #808080;
+  width: 100%;
+  input{
+    -webkit-appearance: none;
+    font-size: 14px;
+    color: #000;
+    border: none;
+    width: 100%;
+    padding: 7px 0;
+  }  
+  .ec-searchbar-input{
+    -webkit-box-flex: 1;
+  }
+  input::-webkit-search-cancel-button{
+    display: none;
+  }
+}

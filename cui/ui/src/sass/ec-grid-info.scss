@@ -1,0 +1,17 @@
+.ec-grid-info{
+  .grid-info{
+    padding: 10px 12px;
+    line-height: 18px;   
+    font-size: 14px;
+    .title{
+      display: -webkit-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      height: 36px;
+      color: #000;
+      text-align: left;  
+    }
+  }
+}

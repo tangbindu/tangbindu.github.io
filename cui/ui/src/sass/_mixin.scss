@@ -1,0 +1,19 @@
+@mixin border($top,$right,$bottom,$left){
+  display: block;
+  content:" ";
+  width: 200%;
+  height: 200%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-top: $top;
+  border-right: $right;
+  border-bottom: $bottom;
+  border-left: $left;
+  -webkit-transform:scale(.5);
+  -webkit-transform-origin: 0 0;
+  padding: 1px;
+  -webkit-box-sizing: border-box;
+  pointer-events:none;
+  z-index: 0;
+}

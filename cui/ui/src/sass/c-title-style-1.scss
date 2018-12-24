@@ -1,0 +1,32 @@
+.c-title-style-1{
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-orient:horizontal;
+  -webkit-box-pack: center;
+  .main-title{
+    -webkit-box-sizing:border-box;
+    max-width:100%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    padding:0 30px;
+  }
+  &:after,&:before{
+    content: "";
+    z-index:1;
+    position:relative;
+    display: block;
+    width:20px;
+    height:20px;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAQCAMAAAD+iNU2AAAAV1BMVEUAAAD/xQD/xQD/xQD/xQD/xQD/xQD/xQD/xQD/xQD/xQD/xQD/xQD/xQD/xQD/xQD/xQD/xQD/xQD/xQD/xQD/xQD/xQD/xQD/xQD/xQD/xQD/xQD/xQCqxWx/AAAAHHRSTlMAHfvxBvjq5NiyoJZ7YTcUDsOppIpxWlU1MSYbBL7DxAAAAGNJREFUCNdtzlkKwCAMRdFUO0/aeXr7X2eDaI3Q++WRBEL/mSZP3KKXHIEiE54BdJG3YuswkLVMTi3uZ9AI6YPoKhArDdFZf5zcQr5VTvVAvkcxK3Fhw+7T+0pLog47yezqHy/XOAhNan5zmQAAAABJRU5ErkJggg==);
+    background-position:center center;
+    background-repeat: no-repeat;
+    background-size: .15rem auto;
+  }
+  &:after{
+    margin-left: -20px;
+  }
+  &:before{
+    margin-right: -20px;
+  }
+}

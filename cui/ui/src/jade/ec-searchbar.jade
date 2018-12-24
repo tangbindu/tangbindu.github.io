@@ -1,0 +1,18 @@
+.ec-searchbar-wrap
+  .ec-searchbar.ec-border-radius
+    i.ec-icon-search
+    .ec-searchbar-text 搜索购物号
+    .ec-searchbar-input
+      input(value='', type='tel', placeholder='搜索购物号', autocapitalize='off')
+    i.ec-icon-close
+  button.ec-searchbar-cancel 取消
+  script(src="https://tangbindu.github.io/cui/ui/dist/js/zepto.min.js")
+  script(type='text/javascript').
+    //使用时，请把click换tap
+    $('.ec-searchbar').click(function(){
+      $('.ec-searchbar-wrap').addClass('focus');
+      $('.ec-searchbar-input input').focus();
+    });
+    $('.ec-searchbar-cancel').click(function(){
+      $('.ec-searchbar-wrap').removeClass('focus');
+    });

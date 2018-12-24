@@ -1,0 +1,20 @@
+.ui-btn-danger{
+  background-color: #f75549;
+  background-image: -webkit-gradient(linear,left top, left bottom, color-stop(.5, #fc6156), to(#f75549));
+  color: rgb(255,255,255);
+  border-color: #f43d30;
+  background-clip: padding-box;
+  &:not(.disabled):not(:disabled):active,
+  &.active{
+    background: #e2574d;
+    border-color: #e2574d;
+    color: rgba(255,255,255,.5);
+    background-clip: padding-box;
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+  .ui-btn-danger:before{
+    border: 1px solid #f43d30;
+  }
+}

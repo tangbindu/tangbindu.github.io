@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html data-use-rem>
+  <head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <title>打点工具</title>
+    <link rel="stylesheet" href="../css/index.css">
+  </head>
+  <body ontouchstart="">
+    <div class="workspace">
+      <div class="c-row">
+        <div class="tb">
+          <div id="pointsWrap" class="points-wrap"></div>
+        </div>
+        <div class="tb">
+          <div class="result-wrap">
+            <!--文本框组件-->
+            <textarea placeholder="这产生打点的数据" id="resultTextarea" class="textarea c-border-tb"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="c-row">
+        <div class="tb">
+          <input type="radio">
+          <input type="radio">
+          <input type="radio">
+        </div>
+        <div class="tb-1">这里有</div>
+      </div>
+    </div>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/point.js"></script>
+  </body>
+</html>

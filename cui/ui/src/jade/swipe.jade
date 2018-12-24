@@ -1,0 +1,18 @@
+.swipe
+  ul(style="width: 400%;")
+    li page1
+    li page2
+    li page3
+    li page4
+script(src="https://tangbindu.github.io/cui/ui/dist/js/zepto.min.js")
+script.
+  var qt = {};
+script(src="https://tangbindu.github.io/cui/ui/dist/js/swipe.js")
+script.
+  $(function() {
+    qt.widget.Swipe($('.swipe')[0], {
+      index: 0,
+      speed: 300,
+      callback: function(pos) {}
+    });
+  });

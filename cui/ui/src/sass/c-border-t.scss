@@ -1,0 +1,11 @@
+//lm-border-t
+.c-border-t {border-top: 1px solid #e0e0e0;}
+@media screen and (-webkit-min-device-pixel-ratio : 2) {
+  .c-border-t{
+    border: 0;
+    background-position: left top; 
+    background-repeat: repeat-x;
+    -webkit-background-size: 100% 1px;
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(.5, rgba(0, 0, 0, 0)), color-stop(.5, #e0e0e0));
+  }
+}

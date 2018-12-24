@@ -1,0 +1,10 @@
+$hdSprite:sprite-map("img/*.png");
+@function px2rem ($px) {@if ($px==0) {@return 0rem;}@else{@return $px / 1px * 0.01rem;} }
+@mixin sprite-rem($fileName){
+  background-image:sprite-url($hdSprite);
+  width:px2rem(image-width(sprite-file($hdSprite,$fileName)));
+  height:px2rem(image-height(sprite-file($hdSprite,$fileName)));
+  background-position:0 px2rem(nth(sprite-position($hdSprite, $fileName), 2));
+  background-size:px2rem(image-width(sprite-path($hdSprite))) auto;
+  background-repeat: no-repeat;
+}

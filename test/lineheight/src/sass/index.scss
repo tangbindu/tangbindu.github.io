@@ -1,0 +1,213 @@
+﻿*{margin:0;padding:0}body{font-family:'Helvetica Neue', Helvetica, STHeiTi, sans-serif;font-size:14px;line-height:1.5;-webkit-user-select:none;color:#000;-webkit-text-size-adjust:none;-webkit-tap-highlight-color:rgba(255,255,255,0)}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:normal}table{border-spacing:0;border-collapse:collapse}fieldset,img{border:0}em,i{font-style:normal}li{list-style:none}input,button,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;border:0;outline:0;background:none;-webkit-appearance:none}a,button,input,select,textarea,a:focus,button:focus,input:focus,select:focus,textarea:focus,[onclick]{outline:0;-webkit-tap-highlight-color:rgba(255,255,255,0)}a{text-decoration:none;color:#00a5e0;outline:0;-webkit-touch-callout:none}::-webkit-input-placeholder{color:#999}
+fieldset{
+  margin:5px;
+  border:1px solid red;
+  padding:4px;
+  legend{
+    margin-left: 20px;
+  }
+}
+.text{
+  font-size: 0;
+  background-color:lightgray;
+  .v{
+    background-color: green;
+    margin-left: 41px;
+    display: inline-block;
+    vertical-align: top;
+  }
+  margin-bottom: 10px;
+  position: relative;
+  .v-box{
+    position:absolute;
+    left: 0;
+    top: 0;
+    width: 40px;
+    background-color: red;
+    text-align: right;
+    line-height:1em;
+    font-size: 12px;
+    display: -webkit-box;
+    -webkit-box-align: center;
+    -webkit-box-orient: vertical;
+    //-webkit-box-orient:horizontal;
+    -webkit-box-pack: center;
+    &.h1215{
+      height:18px;
+    }
+    &.h1415{
+      height:21px;
+    }
+    &.h1615{
+      height:24px;
+    }
+    &.h1815{
+      height:27px;
+    }
+    &.h2015{
+      height:30px;
+    }
+    &.h2215{
+      height:33px;
+    }
+    &.h2415{
+      height:36px;
+    }
+    &.h2815{
+      height:42px;
+    }
+    
+    &.rh1215{
+      height:.36rem;
+    }
+    &.rh1415{
+      height:.42rem;
+    }
+    &.rh1615{
+      height:.48rem;
+    }
+    &.rh1815{
+      height:.54rem;
+    }
+    &.rh2015{
+      height:.6rem;
+    }
+    &.rh2215{
+      height:.66rem;
+    }
+    &.rh2415{
+      height:.72rem;
+    }
+    &.rh2815{
+      height:.84rem;
+    }
+  }
+}
+.text.t12 .v{
+  font-size: 12px;
+  line-height:18px;
+}
+.text.t14 .v{
+  font-size: 14px;
+  line-height:21px;
+}
+.text.t16 .v{
+  font-size: 16px;
+  line-height:24px;
+}
+.text.t18 .v{
+  font-size: 18px;
+  line-height:27px;
+}
+.text.t20 .v{
+  font-size: 20px;
+  line-height:30px;
+}
+.text.t22 .v{
+  font-size: 22px;
+  line-height:33px;
+}
+.text.t24 .v{
+  font-size: 24px;
+  line-height:36px;
+}
+.text.t28 .v{
+  font-size: 28px;
+  line-height:42px;
+}
+
+.text.rt12 .v{
+  font-size: .24rem;
+    // height:.36rem;
+  line-height:.36rem;
+}
+.text.rt14 .v{
+  font-size: .28rem;
+    // height:.42rem;
+  line-height:.42rem;
+}
+.text.rt16 .v{
+  font-size: .32rem;
+    // height:.48rem;
+  line-height:.48rem;
+}
+.text.rt18 .v{
+  font-size: .36rem;
+    // height:.54rem;
+  line-height:.54rem;
+}
+.text.rt20 .v{
+  font-size: .4rem;
+    // height:.6rem;
+  line-height:.6rem;
+}
+.text.rt22 .v{
+  font-size: .44rem;
+    // height:.66rem;
+  line-height:.66rem;
+}
+.text.rt24 .v{
+  font-size: .48rem;
+    // height:.72rem;
+  line-height:.72rem;
+}
+.text.rt28 .v{
+  font-size: .56rem;
+    // height:.84rem;
+  line-height:.84rem;
+}
+
+
+
+
+.ec-textblock-list {
+  overflow: hidden;
+  li {
+    float: left;
+    padding: 0 10px;
+    margin: 6px;
+    height: .8rem;
+    line-height: .8rem;
+    color: #000;
+    border: 1px solid #DEDEDE;
+    -webkit-box-sizing:border-box;
+    border-radius: .8rem;
+    font-size: .28rem;
+    background-color:#fff;
+    &:active {
+      background-color: #e5e6e7;
+    }
+  }
+  @media screen and (-webkit-min-device-pixel-ratio: 2) {  
+    &>li{
+      position: relative;
+      border: 0;
+      span{
+        background-color:green;
+      }
+    } 
+    &>li:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      border: 1px solid #DEDEDE;
+      -webkit-transform: scale(0.5);
+      -webkit-transform-origin: 0 0;
+      -webkit-box-sizing: border-box;
+      border-radius: 60px;
+      pointer-events: none
+    }
+  }
+}
+
+
+.line-height-hack{
+  .v{
+    line-height: 1.65em !important;
+    overflow: hidden;
+    height: 1.5em;
+  }
+}

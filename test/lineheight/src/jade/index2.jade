@@ -1,0 +1,33 @@
+doctype html
+html(data-use-rem)
+  head
+    meta(charset="utf-8")
+    meta(name="format-detection", content="telephone=no")
+    meta(name="viewport", content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no")
+    meta(name="apple-mobile-web-app-capable", content="yes")
+    meta(name="apple-mobile-web-app-status-bar-style", content="black")
+    meta(name="description",content="")
+    meta(name="keywords",content="")
+    title 标题
+    link(rel="stylesheet",href="../css/index2.css")
+    style.
+        body.line-height-hack{
+            background-color:red;
+        }
+  body(ontouchstart="")
+    //- .box(style="font-size: 0;line-height:0;")
+    //-   span(style="font-size: 14px;line-height:0px;height: 0px;")
+    script.
+      ;(function(win){
+        var wrap,text,contentHeight;
+        wrap=win.document.createElement("div");
+        text=win.document.createElement("span");
+        wrap.style="font-size:0px;line-height0;visibility:hidden;width:100px;display:inline-block;position:absolute;left:10000px;";
+        text.style="font-size: 14px;line-height:7px;height: 0px;"
+        text.innerHTML="国";
+        wrap.appendChild(text);
+        win.document.body.appendChild(wrap);
+        contentHeight=wrap.clientHeight;
+        contentHeight==7 && win.document.body.classList.add("line-height-hack");
+        win.document.body.removeChild(wrap);
+      })(window);

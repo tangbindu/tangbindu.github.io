@@ -1,0 +1,16 @@
+.page-card
+  ul.page_group
+    li.page.page1(style="background-image:url(https://cdn.backgroundhost.com/backgrounds/subtlepatterns/wood_pattern.png)")
+      h1 &nbsp;&nbsp;page1
+    li.page.page2(style="background-image:url(https://cdn.backgroundhost.com/backgrounds/subtlepatterns/wood_pattern.png)")
+      h1 &nbsp;&nbsp;page2
+    li.page.page3(style="background-image:url(https://cdn.backgroundhost.com/backgrounds/subtlepatterns/wood_pattern.png)")
+      h1 &nbsp;&nbsp;page3
+    li.page.page4(style="background-image:url(https://cdn.backgroundhost.com/backgrounds/subtlepatterns/wood_pattern.png)")
+      h1 &nbsp;&nbsp;page4
+script(src="https://tangbindu.github.io/cui/ui/dist/js/zepto.min.js")
+script(src="https://tangbindu.github.io/cui/ui/dist/js/motion.pageslide.js")
+script.
+  new mo.PageSlide({
+    target: $('.page-card .page_group .page')
+  });

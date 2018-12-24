@@ -1,0 +1,9 @@
+$hdSprite:sprite-map("hdSprite/*.png");
+@mixin sprite-px($fileName){
+  background-image:sprite-url($hdSprite);
+  width:image-width(sprite-file($hdSprite,$fileName))/2;
+  height:image-height(sprite-file($hdSprite,$fileName))/2;
+  background-position:0 round(nth(sprite-position($hdSprite, $fileName), 2))/2;
+  background-size:image-width(sprite-path($hdSprite))/2 auto;
+  background-repeat: no-repeat;
+}

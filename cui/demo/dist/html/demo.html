@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html style="font-size:50px">
+  <head>
+    <meta charset="UTF-8">
+    <title>cui文档-mobile</title>
+    <link rel="stylesheet" href="../css/cui.css">
+    <link rel="stylesheet" href="../css/ui-demo.css">
+  </head>
+  <!--.ui-full-view-->
+  <body style="font-size:14px" class="ui-full-view">
+    <script>
+      var rm=function(){var doc=window.document,html=doc.documentElement,option=html.getAttribute("data-use-rem");if(option===null){return}var baseWidth=parseInt(option).toString()=="NaN"?750:parseInt(option);var grids=baseWidth/100;var clientWidth=355;html.style.fontSize=clientWidth/grids+"px"}
+      window.onload=rm;
+      window.onresize=function(){setTimeout(function(){rm()},1000)};
+    </script>
+    <div class="wrapper ui-demo">
+      <section id="ui-group" class="ui-group"></section>
+      <section id="ui-code" class="ui-code">
+        <pre id="ui-code-jade" class="ui-code-jade prettyprint"></pre>
+        <pre id="ui-code-sass" class="ui-code-sass prettyprint"></pre>
+        <pre id="ui-code-html" class="ui-code-html prettyprint"></pre>
+        <pre id="ui-code-css" class="ui-code-css prettyprint"></pre>
+      </section>
+      <section id="ui-view" class="ui-view"></section>
+      <div id="full_screen_view">▷</div>
+    </div>
+    <script src="https://tangbindu.github.io/cui/ui/dist/js/zepto.min.js"></script>
+    <script src="../js/jquery.js"></script>
+    <script src="../js/CUIData.js"></script>
+    <script src="../js/run_prettify.js"></script>
+    <script src="../js/index.js"></script>
+    <style type="text/css">body{-webkit-user-select:inherit !important;}</style>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html data-use-rem>
+  <head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <title>标题</title>
+    <link rel="stylesheet" href="../css/index.css">
+  </head>
+  <body ontouchstart="">
+    <script src="https://tangbindu.github.io/cui/ui/dist/js/rem.min.js"></script>
+    <script src="https://tangbindu.github.io/cui/ui/dist/js/zepto.min.js"></script>
+    <fieldset>
+      <legend>PX 1.5em line-height </legend>
+      <div class="text t12"><span class="v-box h1215">1.5em</span><span class="v">12px像素的文字</span></div>
+      <div class="text t14"><span class="v-box h1415">1.5em</span><span class="v">xxxxx</span></div>
+      <div class="text t16"><span class="v-box h1615">1.5em</span><span class="v">16px像素的文字</span></div>
+      <div class="text t18"><span class="v-box h1815">1.5em</span><span class="v">18px像素的文字</span></div>
+      <div class="text t20"><span class="v-box h2015">1.5em</span><span class="v">20px像素的文字</span></div>
+      <div class="text t22"><span class="v-box h2215">1.5em</span><span class="v">22px像素的文字</span></div>
+      <div class="text t24"><span class="v-box h2415">1.5em</span><span class="v">24px像素的文字</span></div>
+      <div class="text t28"><span class="v-box h2815">1.5em</span><span class="v">28px像素的文字</span></div>
+    </fieldset>
+    <fieldset>
+      <legend>REM 1.5em line-height </legend>
+      <div class="text rt12"><span class="v-box rh1215">1.5em</span><span class="v">0.24rem像素的文字 </span></div>
+      <div class="text rt14"><span class="v-box rh1415">1.5em</span><span class="v">0.28rem的文字</span></div>
+      <div class="text rt16"><span class="v-box rh1615">1.5em</span><span class="v">0.32rem的文字</span></div>
+      <div class="text rt18"><span class="v-box rh1815">1.5em</span><span class="v">0.36rem的文字</span></div>
+      <div class="text rt20"><span class="v-box rh2015">1.5em</span><span class="v">0.40rem的文字</span></div>
+      <div class="text rt22"><span class="v-box rh2215">1.5em</span><span class="v">0.44rem的文字</span></div>
+      <div class="text rt24"><span class="v-box rh2415">1.5em</span><span class="v">0.48rem的文字</span></div>
+      <div class="text rt28"><span class="v-box rh2815">1.5em</span><span class="v">0.56rem的文字</span></div>
+    </fieldset>
+    <div class="summary">
+      <p>rem做行高会有会比实际高度小，尤其在14-24px的字体之间</p>
+    </div>
+    <script>
+      (function(c){var a,d,b;a=c.document.createElement("div");d=c.document.createElement("span");a.style="font-size:0px;line-height0;visibility:hidden;width:100px;display:inline-block;position:absolute;left:10000px;";d.style="font-size:14px;line-height:7px;height:0px;";d.innerHTML="国";a.appendChild(d);c.document.body.appendChild(a);b=a.clientHeight;b==7&&c.document.body.classList.add("line-height-hack");c.document.body.removeChild(a)})(window);
+      
+      // ;(function(win){
+      //   var wrap,text,contentHeight;
+      //   wrap=win.document.createElement("div");
+      //   text=win.document.createElement("span");
+      //   wrap.style="font-size:0px;line-height0;visibility:hidden;width:100px;display:inline-block;position:absolute;left:10000px;";
+      //   text.style="font-size: 14px;line-height:7px;height: 0px;"
+      //   text.innerHTML="国";
+      //   wrap.appendChild(text);
+      //   win.document.body.appendChild(wrap);
+      //   contentHeight=wrap.clientHeight;
+      //   contentHeight==7 && win.document.body.classList.add("line-height-hack");
+      //   win.document.body.removeChild(wrap);
+      // })(window);
+      
+    </script>
+  </body>
+</html>

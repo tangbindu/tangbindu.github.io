@@ -1,0 +1,85 @@
+@-webkit-keyframes star-bright-near {
+    0% {
+        opacity: .6;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: .6;
+    }
+}
+@-webkit-keyframes star-bright-far {
+    0% {
+        opacity: .1;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: .1;
+    }
+}
+@-webkit-keyframes star-bright-middle {
+    0% {
+        opacity: .4;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: .4;
+    }
+}
+.star-box{
+  [class^="star-"] {
+    position: absolute;
+    width: .44rem;
+    height: .44rem;
+    position: absolute;
+    background-image: url(data:image/png;base64,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);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+  position: relative;
+  height: 4rem;
+  width: 4rem;
+  background-color: white;
+  .star-1{
+    left: 2rem;
+    top:1rem;
+    -webkit-transform:scale(.5);
+    -webkit-animation: star-bright-far 1s .2s ease-in-out infinite;
+  }
+  .star-2{
+    left: 1rem;
+    top:1rem;
+    -webkit-transform:scale(.7);
+    -webkit-animation: star-bright-middle 1s .6s ease-in-out infinite;
+  }
+  .star-3{
+    left: .5rem;
+    top:1.2em;
+    -webkit-transform:scale(1);
+    -webkit-animation: star-bright-near 1s .9s ease-in-out infinite;
+  }
+  .star-4{
+    left: 1.4rem;
+    top:2.0rem;
+    -webkit-transform:scale(.3);
+    -webkit-animation: star-bright-far 1s 1.2s ease-in-out infinite;
+  }
+  .star-5{
+    left:1.0rem;
+    top:1.6rem;
+    -webkit-transform:scale(1);
+    -webkit-animation: star-bright-near 1s .6s ease-in-out infinite;
+  }
+  .star-6{
+    left: .8rem;
+    top:0rem;
+    -webkit-transform:scale(.8);
+    -webkit-animation: star-bright-middle 1s .3s ease-in-out infinite;
+  }
+}

@@ -1,0 +1,30 @@
+
+<div id="slider1" class="ui-slider">
+  <ul style="width: 300%" class="ui-slider-content">
+    <li><span style="background-image:url(https://dummyimage.com/620x200/8a62f0/ffffff&amp;text=620x200)">   </span></li>
+    <li><span style="background-image:url(https://dummyimage.com/620x200/8a62f0/ffffff&amp;text=620x200)">   </span></li>
+    <li><span style="background-image:url(https://dummyimage.com/620x200/8a62f0/ffffff&amp;text=620x200)"></span></li>
+  </ul>
+</div>
+<script src="https://tangbindu.github.io/cui/ui/dist/js/zepto.min.js"></script>
+<script src="https://tangbindu.github.io/cui/ui/dist/js/ui.min.js"></script>
+<script src="https://tangbindu.github.io/cui/ui/dist/js/ui.slider.min.js"></script>
+<script>
+  window.addEventListener('load', function(){
+      /* fz 即 FrozenJS 的意思 */
+      var slider = new fz.Scroll('.ui-slider', {
+          role: 'slider',
+          indicator: true,
+          autoplay: true,
+          interval: 3000
+      });
+      /* 滑动开始前 */
+      slider.on('beforeScrollStart', function(from, to) {
+          // from 为当前页，to 为下一页
+      })
+      /* 滑动结束 */
+      slider.on('scrollEnd', function(cruPage) {
+          // curPage 当前页
+      });
+  })
+</script>

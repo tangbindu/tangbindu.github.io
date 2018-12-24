@@ -1,0 +1,31 @@
+
+<script src="../js/rem.min.js"></script>
+<div class="swipe swipe-type1">
+  <ul style="width: 300%;">
+    <li>
+      <div class="card">page1</div>
+    </li>
+    <li>
+      <div class="card">page2</div>
+    </li>
+    <li>
+      <div class="card">page3</div>
+    </li>
+    <li>
+      <div class="card">page4</div>
+    </li>
+  </ul>
+  <div class="close-swipe">关闭</div>
+</div>
+<script src="https://tangbindu.github.io/cui/ui/dist/js/zepto.min.js"></script>
+<script>var qt = {};</script>
+<script src="https://tangbindu.github.io/cui/ui/dist/js/swipe.js"></script>
+<script>
+  $(function() {
+    qt.widget.Swipe($('.swipe')[0], {
+      index: 0,
+      speed: 300,
+      callback: function(pos) {}
+    });
+  });
+</script>

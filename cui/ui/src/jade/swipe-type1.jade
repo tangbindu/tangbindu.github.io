@@ -1,0 +1,24 @@
+script(src="../js/rem.min.js")
+.swipe.swipe-type1
+  ul(style="width: 300%;")
+    li 
+        .card page1
+    li 
+        .card page2
+    li 
+        .card page3
+    li 
+        .card page4
+  .close-swipe 关闭
+script(src="https://tangbindu.github.io/cui/ui/dist/js/zepto.min.js")
+script.
+  var qt = {};
+script(src="https://tangbindu.github.io/cui/ui/dist/js/swipe.js")
+script.
+  $(function() {
+    qt.widget.Swipe($('.swipe')[0], {
+      index: 0,
+      speed: 300,
+      callback: function(pos) {}
+    });
+  });

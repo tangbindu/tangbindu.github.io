@@ -1,0 +1,21 @@
+.ui-list {
+  background-color: #fff;
+  width: 100%;
+  >li{
+    position: relative;
+    margin-left: 15px;
+    display: -webkit-box;
+    h4 {
+      font-size: 16px;
+    }
+    &.c-border-t:first-child,
+    &:first-child>.c-border-t{
+      border: none;
+      background-image: none; 
+    }
+  }
+  :not(.ui-list-text)>li> p,>li>h5{
+    font-size: 14px;
+    color: #777;
+  }
+}

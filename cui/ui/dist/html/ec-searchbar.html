@@ -1,0 +1,21 @@
+
+<div class="ec-searchbar-wrap">
+  <div class="ec-searchbar ec-border-radius"><i class="ec-icon-search"></i>
+    <div class="ec-searchbar-text">搜索购物号</div>
+    <div class="ec-searchbar-input">
+      <input value="" type="tel" placeholder="搜索购物号" autocapitalize="off"/>
+    </div><i class="ec-icon-close"></i>
+  </div>
+  <button class="ec-searchbar-cancel">取消</button>
+  <script src="https://tangbindu.github.io/cui/ui/dist/js/zepto.min.js"></script>
+  <script type="text/javascript">
+    //使用时，请把click换tap
+    $('.ec-searchbar').click(function(){
+      $('.ec-searchbar-wrap').addClass('focus');
+      $('.ec-searchbar-input input').focus();
+    });
+    $('.ec-searchbar-cancel').click(function(){
+      $('.ec-searchbar-wrap').removeClass('focus');
+    });
+  </script>
+</div>

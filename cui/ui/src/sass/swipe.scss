@@ -1,0 +1,37 @@
+.swipe{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  ul{
+    height: 100%;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+  }
+  li{
+    position: relative;
+    height: 100%;
+    -webkit-box-flex: 1;
+    box-sizing: border-box;
+    display: -webkit-box;
+    -webkit-box-align: center;
+    -webkit-box-orient: vertical;
+    //-webkit-box-orient:horizontal;
+    -webkit-box-pack: center;
+  }
+  li:nth-child(1){
+    background-color: #753acd;
+  }
+  li:nth-child(2){
+    background-color: #25c158;
+  }
+  li:nth-child(3){
+    background-color: #c3b3de;
+  }
+  li:nth-child(4){
+    background-color: #d1d7e0;
+  }
+}

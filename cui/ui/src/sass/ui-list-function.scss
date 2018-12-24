@@ -1,0 +1,24 @@
+/*  功能类 */
+.ui-list-function .ui-list-info{
+  padding-right: 75px;
+}
+.ui-list-function .ui-btn{
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  margin-top: -15px;
+}
+.ui-list-function .ui-btn-s{
+  margin-top: -12px;
+}
+.ui-list-function li{
+  -webkit-box-align: inherit;
+}
+@media (max-width: 320px) {
+  .ui-list-function .ui-list-info{
+    padding-right: 70px;
+  }
+  .ui-list-function .ui-btn{
+    right: 15px;
+  }
+}

@@ -1,0 +1,20 @@
+.lm-btn-primary{
+  background-color: #614bff;
+  border-color: #614bff;
+  color: rgb(255,255,255);;
+  background-clip: padding-box;
+  &:not(.disabled):not(:disabled):active,
+  &.active{
+    background: #5743e5;
+    color: #e5e5e5;
+    background-clip: padding-box;
+  }
+  @media screen and (-webkit-min-device-pixel-ratio: 2) {
+    &:not(.disabled):not(:disabled):active:before,&.active:before{
+      border-color: #614bff;
+    }
+    &:before{
+      border: 1px solid #614bff;
+    }
+  }
+}

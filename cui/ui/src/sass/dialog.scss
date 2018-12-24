@@ -1,0 +1,50 @@
+.dialog{
+  position:fixed;
+  left:0;
+  top:0;
+  right:0;
+  bottom:0;
+  z-index:100;
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: center;
+  .mask{
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+    background:rgba(0,0,0,.45);
+  }
+  .content{
+    position: relative;
+    z-index: 2;
+    width: 300px;
+    min-height: 60px;
+    background-color: #fff;
+  }
+  .header{
+    height: 40px;
+    font-size:16px;
+    line-height: 40px;
+    text-align: center;
+    h2{}
+    .close{
+      position:absolute;
+      z-index:3;
+      right:0;
+      top:0;
+      width: 40px;
+      height: 40px;
+      background: url(#) left top no-repeat;
+      background-size: 100% 100%;
+      &:active{
+        opacity: .5;
+      }
+    }
+  }
+  .body{}
+  .footer{}
+}

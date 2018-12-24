@@ -1,0 +1,18 @@
+.page-single{
+  position: fixed;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background-color: #fff;
+  background-image: url();
+  background-position:left top;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-orient: vertical;
+  //-webkit-box-orient:horizontal;
+  -webkit-box-pack: center;
+}
