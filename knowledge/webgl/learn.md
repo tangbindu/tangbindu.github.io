@@ -582,11 +582,11 @@
 
   |名字|中文|解释|demo|
   |-|-|-|-|
-  mix|混合|混合进一个数，用一定的比列。例如：mix(1.0,.2,.5)等于.6。非常非常非常适合通道之间用来混合颜色|[demo](https://tangbindu.github.io/knowledge/webgl/example/181221glslmix/dist/html/index.html)|
-  |step|插值函数|第一个是极限或阀值，第二个是我们想要检测或通过的值,结果只有0和1两种|[demo](https://tangbindu.github.io/knowledge/webgl/example/181224glslstep/dist/html/index.html)|
-  |smoothstep|混合|第一个是极限或阀值，第二个是我们想要检测或通过的值|[demo](https://tangbindu.github.io/knowledge/webgl/example/181221glslmix/dist/html/index.html)|
-  |mix|混合|可以使用百分比混合2个不同的值|[demo](https://tangbindu.github.io/knowledge/webgl/example/181221glslmix/dist/html/index.html)|
-  |mix|混合|可以使用百分比混合2个不同的值|[demo](https://tangbindu.github.io/knowledge/webgl/example/181221glslmix/dist/html/index.html)|
+  mix(a,b,ratio)|混合|混合进一个数，用一定的比列。例如：mix(1.0,.2,.5)等于.6。非常非常非常适合通道之间用来混合颜色|[demo](./webgl/example/181221glslmix/dist/html/index.html)|
+  |step(a,val)|插值函数|设定一个阀值，传入要输入的值,小于伐值得0，大于伐值得1|[demo](./webgl/example/181224glslstep/dist/html/index.html)|
+  |smoothstep(a,b,val)|过渡插值函数|设定一个区间伐值，传入一个值进去，如果小于区间得0，大于区间得1，否则平滑0-1平滑过度（按照值在区间中的位置比例，即左区间边界为0，右区间边界为1）|[demo](./webgl/example/181225glslsmoothstep/dist/html/index.html)|
+  |mix|混合|可以使用百分比混合2个不同的值|[demo](./webgl/example/181221glslmix/dist/html/index.html)|
+  |mix|混合|可以使用百分比混合2个不同的值|[demo](./webgl/example/181221glslmix/dist/html/index.html)|
   
 ## 绘制一条线
     float plot(vec2 st, float pct){
