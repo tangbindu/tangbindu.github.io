@@ -6,13 +6,12 @@ varying vec2 resolution;
 varying float time;
 uniform sampler2D u_Sampler;
 varying vec2 v_TexCoord;
-//一条线
+
+
 void main() {
   vec2 st = gl_FragCoord.xy/resolution;
-  float y = st.x;//关键
-  float pct = smoothstep( y-0.01, y, st.y)-smoothstep( y, y+0.01, st.y);
-  vec3 color = pct*vec3(1.0,0.0,0.0);;
+  float y = sin(st.x*3.1415926);//关键
+  float pct = smoothstep( y-0.07, y, st.y)-smoothstep( y, y+0.07, st.y); //其他
+  vec3 color = pct*vec3(1.0,0.0,0.0);
   gl_FragColor = vec4(color,1.0);
 }
-
-

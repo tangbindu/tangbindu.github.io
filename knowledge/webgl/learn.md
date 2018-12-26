@@ -6,6 +6,7 @@
      * @param VSHADER_SOURCE 顶点着色器代码
      * @param FSHADER_SOURCE 顶点着色器代码
      */
+    
     function initwebgl(canvas,VSHADER_SOURCE, FSHADER_SOURCE){
       //webgl object
       var gl; 
@@ -194,7 +195,7 @@
     }
 
   例子：
-  [一张图片](https://tangbindu.github.io/knowledge/webgl/example/glsl/dist/html/index.html)
+  [一张图片](./webgl/example/glsl/dist/html/index.html)
 ## 贴图,待细化
     //获取gl
     var gl=initwebgl(
@@ -584,26 +585,41 @@
   |-|-|-|-|
   mix(a,b,ratio)|混合|混合进一个数，用一定的比列。例如：mix(1.0,.2,.5)等于.6。非常非常非常适合通道之间用来混合颜色|[demo](./webgl/example/181221glslmix/dist/html/index.html)|
   |step(a,val)|插值函数|设定一个阀值，传入要输入的值,小于伐值得0，大于伐值得1|[demo](./webgl/example/181224glslstep/dist/html/index.html)|
-  |smoothstep(a,b,val)|过渡插值函数|设定一个区间伐值，传入一个值进去，如果小于区间得0，大于区间得1，否则平滑0-1平滑过度（按照值在区间中的位置比例，即左区间边界为0，右区间边界为1）|[demo](./webgl/example/181225glslsmoothstep/dist/html/index.html)|
+  |smoothstep(a,b,val)|过渡插值函数|设定一个区间伐值，传入一个值进去，如果小于区间得0，大于区间得1，否则平滑0-1平滑过度（按照值在区间中的位置比例，即左区间边界为0，右区间边界为1）；a，b的位置会影响到绘制效果|[demo](./webgl/example/181225glslsmoothstep/dist/html/index.html)|
   |mix|混合|可以使用百分比混合2个不同的值|[demo](./webgl/example/181221glslmix/dist/html/index.html)|
   |mix|混合|可以使用百分比混合2个不同的值|[demo](./webgl/example/181221glslmix/dist/html/index.html)|
   
-## 绘制一条线
-    float plot(vec2 st, float pct){
-      return  smoothstep( pct-0.001, pct, st.y) -
-              smoothstep( pct, pct+0.001, st.y);
-    }
-    void main() {
-      vec2 st = gl_FragCoord.xy/resolution;
-      float y = pow(st.x,2.0);
-      vec3 color = vec3(y);
-      // Plot a line
-      float pct = plot(st,y);
-      color = (1.0-pct)*color+pct*vec3(0.0,1.0,0.0);
-      gl_FragColor = vec4(color,1.0);
-    }
+## glsl-demo
 
-[一条线](https://tangbindu.github.io/knowledge/webgl/example/181221glsldrawline/dist/html/index.html)
+  [绘制一条线](./webgl/example/181221glsldrawline/dist/html/index.html)
+
+    vec2 st = gl_FragCoord.xy/resolution;
+    float y = st.x;
+    float pct = smoothstep( y-0.01, y, st.y)-smoothstep( y, y+0.01, st.y);
+    vec3 color = pct*vec3(1.0,0.0,0.0);;
+    gl_FragColor = vec4(color,1.0);
+
+
+  [绘制sin](./webgl/example/181226glslsin/dist/html/index.html)
+
+    vec2 st = gl_FragCoord.xy/resolution;
+    float y = sin(st.x*3.1415926);//关键
+    float pct = smoothstep( y-0.01, y, st.y)-smoothstep( y, y+0.01, st.y);
+    vec3 color = pct*vec3(1.0,0.0,0.0);;
+    gl_FragColor = vec4(color,1.0);
+
+
+
+  [绘制网格](./webgl/example/181226glslgrid/dist/html/index.html)
+
+    vec2 st = gl_FragCoord.xy/resolution;
+    float x=sin(M_PI*st.x*30.0);
+    x=smoothstep(.994,1.0,x);
+    float y=sin(M_PI*st.y*30.0);
+    y=smoothstep(.994,1.0,y);
+    gl_FragColor = vec4(x,y,0.5,1.0);
+
+
 
 
 

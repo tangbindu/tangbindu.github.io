@@ -9,7 +9,7 @@ varying vec2 v_TexCoord;
 //main入口
 void main() {
   //渲染色彩
-  // vec2 p = (gl_FragCoord.xy / (resolution.xy/2.0) ); 
+  // vec2 p = gl_FragCoord.xy / resolution;
   // gl_FragColor = vec4(p.x, p.y, abs(cos(time/1000.0)), 1.0);
   // 渲染纹理
   gl_FragColor = texture2D(u_Sampler, v_TexCoord);
