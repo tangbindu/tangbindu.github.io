@@ -1,0 +1,43 @@
+doctype html
+html(data-use-rem)
+  head
+    meta(charset="utf-8")
+    meta(name="format-detection", content="telephone=no")
+    meta(name="viewport", content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no")
+    meta(name="apple-mobile-web-app-capable", content="yes")
+    meta(name="apple-mobile-web-app-status-bar-style", content="black")
+    meta(name="description",content="")
+    meta(name="keywords",content="")
+    title 手机震动录入工具
+    link(rel="stylesheet",href="../css/index.css")
+  body(ontouchstart="")
+    .page-single
+      //工作台 
+      .workbench
+        .data-box
+          //文本框组件
+          textarea.textarea(placeholder="震动数据")
+          .qrcode#qrcode(style="")
+        //视图盒子
+        .view-box
+          .time-line-wrap
+            .time-line
+              //- .shock.shock-l(style="width:40px;margin-right:40px")
+              //-   .slider
+              //-     .width
+          .slider-bar
+            .touch
+          //等级
+          .level
+            .l 强震
+            .m 中震
+            .s 弱震
+            .e 停顿
+        .control-box
+          .record-btn.start
+    script(src="../js/jquery.min.js")
+    script(src="../js/jquery.mousewheel.js")
+    script(src="../js/qr.js")
+    script(src="../js/wilddog.js")
+    script(src="../js/index.js")
+    script(src="../js/interactive.js")

@@ -583,7 +583,7 @@
 
   |名字|中文|解释|demo|
   |-|-|-|-|
-  mix(a,b,ratio)|混合|混合进一个数，用一定的比列。例如：mix(1.0,.2,.5)等于.6。非常非常非常适合通道之间用来混合颜色|[demo](./webgl/example/181221glslmix/dist/html/index.html)|
+  mix(a,b,ratio)|混合|混合进一个数，用一定的比列。例如：mix(1.0,.2,.5)等于.6，color = mix(colorA, colorB, pct)；非常非常非常适合通道之间用来混合颜色|[demo](./webgl/example/181221glslmix/dist/html/index.html)|
   |step(a,val)|插值函数|设定一个阀值，传入要输入的值,小于伐值得0，大于伐值得1|[demo](./webgl/example/181224glslstep/dist/html/index.html)|
   |smoothstep(a,b,val)|过渡插值函数|设定一个区间伐值，传入一个值进去，如果小于区间得0，大于区间得1，否则平滑0-1平滑过度（按照值在区间中的位置比例，即左区间边界为0，右区间边界为1）；a，b的位置会影响到绘制效果|[demo](./webgl/example/181225glslsmoothstep/dist/html/index.html)|
   |mix|混合|可以使用百分比混合2个不同的值|[demo](./webgl/example/181221glslmix/dist/html/index.html)|
@@ -618,6 +618,7 @@
     float y=sin(M_PI*st.y*30.0);
     y=smoothstep(.994,1.0,y);
     gl_FragColor = vec4(x,y,0.5,1.0);
+
 
 
 

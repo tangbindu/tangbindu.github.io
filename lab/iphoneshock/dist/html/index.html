@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html data-use-rem>
+  <head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <title>手机震动录入工具</title>
+    <link rel="stylesheet" href="../css/index.css">
+  </head>
+  <body ontouchstart="">
+    <div class="page-single">
+      <!--工作台 -->
+      <div class="workbench">
+        <div class="data-box">
+          <!--文本框组件-->
+          <textarea placeholder="震动数据" class="textarea"></textarea>
+          <div id="qrcode" style="" class="qrcode"></div>
+        </div>
+        <!--视图盒子-->
+        <div class="view-box">
+          <div class="time-line-wrap">
+            <div class="time-line">
+            </div>
+          </div>
+          <div class="slider-bar">
+            <div class="touch"></div>
+          </div>
+          <!--等级-->
+          <div class="level">
+            <div class="l">强震</div>
+            <div class="m">中震</div>
+            <div class="s">弱震</div>
+            <div class="e">停顿</div>
+          </div>
+        </div>
+        <div class="control-box">
+          <div class="record-btn start"></div>
+        </div>
+      </div>
+    </div>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/jquery.mousewheel.js"></script>
+    <script src="../js/qr.js"></script>
+    <script src="../js/wilddog.js"></script>
+    <script src="../js/index.js"></script>
+    <script src="../js/interactive.js"></script>
+  </body>
+</html>
