@@ -1,0 +1,192 @@
+html(lang='zh' data-use-rem="750")
+    head
+        title 同步振动预览
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, user-scalable=no')
+        meta(name='format-detection', content='telephone=no')
+        meta(itemprop='name', content='震动demo')
+        meta(itemprop='image', content='')
+        link(rel="stylesheet", href="../css/index.css?v=20171222")
+    body(ontouchstart="")
+        script(src="../js/rem.min.js")
+        script(src="../js/zepto.min.js")
+        textarea.shake-data
+        .view-box
+          .time-line-wrap
+            .time-line
+              //- .shock.shock-l(style="width:40px;margin-right:40px")
+              //-   .slider
+              //-     .width
+        .shake-panel
+            .btn.define-btn 开始震动
+            .btn.stop-btn 停止震动
+        script(src="../js/qqapi.js")
+        //script(src="http://s.url.cn/qqmobile/qqapi.js?v=20171224")
+        script(src="https://cdn.wilddog.com/js/client/current/wilddog.js")
+        script(src="../js/common.js")
+        script(src="../js/tb.js")
+        script.
+            var textarea=$(".shake-data")
+            $(function () {
+                shakeManager.init();
+                mqq.sensor.vibrate({
+                    time: 1000
+                });
+
+                //野狗:插入数据
+                //- var ref = new Wilddog("https://wd6162030645bceser.wilddogio.com/");
+                //- ref.set({
+                //-     //对应节点
+                //-     "data": "改变了",
+                //- }, function (error) {
+                //-     if (error == null) {
+                //-         console.log("同步成功")
+                //-         // 数据同步到野狗云端成功完成
+                //-     }
+                //- });
+
+                //读取数据
+                // 获得一个数据库连接实例
+                var ref = new Wilddog("https://wd6162030645bceser.wilddogio.com/data");
+
+                // 实时监听数据：on
+                //一次监听数据：once
+                ref.on("value", function (snapshot) {
+                   //数据显示
+                   textarea.val(snapshot.val());
+                   //数据可视化
+                   snapshot.val() && tl.renderData(snapshot.val().join(","))
+                }, function (errorObject) {
+                    console.log("The read failed: " + errorObject.code);
+                });
+            });
+            //震动数据格式
+            /*数据格式(多段震动)：[{
+             intensity:0.8,//震动强度
+             duration:1,//震动时长
+             delay:3//震动间隔
+             }
+             ]*/
+            var shakeManager = {
+                //震动数据
+                shakeData: [{
+                    intensity: 0.8,
+                    duration: 100,
+                    delay: 200
+                }, {
+                    intensity: 0.2,
+                    duration: 666,
+                    delay: 800
+                }, {
+                    intensity: 0.3,
+                    duration: 300,
+                    delay: 300
+                }
+                ],
+                //组装后振动数据
+                assembleData: [],
+                //震动按钮对象
+                defineElem: $(".define-btn"),//传入数据振动
+                continueElem: $(".continue-btn"),//持续震动按钮
+                intervalElem: $(".interval-btn"),//间隔震动按钮
+                stopElem: $(".stop-btn"),//停止震动按钮
+                //是否支持震动标识
+                isSupport: false,
+                //定时器对象
+                intv: "",
+                //初始化
+                init: function () {
+                    this.getVibrate();
+                    this.getShakeData();
+                    this.serviceAction();
+                },
+                //ajax请求获取震动数据
+                getShakeData: function () {
+                    //获取到数据传给shakeData，并进行数据处理，和拼接，传入对应播放震动方法
+                    //组装数据
+                    this.dataAssemble();
+                },
+                //数据组装
+                dataAssemble: function () {
+                    var that = this;
+                    var shakeData = that.shakeData;
+                    var shakeLength = shakeData.length;
+                    for (var i = 0; i < shakeLength; i++) {
+                        var shakeOne = shakeData[i];
+                        var intensity = shakeOne.intensity;
+                        var duration = shakeOne.duration;
+                        var delay = shakeOne.delay;
+                        this.assembleData.push(duration);
+                        this.assembleData.push(delay);
+                    }
+                },
+                //获取Vibrate对象及返回是否支持震动标识
+                getVibrate: function () {
+                    var vibrateSupport = "vibrate" in navigator;
+                    if (vibrateSupport) { //兼容不同的浏览器
+                        this.isSupport = true;
+                        navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+                    } else {
+                        this.isSupport = false;
+                    }
+                },
+                //开始振动:振动一段时间
+                startShake: function (duration) {
+                    console.log(duration)
+                    navigator.vibrate(duration);
+                },
+                //持续一段时间振动
+                startContinueShake: function (duration, interval) {
+                    var that = this;
+                    that.intv = setInterval(function () {
+                        that.startShake(duration);
+                    }, 1000);
+                },
+                //停止震动方法
+                stopShake: function () {
+                    var that = this;
+                    if (that.intv) clearInterval(that.intv);
+                    navigator.vibrate(0);
+                },
+                //业务层数据
+                serviceAction: function () {
+                    var that = this;
+                    var supportFlag = that.isSupport;
+                    var duration = 200;
+                    if (supportFlag) {
+                        //自定义传入数据振动
+                        this.defineElem.click(function () {
+                            that.stopShake();
+                            //that.startContinueShake(that.assembleData, 3000);
+                            //第三方请求数据
+                            //that.startShake(that.assembleData);
+                            //输入数据进行转换
+                            var inputData = $(".shake-data").val();
+                            var dataArr = inputData.split(",");
+                            that.startShake(dataArr);
+                        });
+                        //持续震动
+                        this.continueElem.click(function () {
+                            that.stopShake();
+                            that.startContinueShake(duration, 200);
+                            /*that.intv = setInterval(function () {
+                             navigator.vibrate(duration);
+                             }, 200);*/
+
+                            //对获取到的数据进行重新组装
+                        });
+                        //2秒震动2秒，再过2秒再震动2秒
+                        this.intervalElem.click(function () {
+                            that.stopShake();
+                            navigator.vibrate([2000, 2000, 2000, 2000]);
+                        });
+                        //清除震动
+                        this.stopElem.click(function () {
+                            that.stopShake();
+                        })
+                    } else {
+                        alert("您的设备不支持 H5 的震动");
+                    }
+                }
+            };
+
