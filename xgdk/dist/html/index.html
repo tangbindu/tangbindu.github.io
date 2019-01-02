@@ -312,10 +312,10 @@
           <div class="date-view">
             <div class="left"><span class="day">{{today}}</span><span class="min">/</span><span class="month min">{{timeLine.month+1 | to2}}</span><span class="min">/</span><span class="year min">{{timeLine.year}}</span></div>
             <div class="right">
-              <div v-on:click="timelinePrew" class="btn prew">
+              <div v-on:click="timelinePrew" class="btn next">
                 <div class="icon-font icon-arrow-up"></div>
               </div>
-              <div v-on:click="timelineNext" class="btn next">
+              <div v-on:click="timelineNext" class="btn prew">
                 <div class="icon-font icon-arrow-up"></div>
               </div>
             </div>

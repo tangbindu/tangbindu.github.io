@@ -113,9 +113,9 @@ html(data-use-rem)
               span.min /
               span.year.min {{timeLine.year}}
             .right 
-              .btn.prew(v-on:click="timelinePrew")
+              .btn.next(v-on:click="timelinePrew")
                 .icon-font.icon-arrow-up
-              .btn.next(v-on:click="timelineNext")
+              .btn.prew(v-on:click="timelineNext")
                 .icon-font.icon-arrow-up
           .time-line
             .day(v-for="day in timeLine.days" v-on:click.self="viewTasksByDay" v-bind:data-time="day.time" v-bind:class="[day.weekend?'weekend':'',day.viewDay?'current':'']")

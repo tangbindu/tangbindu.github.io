@@ -632,6 +632,19 @@
     gl_FragColor = vec4(vec3(random), 1.0);
 
 
+[有序噪点](./webgl/example/20181229glslorderfract/dist/html/index.html)
+
+    vec2 st = gl_FragCoord.xy/resolution.xy;
+    //随机值
+    float random=fract(
+      sin(
+        dot(st.xy,vec2(10000.0,1002.0)) //横行和纵向“随机”乘积
+      )*1000.0
+    );
+    //赋值
+    gl_FragColor = vec4(vec3(random), 1.0);
+
+
 
 
 
