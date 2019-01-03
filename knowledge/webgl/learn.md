@@ -619,7 +619,7 @@
     y=smoothstep(.994,1.0,y);
     gl_FragColor = vec4(x,y,0.5,1.0);
 
-[噪点](./webgl/example/20181229glslfract/dist/html/index.html)
+[无序噪点](./webgl/example/20181229glslfract/dist/html/index.html)
 
     vec2 st = gl_FragCoord.xy/resolution.xy;
     //随机值
