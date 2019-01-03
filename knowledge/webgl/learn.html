@@ -1,0 +1,1819 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>body {
+  max-width: 980px;
+  border: 1px solid #ddd;
+  outline: 1300px solid #fff;
+  margin: 16px auto;
+}
+
+body .markdown-body
+{
+  padding: 45px;
+}
+
+@font-face {
+  font-family: fontawesome-mini;
+  src: url(data:font/woff;charset=utf-8;base64,d09GRgABAAAAABE0AA8AAAAAHWwAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABWAAAADsAAABUIIslek9TLzIAAAGUAAAAQwAAAFY3d1HZY21hcAAAAdgAAACqAAACOvWLi0FjdnQgAAAChAAAABMAAAAgBtX/BGZwZ20AAAKYAAAFkAAAC3CKkZBZZ2FzcAAACCgAAAAIAAAACAAAABBnbHlmAAAIMAAABdQAAAjkYT9TNWhlYWQAAA4EAAAAMwAAADYQ6WvNaGhlYQAADjgAAAAfAAAAJAc6A1pobXR4AAAOWAAAACAAAAA0Kmz/7mxvY2EAAA54AAAAHAAAABwQPBJubWF4cAAADpQAAAAgAAAAIAEHC/NuYW1lAAAOtAAAAYQAAALxhQT4h3Bvc3QAABA4AAAAfgAAAMS3SYh9cHJlcAAAELgAAAB6AAAAhuVBK7x4nGNgZGBg4GIwYLBjYHJx8wlh4MtJLMljkGJgYYAAkDwymzEnMz2RgQPGA8qxgGkOIGaDiAIAJjsFSAB4nGNgZHZmnMDAysDAVMW0h4GBoQdCMz5gMGRkAooysDIzYAUBaa4pDA4Pwz+yMwf9z2KIYg5imAYUZgTJAQDcoQvQAHic7ZHNDYJAFIRnBXf94cDRIiyCKkCpwFCPJ092RcKNDoYKcN4+EmMPvpdvk539zQyAPYBCXEUJhBcCrJ5SQ9YLnLJe4qF5rdb+uWPDngNHTkta101pNyWa8lMhn6xx2dqUnW4q9YOIhAOOeueMSgsR/6ry+P7O5s6xVNg4chBsHUuFnWNJ8uZYwrw7chrsHXkODo7cB0dHOYCTY8kv0VE2WJKD6gOlWjsxAAB4nGNgQAMSEMgc9D8LhAESbAPdAHicrVZpd9NGFB15SZyELCULLWphxMRpsEYmbMGACUGyYyBdnK2VoIsUO+m+8Ynf4F/zZNpz6Dd+Wu8bLySQtOdwmpOjd+fN1czbZRJaktgL65GUmy/F1NYmjew8CemGTctRfCg7eyFlisnfBVEQrZbatx2HREQiULWusEQQ+x5ZmmR86FFGy7akV03KLT3pLlvjQb1V334aOsqxO6GkZjN0aD2yJVUYVaJIpj1S0qZlqPorSSu8v8LMV81QwohOImm8GcbQSN4bZ7TKaDW24yiKbLLcKFIkmuFBFHmU1RLn5IoJDMoHzZDyyqcR5cP8iKzYo5xWsEu20/y+L3mndzk/sV9vUbbkQB/Ijuzg7HQlX4RbW2HctJPtKFQRdtd3QmzZ7FT/Zo/ymkYDtysyvdCMYKl8hRArP6HM/iFZLZxP+ZJHo1qykRNB62VO7Es+gdbjiClxzRhZ0N3RCRHU/ZIzDPaYPh788d4plgsTAngcy3pHJZwIEylhczRJ2jByYCVliyqp9a6YOOV1WsRbwn7t2tGXzmjjUHdiPFsPHVs5UcnxaFKnmUyd2knNoykNopR0JnjMrwMoP6JJXm1jNYmVR9M4ZsaERCICLdxLU0EsO7GkKQTNoxm9uRumuXYtWqTJA/Xco/f05la4udNT2g70s0Z/VqdiOtgL0+lp5C/xadrlIkXp+ukZfkziQdYCMpEtNsOUgwdv/Q7Sy9eWHIXXBtju7fMrqH3WRPCkAfsb0B5P1SkJTIWYVYhWQGKta1mWydWsFqnI1HdDmla+rNMEinIcF8e+jHH9XzMzlpgSvt+J07MjLj1z7UsI0xx8m3U9mtepxXIBcWZ5TqdZlu/rNMfyA53mWZ7X6QhLW6ejLD/UaYHlRzodY3lBC5p038GQizDkAg6QMISlA0NYXoIhLBUMYbkIQ1gWYQjLJRjC8mMYwnIZhrC8rGXV1FNJ49qZWAZsQmBijh65zEXlaiq5VEK7aFRqQ54SbpVUFM+qf2WgXjzyhjmwFkiXyJpfMc6Vj0bl+NYVLW8aO1fAsepvH472OfFS1ouFPwX/1dZUJb1izcOTq/Abhp5sJ6o2qXh0TZfPVT26/l9UVFgL9BtIhVgoyrJscGcihI86nYZqoJVDzGzMPLTrdcuan8P9NzFCFlD9+DcUGgvcg05ZSVnt4KzV19uy3DuDcjgTLEkxN/P6VvgiI7PSfpFZyp6PfB5wBYxKZdhqA60VvNknMQ+Z3iTPBHFbUTZI2tjOBIkNHPOAefOdBCZh6qoN5E7hhg34BWFuwXknXKJ6oyyH7kXs8yik/Fun4kT2qGiMwLPZG2Gv70LKb3EMJDT5pX4MVBWhqRg1FdA0Um6oBl/G2bptQsYO9CMqdsOyrOLDxxb3lZJtGYR8pIjVo6Of1l6iTqrcfmYUl++dvgXBIDUxf3vfdHGQyrtayTJHbQNTtxqVU9eaQ+NVh+rmUfW94+wTOWuabronHnpf06rbwcVcLLD2bQ7SUiYX1PVhhQ2iy8WlUOplNEnvuAcYFhjQ71CKjf+r+th8nitVhdFxJN9O1LfR52AM/A/Yf0f1A9D3Y+hyDS7P95oTn2704WyZrqIX66foNzBrrblZugbc0HQD4iFHrY64yg18pwZxeqS5HOkh4GPdFeIBwCaAxeAT3bWM5lMAo/mMOT7A58xh0GQOgy3mMNhmzhrADnMY7DKHwR5zGHzBnHWAL5nDIGQOg4g5DJ4wJwB4yhwGXzGHwdfMYfANc+4DfMscBjFzGCTMYbCv6dYwzC1e0F2gtkFVoANTT1jcw+JQU2XI/o4Xhv29Qcz+wSCm/qjp9pD6Ey8M9WeDmPqLQUz9VdOdIfU3Xhjq7wYx9Q+DmPpMvxjLZQa/jHyXCgeUXWw+5++J9w/bxUC5AAEAAf//AA94nIVVX2hbZRQ/5/t7893s5ja9f7ouzdZ0TTqz3bRJmogbWya6bG6Cq0VbSV2ddIJjFtfIQHEig80Hda8yUN/0YQz8AyriiyD+xQd92R4HCnaCb3samnpumrpsCsLlfPf7zvedc37nL3CAtc/5W/wQZGA3tOBSY/g+TMjHmwzEoM1Q8+ZjRZY4oJhmBw5/YB6Za0yC5AkhlwA1A1yCBIBOwCII0Cj0U8BAMdUCzq05sKwkP7SlUY6fcJk4Fb/RyE79/6P5hjM/F4aZiXBoeMgzcqQ4Xi1hPqfDLG5FT+lchCVU3lYMyvuwhl1mqndQL0RsuloLywHtthLXI06OblTrhfWVnpSJ5+mwu/JdbtuN3IAnkW0LLMcRwaC7ktrlzridM6kVdyf9uO1UNBByI7JhwtG2sEwab07ORBeilWhqavJCqV0qzZTOl/7ZXQ5TbTcdcFelyGhhRDAQpdqp1FEX3w3cFTc1k9pJQkmm4ySCbSikxRP2QOfN+0tHS5MrpQuTU1Mk5nw0E5Xa0WvrOwDyGax9yB9ma6DAg82wHc43SAGTI4GjBWebOePAERFE8/AHaQpZASSTy8A4WwZiLQMQ82mFKATO0ILicRAoDm9p5P99E5b/fXG+kQYY3TYUuqmERWYoT0u/GNYL2q/4WB3LaVS+VynXsVYIcWw6DkCh3nX1D+VzlYN4LClF5yexSQos8exqZ3KVP+wtrC54u4Nznq6cq+xpMpUUnZ8FUYzE86ud0g28NOIv3Gj5/rmA3ABs7S/ywzFuQ4qyd6QxfNtiQIaEgp3w/entQg4Vcbqa16M5FfpeUB8t1+qeg7mI7cUyOe79wOk86gSxkVec4KPTX69++5x68Yubn5/F+w52z7u08sJX7fZXv8ekT/d2mILJxq6sn+SC6qEJknzLJCxyZEKwWVqYmAPBxBE/9DLeZiWHu7lcr/VytrCRuHojncNuTt9h46tmacmYisnSamdN2bZptcsmSysdVsy1PrOvOzF3xN64Rb937t/og9KHxYdcjIUqFAmIAHGHNzlns+RTPgeUYAQm9DwpNxfxbhhBHPaw3/gfTcXO2L+eJVIx5nsyGkvm9X4/f+bGkH45G0PaSjcMXTjcZyTvi3UdHoCDjQd3IDUVsgwYmUoJK/gp4JJxeRI0MKHZIkgynyIBqBTOUs6rOVCojvjZ4mCQz49ZMlMcp8QoYk6NoBfsxnJtsBohpa8iGJS+ZH7gU7NxME6cmF+t7cO9vB8d3jTWSct0ycW9ranXmolNDwmVkNnxe+8JtoztwS5rKJ0xWS95tQ/1zMYzg69MzUZnNtl1ofNbsml/OJm6f9wjRjpnu2o4MzHzn77IQkRd+1DjwMQ2pqSjGMMhyjrgTbBAKksuUm0iU7hI0aN2wOKOq7WYBSH0HGihj/jkiPxAfmwsEbfYrjMG+j3ij932Db/LV7I/xruNrhnroxjR9HRMb2nTvO0ZXOoHPk8H2ZhDPx93qcE/53sH5np/dkIP7zzhTVKdR/BAY/9ElkkR+A6lJGsqpJ4oQcTxpvBT3Kn58VkaJjgHyPEIws57xkaHh9KuVpDEpJZeMbZ5w/zBHi5NMQ4r5VphsFqID7TyB9eR4pX216c3AHxpdAwoqU9qg0ZJ6yVLKmMSz1iG2z27ifx18NkY0LPx1W/wCc2l5LrznrIsiKsqbmB78A9wIGx4tI8rjihVHJyY9pgMirenVq0yWg7Iw7eogG7ZgYM3qR9959A/fZkg6MnD/exlkmc+jWV4SB15XUR+eqC6l6ZmgPtN9z5JMfik05OV8ljylunJ4J+wA/FUaQSSKotsYsCWqaPBidBLcxkWx7XKFRIb45TGaEhjlF9uUVPqXOtcIwsXbBvfoZXIyRYFdkfnqjExH98xpnPczqzjX/uNdO1Y17Wpi5+6Ts8BXtjVFasp9KZ1mOiNbH65c5w6HgmyF2jFCZywM8mWjRc7T5Pmt0lRy7Y71+jYbpGyvwG4sH0XeJxjYGRgYADiwBB/53h+m68M3MwvgCIM1z5N/g6j///9v5H5BbMnkMvBwAQSBQCIcA9gAHicY2BkYGAO+p8FJF/8//v/F/MLBqAICuAFALYQB5kAeJxjfsHAwLwAiCNB+P9fbJjJmoGBMRUo/wKCAfO2EnQAAAAAANoBXgGcAgICVALaA1IDvAPkBAYEPARyAAEAAAANAF0ABAAAAAAAAgAUACQAcwAAAG4LcAAAAAB4nHWRzWrCQBSFT+pPqUIXLXTTzayKUohGKIibCoLuhbrrYtTRxCYZmYyKyz5Fd32HvlDfoO/QkziIFJtw9bvnnpl7ZwLgBt/wcHieGAf2UGd24Atcou+4RH3kuEweO66QXx1XyaHjGh6ROa7jFp/cwStfMVvhy7GHO+/e8QWuvcBxifqz4zL5xXGF/Oa4Sn53XMPE+3Bcx4P3M9DrvYmWoRWNQVN02kFXTPdCU4pSGQu5saE2meiLhU6timPtz3SSs9ypTCdqrJabWJoT5QQnymSRTkXgt0/UkUqVkVbN807ZdtmxdiEWRidi6HqItdErNbN+aO2612qd9sYAGmvsYRBhyUu0EGhQbfK/gzYCdElTOgSdB1eEFBIxFYkNV4RFJWPeZyyYpVQVHTHZx4y/yVGX2LGWFZri51TccUOn5B7nPefVCSPvGhVVwUl9znveO2KkhV8Wk82PZ8qwZf8OVcu1+fSmWCMw/HMOwXvKaysqM+p+cVuWag8tvv+c+xdd+4+teJxtjUEOwiAURJla24KliQfhUA2g/Sl+CKXx+loNrpzVezOLEY34Ron/0WhwQoszOvQYIKFwwQiNSbSBeO2SZ0tBP4j3zVjKNng32ZmtD1VVXCuOiw/pJ8S3WOU6l+K5UOTaDC4+2TjKMtN9KQf1ezLx/Sg/00FCvABHhjDjAAB4nGPw3sFwIihiIyNjX+QGxp0cDBwMyQUbGVidNjEwMmiBGJu5mBg5ICw+BjCLzWkX0wGgNCeQze60i8EBwmZmcNmowtgRGLHBoSNiI3OKy0Y1EG8XRwMDI4tDR3JIBEhJJBBs5mFi5NHawfi/dQNL70YmBhcADHYj9AAA) format('woff');
+}
+
+.markdown-body {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  color: #333333;
+  overflow: hidden;
+  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.markdown-body a {
+  background: transparent;
+}
+
+.markdown-body a:active,
+.markdown-body a:hover {
+  outline: 0;
+}
+
+.markdown-body b,
+.markdown-body strong {
+  font-weight: bold;
+}
+
+.markdown-body mark {
+  background: #ff0;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.markdown-body sub,
+.markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+.markdown-body sup {
+  top: -0.5em;
+}
+.markdown-body sub {
+  bottom: -0.25em;
+}
+
+.markdown-body h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+.markdown-body img {
+  border: 0;
+}
+
+.markdown-body hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+
+.markdown-body pre {
+  overflow: auto;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+.markdown-body input {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+
+.markdown-body html input[disabled] {
+  cursor: default;
+}
+
+.markdown-body input {
+  line-height: normal;
+}
+
+.markdown-body input[type="checkbox"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body .codehilitetable {
+  border: 0;
+  border-spacing: 0;
+}
+
+.markdown-body .codehilitetable tr {
+  border: 0;
+}
+
+.markdown-body .codehilitetable pre,
+.markdown-body .codehilitetable div.codehilite {
+  margin: 0;
+}
+
+.markdown-body .linenos,
+.markdown-body .code,
+.markdown-body .codehilitetable td {
+  border: 0;
+  padding: 0;
+}
+
+.markdown-body td:not(.linenos) .linenodiv {
+  padding: 0 !important;
+}
+
+.markdown-body .code {
+  width: 100%;
+}
+
+.markdown-body .linenos div pre,
+.markdown-body .linenodiv pre,
+.markdown-body .linenodiv {
+  border: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-border-top-left-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  -moz-border-radius-topleft: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.markdown-body .code div pre,
+.markdown-body .code div {
+  border: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-border-top-right-radius: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  -moz-border-radius-topright: 3px;
+  -moz-border-radius-bottomright: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.markdown-body * {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.markdown-body input {
+  font: 13px Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+  line-height: 1.4;
+}
+
+.markdown-body a {
+  color: #4183c4;
+  text-decoration: none;
+}
+
+.markdown-body a:hover,
+.markdown-body a:focus,
+.markdown-body a:active {
+  text-decoration: underline;
+}
+
+.markdown-body hr {
+  height: 0;
+  margin: 15px 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.markdown-body hr:before,
+.markdown-body hr:after {
+  display: table;
+  content: " ";
+}
+
+.markdown-body hr:after {
+  clear: both;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  line-height: 1.1;
+}
+
+.markdown-body h1 {
+  font-size: 30px;
+}
+
+.markdown-body h2 {
+  font-size: 21px;
+}
+
+.markdown-body h3 {
+  font-size: 16px;
+}
+
+.markdown-body h4 {
+  font-size: 14px;
+}
+
+.markdown-body h5 {
+  font-size: 12px;
+}
+
+.markdown-body h6 {
+  font-size: 11px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body code,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body kbd {
+  background-color: #e7e7e7;
+  background-image: -moz-linear-gradient(#fefefe, #e7e7e7);
+  background-image: -webkit-linear-gradient(#fefefe, #e7e7e7);
+  background-image: linear-gradient(#fefefe, #e7e7e7);
+  background-repeat: repeat-x;
+  border-radius: 2px;
+  border: 1px solid #cfcfcf;
+  color: #000;
+  padding: 3px 5px;
+  line-height: 10px;
+  font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  display: inline-block;
+}
+
+.markdown-body>*:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body .headerlink {
+  font: normal 400 16px fontawesome-mini;
+  vertical-align: middle;
+  margin-left: -16px;
+  float: left;
+  display: inline-block;
+  text-decoration: none;
+  opacity: 0;
+  color: #333;
+}
+
+.markdown-body .headerlink:focus {
+  outline: none;
+}
+
+.markdown-body h1 .headerlink {
+  margin-top: 0.8rem;
+}
+
+.markdown-body h2 .headerlink,
+.markdown-body h3 .headerlink {
+  margin-top: 0.6rem;
+}
+
+.markdown-body h4 .headerlink {
+  margin-top: 0.2rem;
+}
+
+.markdown-body h5 .headerlink,
+.markdown-body h6 .headerlink {
+  margin-top: 0;
+}
+
+.markdown-body .headerlink:hover,
+.markdown-body h1:hover .headerlink,
+.markdown-body h2:hover .headerlink,
+.markdown-body h3:hover .headerlink,
+.markdown-body h4:hover .headerlink,
+.markdown-body h5:hover .headerlink,
+.markdown-body h6:hover .headerlink {
+  opacity: 1;
+  text-decoration: none;
+}
+
+.markdown-body h1 {
+  padding-bottom: 0.3em;
+  font-size: 2.25em;
+  line-height: 1.2;
+  border-bottom: 1px solid #eee;
+}
+
+.markdown-body h2 {
+  padding-bottom: 0.3em;
+  font-size: 1.75em;
+  line-height: 1.225;
+  border-bottom: 1px solid #eee;
+}
+
+.markdown-body h3 {
+  font-size: 1.5em;
+  line-height: 1.43;
+}
+
+.markdown-body h4 {
+  font-size: 1.25em;
+}
+
+.markdown-body h5 {
+  font-size: 1em;
+}
+
+.markdown-body h6 {
+  font-size: 1em;
+  color: #777;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre,
+.markdown-body .admonition {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.markdown-body hr {
+  height: 4px;
+  padding: 0;
+  margin: 16px 0;
+  background-color: #e7e7e7;
+  border: 0 none;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding-left: 2em;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li>p {
+  margin-top: 16px;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.markdown-body dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.markdown-body blockquote {
+  padding: 0 15px;
+  color: #777;
+  border-left: 4px solid #ddd;
+}
+
+.markdown-body blockquote>:first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote>:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  word-break: normal;
+  word-break: keep-all;
+}
+
+.markdown-body table th {
+  font-weight: bold;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+}
+
+.markdown-body table tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+.markdown-body img {
+  max-width: 100%;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.markdown-body code,
+.markdown-body samp {
+  padding: 0;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(0,0,0,0.04);
+  border-radius: 3px;
+}
+
+.markdown-body code:before,
+.markdown-body code:after {
+  letter-spacing: -0.2em;
+  content: "\00a0";
+}
+
+.markdown-body pre>code {
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .codehilite {
+  margin-bottom: 16px;
+}
+
+.markdown-body .codehilite pre,
+.markdown-body pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #f7f7f7;
+  border-radius: 3px;
+}
+
+.markdown-body .codehilite pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body pre {
+  word-wrap: normal;
+}
+
+.markdown-body pre code {
+  display: inline;
+  max-width: initial;
+  padding: 0;
+  margin: 0;
+  overflow: initial;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.markdown-body pre code:before,
+.markdown-body pre code:after {
+  content: normal;
+}
+
+/* Admonition */
+.markdown-body .admonition {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  position: relative;
+  border-radius: 3px;
+  border: 1px solid #e0e0e0;
+  border-left: 6px solid #333;
+  padding: 10px 10px 10px 30px;
+}
+
+.markdown-body .admonition table {
+  color: #333;
+}
+
+.markdown-body .admonition p {
+  padding: 0;
+}
+
+.markdown-body .admonition-title {
+  font-weight: bold;
+  margin: 0;
+}
+
+.markdown-body .admonition>.admonition-title {
+  color: #333;
+}
+
+.markdown-body .attention>.admonition-title {
+  color: #a6d796;
+}
+
+.markdown-body .caution>.admonition-title {
+  color: #d7a796;
+}
+
+.markdown-body .hint>.admonition-title {
+  color: #96c6d7;
+}
+
+.markdown-body .danger>.admonition-title {
+  color: #c25f77;
+}
+
+.markdown-body .question>.admonition-title {
+  color: #96a6d7;
+}
+
+.markdown-body .note>.admonition-title {
+  color: #d7c896;
+}
+
+.markdown-body .admonition:before,
+.markdown-body .attention:before,
+.markdown-body .caution:before,
+.markdown-body .hint:before,
+.markdown-body .danger:before,
+.markdown-body .question:before,
+.markdown-body .note:before {
+  font: normal normal 16px fontawesome-mini;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  line-height: 1.5;
+  color: #333;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.markdown-body .admonition:before {
+  content: "\f056\00a0";
+  color: 333;
+}
+
+.markdown-body .attention:before {
+  content: "\f058\00a0";
+  color: #a6d796;
+}
+
+.markdown-body .caution:before {
+  content: "\f06a\00a0";
+  color: #d7a796;
+}
+
+.markdown-body .hint:before {
+  content: "\f05a\00a0";
+  color: #96c6d7;
+}
+
+.markdown-body .danger:before {
+  content: "\f057\00a0";
+  color: #c25f77;
+}
+
+.markdown-body .question:before {
+  content: "\f059\00a0";
+  color: #96a6d7;
+}
+
+.markdown-body .note:before {
+  content: "\f040\00a0";
+  color: #d7c896;
+}
+
+.markdown-body .admonition::after {
+  content: normal;
+}
+
+.markdown-body .attention {
+  border-left: 6px solid #a6d796;
+}
+
+.markdown-body .caution {
+  border-left: 6px solid #d7a796;
+}
+
+.markdown-body .hint {
+  border-left: 6px solid #96c6d7;
+}
+
+.markdown-body .danger {
+  border-left: 6px solid #c25f77;
+}
+
+.markdown-body .question {
+  border-left: 6px solid #96a6d7;
+}
+
+.markdown-body .note {
+  border-left: 6px solid #d7c896;
+}
+
+.markdown-body .admonition>*:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body .admonition>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* progress bar*/
+.markdown-body .progress {
+  display: block;
+  width: 300px;
+  margin: 10px 0;
+  height: 24px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #ededed;
+  position: relative;
+  box-shadow: inset -1px 1px 3px rgba(0, 0, 0, .1);
+}
+
+.markdown-body .progress-label {
+  position: absolute;
+  text-align: center;
+  font-weight: bold;
+  width: 100%; margin: 0;
+  line-height: 24px;
+  color: #333;
+  text-shadow: 1px 1px 0 #fefefe, -1px -1px 0 #fefefe, -1px 1px 0 #fefefe, 1px -1px 0 #fefefe, 0 1px 0 #fefefe, 0 -1px 0 #fefefe, 1px 0 0 #fefefe, -1px 0 0 #fefefe, 1px 1px 2px #000;
+  -webkit-font-smoothing: antialiased !important;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.markdown-body .progress-bar {
+  height: 24px;
+  float: left;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #96c6d7;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 -1px 0 rgba(0, 0, 0, .1);
+  background-size: 30px 30px;
+  background-image: -webkit-linear-gradient(
+    135deg, rgba(255, 255, 255, .4) 27%,
+    transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%,
+    transparent 77%, transparent
+  );
+  background-image: -moz-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+  background-image: -ms-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+  background-image: -o-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+  background-image: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+}
+
+.markdown-body .progress-100plus .progress-bar {
+  background-color: #a6d796;
+}
+
+.markdown-body .progress-80plus .progress-bar {
+  background-color: #c6d796;
+}
+
+.markdown-body .progress-60plus .progress-bar {
+  background-color: #d7c896;
+}
+
+.markdown-body .progress-40plus .progress-bar {
+  background-color: #d7a796;
+}
+
+.markdown-body .progress-20plus .progress-bar {
+  background-color: #d796a6;
+}
+
+.markdown-body .progress-0plus .progress-bar {
+  background-color: #c25f77;
+}
+
+.markdown-body .candystripe-animate .progress-bar{
+  -webkit-animation: animate-stripes 3s linear infinite;
+  -moz-animation: animate-stripes 3s linear infinite;
+  animation: animate-stripes 3s linear infinite;
+}
+
+@-webkit-keyframes animate-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+@-moz-keyframes animate-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+@keyframes animate-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+.markdown-body .gloss .progress-bar {
+  box-shadow:
+    inset 0 4px 12px rgba(255, 255, 255, .7),
+    inset 0 -12px 0 rgba(0, 0, 0, .05);
+}
+
+/* Multimarkdown Critic Blocks */
+.markdown-body .critic_mark {
+  background: #ff0;
+}
+
+.markdown-body .critic_delete {
+  color: #c82829;
+  text-decoration: line-through;
+}
+
+.markdown-body .critic_insert {
+  color: #718c00 ;
+  text-decoration: underline;
+}
+
+.markdown-body .critic_comment {
+  color: #8e908c;
+  font-style: italic;
+}
+
+.markdown-body .headeranchor {
+  font: normal normal 16px fontawesome-mini;
+  line-height: 1;
+  display: inline-block;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.headeranchor:before {
+  content: '\e157';
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item+.task-list-item {
+  margin-top: 3px;
+}
+
+.markdown-body .task-list-item input {
+  margin: 0 4px 0.25em -20px;
+  vertical-align: middle;
+}
+
+/* Media */
+@media only screen and (min-width: 480px) {
+  .markdown-body {
+    font-size:14px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .markdown-body {
+    font-size:16px;
+  }
+}
+
+@media print {
+  .markdown-body * {
+    background: transparent !important;
+    color: black !important;
+    filter:none !important;
+    -ms-filter: none !important;
+  }
+
+  .markdown-body {
+    font-size:12pt;
+    max-width:100%;
+    outline:none;
+    border: 0;
+  }
+
+  .markdown-body a,
+  .markdown-body a:visited {
+    text-decoration: underline;
+  }
+
+  .markdown-body .headeranchor-link {
+    display: none;
+  }
+
+  .markdown-body a[href]:after {
+    content: " (" attr(href) ")";
+  }
+
+  .markdown-body abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+
+  .markdown-body .ir a:after,
+  .markdown-body a[href^="javascript:"]:after,
+  .markdown-body a[href^="#"]:after {
+    content: "";
+  }
+
+  .markdown-body pre {
+    white-space: pre;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  .markdown-body pre,
+  .markdown-body blockquote {
+    border: 1px solid #999;
+    padding-right: 1em;
+    page-break-inside: avoid;
+  }
+
+  .markdown-body .progress,
+  .markdown-body .progress-bar {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+  .markdown-body .progress {
+    border: 1px solid #ddd;
+  }
+
+  .markdown-body .progress-bar {
+    height: 22px;
+    border-right: 1px solid #ddd;
+  }
+
+  .markdown-body tr,
+  .markdown-body img {
+    page-break-inside: avoid;
+  }
+
+  .markdown-body img {
+    max-width: 100% !important;
+  }
+
+  .markdown-body p,
+  .markdown-body h2,
+  .markdown-body h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  .markdown-body h2,
+  .markdown-body h3 {
+    page-break-after: avoid;
+  }
+}
+</style><style>/*github*/
+.codehilite {background-color:#fff;color:#333333;}
+.codehilite .hll {background-color:#ffffcc;}
+.codehilite .c{color:#999988;font-style:italic}
+.codehilite .err{color:#a61717;background-color:#e3d2d2}
+.codehilite .k{font-weight:bold}
+.codehilite .o{font-weight:bold}
+.codehilite .cm{color:#999988;font-style:italic}
+.codehilite .cp{color:#999999;font-weight:bold}
+.codehilite .c1{color:#999988;font-style:italic}
+.codehilite .cs{color:#999999;font-weight:bold;font-style:italic}
+.codehilite .gd{color:#000000;background-color:#ffdddd}
+.codehilite .ge{font-style:italic}
+.codehilite .gr{color:#aa0000}
+.codehilite .gh{color:#999999}
+.codehilite .gi{color:#000000;background-color:#ddffdd}
+.codehilite .go{color:#888888}
+.codehilite .gp{color:#555555}
+.codehilite .gs{font-weight:bold}
+.codehilite .gu{color:#800080;font-weight:bold}
+.codehilite .gt{color:#aa0000}
+.codehilite .kc{font-weight:bold}
+.codehilite .kd{font-weight:bold}
+.codehilite .kn{font-weight:bold}
+.codehilite .kp{font-weight:bold}
+.codehilite .kr{font-weight:bold}
+.codehilite .kt{color:#445588;font-weight:bold}
+.codehilite .m{color:#009999}
+.codehilite .s{color:#dd1144}
+.codehilite .n{color:#333333}
+.codehilite .na{color:teal}
+.codehilite .nb{color:#0086b3}
+.codehilite .nc{color:#445588;font-weight:bold}
+.codehilite .no{color:teal}
+.codehilite .ni{color:purple}
+.codehilite .ne{color:#990000;font-weight:bold}
+.codehilite .nf{color:#990000;font-weight:bold}
+.codehilite .nn{color:#555555}
+.codehilite .nt{color:navy}
+.codehilite .nv{color:teal}
+.codehilite .ow{font-weight:bold}
+.codehilite .w{color:#bbbbbb}
+.codehilite .mf{color:#009999}
+.codehilite .mh{color:#009999}
+.codehilite .mi{color:#009999}
+.codehilite .mo{color:#009999}
+.codehilite .sb{color:#dd1144}
+.codehilite .sc{color:#dd1144}
+.codehilite .sd{color:#dd1144}
+.codehilite .s2{color:#dd1144}
+.codehilite .se{color:#dd1144}
+.codehilite .sh{color:#dd1144}
+.codehilite .si{color:#dd1144}
+.codehilite .sx{color:#dd1144}
+.codehilite .sr{color:#009926}
+.codehilite .s1{color:#dd1144}
+.codehilite .ss{color:#990073}
+.codehilite .bp{color:#999999}
+.codehilite .vc{color:teal}
+.codehilite .vg{color:teal}
+.codehilite .vi{color:teal}
+.codehilite .il{color:#009999}
+.codehilite .gc{color:#999;background-color:#EAF2F5}
+</style><title>learn</title></head><body><article class="markdown-body"><h1 id="webgl">webgl<a class="headerlink" href="#webgl" title="Permanent link"></a></h1>
+<h2 id="webgl_1">新建webgl<a class="headerlink" href="#webgl_1" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>/**
+ * initwebgl 初始化webgl
+ * @param canvas 对象
+ * @param VSHADER_SOURCE 顶点着色器代码
+ * @param FSHADER_SOURCE 顶点着色器代码
+ */
+
+function initwebgl(canvas,VSHADER_SOURCE, FSHADER_SOURCE){
+  //webgl object
+  var gl; 
+  //定宽高（适配retina）
+  canvas.width = canvas.clientWidth * window.devicePixelRatio;
+  canvas.height = canvas.clientHeight * window.devicePixelRatio;
+  //获取gl
+  gl = canvas.getContext(&#39;webgl&#39;);
+  //定视图区
+  gl.viewport(0, 0, canvas.width, canvas.height);
+  //定色彩模型
+  gl.clearColor(23 / 255, 48 / 250, 41 / 255, 1.0);
+  //清理画布
+  gl.clear(gl.COLOR_BUFFER_BIT);
+  var vertexShader = createShader(gl, gl.VERTEX_SHADER, VSHADER_SOURCE);
+  // var vertexShaderDebug = gl.getExtension(&#39;WEBGL_debug_shaders&#39;).getTranslatedShaderSource(vertexShader);
+  var fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, FSHADER_SOURCE);
+  // var fragmentShaderDebug = gl.getExtension(&#39;WEBGL_debug_shaders&#39;).getTranslatedShaderSource(fragmentShader);
+  //创建一个程序
+  gl.program = createProgram(gl, vertexShader, fragmentShader);
+  gl.useProgram(gl.program);
+  gl.vertexShader = vertexShader;
+  gl.fragmentShader = fragmentShader;
+  return gl;
+}
+</pre></div>
+
+
+<h2 id="_1">新建着色器<a class="headerlink" href="#_1" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>/**
+ * Create 着色器对象
+ * @param gl webgl
+ * @param 不同类型着色器对象
+ * @param 着色器源程序（字符串）
+ */
+function createShader(gl, type, source) {
+  //创建着色器
+  var shader = gl.createShader(type);
+  //给着色器添加着色代码
+  gl.shaderSource(shader, source);
+  //编译着色器
+  gl.compileShader(shader);
+  //检查着色器的编译状态
+  //gl.getShaderParameter(shader,gl.COMPILE_STATUS)
+  return shader;
+}
+</pre></div>
+
+
+<h2 id="_2">创建一个程序，基于着色器<a class="headerlink" href="#_2" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>/**
+ * 创建webgl使用的程序对象
+ * @param vshader 顶点着色器
+ * @param fshader 片源着色器
+ */
+function createProgram(gl, vshader, fshader) {
+  //创建顶点着色器和片元着色器;
+  //创建程序对象，程序对象涵盖了着色器，可以和着色器进行数据交互
+  var program = gl.createProgram();
+  //为程序对象分配顶点着色器和片元着色器
+  gl.attachShader(program, vshader);
+  gl.attachShader(program, fshader);
+  //连接着色器
+  gl.linkProgram(program);
+  // 检查连接结果
+  var linked = gl.getProgramParameter(program, gl.LINK_STATUS);
+  if (!linked) {
+    var error = gl.getProgramInfoLog(program);
+    console.log(&#39;程序连接失败: &#39; + error);
+    gl.deleteProgram(program);
+    gl.deleteShader(vshader);
+    gl.deleteShader(fshader);
+    return null;
+  }
+  return program;
+}
+</pre></div>
+
+
+<h2 id="_3">纹理映射<a class="headerlink" href="#_3" title="Permanent link"></a></h2>
+<p>纹理映射，就是将一张图片映射到一个几何图形的表面上去。 <br />
+  被映射的图片叫做纹理图片或“纹理”
+  纹理其实就是一个颜色集合，为栅格后的每个“片元”涂上合适和颜色  <br />
+  组成纹理图像的像素我们称之为“纹素” <br />
+  步骤：</p>
+<div class="codehilite"><pre>1.准备好纹理图像
+2.为几何图形配置纹理映射的方式
+3.对纹理进行一些配置后在webgl中使用
+4.片元着色器中将相应的纹素在纹理中取出来，并将纹素的颜色赋值给片元
+</pre></div>
+
+
+<p>纹理坐标
+  用来确定纹理图像哪个部分使用在几何图形上。 <br />
+  纹理坐标是一套新的坐标系统 <br />
+  坐标规范：</p>
+<div class="codehilite"><pre>1.使用st坐标系统（区分xy坐标系统，其他系统可能使用uv坐标系统，意思是一样。）
+2.左下角是0.0,0.0 ；右上角是1.0,1.0；即原点在左下角
+</pre></div>
+
+
+<p>纹理单元texture unit</p>
+<div class="codehilite"><pre>1.管理纹理图像
+2.实现同时使用多个纹理
+3.webgl不能直接操作纹理图像,必须使用纹理单元/
+</pre></div>
+
+
+<p>uniform sampler2D u_Sampler;  </p>
+<div class="codehilite"><pre>sampler2D 2D的采样器，用在片元着色器中;其他还有立方体采样器,samplerCube
+</pre></div>
+
+
+<p>texture2D(sampler2D sampler,vec2 coord) </p>
+<div class="codehilite"><pre>内置函数
+</pre></div>
+
+
+<p>createTexture();</p>
+<div class="codehilite"><pre>//通过gl创建一个纹理对象
+var texture=gl.createTexture()
+
+//纹理默认y反转了，修正一下。
+gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
+
+//激活纹理单元0。 0纹理单元，0纹理单元
+gl.activeTexture(gl.TEXTURE0)
+
+//绑定纹理对象，和绑定缓冲区对象很像。
+//2d纹理绑定给类型TEXTURE_2D，立方体纹理绑定给TEXTURE_CUBE_MAP
+gl.bindTexture(gl.TEXTURE_2D, texture);
+
+//配置纹理的一些映射参数
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+
+//配置纹理图像
+gl.texImage2D(gl.TEXTURE_2D, 0 ,gl.RGB,gl.UNSIGNED_BYTE,IMAGE)
+
+//将0号纹理给着色器
+gl.uniform1i(u_Sampler, 0)
+</pre></div>
+
+
+<p>gl.texParameterf(GLenum target, GLenum pname, GLfloat param);//映射参数</p>
+<div class="codehilite"><pre>gl.texParameterf(GLenum target, GLenum pname, GLfloat param);
+target:
+  gl.TEXTURE_2D
+  gl.TEXTURE_CUBE_MAP
+pname:
+  gl.TEXTURE_MAG_FILTER 放大纹理
+  gl.TEXTURE_MIN_FILTER 缩小纹理
+  gl.TEXTURE_WRAP_S 水平填充
+  gl.TEXTURE_WRAP_T 垂直填充
+pname:对应上面的默认值，还存在其他值。
+  //指颜色获取的方式，毕竟片元和纹理不会与纹理图片像素一一对应，
+  //需要计算出一个合理的颜色。
+  gl.LINEAR
+  gl.NEAREST_MIPMAP_LINEAR
+  gl.REPEAT
+  gl.REPEAT
+</pre></div>
+
+
+<p>gl.texImage2D(target, level, internalformat, format, type, image)//纹理图分配给纹理对象</p>
+<div class="codehilite"><pre>target //gl.TEXTURE_2D 或 TEXTURE_CUBE_MAP
+level //默认0
+internalformat //图像的内部格式 gl.RGB, gl.RGBA, gl.ALPHA等
+//注意
+//internalformat的值会决定，最后取样器取出来的色值。
+//即texture2D(u_Sampler, v_TexCoord)
+//注意。 
+//注意
+format // 必须和internalformat一样
+type // 颜色数据的类型，关于rgba等分量。 UNSIGNED_BYTE 最高咯
+  gl.UNSIGNED_BYTE: 8 bits per channel for gl.RGBA
+  gl.UNSIGNED_SHORT_5_6_5: 5 red bits, 6 green bits, 5 blue bits.
+  gl.UNSIGNED_SHORT_4_4_4_4: 4 red bits, 4 green bits, 4 blue bits, 4 alpha bits.
+  gl.UNSIGNED_SHORT_5_5_5_1: 5 red bits, 5 green bits, 5 blue bits, 1 alpha bit.
+image //终于到了image对象了！new Image()
+</pre></div>
+
+
+<p>gl.uniform1i(u_Sampler, 0)</p>
+<div class="codehilite"><pre>将纹理单元传递给片元着色器
+</pre></div>
+
+
+<p>加载纹理，示例</p>
+<div class="codehilite"><pre>function initTextures() {
+  cubeTexture = gl.createTexture();
+  cubeImage = new Image();
+  cubeImage.onload = function() { handleTextureLoaded(cubeImage, cubeTexture); }
+  cubeImage.src = &quot;cubetexture.png&quot;;
+}
+
+function handleTextureLoaded(image, texture) {
+  gl.bindTexture(gl.TEXTURE_2D, texture);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);
+  gl.generateMipmap(gl.TEXTURE_2D);
+  gl.bindTexture(gl.TEXTURE_2D, null);
+}
+</pre></div>
+
+
+<p>例子：
+  <a href="/Users/tangbin/git/tangbindu.github.io/knowledge/webgl/webgl/example/glsl/dist/html/index.html">一张图片</a></p>
+<h2 id="_4">贴图,待细化<a class="headerlink" href="#_4" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>//获取gl
+var gl=initwebgl(
+  document.getElementById(&quot;webgl_demo&quot;),
+  data[0], 
+  data[1]
+);
+
+
+var n = initVertexBuffers(gl);
+// Set texture
+initTextures(gl, n)
+
+function initVertexBuffers(gl) {
+  var verticesTexCoords = new Float32Array([
+    -0.5,  0.5,   0.0, 1.0,
+    -0.5, -0.5,   0.0, 0.0,
+     0.5,  0.5,   1.0, 1.0,
+     0.5, -0.5,   1.0, 0.0,
+  ]);
+  var n = 4; 
+  var vertexTexCoordBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexTexCoordBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, verticesTexCoords, gl.STATIC_DRAW);
+  var FSIZE = verticesTexCoords.BYTES_PER_ELEMENT;
+  //console.dir(verticesTexCoords)
+  var position = gl.getAttribLocation(gl.program, &#39;position&#39;);
+  gl.vertexAttribPointer(position, 2, gl.FLOAT, false, FSIZE * 4, 0);
+  gl.enableVertexAttribArray(position);
+
+  var a_TexCoord = gl.getAttribLocation(gl.program, &#39;a_TexCoord&#39;);
+  gl.vertexAttribPointer(a_TexCoord, 2, gl.FLOAT, false, FSIZE * 4, FSIZE * 2);
+  gl.enableVertexAttribArray(a_TexCoord);  
+  return n;
+}
+
+function initTextures(gl, n) {
+  var image = new Image();
+  image.onload = function(){ 
+    var texture = gl.createTexture();
+    var u_Sampler = gl.getUniformLocation(gl.program, &#39;u_Sampler&#39;);
+    loadTexture(gl, n, texture, u_Sampler, image); 
+  };
+  image.src = &#39;../img/sky.png&#39;;
+}
+
+function loadTexture(gl, n, texture, u_Sampler, image) {
+  //解决png的问题
+  gl.enable(gl.BLEND);
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+  //gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
+  gl.activeTexture(gl.TEXTURE0);
+  gl.bindTexture(gl.TEXTURE_2D, texture);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+  gl.uniform1i(u_Sampler, 0);
+  //gl.clearColor(255/255, 255/250, 255/255, 1.0);
+  gl.clear(gl.COLOR_BUFFER_BIT); 
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, n); // Draw the rectangle
+}
+</pre></div>
+
+
+<h2 id="float">float<a class="headerlink" href="#float" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>vec2 vec3 vec4
+//多意义
+void myVec(vec4 position){
+  float x=position.x;
+  float y=position.y;
+  float z=position.z;
+  float w=position.w;
+}
+void myVec(vec4 color){
+  float r=color.r;
+  float g=color.g;
+  float b=color.b;
+  float a=color.a;
+}
+void myVec(vec4 texture){
+  float s=texture.s;
+  float t=texture.t;
+  float p=texture.p;
+  float q=texture.q;
+}
+//特殊缩写
+void myfunction(){
+  vec3 color=vec3(1.0,1.0,1.0);//==vec3(1.0)
+  vec4 color1=vec4(color,1.0);
+}
+//数组
+void myVec(){
+  vec2[3] coords=vec2[3](
+    vec2(1.0,1.0),
+    vec2(1.0,1.0),
+    vec2(1.0,1.0),
+  )
+  vec2 firstCoord=coords[0];
+  vec2 secondCoord=coords[1];
+}
+//多下标
+vec4 v4;
+v4.rgba;  // is a vec4 and the same as just using v4,
+v4.rgb;   // is a vec3,
+v4.b;     // is a float,
+v4.xy;    // is a vec2,
+vec4 pos = vec4(1.0, 2.0, 3.0, 4.0);
+//部分重新赋值
+pos.xw = vec2(5.0, 6.0);
+pos.wx = vec2(7.0, 8.0);
+pos.xx = vec2(3.0, 4.0);
+pos.xy = vec3(1.0, 2.0, 3.0);
+</pre></div>
+
+
+<h2 id="int">int<a class="headerlink" href="#int" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>ivec2 ivec3 ivec4
+</pre></div>
+
+
+<h2 id="array">array<a class="headerlink" href="#array" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>const float c[3] = float[3](5.0, 7.2, 1.1);
+</pre></div>
+
+
+<h2 id="mat">mat<a class="headerlink" href="#mat" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>mat2 mat3 mat4
+//矩阵
+void myMat(){
+  mat3 myMat3=mat3{
+    1.0,1.0,1.0,
+    1.0,1.0,1.0,
+    1.0,1.0,1.0
+  }
+}
+mat2(vec2, vec2);             // one column per argument
+mat3(vec3, vec3, vec3);       // one column per argument
+mat4(vec4, vec4, vec4, vec4)
+
+mat4(
+  float, float, float, float,  // first column
+  float, float, float, float,  // second column
+  float, float, float, float,  // third column
+  float, float, float, float
+); // fourth column
+</pre></div>
+
+
+<h2 id="struct">struct<a class="headerlink" href="#struct" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>struct light {
+    float intensity;
+    vec3 position;
+};
+light lightVar = light(3.0, vec3(1.0, 2.0, 3.0));
+</pre></div>
+
+
+<h2 id="bool">bool<a class="headerlink" href="#bool" title="Permanent link"></a></h2>
+<h2 id="sampler2d">sampler2d(采样器)<a class="headerlink" href="#sampler2d" title="Permanent link"></a></h2>
+<h2 id="_5">运算<a class="headerlink" href="#_5" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>vector*vector
+vector*matrix
+matrix*vector
+matrix*matrix
+//点积
+vec3(x1,y1,z1)*vec3(x2,y2,z2) == vec3(x1*x2,y1*y2,z1*z2)   
+dot(vec3(x1,y1,z1),vec3(x2,y2,z2)) == vec3(x1*x2,y1*y2,z1*z2)   
+//向量积,暂和角度有关，下次换算推算
+cross(vec3(x1,y1,z1),vec3(x2,y2,z2))==vec3(y1*z2-z1*y2,z1*x2-x1*z2,x1*y2-y1*x2);
+</pre></div>
+
+
+<h2 id="sin">sin,关注类型<a class="headerlink" href="#sin" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>sin(vec3(x,y,z))==vec3(sin(x),sin(y),sin(z))
+</pre></div>
+
+
+<h2 id="min-max">min max<a class="headerlink" href="#min-max" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>min(.2,.4)//.2
+max(.2,.4)//.4
+</pre></div>
+
+
+<h2 id="length">length<a class="headerlink" href="#length" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>length(vec2(1.0,.3))//伪代码==Math.sqrt(1.0*1.0+0.3*.0.3
+</pre></div>
+
+
+<h2 id="distance">distance<a class="headerlink" href="#distance" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>distance(A,B)==length(B-A);
+</pre></div>
+
+
+<h2 id="normalizevector">normalize(vector) 统一化向量<a class="headerlink" href="#normalizevector" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>normalize(vector)==vector/length(vector)
+//任何向量缩短或变长成为一个同方向，长度为1的向量
+</pre></div>
+
+
+<h2 id="mixabratio">mix(a,b,ratio) 混合（加权平均算法）<a class="headerlink" href="#mixabratio" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>//a混合b，混合的比例食用ratio
+mix(a,b,ratio)==a*(1.0-ratio)+b*ratio 
+//好例子
+mix(RED,YELLOW,position.x);//加权位置-1.0~1.0;
+</pre></div>
+
+
+<h2 id="clamp">clamp,给值设定范围，区范围内的值<a class="headerlink" href="#clamp" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>clamp(x,min,max)==min(max(x,min),max)
+clamp(color,0.0,1.0)
+</pre></div>
+
+
+<h2 id="stepedgex-edge">step(edge,x) ,edge（边界，阀值）<a class="headerlink" href="#stepedgex-edge" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>//基于一个阀值判断，小于取0,0，大于取1.0。
+step(.3,.1)//return 0.0
+color=step(screen.width/2,x)//伪代码，左屏幕取0，右屏幕取1
+</pre></div>
+
+
+<h2 id="smoothstepstartendx">smoothstep(start,end,x)<a class="headerlink" href="#smoothstepstartendx" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>//基于2个阀值判断，小于start取0,0，大于end取1.0。中间平滑过渡，使用平滑埃尔米特差值
+opacity=smoothstep(0.0,5000.0,time)//随着时间变化改变透明度
+</pre></div>
+
+
+<h2 id="dfdxvalue">dFdx(value) //下回学习原因<a class="headerlink" href="#dfdxvalue" title="Permanent link"></a></h2>
+<p>a==3.0
+  a==5.0
+  a==7.0
+  dFdx(a)==2.0 </p>
+<h2 id="dfdyvalue">dFdy(value)<a class="headerlink" href="#dfdyvalue" title="Permanent link"></a></h2>
+<h2 id="fwidthvalue">fwidth(value)<a class="headerlink" href="#fwidthvalue" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>待续
+</pre></div>
+
+
+<h2 id="storage-qualifiers">storage qualifiers（存储限定符）<a class="headerlink" href="#storage-qualifiers" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>const //常量，不可以修改。一定要赋值
+attribute//顶点着色器和opengl每个顶点数据之间的联系
+    只读
+    attribute qualifier can be used only with float, floating-point vectors, and matrices，Attribute variables cannot be declared as arrays or structures.
+
+     attribute vec4 position;
+     attribute vec3 normal;
+     attribute vec2 texCoord;
+uniform//
+varying//顶点和片源着色器之间同步数据
+</pre></div>
+
+
+<h2 id="preprocessor">预处理器Preprocessor<a class="headerlink" href="#preprocessor" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>#
+#define
+#undef
+#if
+#ifdef
+#ifndef
+#else
+#elif
+#endif
+#error
+#pragma
+#extension
+#version
+#line
+</pre></div>
+
+
+<h2 id="keywords">Keywords<a class="headerlink" href="#keywords" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>attribute const uniform varying centroid
+break continue do for while
+if else
+in out inout
+float int void bool true false
+invariant
+discard return
+mat2 mat3 mat4
+mat2x2 mat2x3 mat2x4
+mat3x2 mat3x3 mat3x4
+mat4x2 mat4x3 mat4x4
+vec2 vec3 vec4 ivec2 ivec3 ivec4 bvec2 bvec3 bvec4 sampler1D sampler2D sampler3D samplerCube sampler1DShadow sampler2DShadow
+struct
+
+//未来会有，需要避免
+asm
+class union enum typedef template this packed
+goto switch default
+inline noinline volatile public static extern external interface long short double half fixed unsigned
+lowp mediump highp precision
+input output
+hvec2 hvec3 hvec4 dvec2 dvec3 dvec4 fvec2 fvec3 fvec4 sampler2DRect sampler3DRect sampler2DRectShadow
+sizeof cast
+namespace using
+</pre></div>
+
+
+<h2 id="_6">注释<a class="headerlink" href="#_6" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>/*
+
+
+*/
+//
+</pre></div>
+
+
+<h2 id="function">function<a class="headerlink" href="#function" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>//返回的
+float sun(float a,float b){
+  return a+b
+}
+//空函数
+void myfunction(){
+  float a=2.0;
+}
+//多变量
+void myfunction(){
+  float a=2.0,b=3.0;
+}
+</pre></div>
+
+
+<h2 id="glsl-function">glsl function<a class="headerlink" href="#glsl-function" title="Permanent link"></a></h2>
+<h2 id="triangle_strip">TRIANGLE_STRIP<a class="headerlink" href="#triangle_strip" title="Permanent link"></a></h2>
+<h2 id="gl_fragcoord">gl_FragCoord<a class="headerlink" href="#gl_fragcoord" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>vec2 st = gl_FragCoord.xy/resolution;
+</pre></div>
+
+
+<h2 id="gl_fragcoord_1">gl_FragCoord<a class="headerlink" href="#gl_fragcoord_1" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>vec2 st = gl_FragCoord.xy/resolution; //当前的绘制坐标
+</pre></div>
+
+
+<h2 id="gldrawingbufferwidthgldrawingbufferheight">gl.drawingBufferWidth,gl.drawingBufferHeight 绘制区域的宽高<a class="headerlink" href="#gldrawingbufferwidthgldrawingbufferheight" title="Permanent link"></a></h2>
+<h2 id="_7">实验：片元着色器动态计算颜色<a class="headerlink" href="#_7" title="Permanent link"></a></h2>
+<p><a href="/Users/tangbin/git/tangbindu.github.io/knowledge/webgl/fragment1/dist/html/index.html">demo</a></p>
+<h3 id="_8">代码<a class="headerlink" href="#_8" title="Permanent link"></a></h3>
+<div class="codehilite"><pre>&#39;void main() {&#39;,
+  &#39;  gl_FragColor = vec4(abs(cos(time/180.0*3.1415)),abs(sin(time/180.0*3.1415)),abs(tan(time/180.0*3.1415)),1.0);&#39;, 
+&#39;}&#39;
+
+var timeNum=1;
+function ticker(){
+  gl.uniform1f(time,++timeNum);//rgba
+  //统一绘制
+  gl.drawArrays(gl.TRIANGLE_STRIP , 0, vertices.length/2);
+  requestAnimationFrame(arguments.callee);
+}
+ticker();
+</pre></div>
+
+
+<h3 id="_9">结论<a class="headerlink" href="#_9" title="Permanent link"></a></h3>
+<p>测试结果，特别耗电，特别耗电，特别耗电，特别耗电，特别耗电。
+  猜想，对着片元着色器计算，每个像素的几何计算量太大，加上60fps实时计算</p>
+<h2 id="_10">实验：着色器<a class="headerlink" href="#_10" title="Permanent link"></a></h2>
+<p><a href="/Users/tangbin/git/tangbindu.github.io/knowledge/webgl/shader1/dist/html/index.html">demo</a></p>
+<h2 id="_11">实验： 顶点着色器<a class="headerlink" href="#_11" title="Permanent link"></a></h2>
+<p><a href="/Users/tangbin/git/tangbindu.github.io/knowledge/webgl/vertex1/dist/html/index.html">demo</a></p>
+<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link"></a></h2>
+<p>那个屏幕+灯光+雨水的动画效果怎么做成的？</p>
+<p>1.0,0.0,0.0对应的rgb到底是多少，为什么显示色彩和预期不一样？</p>
+<p>关于三角形的绘制顺序，</p>
+<p>三角形的顶点绘制顺序是逆时针（CounterClockWise，CCW）或者顺时针（ClockWise，CW）。
+  绘制顺序之所以重要，是因为它决定了三角形的面是否朝向观察者。朝向观察者的三角形为正面三角形，否则为背面三角形。
+  剔除背面三角形：</p>
+<div class="codehilite"><pre>gl.frontFace(gl.CCW);
+gl.enable(gl.CULL_FACE);// CULL意为“剔除”
+gl.cullFace(gl.BACK);
+</pre></div>
+
+
+<p>canvas最多的数量？ chrome 超过16个就会报错</p>
+<div class="codehilite"><pre>WARNING: Too many active WebGL contexts. Oldest context will be lost.
+</pre></div>
+
+
+<p>图片跨域解决方案</p>
+<div class="codehilite"><pre>var img = new Image();
+img.crossOrigin = &#39;&#39;;
+</pre></div>
+
+
+<p>图片不是2的n次方尺寸报错问题？ 加入下面的代码</p>
+<div class="codehilite"><pre>// 设置材质，这样我们可以对任意大小的图像进行像素操作
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+</pre></div>
+
+
+<p>gl.vertexAttribPointer(index, size, type, normalized, stride, offset)</p>
+<div class="codehilite"><pre>index 指定要修改的顶点属性的索引即key
+size 指定每个顶点属性值的数量，一般最多4个，xyzw。
+type 现在用的基本是浮点数，来提高精度
+  gl.BYTE：带符号的8位整数，值为[-128,127]
+  gl.SHORT：带符号的16位整数，其值为[-32768,32767]
+  gl.UNSIGNED_BYTE：无符号8位整数，值为[0,255]
+  gl.UNSIGNED_SHORT：无符号16位整数，值为[0,65535]
+  gl.FLOAT：32位IEEE浮点数
+normalized 归一化处理【-1，1】 浮点型没意义，此处为false
+  对于类型gl.BYTE和gl.SHORT，如果为true，则将值标准化为[-1,1]。
+  对于类型gl.UNSIGNED_BYTE和gl.UNSIGNED_SHORT，归一化的值，以[0，1]如果为真。
+  对于类型gl.FLOAT和gl.HALF_FLOAT，此参数无效。
+stride  指定连续顶点属性开头之间的偏移量
+  不能大于255.如果stride为0，则假定属性紧密打包，即属性不是交错的，但每个属性都在一个单独的块中，下一个顶点&#39;属性紧跟在当前顶点之后。
+offset
+  指定顶点属性数组中第一个组件的偏移量（以字节为单位）。必须是字节长度的倍数  type。
+</pre></div>
+
+
+<p>gl.drawArrays（mode，first，count）</p>
+<div class="codehilite"><pre>mode 绘图的方式
+  gl.POINTS：绘制一个点。
+  gl.LINE_STRIP：绘制直线到下一个顶点。
+  gl.LINE_LOOP：绘制一条直线到下一个顶点，并将最后一个顶点连接回第一个顶点。
+  gl.LINES：在一对顶点之间绘制一条线。
+  gl.TRIANGLE_STRIP
+  gl.TRIANGLE_FAN
+  gl.TRIANGLES：为一组三个顶点绘制一个三角形。
+first
+  指定向量点数组中的起始索引。
+count
+  指定要呈现的索引数。要绘制的顶点总数量
+</pre></div>
+
+
+<p>TRIANGLES 或 TRIANGLE_STRIP 或 TRIANGLE_FAN <br />
+  三角形F 和 顶点N开销</p>
+<div class="codehilite"><pre>TRIANGLES F== 3n
+TRIANGLE_STRIP F== n-2
+TRIANGLE_FAN F== n-2
+</pre></div>
+
+
+<h2 id="gldrawelementsmode-count-type-offset">gl.drawElements(mode, count, type, offset);<a class="headerlink" href="#gldrawelementsmode-count-type-offset" title="Permanent link"></a></h2>
+<h2 id="_12">三角形绘制的详文<a class="headerlink" href="#_12" title="Permanent link"></a></h2>
+<p><a href="https://blog.csdn.net/u011294404/article/details/53605873" target="_blank"><a href="https://blog.csdn.net/u011294404/article/details/53605873">https://blog.csdn.net/u011294404/article/details/53605873</a></a> 外部</p>
+<p><a href="https://blog.csdn.net/u011294404/article/details/53605873">https://blog.csdn.net/u011294404/article/details/53605873</a> 内跳</p>
+<h1 id="glsl">glsl<a class="headerlink" href="#glsl" title="Permanent link"></a></h1>
+<h2 id="_13">内置函数<a class="headerlink" href="#_13" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>名字</th>
+<th>中文</th>
+<th>解释</th>
+<th>demo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mix(a,b,ratio)</td>
+<td>混合</td>
+<td>混合进一个数，用一定的比列。例如：mix(1.0,.2,.5)等于.6，color = mix(colorA, colorB, pct)；非常非常非常适合通道之间用来混合颜色</td>
+<td><a href="/Users/tangbin/git/tangbindu.github.io/knowledge/webgl/webgl/example/181221glslmix/dist/html/index.html">demo</a></td>
+</tr>
+<tr>
+<td>step(a,val)</td>
+<td>插值函数</td>
+<td>设定一个阀值，传入要输入的值,小于伐值得0，大于伐值得1</td>
+<td><a href="/Users/tangbin/git/tangbindu.github.io/knowledge/webgl/webgl/example/181224glslstep/dist/html/index.html">demo</a></td>
+</tr>
+<tr>
+<td>smoothstep(a,b,val)</td>
+<td>过渡插值函数</td>
+<td>设定一个区间伐值，传入一个值进去，如果小于区间得0，大于区间得1，否则平滑0-1平滑过度（按照值在区间中的位置比例，即左区间边界为0，右区间边界为1）；a，b的位置会影响到绘制效果</td>
+<td><a href="/Users/tangbin/git/tangbindu.github.io/knowledge/webgl/webgl/example/181225glslsmoothstep/dist/html/index.html">demo</a></td>
+</tr>
+<tr>
+<td>fract</td>
+<td>取小数部分</td>
+<td>利用无序的小数当随机数据，制作一些随机图像，如噪点</td>
+<td><a href="/Users/tangbin/git/tangbindu.github.io/knowledge/webgl/webgl/example/20181229glslfract/dist/html/index.html">demo</a></td>
+</tr>
+<tr>
+<td>mix</td>
+<td>混合</td>
+<td>可以使用百分比混合2个不同的值</td>
+<td><a href="/Users/tangbin/git/tangbindu.github.io/knowledge/webgl/webgl/example/181221glslmix/dist/html/index.html">demo</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="glsl-demo">glsl-demo<a class="headerlink" href="#glsl-demo" title="Permanent link"></a></h2>
+<p><a href="/Users/tangbin/git/tangbindu.github.io/knowledge/webgl/webgl/example/181221glsldrawline/dist/html/index.html">绘制一条线</a></p>
+<div class="codehilite"><pre>vec2 st = gl_FragCoord.xy/resolution;
+float y = st.x;
+float pct = smoothstep( y-0.01, y, st.y)-smoothstep( y, y+0.01, st.y);
+vec3 color = pct*vec3(1.0,0.0,0.0);;
+gl_FragColor = vec4(color,1.0);
+</pre></div>
+
+
+<p><a href="/Users/tangbin/git/tangbindu.github.io/knowledge/webgl/webgl/example/181226glslsin/dist/html/index.html">绘制sin</a></p>
+<div class="codehilite"><pre>vec2 st = gl_FragCoord.xy/resolution;
+float y = sin(st.x*3.1415926);//关键
+float pct = smoothstep( y-0.01, y, st.y)-smoothstep( y, y+0.01, st.y);
+vec3 color = pct*vec3(1.0,0.0,0.0);;
+gl_FragColor = vec4(color,1.0);
+</pre></div>
+
+
+<p><a href="/Users/tangbin/git/tangbindu.github.io/knowledge/webgl/webgl/example/181226glslgrid/dist/html/index.html">绘制网格</a></p>
+<div class="codehilite"><pre>vec2 st = gl_FragCoord.xy/resolution;
+float x=sin(M_PI*st.x*30.0);
+x=smoothstep(.994,1.0,x);
+float y=sin(M_PI*st.y*30.0);
+y=smoothstep(.994,1.0,y);
+gl_FragColor = vec4(x,y,0.5,1.0);
+</pre></div>
+
+
+<p><a href="/Users/tangbin/git/tangbindu.github.io/knowledge/webgl/webgl/example/20181229glslfract/dist/html/index.html">噪点</a></p>
+<div class="codehilite"><pre>vec2 st = gl_FragCoord.xy/resolution.xy;
+//随机值
+float random=fract(
+  sin(
+    dot(st.xy,vec2(10000.0,1002.0)) //横行和纵向“随机”乘积
+  )*1000.0
+);
+//赋值
+gl_FragColor = vec4(vec3(random), 1.0);
+</pre></div>
+
+
+<p><a href="/Users/tangbin/git/tangbindu.github.io/knowledge/webgl/webgl/example/20181229glslorderfract/dist/html/index.html">有序噪点</a></p>
+<div class="codehilite"><pre>float random (vec2 st) {
+return fract(sin(dot(st.xy,vec2(12.9898,78.233)))*43758.5453123);
+</pre></div>
+
+
+<p>}
+void main() {
+    vec2 st = gl_FragCoord.xy/resolution.xy;
+    st *= 10.0; // Scale the coordinate system by 10
+    vec2 ipos = floor(st);  // get the integer coords
+    vec2 fpos = fract(st);  // get the fractional coords
+    // Assign a random value based on the integer coord
+    vec3 color = vec3(random( ipos ));
+    // Uncomment to see the subdivided grid ,显示了渐变颜色，不纯色了
+    // color = vec3(fpos,0.0);
+    gl_FragColor = vec4(color,1.0);
+    // gl_FragColor=vec4(1.0,1.0,0.0,1.0);
+}</p></article></body></html>
