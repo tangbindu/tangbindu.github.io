@@ -635,21 +635,53 @@
 [有序噪点](./webgl/example/20181229glslorderfract/dist/html/index.html)
 
     float random (vec2 st) {
-        return fract(sin(dot(st.xy,vec2(12.9898,78.233)))*43758.5453123);
+      return fract(sin(dot(st.xy,vec2(5.0,8.0))*1000.0));
+    }
+    void main() {
+      vec2 st = gl_FragCoord.xy/resolution.xy;
+      st *= 4.0; // Scale the coordinate system by 10
+      vec2 ipos = floor(st);  // get the integer coords
+      vec2 fpos = fract(st);  // get the fractional coords
+      // vec3 color = vec3(random( ipos ));
+      vec3 color = vec3(random( fpos ));
+      gl_FragColor = vec4(color,1.0);
+    }
+
+
+[迷宫](./webgl/example/20181229glslmaze/dist/html/index.html)
+
+    //main入口
+    float random (in vec2 _st) {
+        return fract(sin(dot(_st.xy,
+                             vec2(12.9898,78.233)))*
+            43758.5453123);
+    }
+    vec2 truchetPattern(in vec2 _st, in float _index){
+        _index = fract(((_index-0.5)*2.0));
+        if (_index > 0.75) {
+            _st = vec2(1.0) - _st;
+        } else if (_index > 0.5) {
+            _st = vec2(1.0-_st.x,_st.y);
+        } else if (_index > 0.25) {
+            _st = 1.0-vec2(1.0-_st.x,_st.y);
+        }
+        return _st;
     }
     void main() {
         vec2 st = gl_FragCoord.xy/resolution.xy;
-        st *= 10.0; // Scale the coordinate system by 10
-        vec2 ipos = floor(st);  // get the integer coords
-        vec2 fpos = fract(st);  // get the fractional coords
-        // Assign a random value based on the integer coord
-        vec3 color = vec3(random( ipos ));
-        // Uncomment to see the subdivided grid ,显示了渐变颜色，不纯色了
-        // color = vec3(fpos,0.0);
-        gl_FragColor = vec4(color,1.0);
-        // gl_FragColor=vec4(1.0,1.0,0.0,1.0);
-    }
+        st *= 10.0;
+        st = (st-vec2(5.0))*(abs(sin(time/1000.0*0.2))*5.);
+        st.x += time/1000.0*10.0;
 
+        vec2 ipos = floor(st);  // integer
+        vec2 fpos = fract(st);  // fraction
+        vec2 tile = truchetPattern(fpos, random( ipos ));
+        float color = 0.0;
+        // Maze
+        color = smoothstep(tile.x-0.1,tile.x,tile.y)-
+                smoothstep(tile.x,tile.x+0.1,tile.y);
+        gl_FragColor = vec4(.0,vec3(color).xy,1.0);
+    }
 
 
 
