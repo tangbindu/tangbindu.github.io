@@ -10,14 +10,14 @@ varying vec2 v_TexCoord;
 
  
 float random (vec2 st) {
-    return fract(sin(dot(st.xy,vec2(5.0,8.0))*1000.0));
+    return fract(sin(dot(st,st)*0.3));
 }
 void main() {
     vec2 st = gl_FragCoord.xy/resolution.xy;
-    st *= 4.0; // Scale the coordinate system by 10
+    st *= 10.0; // Scale the coordinate system by 10
     vec2 ipos = floor(st);  // get the integer coords
     vec2 fpos = fract(st);  // get the fractional coords
-    // vec3 color = vec3(random( ipos ));
-    vec3 color = vec3(random( fpos ));
+    vec3 color = vec3(random( ipos ));
+    // vec3 color = vec3(random( fpos ));
     gl_FragColor = vec4(color,1.0);
 }

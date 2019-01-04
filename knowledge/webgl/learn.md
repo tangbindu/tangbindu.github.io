@@ -648,7 +648,7 @@
     }
 
 
-[迷宫](./webgl/example/20181229glslmaze/dist/html/index.html)
+[迷宫](./webgl/example/20190104glslmaze/dist/html/index.html)
 
     //main入口
     float random (in vec2 _st) {
