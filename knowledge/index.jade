@@ -15,8 +15,8 @@ html(data-use-rem)
     link(rel="apple-touch-icon-precomposed" sizes="120x120" href="./app120x120.png")
     link(rel="stylesheet",href="https://tangbindu.github.io/static/css/code.css")
     link(rel="stylesheet",href="./index.css")
-
   body(ontouchstart="")
+    style.
     #choisePage.unfold
       .item webgl
       .item canvas
@@ -34,6 +34,7 @@ html(data-use-rem)
       .item laya
       .item nodejs
       .item mock
+      .item book
       #touch 
     #content.markdown-body
     script(src="https://tangbindu.github.io/static/js/zepto.min.js")
@@ -61,8 +62,11 @@ html(data-use-rem)
       var path=$("#prettify").attr("src");
       //- console.dir($("#prettify"));
       var content=document.getElementById('content');
-      //默认启动webgl
-      var defaultView="webgl"
+      //默认启动
+      var defaultView="book"
+      //如果浏览器有地址指向
+      var pagename=location.search.slice(1);
+      defaultView =pagename? pagename : defaultView;
       AjaxGetFile("./"+defaultView+"/learn.md",function(data){
         content.innerHTML =marked(data);
         $("pre").addClass("prettyprint lang-js");

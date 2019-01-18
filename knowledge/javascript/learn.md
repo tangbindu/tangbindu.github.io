@@ -318,8 +318,3 @@ HTML5为网页添加文字水印
     middle=Math.max(Math.min(middle,max),min);
 
 
-
-
-
-
-

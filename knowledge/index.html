@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="./index.css">
   </head>
   <body ontouchstart="">
+    <style></style>
     <div id="choisePage" class="unfold">
       <div class="item">webgl</div>
       <div class="item">canvas</div>
@@ -32,6 +33,7 @@
       <div class="item">laya</div>
       <div class="item">nodejs</div>
       <div class="item">mock</div>
+      <div class="item">book</div>
       <div id="touch"></div>
     </div>
     <div id="content" class="markdown-body"></div>
@@ -60,8 +62,11 @@
       var path=$("#prettify").attr("src");
       //- console.dir($("#prettify"));
       var content=document.getElementById('content');
-      //默认启动webgl
-      var defaultView="webgl"
+      //默认启动
+      var defaultView="book"
+      //如果浏览器有地址指向
+      var pagename=location.search.slice(1);
+      defaultView =pagename? pagename : defaultView;
       AjaxGetFile("./"+defaultView+"/learn.md",function(data){
         content.innerHTML =marked(data);
         $("pre").addClass("prettyprint lang-js");

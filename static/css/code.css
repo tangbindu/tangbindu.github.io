@@ -16,7 +16,8 @@ h2 {
 }
 h3 {
     font-size: 1.17em;
-    color: #f66;
+    color:#444;
+    padding:3px;
     font-weight: bold;
     border-bottom: 1px solid #ddd;
     padding-bottom: 5px;
@@ -213,7 +214,8 @@ table td {
   color: #939bae;
   background-color: #f5f8fe;
 }
-
-
+ul{
+  padding:10px;
+}
 
 

@@ -1,0 +1,305 @@
+<h1 id="javascript">javascript</h1>
+<h2 id="-2d-">获取定量2D点</h2>
+<pre><code>const get2DPoints=(number)=&gt;{
+    var points=[];
+    while(number--){
+        points.push({
+            x:Math.random(),
+            y:Math.random()
+        })
+    }
+    return points;
+}
+</code></pre><h2 id="-3d-">获取定量3D点</h2>
+<pre><code>const get3DPoints=(number)=&gt;{
+    var points=[];
+    while(number--){
+        points.push({
+            x:Math.random(),
+            y:Math.random(),
+            z:Math.random()
+        })
+    }
+    return points;
+}
+</code></pre><h2 id="javascript-">JavaScript数组、字典转换</h2>
+<pre><code>function parseMapToArray(obj){
+    var arr = [];
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            arr.push(key);
+        }
+    }
+    return arr;
+}
+function parseArrayToMap(list){
+    var map = {};
+    list.forEach(function(item){
+        map[item] = true;
+    });
+    return map;
+}
+console.log(parseMapToArray({1:true,2:true}));
+console.log(parseArrayToMap([ &#39;1&#39;, &#39;2&#39; ]));
+</code></pre><h2 id="qq-">QQ号码正则验证</h2>
+<pre><code>function isUinLegal(uin) {
+    var legal = false;
+    if (typeof uin === &#39;string&#39; || typeof uin === &#39;number&#39;) {
+        var num = uin * 1, str = uin + &#39;&#39;;
+        legal = (/^\d{5,10}$/.test(str) &amp;&amp; num &gt;= 10001 &amp;&amp; num &lt;= 4294967295);
+    }
+    return legal;
+}
+</code></pre><h2 id="-window-onerror-">通过window.onerror报错定位</h2>
+<p>使用window.onerror来捕获错误，然后根据参数来定位错误的位置和错误的信息，还要注意的是，js里的onerror只能捕获当前域的js中的错误，如果跨域的话，是不能准确定位的</p>
+<pre><code>/**
+ * @param {String}  errorMessage   错误信息
+ * @param {String}  scriptURI      出错的文件
+ * @param {Long}    lineNumber     出错代码的行号
+ * @param {Long}    columnNumber   出错代码的列号
+ * @param {Object}  errorObj       错误的详细信息，Anything
+ */
+window.onerror = function(errorMessage, scriptURI, lineNumber,columnNumber,errorObj) {
+    console.log(&quot;错误信息：&quot; , errorMessage);
+    console.log(&quot;出错文件：&quot; , scriptURI);
+    console.log(&quot;出错行号：&quot; , lineNumber);
+    console.log(&quot;出错列号：&quot; , columnNumber);
+    console.log(&quot;错误详情：&quot; , errorObj);
+}
+</code></pre><h2 id="-javascript-">前端存储轻量级javascript库</h2>
+<p>底层用localStorage 和sessionStorage 实现，非常轻量，支持设置数据过期时间，对外api
+clear()
+set(key,value)
+get(key)
+has(key)
+remove(key)
+forEach(callback)
+destroy()
+使用：
+const testStore = new EasyStore(‘testStore’,60*1000);</p>
+<pre><code>class BaseStore {
+    constructor(scope){
+        this.scope = scope;
+    }
+    getData(id){
+        let storageData = null;
+        const storageStr = window[`${this.scope}Storage`].getItem(id);
+        try {
+            storageData = JSON.parse(storageStr);
+        } catch (e) {
+            storageData = {};
+        }
+        return storageData;
+    }
+    save(id,value){
+        window[`${this.scope}Storage`].setItem(id,value);
+    }
+    destroy(id){
+        window[`${this.scope}Storage`].removeItem(id);
+    }
+}
+const PREFIX = &#39;e&#39;;
+const VERSION = &#39;1.0&#39;;
+/***
+ * 存储类，
+ */
+class EasyStore {
+    _data = {};
+    _store = null;
+    /***
+     *
+     * @param id storeId
+     * @param expiresTime 默认缓存时间(单位:毫秒)，不传默认为null,永久保存
+     * @param scope 缓存类型 session,local(默认session)
+     */
+    constructor(id,expiresTime,scope){
+        if(!id){
+            throw Error(&#39;miss store id&#39;);
+        }
+        this.id = `${PREFIX}_${VERSION}_${id}`;
+        this.scope = scope || &#39;session&#39;;
+        this._store = new BaseStore(this.scope);
+        this._loadData();
+        this.expires = arguments[1] ? (Date.now() + arguments[1]): null;
+    }
+    /***
+     * 加载/初始化数据
+     * @private
+     */
+    _loadData(){
+        let storageData = Object.assign({data:{},expires:null},this._store.getData(this.id));
+        //过期时间为空，并且不超过当前时间
+        if(!storageData.expires || new Date(storageData.expires).getTime() &gt;= Date.now()){
+            this._data = storageData.data;
+            this.expires = storageData.expires;
+        }
+    }
+    /***
+     * 是否过期
+     * @private
+     */
+    _isExpires(){
+        return this.expires &amp;&amp; new Date(this.expires).getTime() &lt; Date.now();
+    }
+    /**
+     * 保存数据
+     * @private
+     */
+    _save(){
+        const saveStr = JSON.stringify({
+            data:this._data,
+            expires:this.expires
+        });
+        this._store.save(this.id,saveStr);
+    }
+    /**
+     * 清空数据
+     */
+    clear(){
+        this._data = {};
+        this._save();
+    }
+    /***
+     * 设置缓存值
+     * @param key
+     * @param value
+     */
+    set(key,value){
+        this._data[key] = value;
+        this._save();
+    }
+    /***
+     * 根据key获取数据
+     * @param key
+     * @returns {null}
+     */
+    get(key){
+        return this._isExpires()?null:this._data[key];
+    }
+    /**
+     * 判断是否存在key
+     * @param key
+     */
+    has(key){
+        return this._data.hasOwnProperty(key);
+    }
+    /**
+     * 删除指定的key
+     * @param key
+     */
+    remove(key){
+        delete this._data[key];
+        this.has(key) &amp;&amp; this._save();
+    }
+    /***
+     * 迭代器
+     * @param callback key,value
+     */
+    forEach(callback){
+        if(this._isExpires())return;
+        const _data = this._data;
+        for(let key in _data){
+            _data.hasOwnProperty(key) &amp;&amp; typeof callback === &#39;function&#39; &amp;&amp; callback.call(this,key,_data[key]);
+        }
+    }
+    /***
+     * 销毁
+     */
+    destroy(){
+        this._store.destroy(this.id);
+        this._store = null;
+        this._data = null;
+    }
+}
+export default EasyStore;
+</code></pre><h2 id="-">去重</h2>
+<pre><code>//flter去重
+//arr.filter((v, i) =&gt; arr.indexOf(v) == i)
+//set去重
+var x=[...new Set([1, 2, 3, 3, 2, 3, 1, 3, 5, 6, 8])]
+</code></pre><h2 id="-url-">获取url的参数</h2>
+<pre><code>function getParamter(name) {
+    var url = location.search;
+    var reg = new RegExp(&#39;(\\?|&amp;)&#39; + name + &#39;=([^&amp;]*)(&amp;|$)&#39;);
+    var result = reg.exec(url);
+    return result ? decodeURIComponent(result[2]) : &#39;&#39;;
+}
+</code></pre><h2 id="-">字符串加*，隐藏中间字符串</h2>
+<p>隐藏中间字符串，保留两头各两位，默认保留18位*</p>
+<pre><code>function hideCode (str, num) {
+    if (!str) {
+        return &#39;&#39;;
+    }
+    return str.replace(/(.{2}).*(.{2})/, &#39;$1&#39; + new Array(num || 18).join(&#39;*&#39;) + &#39;$2&#39;);
+}
+hideCode(&#39;ablkjlkjljljljljljljjljjkjdc&#39;)
+</code></pre><h2 id="-">添加文字水印</h2>
+<p>HTML5为网页添加文字水印</p>
+<pre><code>/**
+ - 为网页添加文字水印
+ - @param {String} str 要添加的字符串
+ */
+ function addWaterMarker(str){
+        var can = document.createElement(&#39;canvas&#39;);
+        var body = document.body;
+
+        body.appendChild(can);
+
+        can.width=400;
+        can.height=200;
+        can.style.display=&#39;none&#39;;
+
+
+        var cans = can.getContext(&#39;2d&#39;);
+        cans.rotate(-20*Math.PI/180);
+        cans.font = &quot;16px Microsoft JhengHei&quot;;            
+        cans.fillStyle = &quot;rgba(17, 17, 17, 0.50)&quot;;
+        cans.textAlign = &#39;left&#39;;  
+        cans.textBaseline = &#39;Middle&#39;;
+        cans.fillText(str,can.width/3,can.height/2);
+
+        body.style.backgroundImage=&quot;url(&quot;+can.toDataURL(&quot;image/png&quot;)+&quot;)&quot;;
+    }
+</code></pre><h2 id="-">计算两个时间之间的天数差</h2>
+<pre><code>function diff(date1,date2) {
+    try{
+         var timeSpan = Math.abs(date1 - date2);
+         var ms = 1000 * 60 * 60 * 24;   //一天的毫秒数
+         var days = Math.ceil(timeSpan / ms);
+         return days + &quot;天&quot;;
+    } catch (e) {
+      throw e;
+    }
+}
+var start = new Date(2013, 10, 08);
+var finish = new Date(2016, 09, 10);
+var date = new diff(start, finish);
+console.log(date);
+</code></pre><h2 id="-h5-">使用H5定位</h2>
+<pre><code>window.addEventListener(&#39;message&#39;, function(event) { 
+    loc = event.data; // 接收位置信息
+    console.log(&#39;location&#39;, loc);
+    if(loc  &amp;&amp; loc.module == &#39;geolocation&#39;) { //定位成功,防止其他应用也会向该页面post信息，需判断module是否为&#39;geolocation&#39;
+        var markUrl = &#39;https://apis.map.qq.com/tools/poimarker&#39; +
+        &#39;?marker=coord:&#39; + loc.lat + &#39;,&#39; + loc.lng + 
+        &#39;;title:我的位置;addr:&#39; + (loc.addr || loc.city) + 
+        &#39;&amp;key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77&amp;referer=myapp&#39;;
+        //给位置展示组件赋值
+        document.getElementById(&#39;markPage&#39;).src = markUrl;
+    } else { //定位组件在定位失败后，也会触发message, event.data为null
+        alert(&#39;定位失败&#39;); 
+    }
+    /* 另一个使用方式 
+    if (!isMapInit &amp;&amp; !loc) { //首次定位成功，创建地图
+        isMapInit = true;
+        createMap(event.data);
+    } else if (event.data) { //地图已经创建，再收到新的位置信息后更新地图中心点
+        updateMapCenter(event.data);
+    }
+    */
+}, false);
+//为防止定位组件在message事件监听前已经触发定位成功事件，在此处显示请求一次位置信息
+document.getElementById(&quot;geoPage&quot;).contentWindow.postMessage(&#39;getLocation&#39;, &#39;*&#39;);
+</code></pre><h2 id="-min-max-">求min到max的中间值</h2>
+<pre><code>middle=Math.max(Math.min(middle,max),min);
+</code></pre>
