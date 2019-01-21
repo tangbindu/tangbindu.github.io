@@ -302,4 +302,139 @@ console.log(date);
 document.getElementById(&quot;geoPage&quot;).contentWindow.postMessage(&#39;getLocation&#39;, &#39;*&#39;);
 </code></pre><h2 id="-min-max-">求min到max的中间值</h2>
 <pre><code>middle=Math.max(Math.min(middle,max),min);
+</code></pre><h2 id="promise">promise</h2>
+<pre><code>var p1 = new Promise(function(resolve, reject){
+    //做一些异步操作
+    setTimeout(function(){
+        console.log(&#39;执行完成&#39;);
+        //resolve(&#39;随便什么数据&#39;);
+        reject(&#39;出错的数据&#39;);
+    }, 3000);
+});
+p1.then(function(data){
+    console.log(data)
+}).catch(function(error){
+    console.log(error)
+});
+</code></pre><h2 id="await">await</h2>
+<pre><code>var p1 = new Promise(function(resolve, reject){
+    //做一些异步操作
+    setTimeout(function(){
+        console.log(&#39;执行完成&#39;);
+        //resolve(&#39;随便什么数据&#39;);
+        reject(&#39;出错的数据&#39;);
+    }, 3000);
+});
+await p1.then(function(data){
+    console.log(data)
+}).catch(function(error){
+    console.log(error)
+});
+console.log(&quot;end&quot;);
+</code></pre><h2 id="-">文件上传前端交互</h2>
+<pre><code>/**
+  多文件上传需要加上属性， multiple=&quot;multiple&quot;
+*/
+class UploadFile{
+    constructor(conf){
+        this.conf=conf || {};
+        this.dragContainer=this.conf.dragContainer;//拖拽上传的容器
+        this.uploadBtn=this.conf.dragContainer;//上传按钮
+        this.uploadFileNums=this.conf.uploadFileNums; //默认不限定
+        this.init();
+    }
+    init(){
+        this.dragContainer &amp;&amp; this.dragEvent();
+        this.uploadBtn &amp;&amp; this.uploadBtnEvent();
+    }
+    handleFile(files) {
+        let i=0,that=this;
+        let reader = new FileReader();
+        let filesLength=files.length;
+        function readerFiles(i){
+            filesLength=that.uploadFileNums ? Math.min(filesLength,that.uploadFileNums) : filesLength;
+            if(i==filesLength){
+                return;
+            }
+            let file = files[i];
+            console.log(file.name)
+            reader.onload = (function(reader) {
+                let imgData = reader.srcElement.result;
+                console.dir(imgData)
+                //递归
+                readerFiles(++i);
+            })
+            reader.readAsDataURL(file);
+        }
+        readerFiles(i);
+    }
+    uploadBtnEvent(){
+        this.uploadBtn.addEventListener(&quot;change&quot;, event=&gt; {
+            let files = event.target.files;
+            this.handleFile(files);
+        })
+    }
+    dragEvent(){
+        this.dragContainer.addEventListener(&quot;dragenter&quot;, event=&gt; {
+            event.stopPropagation();
+            event.preventDefault();
+        }, false);
+        this.dragContainer.addEventListener(&quot;dragover&quot;, event=&gt; {
+            event.stopPropagation();
+            event.preventDefault();
+        }, false);
+        this.dragContainer.addEventListener(&quot;drop&quot;, event=&gt; {
+            event.stopPropagation();
+            event.preventDefault();
+            let files=event.dataTransfer.files;
+            this.handleFile(files);
+            //获取图片
+        }, false);
+    }
+}
+var up=new UploadFile({
+    dragContainer:$(&quot;body&quot;)[0],
+    uploadBtn:$(&quot;#myFile&quot;)[0],
+    uploadFileNums:2
+});
+</code></pre><h2 id="multer-express-">multer 接收文件（express）</h2>
+<pre><code>//前
+var formData = new FormData();
+formData.append(&#39;uploadfile&#39;,file);
+$.ajax({
+    url: &quot;/uploadFile&quot;,
+    type: &quot;post&quot;,
+    data:formData,
+    contentType: false,
+    processData: false,
+    success: function(res){
+       console.dir(res);
+       renderData(res.ret_code)
+    },
+    error:function(err){
+       console.dir(err);
+    }
+});
+//后
+let multer = require(&#39;multer&#39;)
+let uploadPath = &#39;public/upload/&#39;;
+let storage = multer.diskStorage({
+    // 如果你提供的 destination 是一个函数，你需要负责创建文件夹
+    destination: uploadPath,
+    //给上传文件重命名，获取添加后缀名
+    filename: function (req, file, cb) {
+        cb(null,  file.originalname);
+     }
+}); 
+let upload = multer({
+    storage: storage
+});
+//router 使用upload
+router.post(&#39;/uploadFile&#39;,upload.single(&#39;uploadfile&#39;),function(req,res,next){
+    let filePath=process.cwd()+&quot;/&quot;+uploadPath+req.file.filename;
+    //skCommon(filePath,function(data){
+    //    res.send({ret_code: data});
+    //})
+});
+module.exports = router;
 </code></pre>

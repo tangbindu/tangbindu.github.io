@@ -127,6 +127,18 @@
 
 ## reduce
 
+## 类
+    class UploadFile{
+        constructor(conf){
+            this.conf=conf || {};
+            this.dragContainer=this.conf.dragContainer;
+            this.uploadBtn=this.conf.dragContainer;
+            this.uploadFileNums=this.conf.dragContainer; //默认不限定
+        }
+        init(){
+        }
+    }
+
 
 
 
