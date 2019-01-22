@@ -11,6 +11,11 @@
 - [[笔记]前端工程师的入门与进阶](https://shenbao.github.io/2017/04/22/justjavac-live/) 
 - [[全文]如何正确的学习 Node.js](https://github.com/i5ting/How-to-learn-node-correctly) 
 - [[全文]ECMAScript 6 入门](http://es6.ruanyifeng.com/) 
+- [[全文]The Book of Shaders](https://thebookofshaders.com/?lan=ch) 
+
+
+## 工具
+- [[全文]Shadershop](http://tobyschachman.com/Shadershop/editor/) 
 
 
 
