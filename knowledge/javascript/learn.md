@@ -69,159 +69,158 @@
     }
 
 ## 前端存储轻量级javascript库
-底层用localStorage 和sessionStorage 实现，非常轻量，支持设置数据过期时间，对外api
-clear()
-set(key,value)
-get(key)
-has(key)
-remove(key)
-forEach(callback)
-destroy()
-使用：
-const testStore = new EasyStore(‘testStore’,60*1000);
-    
-    class BaseStore {
-        constructor(scope){
-            this.scope = scope;
-        }
-        getData(id){
-            let storageData = null;
-            const storageStr = window[`${this.scope}Storage`].getItem(id);
-            try {
-                storageData = JSON.parse(storageStr);
-            } catch (e) {
-                storageData = {};
+
+    底层用localStorage 和sessionStorage 实现，非常轻量，支持设置数据过期时间，对外api
+    clear()
+    set(key,value)
+    get(key)
+    has(key)
+    remove(key)
+    forEach(callback)
+    destroy()
+    使用：
+    const testStore = new EasyStore(‘testStore’,60*1000);
+        class BaseStore {
+            constructor(scope){
+                this.scope = scope;
             }
-            return storageData;
-        }
-        save(id,value){
-            window[`${this.scope}Storage`].setItem(id,value);
-        }
-        destroy(id){
-            window[`${this.scope}Storage`].removeItem(id);
-        }
-    }
-    const PREFIX = 'e';
-    const VERSION = '1.0';
-    /***
-     * 存储类，
-     */
-    class EasyStore {
-        _data = {};
-        _store = null;
-        /***
-         *
-         * @param id storeId
-         * @param expiresTime 默认缓存时间(单位:毫秒)，不传默认为null,永久保存
-         * @param scope 缓存类型 session,local(默认session)
-         */
-        constructor(id,expiresTime,scope){
-            if(!id){
-                throw Error('miss store id');
+            getData(id){
+                let storageData = null;
+                const storageStr = window[`${this.scope}Storage`].getItem(id);
+                try {
+                    storageData = JSON.parse(storageStr);
+                } catch (e) {
+                    storageData = {};
+                }
+                return storageData;
             }
-            this.id = `${PREFIX}_${VERSION}_${id}`;
-            this.scope = scope || 'session';
-            this._store = new BaseStore(this.scope);
-            this._loadData();
-            this.expires = arguments[1] ? (Date.now() + arguments[1]): null;
-        }
-        /***
-         * 加载/初始化数据
-         * @private
-         */
-        _loadData(){
-            let storageData = Object.assign({data:{},expires:null},this._store.getData(this.id));
-            //过期时间为空，并且不超过当前时间
-            if(!storageData.expires || new Date(storageData.expires).getTime() >= Date.now()){
-                this._data = storageData.data;
-                this.expires = storageData.expires;
+            save(id,value){
+                window[`${this.scope}Storage`].setItem(id,value);
+            }
+            destroy(id){
+                window[`${this.scope}Storage`].removeItem(id);
             }
         }
+        const PREFIX = 'e';
+        const VERSION = '1.0';
         /***
-         * 是否过期
-         * @private
+         * 存储类，
          */
-        _isExpires(){
-            return this.expires && new Date(this.expires).getTime() < Date.now();
-        }
-        /**
-         * 保存数据
-         * @private
-         */
-        _save(){
-            const saveStr = JSON.stringify({
-                data:this._data,
-                expires:this.expires
-            });
-            this._store.save(this.id,saveStr);
-        }
-        /**
-         * 清空数据
-         */
-        clear(){
-            this._data = {};
-            this._save();
-        }
-        /***
-         * 设置缓存值
-         * @param key
-         * @param value
-         */
-        set(key,value){
-            this._data[key] = value;
-            this._save();
-        }
-        /***
-         * 根据key获取数据
-         * @param key
-         * @returns {null}
-         */
-        get(key){
-            return this._isExpires()?null:this._data[key];
-        }
-        /**
-         * 判断是否存在key
-         * @param key
-         */
-        has(key){
-            return this._data.hasOwnProperty(key);
-        }
-        /**
-         * 删除指定的key
-         * @param key
-         */
-        remove(key){
-            delete this._data[key];
-            this.has(key) && this._save();
-        }
-        /***
-         * 迭代器
-         * @param callback key,value
-         */
-        forEach(callback){
-            if(this._isExpires())return;
-            const _data = this._data;
-            for(let key in _data){
-                _data.hasOwnProperty(key) && typeof callback === 'function' && callback.call(this,key,_data[key]);
+        class EasyStore {
+            _data = {};
+            _store = null;
+            /***
+             *
+             * @param id storeId
+             * @param expiresTime 默认缓存时间(单位:毫秒)，不传默认为null,永久保存
+             * @param scope 缓存类型 session,local(默认session)
+             */
+            constructor(id,expiresTime,scope){
+                if(!id){
+                    throw Error('miss store id');
+                }
+                this.id = `${PREFIX}_${VERSION}_${id}`;
+                this.scope = scope || 'session';
+                this._store = new BaseStore(this.scope);
+                this._loadData();
+                this.expires = arguments[1] ? (Date.now() + arguments[1]): null;
+            }
+            /***
+             * 加载/初始化数据
+             * @private
+             */
+            _loadData(){
+                let storageData = Object.assign({data:{},expires:null},this._store.getData(this.id));
+                //过期时间为空，并且不超过当前时间
+                if(!storageData.expires || new Date(storageData.expires).getTime() >= Date.now()){
+                    this._data = storageData.data;
+                    this.expires = storageData.expires;
+                }
+            }
+            /***
+             * 是否过期
+             * @private
+             */
+            _isExpires(){
+                return this.expires && new Date(this.expires).getTime() < Date.now();
+            }
+            /**
+             * 保存数据
+             * @private
+             */
+            _save(){
+                const saveStr = JSON.stringify({
+                    data:this._data,
+                    expires:this.expires
+                });
+                this._store.save(this.id,saveStr);
+            }
+            /**
+             * 清空数据
+             */
+            clear(){
+                this._data = {};
+                this._save();
+            }
+            /***
+             * 设置缓存值
+             * @param key
+             * @param value
+             */
+            set(key,value){
+                this._data[key] = value;
+                this._save();
+            }
+            /***
+             * 根据key获取数据
+             * @param key
+             * @returns {null}
+             */
+            get(key){
+                return this._isExpires()?null:this._data[key];
+            }
+            /**
+             * 判断是否存在key
+             * @param key
+             */
+            has(key){
+                return this._data.hasOwnProperty(key);
+            }
+            /**
+             * 删除指定的key
+             * @param key
+             */
+            remove(key){
+                delete this._data[key];
+                this.has(key) && this._save();
+            }
+            /***
+             * 迭代器
+             * @param callback key,value
+             */
+            forEach(callback){
+                if(this._isExpires())return;
+                const _data = this._data;
+                for(let key in _data){
+                    _data.hasOwnProperty(key) && typeof callback === 'function' && callback.call(this,key,_data[key]);
+                }
+            }
+            /***
+             * 销毁
+             */
+            destroy(){
+                this._store.destroy(this.id);
+                this._store = null;
+                this._data = null;
             }
         }
-        /***
-         * 销毁
-         */
-        destroy(){
-            this._store.destroy(this.id);
-            this._store = null;
-            this._data = null;
-        }
-    }
-    export default EasyStore;
+        export default EasyStore;
 
 ## 去重
     //flter去重
     //arr.filter((v, i) => arr.indexOf(v) == i)
     //set去重
     var x=[...new Set([1, 2, 3, 3, 2, 3, 1, 3, 5, 6, 8])]
-
 ## 获取url的参数
     function getParamter(name) {
         var url = location.search;
@@ -453,5 +452,25 @@ HTML5为网页添加文字水印
         //})
     });
     module.exports = router;
+
+## rem 适配脚本
+    
+    (function(win){var doc=win.document,html=doc.documentElement,option=html.getAttribute("data-use-rem");if(option===null){return}var baseWidth=parseInt(option).toString()=="NaN"?750:parseInt(option);var grids=baseWidth/100;var clientWidth=html.clientWidth||320;html.style.fontSize=clientWidth/grids+"px";var testDom=document.createElement("div");var testDomWidth=0;var adjustRatio=0;testDom.style.cssText="height:0;width:1rem;";doc.body.appendChild(testDom);var calcTestDom=function(){testDomWidth=testDom.offsetWidth;if(testDomWidth!==Math.round(clientWidth/grids)){adjustRatio=clientWidth/grids/testDomWidth;var reCalcRem=clientWidth*adjustRatio/grids;html.style.fontSize=reCalcRem+"px"}else{doc.body.removeChild(testDom)}};setTimeout(calcTestDom,20);var reCalc=function(){var newCW=html.clientWidth;if(newCW===clientWidth){return}clientWidth=newCW;html.style.fontSize=newCW*(adjustRatio?adjustRatio:1)/grids+"px"};reCalc();if(!doc.addEventListener){return}var resizeEvt="orientationchange" in win?"orientationchange":"resize";win.addEventListener(resizeEvt,reCalc,false);doc.addEventListener("DOMContentLoaded",reCalc,false)})(window);
+
+## line-height hack脚本
+
+    (function (c) {
+        var a, d, b;
+        a = c.document.createElement("div");
+        d = c.document.createElement("span");
+        a.style = "font-size:0px;line-height0;visibility:hidden;width:100px;display:inline-block;position:absolute;left:10000px;";
+        d.style = "font-size:14px;line-height:7px;height:0px;";
+        d.innerHTML = "\u56fd";
+        a.appendChild(d);
+        c.document.body.appendChild(a);
+        b = a.clientHeight;
+        b == 7 && c.document.body.classList.add("line-height-hack");
+        c.document.body.removeChild(a)
+    })(window);
 
 
