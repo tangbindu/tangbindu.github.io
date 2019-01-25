@@ -2,6 +2,9 @@
 ## 置顶
 
 [debug,glsl-unit](https://www.youtube.com/watch?v=7sad-UGSOXE)
+[综合好例](https://www.youtube.com/watch?v=s6t0mJsgUKw)
+[阅读](https://github.com/ajweeks/RaymarchingWorkshop)
+
   
 ## 新建webgl
     /**
