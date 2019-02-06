@@ -699,6 +699,7 @@
 
 
 [旋转一个球]
+
     float DistLine(vec3 ro, vec3 rd, vec3 p) {
       return length(cross(p-ro, rd))/length(rd);
     }
