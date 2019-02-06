@@ -596,6 +596,11 @@
   |fract|取小数部分|利用无序的小数当随机数据，制作一些随机图像，如噪点|[demo](./webgl/example/20181229glslfract/dist/html/index.html)|
   |mix|混合|可以使用百分比混合2个不同的值|[demo](./webgl/example/181221glslmix/dist/html/index.html)|
   
+## 语句
+    vec2 uv = fragCoord.xy / iResolution.xy; // 得到一个0-1的几何位置
+    uv -= .5; //调整坐标系原点
+    uv.x *= iResolution.x/iResolution.y;  //防止百分比宽引起的变形
+
 ## glsl-demo
 
   [绘制一条线](./webgl/example/181221glsldrawline/dist/html/index.html)
@@ -691,6 +696,26 @@
     }
 
 
+
+
+[旋转一个球]
+    float DistLine(vec3 ro, vec3 rd, vec3 p) {
+      return length(cross(p-ro, rd))/length(rd);
+    }
+    void mainImage( out vec4 fragColor, in vec2 fragCoord )
+    {
+      float t = iTime;
+        vec2 uv = fragCoord.xy / iResolution.xy; // 0 <> 1
+        uv -= .5;
+        uv.x *= iResolution.x/iResolution.y;
+        vec3 ro = vec3(0.,0.,-1.);
+        vec3 rd = vec3(uv.x,uv.y,0.)-ro;
+        vec3 p=vec3(sin(t),0.,1.+cos(t));
+        float d=DistLine(ro,rd,p);
+        d=smoothstep(.1,.09,d);
+      fragColor = vec4(d);
+    }
+    
 [lookat](./webgl/example/20190205lockat/dist/html/index.html)
 
     float DistLine(vec3 ro, vec3 rd, vec3 p) {
