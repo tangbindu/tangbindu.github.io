@@ -5,6 +5,11 @@
 [综合好例](https://www.youtube.com/watch?v=s6t0mJsgUKw)
 [阅读](https://github.com/ajweeks/RaymarchingWorkshop)
 
+
+## 交互式计算机图形学
+    光栅（像素阵列）
+    帧缓存（图像的分辨率）
+    深度（像素的比特数，默认3位8bit RGB）传统cpu用正数255，现在的用0.0-1.0的浮点数
   
 ## 新建webgl
     /**
