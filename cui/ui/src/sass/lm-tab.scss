@@ -6,40 +6,56 @@
   .tab-nav{
     position: relative;
     z-index: 3;
-    height:40px;
-    line-height:40px;
+    height:44px;
+    line-height:44px;
     font-size: 15px;
-    background-color: #fff;
     display: -webkit-box;
     -webkit-box-align: center;
     -webkit-box-orient: horizontal;
     -webkit-box-pack: center;
     -webkit-box-sizing: border-box;
+    background-color:#1F2139;
+    color: #fff;
     li {
       -webkit-box-flex:1;
+      width: 0;
       text-align: center;
       height: 100%;
       display: -webkit-box;
       -webkit-box-align: center;
       -webkit-box-orient: vertical;
       -webkit-box-pack: center;
+      -webkit-box-sizing:border-box;
       span {
         display: block;
         height: 100%;
         padding: 0 5px;
         vertical-align: middle;
         -webkit-box-sizing:border-box;
-        border-bottom: solid 3px transparent;
+        padding-bottom: 2px;
+        position:relative;
       }
       &.active span{
-        border-bottom: solid 3px #8145e2;
+        color: #1EEADB;
+        &:after{
+          position: absolute;
+          content: "";
+          position:absolute;
+          z-index:1;
+          bottom: 0px;
+          left: 50%;
+          margin-left: -.35rem;
+          width:.7rem;
+          height:2px;
+          background-color:#1EEADB;
+        }
       }
     }
   }
   .tab-content{
+    background-color:#17192D;
     position:relative;
     z-index: 1;
-    background-color: #fff;
     display: -webkit-box;
     -webkit-box-align: center;
     -webkit-box-orient: horizontal;
@@ -49,6 +65,10 @@
       -webkit-box-flex:1;
       width: 0;
       min-height: 48px;
+      display: none;
+      &.active{
+        display: block;
+      }
     }
   }
 }

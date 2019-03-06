@@ -1,0 +1,13 @@
+.ec-grid { overflow: hidden; font-size: 0; -webkit-box-sizing: border-box; padding-top: .34rem; }
+.ec-grid li { position: relative; float: left; -webkit-box-sizing: border-box; width: 50%; font-size: 14px; margin-bottom: 10px; background-color: #fff; }
+
+.ec-grid-img .grid-img { position: relative; width: .9rem; height: .9rem; margin: .3rem auto; background-position: center center; background-repeat: no-repeat; background-size: contain; }
+.ec-grid-img .grid-img span { position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-position: left top; background-repeat: no-repeat; background-size: cover; }
+
+.ec-grid-info .grid-info { line-height: 18px; font-size: 12px; text-align: center; }
+.ec-grid-info .grid-info .title { display: -webkit-box; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; -webkit-line-clamp: 1; color: #ffff; margin: 0 .3em; }
+.ec-grid-info .grid-info p { font-size: 12px; display: -webkit-box; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; -webkit-line-clamp: 1; margin: 0 .3em; color: #938E99; -webkit-transform: scale(0.8333); line-height: 1.2em; }
+
+.ec-grid-3 { padding-right: 1px; padding-left: 1px; }
+.ec-grid-3 li { width: 2.04rem; height: 2.4rem; background-color: #1F2139; margin-left: .35rem; margin-bottom: .3rem; border-radius: .06rem; }
+.ec-grid-3 li:nth-child(3n+1) { margin-left: .34rem; }

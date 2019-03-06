@@ -65,7 +65,8 @@ config={
 			"ec-grid.ec-grid-img.ec-grid-2",
 			"ec-grid.ec-grid-img.ec-grid-info.ec-grid-2",
 			"ec-grid.ec-grid-img.ec-grid-3",
-			"ec-grid.ec-grid-img.ec-grid-4"
+			"ec-grid.ec-grid-img.ec-grid-4",
+			"ec-grid-type1"
 		],
 		"img":[
 			"ui-avatar",
