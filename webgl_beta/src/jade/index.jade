@@ -1,0 +1,49 @@
+doctype html
+html(data-use-rem)
+  head
+    meta(charset="utf-8")
+    meta(name="format-detection", content="telephone=no")
+    meta(name="viewport", content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no")
+    meta(name="apple-mobile-web-app-capable", content="yes")
+    meta(name="apple-mobile-web-app-status-bar-style", content="black")
+    meta(name="description",content="")
+    meta(name="keywords",content="")
+    title 测试webgl
+    link(rel="stylesheet",href="../css/index.css")
+  body(ontouchstart="")
+    textarea.
+        //定义的的变量不能再改变s
+        attribute vec4 position;
+        attribute float itime;
+        attribute vec2 iresolution;
+        varying float iTime;
+        varying vec2 iResolution;
+        attribute vec2 a_TexCoord;
+        varying vec2 v_TexCoord;
+        //main入口
+        void main() {
+          v_TexCoord = a_TexCoord;
+          iTime=itime;
+          iResolution=iresolution; 
+          gl_Position=position;
+        }
+    textarea.
+        precision mediump float;
+        // 定义常量
+        #define M_PI 3.1415926535897932384626433832795
+        // uniform float time;
+        varying vec2 iResolution;
+        varying float iTime;
+        uniform sampler2D u_Sampler;
+        varying vec2 v_TexCoord;
+        //main入口
+        void main() {
+          //渲染色彩
+          vec2 p = gl_FragCoord.xy / iResolution;
+          gl_FragColor = vec4(p.x, p.y, abs(cos(iTime/1000.0)), 1.0);
+          // 渲染纹理
+          // gl_FragColor = texture2D(u_Sampler, v_TexCoord);
+        }
+    canvas
+    script(src="../js/obj.js")
+    script(src="../js/index.js")
