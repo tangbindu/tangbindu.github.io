@@ -54,8 +54,8 @@ let vertexBuffer = GL.createBuffer(new Float32Array([
 
 
 let circle=new OBJ("../3dmodels/circle.obj")
-circle.load((data)=>{
-    console.dir(data.slice(0,400))
+circle.load(()=>{
+    
 })
 
 
