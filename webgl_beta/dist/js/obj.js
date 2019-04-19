@@ -6,14 +6,14 @@ class OBJ {
     this.objectname = null   // Initialize the property for Object
     this.vertices = new Array(0);  // Initialize the property for Vertex
     this.normals = new Array(0);   // Initialize the property for Normal
-    this.verticesIndexs=new Array(0);
+    this.verticesIndices=new Array(0);
     this.normalsIndexs=new Array(0);
   }
   /**
    * @param  {加载obj文件}
    * @return {[type]}
    */
-  load(callback){
+  loaded(callback){
     this.requestFile(this.fileName,(data)=>{
       this.parse(data);
       callback && callback()
@@ -39,7 +39,7 @@ class OBJ {
     let that=this;
     //解析line
     let parseLine=(line)=>{
-      let values=line.match(/[\w\.-\/]+/g);
+      let values=line.match(/[\w\.\-\/]+/g);
       values=values || [];
       return {
         key:values[0],
@@ -85,23 +85,31 @@ class OBJ {
   addVertex(values,key){
     values.length!=3 &&  console.error("vertex parse error")
     this.vertices.push(
-      values[0],
-      values[1],
-      values[2]
+      parseFloat(values[0]),
+      parseFloat(values[1]),
+      parseFloat(values[2])
     )
   }
   addNormals(values,key){
     values.length!=3 &&  console.error("normals parse error")
     this.normals.push(
-      values[0],
-      values[1],
-      values[2]
+      parseFloat(values[0]),
+      parseFloat(values[1]),
+      parseFloat(values[2])
     )
   }
   addFace(values,key){
     values.length!=3 &&  console.error("请用'triangulate faces'导出obj,顶点索引|材质索引|法线索引")
-    this.verticesIndexs.push(values[0]);
-    this.normalsIndexs.push(values[1]);
+    this.verticesIndices.push(
+      parseInt(values[0].split("/")[0])-1,
+      parseInt(values[1].split("/")[0])-1,
+      parseInt(values[2].split("/")[0])-1
+    );
+    this.normalsIndexs.push(
+      parseFloat(values[0].split("/")[2])-1,
+      parseFloat(values[1].split("/")[2])-1,
+      parseFloat(values[2].split("/")[2])-1
+    );
   }
 }
 
