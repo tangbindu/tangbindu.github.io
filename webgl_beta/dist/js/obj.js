@@ -8,6 +8,13 @@ class OBJ {
     this.normals = new Array(0);   // Initialize the property for Normal
     this.verticesIndices=new Array(0);
     this.normalsIndexs=new Array(0);
+    //重建索引
+    this._normals=new Array(0);
+    this._vertices=new Array(0);
+    this._no_index_vertices=new Array(0);
+    this._no_index_normals=new Array(0);
+    this.mix_vertices=new Array(0);
+    this.mix_verticesIndices=new Array(0);
   }
   /**
    * @param  {加载obj文件}
@@ -16,6 +23,7 @@ class OBJ {
   loaded(callback){
     this.requestFile(this.fileName,(data)=>{
       this.parse(data);
+      this.reIndex();
       callback && callback()
     })
   }
@@ -35,6 +43,32 @@ class OBJ {
     xmlhttp.open("GET", path, true);
     xmlhttp.send();
   }
+  /**
+   * 重建索引
+   * @return {[type]} [description]
+   */
+  reIndex(){
+    let that=this;
+    let vertexs=[];
+    this._no_index_vertices.map((item,i)=>{
+      vertexs.push(item.concat(this._no_index_normals[i]).join(","))
+    })
+    let tempVertexs =[...new Set(vertexs)]
+    vertexs.map(function(item){
+      that.mix_verticesIndices.push(tempVertexs.indexOf(item))
+    })
+    tempVertexs.map((item)=>{
+      that.mix_vertices=that.mix_vertices.concat(item.split(","));
+    })
+    that.mix_vertices.map((item,i)=>{
+      that.mix_vertices[i]=parseFloat(item)
+    })
+  }
+  /**
+   * 解析过程
+   * @param  {[type]} content [description]
+   * @return {[type]}         [description]
+   */
   parse(content){
     let that=this;
     //解析line
@@ -53,13 +87,13 @@ class OBJ {
       switch(lineObj.key){
         //vertex
         case "v":
-          that.addVertex(lineObj.values)
+          that._addVertex(lineObj.values)
           break;
         case "vn":
-          that.addNormals(lineObj.values)
+          that._addNormals(lineObj.values)
           break;
         case "f":
-          that.addFace(lineObj.values)
+          that._addFace(lineObj.values)
           break;
         case "o":
           that.objectname=lineObj.values[0];
@@ -82,36 +116,76 @@ class OBJ {
       }
     })
   }
-  addVertex(values,key){
+  /**
+   * 顶点解析
+   * @param {[type]} values [description]
+   * @param {[type]} key    [description]
+   */
+  _addVertex(values,key){
     values.length!=3 &&  console.error("vertex parse error")
-    this.vertices.push(
+    let point=[
       parseFloat(values[0]),
       parseFloat(values[1]),
       parseFloat(values[2])
-    )
+    ];
+    this._vertices.push(point)
+    this.vertices.concat(point)
   }
-  addNormals(values,key){
+  /**
+   * 法向量解析
+   * @param {[type]} values [description]
+   * @param {[type]} key    [description]
+   */
+  _addNormals(values,key){
     values.length!=3 &&  console.error("normals parse error")
-    this.normals.push(
+    let point=[
       parseFloat(values[0]),
       parseFloat(values[1]),
       parseFloat(values[2])
-    )
+    ]
+    this._normals.push(point)
+    this.normals.concat(point);
+
   }
-  addFace(values,key){
-    values.length!=3 &&  console.error("请用'triangulate faces'导出obj,顶点索引|材质索引|法线索引")
-    this.verticesIndices.push(
-      parseInt(values[0].split("/")[0])-1,
-      parseInt(values[1].split("/")[0])-1,
-      parseInt(values[2].split("/")[0])-1
-    );
-    this.normalsIndexs.push(
-      parseFloat(values[0].split("/")[2])-1,
-      parseFloat(values[1].split("/")[2])-1,
-      parseFloat(values[2].split("/")[2])-1
-    );
+  /**
+   * 索引解析
+   * @param {[type]} values [description]
+   * @param {[type]} key    [description]
+   */
+  _addFace(values,key){
+    values.length!=3 &&  console.error("请用'triangulate faces'导出obj,顶点索引|材质索引|法线索引");
+    let vf1=parseInt(values[0].split("/")[0])-1;
+    let vf2=parseInt(values[1].split("/")[0])-1;
+    let vf3=parseInt(values[2].split("/")[0])-1;
+    this.verticesIndices.push(vf1,vf2,vf3);
+    this._no_index_vertices.push(
+      this._vertices[vf1],
+      this._vertices[vf2],
+      this._vertices[vf3],
+    )
+    let nf1=parseInt(values[0].split("/")[2])-1;
+    let nf2=parseInt(values[1].split("/")[2])-1;
+    let nf3=parseInt(values[2].split("/")[2])-1;
+    this.normalsIndexs.push(nf1,nf2,nf3);
+    this._no_index_normals.push(
+      this._normals[nf1],
+      this._normals[nf2],
+      this._normals[nf3],
+    )
   }
 }
+
+
+//重新建立索引
+
+
+
+
+
+
+
+
+
 
 
 

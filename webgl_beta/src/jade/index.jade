@@ -43,7 +43,7 @@ html(data-use-rem)
       varying vec4 v_Color; //颜色
       //main入口
       void main() {
-        gl_FragColor=vec4(1.0,0.0,0.0,1.0);
+        gl_FragColor=v_Color *vec4(1.0,0.0,0.0,1.0);
         //渲染色彩
         //- vec2 p = gl_FragCoord.xy / iResolution;
         //- gl_FragColor = vec4(p.x, p.y, abs(cos(iTime/1000.0)), 1.0);
