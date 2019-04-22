@@ -35,7 +35,7 @@ let u_Sampler = GL.getUniformLocation(shaderProgram, 'u_Sampler');
 let itime =GL.getAttribLocation(shaderProgram, 'itime');
 let iresolution =GL.getAttribLocation(shaderProgram, 'iresolution'); 
 let u_MvpMatrix=GL.getUniformLocation(shaderProgram, 'u_MvpMatrix');
-let a_Normal=GL.getUniformLocation(shaderProgram, 'a_Normal');
+let a_Normal=GL.getAttribLocation(shaderProgram, 'a_Normal');
 //mvp
 let mvpMatrix = new Matrix4();
 mvpMatrix.setPerspective(40, CANVAS.clientWidth/CANVAS.clientHeight, 1, 100);
@@ -55,20 +55,22 @@ model3d.loaded(()=>{
     console.log(model3d.mix_verticesIndices)
 
 
-
     //顶点
     let vertexsBuffer = GL.createBuffer();// 创建一个缓存区存放顶点数据
     GL.bindBuffer(GL.ARRAY_BUFFER, vertexsBuffer);// 把缓存区绑定给webgl
     let vertices=new Float32Array(model3d.mix_vertices);//类型化数组
     GL.bufferData(GL.ARRAY_BUFFER, vertices, GL.STATIC_DRAW);// 在webgl的缓存区写入顶点数据
     var FSIZE = vertices.BYTES_PER_ELEMENT;
-    GL.vertexAttribPointer(position, 3, GL.FLOAT, false, FSIZE * 6, 0);// 把写入的数据传给变量position
+    GL.vertexAttribPointer(position, 3, GL.FLOAT, false, FSIZE *6, 0);// 把写入的数据传给变量position
     GL.enableVertexAttribArray(position);// 启用变量
 
 
-
-    GL.vertexAttribPointer(a_Normal, 3, GL.FLOAT, false, FSIZE * 6, 0);
-    GL.enableVertexAttribArray(a_Normal);// 启用变量
+    let normalsBuffer = GL.createBuffer();// 创建一个缓存区存放法线数据
+    GL.bindBuffer(GL.ARRAY_BUFFER, normalsBuffer);// 把缓存区绑定给webgl
+    let normals=new Float32Array(model3d.mix_vertices);//类型化数组
+    GL.bufferData(GL.ARRAY_BUFFER, normals, GL.STATIC_DRAW);// 在webgl的缓存区写入法线数据
+    GL.vertexAttribPointer(a_Normal, 3, GL.FLOAT, false, FSIZE *6, FSIZE * 3);
+    // GL.enableVertexAttribArray(a_Normal);// 启用变量
 
 
     //顶点索引
