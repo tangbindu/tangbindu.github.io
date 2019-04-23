@@ -58,12 +58,12 @@ GL.uniformMatrix4fv(u_MvpMatrix, false, mvpMatrix.elements);
 //mvp end
 
 
-let model3d=new OBJ("../3dmodels/big_box.obj");
-model3d.loaded(()=>{
+let model=new OBJ("../3dmodels/monkey.obj");
+model.loaded(()=>{
     //顶点
     let vertexsBuffer = GL.createBuffer();// 创建一个缓存区存放顶点数据
     GL.bindBuffer(GL.ARRAY_BUFFER, vertexsBuffer);// 把缓存区绑定给webgl
-    let vertices=new Float32Array(model3d.mix_vertices);//类型化数组
+    let vertices=new Float32Array(model.mix_vertices);//类型化数组
     GL.bufferData(GL.ARRAY_BUFFER, vertices, GL.STATIC_DRAW);// 在webgl的缓存区写入顶点数据
     var FSIZE = vertices.BYTES_PER_ELEMENT;
     GL.vertexAttribPointer(position, 3, GL.FLOAT, false, FSIZE *6, 0);// 把写入的数据传给变量position
@@ -79,7 +79,7 @@ model3d.loaded(()=>{
     //顶点索引
     let vertexsIndicesBuffer = GL.createBuffer();
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, vertexsIndicesBuffer);
-    let vertexsIndices = new Uint16Array(model3d.mix_verticesIndices);
+    let vertexsIndices = new Uint16Array(model.mix_verticesIndices);
     GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, vertexsIndices, GL.STATIC_DRAW);
 
 

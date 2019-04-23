@@ -31,11 +31,11 @@
         iResolution=iresolution; 
         gl_Position= u_MvpMatrix * position;
         vec3 lightdirection= vec3(1.0, 1.0, 1.0);
-        v_Color = vec4(.5, .5, .5, 1.0) * max(dot(a_Normal.xyz, lightdirection), 0.0); 
+        v_Color = vec4(.2, .5, .5, 1.0) * max(dot(a_Normal.xyz, lightdirection), 0.0); 
       }
     </textarea>
     <textarea>
-      precision mediump float;
+      precision mediump float; 
       // 定义常量
       #define M_PI 3.1415926535897932384626433832795
       // uniform float time;
