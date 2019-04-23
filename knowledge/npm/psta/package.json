@@ -1,6 +1,6 @@
 {
   "name": "psta",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "psta",
   "main": "index.js",
   "scripts": {

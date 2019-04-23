@@ -180,12 +180,16 @@ Promise.all([
     //动画
     gl.vertexAttrib2f(iresolution,gl.drawingBufferWidth,gl.drawingBufferHeight)
     //动态渲染
+    var t=1;
     function ticker(currentTime){
       gl.vertexAttrib1f(itime,currentTime)
       //统一绘制
       gl.clearColor(0 / 255, 0 / 255, 0 / 255, .2);;
       gl.clear(gl.COLOR_BUFFER_BIT);
       gl.drawArrays(gl.TRIANGLE_STRIP , 0, n);
+      if(t++>1000){
+        return;
+      }
       requestAnimationFrame(arguments.callee);
     }
     ticker();
