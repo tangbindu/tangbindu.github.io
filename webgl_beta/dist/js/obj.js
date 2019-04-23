@@ -13,6 +13,7 @@ class OBJ {
     this._vertices=new Array(0);
     this._no_index_vertices=new Array(0);
     this._no_index_normals=new Array(0);
+    this._mix_vertices=new Array(0);
     this.mix_vertices=new Array(0);
     this.mix_verticesIndices=new Array(0);
   }
@@ -49,12 +50,12 @@ class OBJ {
    */
   reIndex(){
     let that=this;
-    let vertexs=[];
     this._no_index_vertices.map((item,i)=>{
-      vertexs.push(item.concat(this._no_index_normals[i]).join(","))
+      that._mix_vertices.push(item.concat(this._no_index_normals[i]).join(","))
     })
-    let tempVertexs =[...new Set(vertexs)]
-    vertexs.map(function(item){
+    // let tempVertexs =[...new Set(that._mix_vertices)]
+    let tempVertexs=that._mix_vertices;
+    that._mix_vertices.map(function(item){
       that.mix_verticesIndices.push(tempVertexs.indexOf(item))
     })
     tempVertexs.map((item)=>{
@@ -63,6 +64,11 @@ class OBJ {
     that.mix_vertices.map((item,i)=>{
       that.mix_vertices[i]=parseFloat(item)
     })
+
+    delete this._normals;
+    delete this._vertices;
+    delete this._no_index_vertices;
+    delete this._no_index_normals;
   }
   /**
    * 解析过程
@@ -129,7 +135,7 @@ class OBJ {
       parseFloat(values[2])
     ];
     this._vertices.push(point)
-    this.vertices.concat(point)
+    this.vertices=this.vertices.concat(point)
   }
   /**
    * 法向量解析
@@ -144,7 +150,7 @@ class OBJ {
       parseFloat(values[2])
     ]
     this._normals.push(point)
-    this.normals.concat(point);
+    this.normals=this.normals.concat(point);
 
   }
   /**
