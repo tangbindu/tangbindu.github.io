@@ -53,8 +53,8 @@ class OBJ {
     this._no_index_vertices.map((item,i)=>{
       that._mix_vertices.push(item.concat(this._no_index_normals[i]).join(","))
     })
-    // let tempVertexs =[...new Set(that._mix_vertices)]
-    let tempVertexs=that._mix_vertices;
+    let tempVertexs =[...new Set(that._mix_vertices)]
+    // let tempVertexs=that._mix_vertices;
     that._mix_vertices.map(function(item){
       that.mix_verticesIndices.push(tempVertexs.indexOf(item))
     })

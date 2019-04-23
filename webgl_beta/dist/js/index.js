@@ -60,9 +60,6 @@ GL.uniformMatrix4fv(u_MvpMatrix, false, mvpMatrix.elements);
 
 let model3d=new OBJ("../3dmodels/big_box.obj");
 model3d.loaded(()=>{
-    console.log(model3d)
-    console.log(model3d.mix_vertices)
-    console.log(model3d.mix_verticesIndices)
     //顶点
     let vertexsBuffer = GL.createBuffer();// 创建一个缓存区存放顶点数据
     GL.bindBuffer(GL.ARRAY_BUFFER, vertexsBuffer);// 把缓存区绑定给webgl
@@ -84,10 +81,12 @@ model3d.loaded(()=>{
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, vertexsIndicesBuffer);
     let vertexsIndices = new Uint16Array(model3d.mix_verticesIndices);
     GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, vertexsIndices, GL.STATIC_DRAW);
-    
+
+
 
     //绘图
     GL.drawElements(GL.TRIANGLES, vertexsIndices.length, GL.UNSIGNED_SHORT, 0);
+
 })
 
 
