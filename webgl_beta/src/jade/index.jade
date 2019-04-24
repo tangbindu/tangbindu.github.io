@@ -28,9 +28,9 @@ html(data-use-rem)
         v_TexCoord = a_TexCoord;
         iTime=itime;
         iResolution=iresolution; 
-        gl_Position= u_MvpMatrix * position;
-        vec3 lightdirection= vec3(1.0, 1.0, 1.0);
-        v_Color = vec4(.2, .5, .5, 1.0) * max(dot(a_Normal.xyz, lightdirection), 0.0); 
+        gl_Position= u_MvpMatrix * (position-vec4(0.0,1.0,0.0,0.0));
+        vec3 lightdirection= vec3(0.0, 0.0, 1.0);
+        v_Color = vec4(.2, .2, .3, 1.0) * max(dot(a_Normal, lightdirection), 0.0); 
       }
     textarea.
       precision mediump float; 

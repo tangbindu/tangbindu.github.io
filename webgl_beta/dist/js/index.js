@@ -37,6 +37,11 @@ GL.linkProgram(shaderProgram);
 
 //指定使用的program
 GL.useProgram(shaderProgram);
+
+
+
+
+
 //绘制program
 let position=GL.getAttribLocation(shaderProgram,"position");
 let a_TexCoord = GL.getAttribLocation(shaderProgram, 'a_TexCoord');
@@ -50,15 +55,14 @@ let a_Normal=GL.getAttribLocation(shaderProgram, 'a_Normal');
 let mvpMatrix = new Matrix4();
 mvpMatrix.setPerspective(30, CANVAS.clientWidth/CANVAS.clientHeight, 1, 100);
 mvpMatrix.lookAt(
-    5 , 5, 5,
-    0, 0, 0, 
-    0, 1, 0
+    0 , 0, 10, //视点
+    0, 0, 0,  // 观察点
+    0, 1, 0 //上方向
 );
 GL.uniformMatrix4fv(u_MvpMatrix, false, mvpMatrix.elements);
 //mvp end
 
-
-let model=new OBJ("../3dmodels/monkey.obj");
+let model=new OBJ("../3dmodels/werewolf.obj");
 model.loaded(()=>{
     //顶点
     let vertexsBuffer = GL.createBuffer();// 创建一个缓存区存放顶点数据
@@ -82,11 +86,8 @@ model.loaded(()=>{
     let vertexsIndices = new Uint16Array(model.mix_verticesIndices);
     GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, vertexsIndices, GL.STATIC_DRAW);
 
-
-
     //绘图
     GL.drawElements(GL.TRIANGLES, vertexsIndices.length, GL.UNSIGNED_SHORT, 0);
-
 })
 
 

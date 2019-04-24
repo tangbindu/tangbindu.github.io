@@ -69,6 +69,7 @@ class OBJ {
     delete this._vertices;
     delete this._no_index_vertices;
     delete this._no_index_normals;
+    delete this._mix_vertices;
   }
   /**
    * 解析过程
