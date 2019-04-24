@@ -32,7 +32,7 @@
         iTime=itime;
         iResolution=iresolution; 
         gl_Position= u_MvpMatrix * u_transformMatrix * position;
-        v_Color = vec4(.2, .4, .4, 1.0) * max(dot((mat3(u_transformMatrix)*a_Normal), a_lightDirection), 0.0);
+        v_Color = vec4(.3, .3, .3, 1.0) * max(dot((mat3(u_transformMatrix)*a_Normal), a_lightDirection), 0.0);
       }
     </textarea>
     <textarea>
