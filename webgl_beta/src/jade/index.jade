@@ -17,20 +17,21 @@ html(data-use-rem)
       attribute float itime; //time
       attribute vec2 iresolution; //分辨率
       attribute vec3 a_Normal; //法线
-      varying vec4 v_Color; //颜色
+      attribute vec2 a_TexCoord; //uv
+      attribute vec3 a_lightDirection; //lightDirection
       varying float iTime; //time 交换
       varying vec2 iResolution; //分辨率交换
-      attribute vec2 a_TexCoord; //uv
       varying vec2 v_TexCoord; // uv 交换
+      varying vec4 v_Color; //颜色
       uniform mat4 u_MvpMatrix; //mvp
+      uniform mat4 u_transformMatrix; //a_transformMatrix
       //main入口
       void main() {
         v_TexCoord = a_TexCoord;
         iTime=itime;
         iResolution=iresolution; 
-        gl_Position= u_MvpMatrix * (position-vec4(0.0,1.0,0.0,0.0));
-        vec3 lightdirection= vec3(0.0, 0.0, 1.0);
-        v_Color = vec4(.2, .2, .3, 1.0) * max(dot(a_Normal, lightdirection), 0.0); 
+        gl_Position= u_MvpMatrix * u_transformMatrix * position;
+        v_Color = vec4(.2, .4, .4, 1.0) * max(dot((mat3(u_transformMatrix)*a_Normal), a_lightDirection), 0.0);
       }
     textarea.
       precision mediump float; 
@@ -42,6 +43,7 @@ html(data-use-rem)
       uniform sampler2D u_Sampler;
       varying vec2 v_TexCoord;
       varying vec4 v_Color; //颜色
+
       //main入口
       void main() {
         gl_FragColor=v_Color;

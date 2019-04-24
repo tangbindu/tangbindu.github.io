@@ -48,8 +48,10 @@ let a_TexCoord = GL.getAttribLocation(shaderProgram, 'a_TexCoord');
 let u_Sampler = GL.getUniformLocation(shaderProgram, 'u_Sampler');
 let itime =GL.getAttribLocation(shaderProgram, 'itime');
 let iresolution =GL.getAttribLocation(shaderProgram, 'iresolution'); 
-let u_MvpMatrix=GL.getUniformLocation(shaderProgram, 'u_MvpMatrix');
 let a_Normal=GL.getAttribLocation(shaderProgram, 'a_Normal');
+let a_lightDirection=GL.getAttribLocation(shaderProgram, 'a_lightDirection');
+let u_MvpMatrix=GL.getUniformLocation(shaderProgram, 'u_MvpMatrix');
+let u_transformMatrix=GL.getUniformLocation(shaderProgram, 'u_transformMatrix');
 
 //mvp start
 let mvpMatrix = new Matrix4();
@@ -60,7 +62,13 @@ mvpMatrix.lookAt(
     0, 1, 0 //上方向
 );
 GL.uniformMatrix4fv(u_MvpMatrix, false, mvpMatrix.elements);
-//mvp end
+//灯光方向
+GL.vertexAttrib3f(a_lightDirection,0.0, 0.0, 1.0);
+//transformMatrix 矩阵
+// let transformMatrix=new Matrix4();
+// transformMatrix.setRotate(90,0,1,0);
+// transformMatrix.translate(0,-2,0,0);
+// GL.uniformMatrix4fv(u_transformMatrix, false, transformMatrix.elements);
 
 let model=new OBJ("../3dmodels/werewolf.obj");
 model.loaded(()=>{
@@ -77,6 +85,7 @@ model.loaded(()=>{
     GL.vertexAttribPointer(a_Normal, 3, GL.FLOAT, true, FSIZE *6, FSIZE * 3);
     GL.enableVertexAttribArray(a_Normal);// 启用变量
     //颜色
+
     
     //uv
 
@@ -85,9 +94,17 @@ model.loaded(()=>{
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, vertexsIndicesBuffer);
     let vertexsIndices = new Uint16Array(model.mix_verticesIndices);
     GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, vertexsIndices, GL.STATIC_DRAW);
-
     //绘图
-    GL.drawElements(GL.TRIANGLES, vertexsIndices.length, GL.UNSIGNED_SHORT, 0);
+    var i=0;
+    let transformMatrix=new Matrix4();
+    let run=()=>{
+        transformMatrix.setRotate(i++,0,1,0);
+        transformMatrix.translate(0,-2,0,0);
+        GL.uniformMatrix4fv(u_transformMatrix, false, transformMatrix.elements);
+        GL.drawElements(GL.TRIANGLES, vertexsIndices.length, GL.UNSIGNED_SHORT, 0);
+        requestAnimationFrame(run)
+    }
+    run();
 })
 
 
