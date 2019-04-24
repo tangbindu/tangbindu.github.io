@@ -55,9 +55,9 @@ let u_transformMatrix=GL.getUniformLocation(shaderProgram, 'u_transformMatrix');
 
 //mvp start
 let mvpMatrix = new Matrix4();
-mvpMatrix.setPerspective(20, CANVAS.clientWidth/CANVAS.clientHeight, 1, 100);
+mvpMatrix.setPerspective(25, CANVAS.clientWidth/CANVAS.clientHeight, 1, 100);
 mvpMatrix.lookAt(
-    2 , 2, 10, //视点
+    1 , 1, 10, //视点
     0, 0, 0,  // 观察点
     0, 1, 0 //上方向
 );
@@ -70,7 +70,7 @@ GL.vertexAttrib3f(a_lightDirection,.0, .0, 1.3);
 // transformMatrix.translate(0,-2,0,0);
 // GL.uniformMatrix4fv(u_transformMatrix, false, transformMatrix.elements);
 
-let model=new OBJ("../3dmodels/monkey.obj");
+let model=new OBJ("../3dmodels/werewolf.obj");
 model.loaded(()=>{
     //顶点
     let vertexsBuffer = GL.createBuffer();// 创建一个缓存区存放顶点数据
@@ -99,7 +99,7 @@ model.loaded(()=>{
     let transformMatrix=new Matrix4();
     let run=()=>{
         transformMatrix.setRotate(i++,0,1,0);
-        transformMatrix.translate(0,0,0,0);
+        transformMatrix.translate(0,-2,0,0);
         GL.uniformMatrix4fv(u_transformMatrix, false, transformMatrix.elements);
         GL.drawElements(GL.TRIANGLES, vertexsIndices.length, GL.UNSIGNED_SHORT, 0);
         requestAnimationFrame(run)
