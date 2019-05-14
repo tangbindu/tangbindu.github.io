@@ -8,6 +8,7 @@ apply
 add
 atom
 annoying
+around
 
 b
 banana
@@ -76,10 +77,56 @@ fifteen
 fifty
 
 
+g
+good
 
 
 
+h
 
+i
+
+j
+
+k
+
+l
+
+m
+move
+
+n
+
+o
+
+p
+
+q
+
+r
+
+s
+show
+see
+
+
+t
+take
+taste
+
+
+u
+use
+
+v
+
+w
+
+x
+
+y
+
+z
 
 
 

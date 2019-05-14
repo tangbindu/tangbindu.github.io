@@ -1,5 +1,6 @@
 a
 assets
+another
 
 
 
@@ -12,6 +13,8 @@ c
 collectively
 collectives
 collect
+component
+countable
 
 d
 
@@ -23,9 +26,54 @@ f
 h
 hierarchy
 
+
+
+
+i
 inspector
 
+j
 
+k
+
+l
+
+m
+move
+
+n
+nonus
+
+o
+
+p
+
+q
+
+r
+relate
+related
+relating
+
+
+s
+
+t
+tool
+
+u
+usefull
+
+v
+
+w
+went
+
+x
+
+y
+
+z
 
 
 
@@ -40,6 +88,11 @@ producing
 
 
 
+
+a lot
+a lot of 
+lots of
+confuzing
 
 
 
