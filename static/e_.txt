@@ -10,27 +10,23 @@ beginner
 
 
 c
-collectively
-collectives
-collect
-component
-countable
+
 
 d
 
 e
-explore
+
 
 
 f
 h
-hierarchy
+
 
 
 
 
 i
-inspector
+
 
 j
 
@@ -51,9 +47,7 @@ p
 q
 
 r
-relate
-related
-relating
+
 
 
 s

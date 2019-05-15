@@ -1,80 +1,24 @@
 a
-apple
-apron
-auther
-after
-ask
-apply
-add
-atom
-annoying
-around
-
 b
-banana
-book
-beef
-boot
-buffer
-beef
-billion
 
 
 
 c
-cup
-cat
-common
-config
-coffee
-cook
-copy
-cake
-catch
-cought
-car
-come
-crash
-confirm
+
 
 d
-desk
-disk
-dog
-driver
-drop
-diss
-dinner
+
 
 
 
 e
-earn
-ear
-each
-express
-export
-exit
-eat
+
 
 
 
 
 f
-fok
-fox
-fork
-fix
-food
-friend
-friendship
-fast
-fuck
-four
-fourty
-fourteen
-fifteen
-fifty
+
 
 
 g
@@ -106,8 +50,7 @@ q
 r
 
 s
-show
-see
+
 
 
 t
