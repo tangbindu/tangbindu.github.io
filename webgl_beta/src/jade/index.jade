@@ -38,10 +38,10 @@ html(data-use-rem)
         gl_Position= u_MvpMatrix * u_transformMatrix * position;
         //---step1----面颜色一致
         v_Color = vec4(.7, .7, .7, 1.0) * .8 * max(dot((mat3(u_transformMatrix)*a_Normal), a_lightDirection), 0.0);
-        v_Color.x=pow(v_Color.x,8.0);
-        v_Color.y=pow(v_Color.y,8.0);
-        v_Color.z=pow(v_Color.z,8.0);
-        v_Color=v_Color*2.0+vec4(.1,0.0,0.0,1.0);
+        //- v_Color.x=pow(v_Color.x,8.0);
+        //- v_Color.y=pow(v_Color.y,8.0);
+        //- v_Color.z=pow(v_Color.z,8.0);
+        //- v_Color=v_Color*2.0+vec4(.1,0.0,0.0,1.0);
         //---step1----面颜色一致
 
         

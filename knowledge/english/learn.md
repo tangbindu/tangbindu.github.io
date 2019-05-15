@@ -6,7 +6,7 @@
 ### a 
   apple apron auther after ask apply add atom annoying around
 
-  assets another ambient
+  assets another ambient advice
 
 ### b
   banana book beef boot buffer beef billion
@@ -34,6 +34,8 @@
 ### g 
   ... 
 
+  general
+
 ### h 
   ... 
 
@@ -42,7 +44,7 @@
 ### i 
   ... 
 
-  inspector invest investment
+  inspector invest investment implement
 
 ### g 
   ... 
@@ -116,6 +118,7 @@
 |carrot|rabbit's favorite food|
 |potato|potato chips|
 
+![Vegetables](https://7esl.com/wp-content/uploads/2017/12/Vegetables.jpg)
 
 
 ### grain
@@ -123,6 +126,18 @@
 |-|-|
 |corn|corn is grain in mexico|
 |rice|rice is grain in china|
+
+
+### fruit
+|words|discribe|
+|-|-|
+|--|---|
+
+![水果](https://7esl.com/wp-content/uploads/2017/12/Fruit-vocabulary.jpg)
+
+
+![综合](https://7esl.com/wp-content/uploads/2017/12/HERBS-SPICES-vocabulary.jpg)
+
 
 
 

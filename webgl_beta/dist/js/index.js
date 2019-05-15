@@ -70,7 +70,7 @@ GL.vertexAttrib3f(a_lightDirection,.0, 1.0, 1.3);
 // transformMatrix.translate(0,-2,0,0);
 // GL.uniformMatrix4fv(u_transformMatrix, false, transformMatrix.elements);
 
-let model=new OBJ("../3dmodels/box.obj");
+let model=new OBJ("../3dmodels/werewolf.obj");
 model.loaded(()=>{
     //顶点
     let vertexsBuffer = GL.createBuffer();// 创建一个缓存区存放顶点数据
@@ -99,7 +99,7 @@ model.loaded(()=>{
     let transformMatrix=new Matrix4();
     let run=()=>{
         transformMatrix.setRotate(i++,0,1,0);
-        transformMatrix.translate(0,-.3,0,0);
+        transformMatrix.translate(0,-1.3,0,0);
         GL.uniformMatrix4fv(u_transformMatrix, false, transformMatrix.elements);
         GL.drawElements(GL.TRIANGLES, vertexsIndices.length, GL.UNSIGNED_SHORT, 0);
         requestAnimationFrame(run)
