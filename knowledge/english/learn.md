@@ -4,12 +4,12 @@
 
 # my words library
 ### a 
-  apple apron auther after ask apply add atom annoying around audio
+  apple apron auther after ask apply add atom annoying around audio absolute app 
 
   assets another ambient advice
 
 ### b
-  banana book beef boot buffer beef billion best
+  banana book beef boot buffer beef billion best button
 
   beginner
 
@@ -29,7 +29,7 @@
   explore emotion 
 
 ### f   
-  fok fox  fork  fix food friend friendship fast fuck four fourty fourteen fifteen  fifty
+  fok fox  fork  fix food friend friendship fast fuck four fourty fourteen fifteen  fifty family font fill
 
 ### g 
   grade good golf  good ground go gift grenn great gold green 
@@ -42,7 +42,7 @@
   hierarchy hundred hamburger harry
 
 ### i 
-  is if 
+  is if  icon 
 
   inspector invest investment implement
 
@@ -50,11 +50,11 @@
 
   grade good ground grass glass golf gold 
   
-  garden
+  garden general
 
 ### k
   kill knife keyboard key keep know knowledge ko 
-  
+
   ... 
 
 ### l
@@ -62,7 +62,7 @@
   ... 
 
 ### m
-  match mooth monkey may mark moon much mask 
+  match mooth monkey may mark moon much mask map mapping
 
   marker
 
@@ -76,7 +76,7 @@
   ... 
 
 ### p
-  peach please public push publish pink park people pad park
+  peach please public push publish pink park people pad park play
 
   pizza pet piece
 
@@ -91,12 +91,12 @@
   relate  related relating religion  roof
 
 ### s
-  said  say see sound soft software sony sorry song sang search  so such street share
+  said  say see sound soft software sony sorry song sang search  so such street share shader  surface 
 
-  specular sock sand sweet
+  specular sock sand sweet shown
 
 ### t
-  take took tool tea teacher tom talk top time taxi to toggle together TED 
+  take took tool tea teacher tom talk top time taxi to toggle together TED  transparent texture
   
   tiny ticket
 
