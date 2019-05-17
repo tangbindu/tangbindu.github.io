@@ -4,19 +4,19 @@
 
 # my words library
 ### a 
-  apple apron auther after ask apply add atom annoying around
+  apple apron auther after ask apply add atom annoying around audio
 
   assets another ambient advice
 
 ### b
-  banana book beef boot buffer beef billion
+  banana book beef boot buffer beef billion best
 
   beginner
 
 ### c  
-  cup cat common config coffee cook copy cake catch cought car come crash confirm
+  cup cat common config coffee cook copy cake catch cought car come crash confirm corn cut 
 
-  collectively  collectives collect  component countable
+  collectively  collectives collect  component countable concept 
 
 ### d  
   desk disk dog driver drop diss dinner 
@@ -24,86 +24,106 @@
   diffuse
 
 ### e 
-  earn ear  each  express export exit eat
+  earn ear  each  express export exit eat eggplant egg
 
-  explore
+  explore emotion 
 
 ### f   
   fok fox  fork  fix food friend friendship fast fuck four fourty fourteen fifteen  fifty
 
 ### g 
-  ... 
+  grade good golf  good ground go gift grenn great gold green 
 
-  general
+  general garden 
 
 ### h 
-  ... 
+   husband hear heart hold help hello half hand hunberge hank head happy hello have how hide hard 
 
-  hierarchy
+  hierarchy hundred hamburger harry
 
 ### i 
-  ... 
+  is if 
 
   inspector invest investment implement
 
 ### g 
-  ... 
+
+  grade good ground grass glass golf gold 
+  
+  garden
 
 ### k
+  kill knife keyboard key keep know knowledge ko 
+  
   ... 
 
 ### l
+  loop look letter  left leave land layer  litte  
   ... 
 
 ### m
-  ... 
+  match mooth monkey may mark moon much mask 
+
+  marker
 
 ### n
-  ... 
+  next nut not no now noise note 
 
-  nonus
+  nonus neck notify notification
 
 ### o
+  ok option orange object offen ocean offer of  our old  ower one
   ... 
 
 ### p
-  ... 
+  peach please public push publish pink park people pad park
+
+  pizza pet piece
 
 ### q
-  ... 
+  QQ quickly question 
+  
+  quit  quiz quest
 
 ### r
-  ... 
+  red round root rule read random rank rich rice remove repeat radio rubbish 
   
-  relate  related relating
+  relate  related relating religion  roof
 
 ### s
-  ... 
+  said  say see sound soft software sony sorry song sang search  so such street share
 
-  specular
+  specular sock sand sweet
 
 ### t
-  ... 
+  take took tool tea teacher tom talk top time taxi to toggle together TED 
+  
+  tiny ticket
 
 ### u
-  ... 
+  university usa un up  use under unity upper
 
-  usefull
+  usefull uk uncle until
 
 ### v
+  video volvo vagetable
+
   ... 
 
 ### w
-  ... 
+  wold world word want will white why who  work wood worry water
+
+  while
 
 ### x
   ...
 
+  ...
 ### y
-  ...  
+  yellow yard young  yes you your  year
 
 ### z
-  ... 
+  zoom zoo zip zero 
 
 
      
