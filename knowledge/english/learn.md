@@ -4,22 +4,22 @@
 
 # my words library
 ### a 
-  apple apron auther after ask apply add atom annoying around audio absolute app 
+  apple apron auther after ask apply add atom annoying around audio absolute app afraid 
 
-  assets another ambient advice
+  assets another ambient advice aircraft
 
 ### b
-  banana book beef boot buffer beef billion best button
+  banana book beef boot buffer beef billion best button beach ball become
 
-  beginner
+  beginner bush basketball
 
 ### c  
-  cup cat common config coffee cook copy cake catch cought car come crash confirm corn cut 
+  cup cat common config coffee cook copy cake catch cought car come crash consonant confirm corn cut child cheap
 
-  collectively  collectives collect  component countable concept 
+  collectively  collectives collect  component countable concept chip
 
 ### d  
-  desk disk dog driver drop diss dinner 
+  desk disk dog driver drop diss dinner  deer
 
   diffuse
 
@@ -29,7 +29,7 @@
   explore emotion 
 
 ### f   
-  fok fox  fork  fix food friend friendship fast fuck four fourty fourteen fifteen  fifty family font fill
+  fok fox  fork  fix food friend friendship fast fuck four fourty fourteen fifteen  fifty family font fill foot fish form
 
 ### g 
   grade good golf  good ground go gift grenn great gold green 
@@ -53,7 +53,7 @@
   garden general
 
 ### k
-  kill knife keyboard key keep know knowledge ko 
+  kill knife keyboard key keep know knowledge ko kitchen
 
   ... 
 
@@ -62,9 +62,9 @@
   ... 
 
 ### m
-  match mooth monkey may mark moon much mask map mapping
+  match mooth monkey may mark moon much mask map mapping man  woman
 
-  marker
+  marker moose
 
 ### n
   next nut not no now noise note 
@@ -72,33 +72,34 @@
   nonus neck notify notification
 
 ### o
-  ok option orange object offen ocean offer of  our old  ower one
-  ... 
+  ok option orange object offen ocean offer of  our old  ower one 
+  
+  opportunity
 
 ### p
-  peach please public push publish pink park people pad park play
+  peach please public push publish pink park people pad park play  pizza pet piece pronunciation practise piano person pair
 
-  pizza pet piece
+  plural proper pajamas pants
 
 ### q
-  QQ quickly question 
+  QQ quickly question quiet
   
   quit  quiz quest
 
 ### r
-  red round root rule read random rank rich rice remove repeat radio rubbish 
+  red round root rule read random rank rich rice remove repeat radio rubbish roof review
   
   relate  related relating religion  roof
 
 ### s
-  said  say see sound soft software sony sorry song sang search  so such street share shader  surface 
+  said  say see sound soft software sony sorry song sang search  so such singular street share shader  surface simply shelf student sheep
 
-  specular sock sand sweet shown
+  specular sock sand sweet shown stereo
 
 ### t
-  take took tool tea teacher tom talk top time taxi to toggle together TED  transparent texture
+  take took tool tea teacher tom talk top time taxi to toggle together TED  transparent texture 
   
-  tiny ticket
+  tiny ticket tooth 
 
 ### u
   university usa un up  use under unity upper
@@ -106,7 +107,7 @@
   usefull uk uncle until
 
 ### v
-  video volvo vagetable
+  video volvo vagetable vowel
 
   ... 
 
