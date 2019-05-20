@@ -102,8 +102,12 @@ a {
   padding: 4px;
   font-size: 16px;
   line-height: 1.3em;
+  color: gray;
 }
 .list a.active {
   background-color: orange;
   color: #fff;
+}
+.list a:visited {
+  color: orange;
 }

@@ -40,5 +40,9 @@
       background-color: orange;
       color: #fff;
     }
+    color: gray;
+    &:visited{
+      color: orange;  
+    }
   }
 }

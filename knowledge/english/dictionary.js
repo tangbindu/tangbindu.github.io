@@ -59,7 +59,7 @@ dl.setAttribute("class","list")
 for(var i in wordsLabrary){
   var dt=document.createElement("dt");
   var dd=document.createElement("dd");
-  dt.innerHTML=i;
+  dt.innerHTML=i.toUpperCase();
   for(var j=0;j<wordsLabrary[i].length;j++){
     var a=document.createElement("a");
     a.setAttribute("href","https://www.oxfordlearnersdictionaries.com/definition/english/"+wordsLabrary[i][j]["href"]);
