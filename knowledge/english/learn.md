@@ -6,20 +6,20 @@
 ### a 
   apple apron auther after ask apply add atom annoying around audio absolute app afraid 
 
-  assets another ambient advice aircraft
+  assets another ambient advice aircraft alarm 
 
 ### b
-  banana book beef boot buffer beef billion best button beach ball become
+  banana book beef boot buffer beef billion best button beach ball become bed  
 
-  beginner bush basketball
+  beginner bush basketball bottle
 
 ### c  
-  cup cat common config coffee cook copy cake catch cought car come crash consonant confirm corn cut child cheap
+  cup cat common config coffee cook copy cake catch cought car come crash consonant confirm corn cut child cheap clean
 
-  collectively  collectives collect  component countable concept chip
+  collectively  collectives collect  component countable concept chip clock cheer cheers cheese
 
 ### d  
-  desk disk dog driver drop diss dinner  deer
+  desk disk dog driver drop diss dinner  deer dry 
 
   diffuse
 
@@ -29,7 +29,9 @@
   explore emotion 
 
 ### f   
-  fok fox  fork  fix food friend friendship fast fuck four fourty fourteen fifteen  fifty family font fill foot fish form
+  fok fox  fork  fix food friend friendship fast fuck four fourty fourteen fifteen  fifty family font fill foot fish form full forest
+
+
 
 ### g 
   grade good golf  good ground go gift grenn great gold green 
@@ -37,7 +39,7 @@
   general garden 
 
 ### h 
-   husband hear heart hold help hello half hand hunberge hank head happy hello have how hide hard 
+   husband hear heart hold help hello half hand hunberge hank head happy hello have how hide hard hospital
 
   hierarchy hundred hamburger harry
 
@@ -53,21 +55,22 @@
   garden general
 
 ### k
-  kill knife keyboard key keep know knowledge ko kitchen
+  kill knife keyboard key keep know knowledge ko kitchen 
 
-  ... 
+  kilogram
 
 ### l
   loop look letter  left leave land layer  litte  
-  ... 
+  
+  liquid
 
 ### m
-  match mooth monkey may mark moon much mask map mapping man  woman
+  match mooth monkey may mark moon much mask map mapping man  woman may meat
 
-  marker moose
+  marker moose material
 
 ### n
-  next nut not no now noise note 
+  next nut not no now noise note  news newspaper
 
   nonus neck notify notification
 
@@ -77,9 +80,9 @@
   opportunity
 
 ### p
-  peach please public push publish pink park people pad park play  pizza pet piece pronunciation practise piano person pair
+  peach please public push publish pink park people pad park play  pizza pet piece pronunciation practise piano person pair paper
 
-  plural proper pajamas pants
+  plural proper pajamas pants passer passerby pool  powder
 
 ### q
   QQ quickly question quiet
@@ -87,13 +90,12 @@
   quit  quiz quest
 
 ### r
-  red round root rule read random rank rich rice remove repeat radio rubbish roof review
+  red round root rule read random rank rich rice remove repeat radio rubbish roof review room
   
   relate  related relating religion  roof
 
 ### s
-  said  say see sound soft software sony sorry song sang search  so such singular street share shader  surface simply shelf student sheep
-
+  said  say see sound soft software sony sorry song sang search  so such singular street share shader  surface simply shelf student sheep solid sugar
   specular sock sand sweet shown stereo
 
 ### t
@@ -102,7 +104,7 @@
   tiny ticket tooth 
 
 ### u
-  university usa un up  use under unity upper
+  university usa un up  use under unity upper under underground
 
   usefull uk uncle until
 
@@ -112,7 +114,7 @@
   ... 
 
 ### w
-  wold world word want will white why who  work wood worry water
+  wold world word want will white why who  work wood worry water wash
 
   while
 
