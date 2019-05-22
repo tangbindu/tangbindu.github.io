@@ -11,12 +11,13 @@
 ### b
   banana book beef boot buffer beef billion best button beach ball become bed  
 
-  beginner bush basketball bottle
+  beginner bush basketball bottle butter
 
 ### c  
-  cup cat common config coffee cook copy cake catch cought car come crash consonant confirm corn cut child cheap clean
+  cup cat common config coffee cook copy cake catch cought car come crash consonant confirm corn cut child cheap clean chicken
 
-  collectively  collectives collect  component countable concept chip clock cheer cheers cheese
+  collectively  collectives collect  component countable concept chip clock cheer cheers cheese coordinate
+
 
 ### d  
   desk disk dog driver drop diss dinner  deer dry 
@@ -65,9 +66,9 @@
   liquid
 
 ### m
-  match mooth monkey may mark moon much mask map mapping man  woman may meat
+  match mooth monkey may mark moon much mask map mapping man  woman may meat 
 
-  marker moose material
+  marker moose material metal
 
 ### n
   next nut not no now noise note  news newspaper
@@ -80,9 +81,9 @@
   opportunity
 
 ### p
-  peach please public push publish pink park people pad park play  pizza pet piece pronunciation practise piano person pair paper
+  peach please public push publish pink park people pad park play  pizza pet piece pronunciation practise piano person pair paper 
 
-  plural proper pajamas pants passer passerby pool  powder
+  plural proper pajamas pants passer passerby pool  powder plastic paste pollution
 
 ### q
   QQ quickly question quiet
@@ -101,7 +102,7 @@
 ### t
   take took tool tea teacher tom talk top time taxi to toggle together TED  transparent texture 
   
-  tiny ticket tooth 
+  tiny ticket tooth trash toothpaste triffic
 
 ### u
   university usa un up  use under unity upper under underground
@@ -114,7 +115,7 @@
   ... 
 
 ### w
-  wold world word want will white why who  work wood worry water wash
+  wold world word want will white why who  work wood worry water wash would
 
   while
 
