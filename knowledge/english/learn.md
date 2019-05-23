@@ -6,21 +6,21 @@
 ### a 
   apple apron auther after ask apply add atom annoying around audio absolute app afraid 
 
-  assets another ambient advice aircraft alarm 
+  assets another ambient advice aircraft airplane alarm action active activity appropriate average advert
 
 ### b
-  banana book beef boot buffer beef billion best button beach ball become bed  
+  banana book beef boot buffer beef billion best button beach ball become bed  black broke broken
 
-  beginner bush basketball bottle butter
+  beginner bush basketball bottle butter balance bowling
 
 ### c  
-  cup cat common config coffee cook copy cake catch cought car come crash consonant confirm corn cut child cheap clean chicken
+  cup cat common config coffee cook copy cake catch cought car come crash consonant confirm corn cut child cheap clean chicken change china chinese
 
-  collectively  collectives collect  component countable concept chip clock cheer cheers cheese coordinate
+  collectively  collectives collect  component countable concept chip clock cheer cheers cheese coordinate complete calculate comfortable
 
 
 ### d  
-  desk disk dog driver drop diss dinner  deer dry 
+  desk disk dog driver drop diss dinner  deer dry  danger dangerous
 
   diffuse
 
@@ -32,38 +32,37 @@
 ### f   
   fok fox  fork  fix food friend friendship fast fuck four fourty fourteen fifteen  fifty family font fill foot fish form full forest
 
-
+  far fair
 
 ### g 
-  grade good golf  good ground go gift grenn great gold green 
+  grade good golf  good ground go gift grenn great gold golden green 
 
   general garden 
 
 ### h 
-   husband hear heart hold help hello half hand hunberge hank head happy hello have how hide hard hospital
+   husband hear heart hold help hello half hand handsome hunberge hank head happy hello have how hide hard hospital
 
   hierarchy hundred hamburger harry
 
 ### i 
   is if  icon 
 
-  inspector invest investment implement
+  inspector invest investment implement inform informative
 
-### g 
+### j
+    japan japanese  judge
 
-  grade good ground grass glass golf gold 
-  
-  garden general
+    joke
 
 ### k
   kill knife keyboard key keep know knowledge ko kitchen 
 
-  kilogram
+  kilogram kidding
 
 ### l
   loop look letter  left leave land layer  litte  
   
-  liquid
+  liquid logical illogical literate illiterate legal ilegal 
 
 ### m
   match mooth monkey may mark moon much mask map mapping man  woman may meat 
@@ -83,7 +82,7 @@
 ### p
   peach please public push publish pink park people pad park play  pizza pet piece pronunciation practise piano person pair paper 
 
-  plural proper pajamas pants passer passerby pool  powder plastic paste pollution
+  plural proper pajamas pants passer passerby pool  powder plastic paste pollution polite
 
 ### q
   QQ quickly question quiet
@@ -93,14 +92,15 @@
 ### r
   red round root rule read random rank rich rice remove repeat radio rubbish roof review room
   
-  relate  related relating religion  roof
+  relate  related relating religion  roof responsible responsibility regular rational irrational  remember
 
 ### s
   said  say see sound soft software sony sorry song sang search  so such singular street share shader  surface simply shelf student sheep solid sugar
-  specular sock sand sweet shown stereo
+  
+  specular sock sand sweet shown stereo seat
 
 ### t
-  take took tool tea teacher tom talk top time taxi to toggle together TED  transparent texture 
+  take took tool tea teacher tom talk talkative top time taxi to toggle together TED  transparent texture 
   
   tiny ticket tooth trash toothpaste triffic
 
