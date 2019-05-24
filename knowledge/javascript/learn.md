@@ -475,7 +475,8 @@ HTML5为网页添加文字水印
 
 ## 数字增长动画
 
-    /**
+    
+      /**
        * 整数求和动画，数字指定时间内递增完
        * @param  {int} initialValue  初始值
        * @param  {int} addValue      增加值
@@ -492,6 +493,9 @@ HTML5为网页添加文字水印
         var _spendTime=0; 
         //***保留多个数字节点占位，并进行复用**
         var _nums=document.getElementsByClassName("mynumber")[0].getElementsByTagName("span");
+        for(var j=0;j<_nums.length;j++){
+          _nums[j].setAttribute("class","");
+        }
         //render
         function render(num){
           var snum=String(num)
@@ -528,4 +532,3 @@ HTML5为网页添加文字水印
         }
       }
       sumAnimation(7,1000);
-
