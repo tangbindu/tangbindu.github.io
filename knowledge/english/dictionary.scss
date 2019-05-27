@@ -46,3 +46,14 @@
     }
   }
 }
+
+bookmark{
+  display: inline;
+  background-color: red;
+  &:after{
+    font-size: 12px;
+    content: "⏎";
+    // background-color: red;
+    color:red;
+  }
+}

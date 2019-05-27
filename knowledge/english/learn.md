@@ -14,9 +14,9 @@
   beginner bush basketball bottle butter balance bowling
 
 ### c  
-  cup cat common config coffee cook copy cake catch cought car come crash consonant confirm corn cut child cheap clean chicken change china chinese
+  cup cat common config coffee cook copy cake catch cought car come crash consonant confirm corn cut child cheap clean chicken change china chinese country continue
 
-  collectively  collectives collect  component countable concept chip clock cheer cheers cheese coordinate complete calculate comfortable
+  collectively  collectives collect  component countable concept chip clock cheer cheers cheese coordinate complete calculate comfortable crucial
 
 
 ### d  
@@ -32,12 +32,12 @@
 ### f   
   fok fox  fork  fix food friend friendship fast fuck four fourty fourteen fifteen  fifty family font fill foot fish form full forest
 
-  far fair
+  far fair flagship
 
 ### g 
   grade good golf  good ground go gift grenn great gold golden green 
 
-  general garden 
+  general garden government
 
 ### h 
    husband hear heart hold help hello half hand handsome hunberge hank head happy hello have how hide hard hospital
@@ -50,9 +50,9 @@
   inspector invest investment implement inform informative
 
 ### j
-    japan japanese  judge
+  japan japanese  judge judgment
 
-    joke
+  joke
 
 ### k
   kill knife keyboard key keep know knowledge ko kitchen 
@@ -65,7 +65,7 @@
   liquid logical illogical literate illiterate legal ilegal 
 
 ### m
-  match mooth monkey may mark moon much mask map mapping man  woman may meat 
+  match mooth monkey may mark moon much mask map mapping man  woman may meat modify
 
   marker moose material metal
 
@@ -75,9 +75,9 @@
   nonus neck notify notification
 
 ### o
-  ok option orange object offen ocean offer of  our old  ower one 
+  ok option orange object offen ocean offer of  our old  ower one  origin
   
-  opportunity
+  opportunity optimize organization
 
 ### p
   peach please public push publish pink park people pad park play  pizza pet piece pronunciation practise piano person pair paper 
@@ -97,7 +97,7 @@
 ### s
   said  say see sound soft software sony sorry song sang search  so such singular street share shader  surface simply shelf student sheep solid sugar
   
-  specular sock sand sweet shown stereo seat
+  specular sock sand sweet shown stereo seat secret
 
 ### t
   take took tool tea teacher tom talk talkative top time taxi to toggle together TED  transparent texture 
@@ -117,7 +117,7 @@
 ### w
   wold world word want will white why who  work wood worry water wash would
 
-  while
+  while weapon
 
 ### x
   ...
