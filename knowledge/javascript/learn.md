@@ -473,4 +473,62 @@ HTML5为网页添加文字水印
         c.document.body.removeChild(a)
     })(window);
 
+## 数字增长动画
 
+    
+      /**
+       * 整数求和动画，数字指定时间内递增完
+       * @param  {int} initialValue  初始值
+       * @param  {int} addValue      增加值
+       * @param  {int} animationTime 动画时间
+       * @return {null}               
+       */
+      function sumAnimation(initialValue,addValue,animationTime){
+        initialValue=initialValue || 0;
+        addValue=0 || addValue;
+        animationTime=animationTime || 500; 
+        var curValue=0; //当前的值
+        var _startTime=0;
+        var _currentTime=0;
+        var _spendTime=0; 
+        //***保留多个数字节点占位，并进行复用**
+        var _nums=document.getElementsByClassName("mynumber")[0].getElementsByTagName("span");
+        for(var j=0;j<_nums.length;j++){
+          _nums[j].setAttribute("class","");
+        }
+        //render
+        function render(num){
+          var snum=String(num)
+          for(var i=0;i<snum.length;i++){
+            _nums[i].setAttribute("class","num"+snum[i])
+          }
+        }
+        //求和
+        function sum(num){
+          curValue=initialValue+num;
+        }
+        //动画
+        function animate(time){
+          _startTime=_startTime ? _startTime : time;
+          _currentTime=time;
+          _spendTime=_currentTime-_startTime;
+          if(_spendTime>animationTime){
+            //显示最后一个数字
+            sum(addValue);
+            render(curValue);
+            return;
+          }else{
+            sum(Math.round(_spendTime/animationTime*addValue));
+            render(curValue);
+          }
+          requestAnimationFrame(animate)
+        }
+        //兼容requestAnimationFrame
+        if(typeof(requestAnimationFrame) == "undefined"){
+          sum(addValue);
+          render(curValue);
+        }else{
+          requestAnimationFrame(animate)
+        }
+      }
+      sumAnimation(7,1000);
