@@ -71,3 +71,25 @@ for(var i in wordsLabrary){
 }
 
 document.body.appendChild(dl);
+
+
+
+// $.ajax({
+//     type: "get",
+//     timeout:'100000',
+//     url: "https://fanyi.baidu.com/#en/zh/number",
+//     success: function(data, textStatus){
+//         console.log(data);
+//     },
+// });
+// 
+// 
+
+$.ajax({
+    type: "get",
+    timeout:'100000',
+    url: "https://www.qq.com",
+    success: function(data, textStatus){
+        console.log(data);
+    },
+});

@@ -36,14 +36,16 @@
     padding: 4px;
     font-size: 16px;
     line-height: 1.3em;
-    &.active{
-      background-color: orange;
-      color: #fff;
-    }
-    color: gray;
-    &:visited{
-      color: orange;  
-    }
+    margin-bottom: 1.5em;
+    color: black;
+    // &.active{
+    //   background-color: orange;
+    //   color: #fff;
+    // }
+    // color: gray;
+    // &:visited{
+    //   color: orange;  
+    // }
   }
 }
 
