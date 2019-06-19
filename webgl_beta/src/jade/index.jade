@@ -62,7 +62,7 @@ html(data-use-rem)
 
       //main入口
       void main() {
-        vec4 Color=vec4(.7,.7,.7,1.0)*dot(vec4(.0, 1.0, 1.3,1.0),v_Color)/distance(v_Color,vec4(.0, 1.0, 1.3,1.0));
+        vec4 Color=vec4(.7,.5,.7,1.0)*dot(vec4(.0, 1.0, 1.3,1.0),v_Color)/distance(v_Color,vec4(.0, 1.0, 1.3,1.0));
         Color.r=pow(Color.r,4.0)*.4;
         Color.g=pow(Color.g,4.0)*.4;
         Color.b=pow(Color.b,4.0)*.4;
