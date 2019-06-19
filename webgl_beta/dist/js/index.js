@@ -1,7 +1,7 @@
 //设置基础环境
 const CANVAS=document.querySelector("canvas");
 CANVAS.width=document.body.clientWidth*window.devicePixelRatio
-CANVAS.height=document.body.clientWidth*window.devicePixelRatio
+CANVAS.height=document.body.clientHeight*window.devicePixelRatio
 CANVAS.style.zoom=1/window.devicePixelRatio
 const GL=CANVAS.getContext("webgl"); 
 
@@ -57,7 +57,7 @@ let u_transformMatrix=GL.getUniformLocation(shaderProgram, 'u_transformMatrix');
 let mvpMatrix = new Matrix4();
 mvpMatrix.setPerspective(25, CANVAS.clientWidth/CANVAS.clientHeight, 1, 100);
 mvpMatrix.lookAt(
-    0, 1, 10, //视点
+    0, 1, 14, //视点
     0, 0, 0,  // 观察点
     0, 1, 0 //上方向
 );
@@ -99,7 +99,7 @@ model.loaded(()=>{
     let transformMatrix=new Matrix4();
     let run=()=>{
         transformMatrix.setRotate(i++,0,1,0);
-        transformMatrix.translate(0,-.3,0,0);
+        transformMatrix.translate(0,.0,0,0);
         GL.uniformMatrix4fv(u_transformMatrix, false, transformMatrix.elements);
         GL.drawElements(GL.TRIANGLES, vertexsIndices.length, GL.UNSIGNED_SHORT, 0);
         requestAnimationFrame(run)
