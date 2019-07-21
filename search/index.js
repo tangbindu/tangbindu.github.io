@@ -6,10 +6,10 @@ let searchList=[
     name: "words",
     // regExp:/[^\w\s\.\/]/g,
     list:{
-      googlePronunciation: "https://www.google.com/search?&q=pronunciation+",
-      googleImage: "https://www.google.com/search?tbm=isch&q=",
       googleNews: "https://news.google.com/search?q=",
       youtube: "https://www.youtube.com/results?search_query=",
+      googleImage: "https://www.google.com/search?tbm=isch&q=",
+      googlePronunciation: "https://www.google.com/search?&q=pronunciation+",
       baidu: "https://fanyi.baidu.com/#en/zh/"
     }
   },
