@@ -1,20 +1,35 @@
 
-// var searchList={
-//   googlePronunciation: "https://www.google.com/search?&q=pronunciation+",
+
+
 let searchList=[
   {
-    name: "words",
+    name: "search",
     // regExp:/[^\w\s\.\/]/g,
     list:{
-      googleNews: "https://news.google.com/search?q=",
-      youtube: "https://www.youtube.com/results?search_query=",
-      googleImage: "https://www.google.com/search?tbm=isch&q=",
-      googlePronunciation: "https://www.google.com/search?&q=pronunciation+",
-      baidu: "https://fanyi.baidu.com/#en/zh/"
+      quora: "https://www.quora.com/search?q=",
+      bing: "http://www.bing.com/search?q=",
+      yahoo: "https://search.yahoo.com/search?p=",
+      wikipedia: "https://en.wikipedia.org/wiki/",
+      baidu: "https://www.baidu.com/s?wd=japan",
+      duckduckgo: "https://duckduckgo.com/?q=",
+      google: "https://www.google.com/search?q="
     }
   },
   {
-    name: "images",
+    name: "translate",
+    // regExp:/[^\w\s\.\/]/g,
+    list:{
+      googletranslate: "https://translate.google.com/?tl=zh-CN&text=",
+      youtubetranslate: "https://www.youtube.com/results?search_query=",
+      googleImagetranslate: "https://www.google.com/search?tbm=isch&q=",
+      wikipediatranslate: "https://en.wikipedia.org/wiki/",
+      quoratranslate: "https://www.quora.com/search?q=",
+      googlePronunciationtranslate: "https://www.google.com/search?&q=pronunciation+",
+      baidutranslate: "https://fanyi.baidu.com/#en/zh/"
+    }
+  },
+  {
+    name: "graphic design",
     list:{
       dribbble: "https://dribbble.com/search?q=",
       zcool: "https://www.zcool.com.cn/search/content?&word=",
