@@ -80,9 +80,12 @@ html, body {
   -webkit-appearance: none;
   transition: all .1s ease;
 }
-.input:focus, .input:hover {
+.input:focus {
   height: 200px;
   font-size: 60px;
+  background-color: #f2f2f6;
+}
+.input:hover {
   background-color: #f2f2f6;
 }
 
