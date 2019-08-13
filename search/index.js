@@ -3,6 +3,19 @@
 
 let searchList=[
   {
+    name: "translate",
+    // regExp:/[^\w\s\.\/]/g,
+    list:{
+      youtubetranslate: "https://www.youtube.com/results?search_query=",
+      googleImagetranslate: "https://www.google.com/search?tbm=isch&q=",
+      // wikipediatranslate: "https://en.wikipedia.org/wiki/",
+      quoratranslate: "https://www.quora.com/search?q=",
+      baidutranslate: "https://fanyi.baidu.com/#en/zh/"
+      googlePronunciationtranslate: "https://www.google.com/search?&q=pronunciation+",
+      googletranslate: "https://translate.google.com/?tl=zh-CN&text=",
+    }
+  },
+  {
     name: "search",
     // regExp:/[^\w\s\.\/]/g,
     list:{
@@ -13,19 +26,6 @@ let searchList=[
       baidu: "https://www.baidu.com/s?wd=japan",
       duckduckgo: "https://duckduckgo.com/?q=",
       google: "https://www.google.com/search?q="
-    }
-  },
-  {
-    name: "translate",
-    // regExp:/[^\w\s\.\/]/g,
-    list:{
-      googletranslate: "https://translate.google.com/?tl=zh-CN&text=",
-      youtubetranslate: "https://www.youtube.com/results?search_query=",
-      googleImagetranslate: "https://www.google.com/search?tbm=isch&q=",
-      wikipediatranslate: "https://en.wikipedia.org/wiki/",
-      quoratranslate: "https://www.quora.com/search?q=",
-      googlePronunciationtranslate: "https://www.google.com/search?&q=pronunciation+",
-      baidutranslate: "https://fanyi.baidu.com/#en/zh/"
     }
   },
   {
