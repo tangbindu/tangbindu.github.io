@@ -10,9 +10,9 @@ let searchList=[
       googleImagetranslate: "https://www.google.com/search?tbm=isch&q=",
       // wikipediatranslate: "https://en.wikipedia.org/wiki/",
       quoratranslate: "https://www.quora.com/search?q=",
-      baidutranslate: "https://fanyi.baidu.com/#en/zh/"
+      baidutranslate: "https://fanyi.baidu.com/#en/zh/",
       googlePronunciationtranslate: "https://www.google.com/search?&q=pronunciation+",
-      googletranslate: "https://translate.google.com/?tl=zh-CN&text=",
+      googletranslate: "https://translate.google.com/?tl=zh-CN&text="
     }
   },
   {
