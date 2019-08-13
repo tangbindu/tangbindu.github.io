@@ -67,13 +67,6 @@ html, body {
   -webkit-box-sizing: border-box;
 }
 
-body {
-  display: flex;
-  padding-bottom: 300px;
-  flex-direction: column;
-  flex: 1;
-}
-
 .input {
   padding: 30px;
   width: 100%;
@@ -85,6 +78,12 @@ body {
   background-color: #FFFFFF;
   -webkit-box-sizing: border-box;
   -webkit-appearance: none;
+  transition: all .1s ease;
+}
+.input:focus, .input:hover {
+  height: 200px;
+  font-size: 60px;
+  background-color: #f2f2f6;
 }
 
 .iframe {
