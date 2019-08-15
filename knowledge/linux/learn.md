@@ -30,4 +30,7 @@
 
 
 
+    find /Users/ -type f -name README.md -not -path "*/node_modules/*"
+
+
 
