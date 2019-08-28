@@ -10,6 +10,9 @@ const Storage =  {
       if(!oldVal){
         Storage.set(name,[addVal])
       }
+      if(oldVal.indexOf(addVal)>=0){
+        return;
+      }
       let newVal = oldVal.concat([addVal])
       Storage.set(name, newVal)
   }
