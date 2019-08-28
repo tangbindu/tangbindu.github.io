@@ -5,13 +5,13 @@
 	<key>CompatibleVersion</key>
 	<integer>1</integer>
 	<key>RawQuery</key>
-	<string>((kMDItemDisplayName = "*psd"cd) &amp;&amp; (kMDItemPhysicalSize &gt; 520000))</string>
+	<string>((kMDItemDisplayName = "*psd"cd) &amp;&amp; (kMDItemPhysicalSize &gt; 100000))</string>
 	<key>RawQueryDict</key>
 	<dict>
 		<key>FinderFilesOnly</key>
 		<true/>
 		<key>RawQuery</key>
-		<string>((kMDItemDisplayName = "*psd"cd) &amp;&amp; (kMDItemPhysicalSize &gt; 520000))</string>
+		<string>((kMDItemDisplayName = "*psd"cd) &amp;&amp; (kMDItemPhysicalSize &gt; 100000))</string>
 		<key>SearchScopes</key>
 		<array>
 			<string>kMDQueryScopeComputer</string>
@@ -21,10 +21,6 @@
 	</dict>
 	<key>SearchCriteria</key>
 	<dict>
-		<key>CurrentFolderPath</key>
-		<array>
-			<string>/Users/tangbin/Desktop</string>
-		</array>
 		<key>FXCriteriaSlices</key>
 		<array>
 			<dict>
@@ -57,7 +53,7 @@
 				<array>
 					<string>文件大小</string>
 					<string>is greater than</string>
-					<string>520</string>
+					<string>100</string>
 					<string>KB</string>
 				</array>
 				<key>rowType</key>
@@ -67,7 +63,7 @@
 			</dict>
 		</array>
 		<key>FXScope</key>
-		<integer>1396925814</integer>
+		<integer>1396929382</integer>
 		<key>FXScopeArrayOfPaths</key>
 		<array>
 			<string>kMDQueryScopeComputer</string>
@@ -366,13 +362,13 @@
 			<key>ShowSidebar</key>
 			<true/>
 			<key>ShowStatusBar</key>
-			<true/>
+			<false/>
 			<key>ShowTabView</key>
 			<false/>
 			<key>ShowToolbar</key>
 			<true/>
 			<key>WindowBounds</key>
-			<string>{{232, 50}, {1910, 1332}}</string>
+			<string>{{158, 91}, {1034, 663}}</string>
 		</dict>
 	</dict>
 </dict>

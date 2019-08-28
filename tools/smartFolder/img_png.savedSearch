@@ -362,13 +362,13 @@
 			<key>ShowSidebar</key>
 			<true/>
 			<key>ShowStatusBar</key>
-			<true/>
+			<false/>
 			<key>ShowTabView</key>
 			<false/>
 			<key>ShowToolbar</key>
 			<true/>
 			<key>WindowBounds</key>
-			<string>{{444, -0}, {1951, 1133}}</string>
+			<string>{{67, 94}, {1282, 698}}</string>
 		</dict>
 	</dict>
 </dict>

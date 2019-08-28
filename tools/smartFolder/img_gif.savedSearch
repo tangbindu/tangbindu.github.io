@@ -5,13 +5,13 @@
 	<key>CompatibleVersion</key>
 	<integer>1</integer>
 	<key>RawQuery</key>
-	<string>((kMDItemDisplayName = "*.gif"cd) &amp;&amp; (kMDItemPhysicalSize &gt; 50000))</string>
+	<string>((kMDItemDisplayName = "*.gif"cd) &amp;&amp; (kMDItemPhysicalSize &gt; 10000))</string>
 	<key>RawQueryDict</key>
 	<dict>
 		<key>FinderFilesOnly</key>
 		<true/>
 		<key>RawQuery</key>
-		<string>((kMDItemDisplayName = "*.gif"cd) &amp;&amp; (kMDItemPhysicalSize &gt; 50000))</string>
+		<string>((kMDItemDisplayName = "*.gif"cd) &amp;&amp; (kMDItemPhysicalSize &gt; 10000))</string>
 		<key>SearchScopes</key>
 		<array>
 			<string>kMDQueryScopeComputer</string>
@@ -53,7 +53,7 @@
 				<array>
 					<string>文件大小</string>
 					<string>is greater than</string>
-					<string>50</string>
+					<string>10</string>
 					<string>KB</string>
 				</array>
 				<key>rowType</key>
@@ -362,13 +362,13 @@
 			<key>ShowSidebar</key>
 			<true/>
 			<key>ShowStatusBar</key>
-			<true/>
+			<false/>
 			<key>ShowTabView</key>
 			<false/>
 			<key>ShowToolbar</key>
 			<true/>
 			<key>WindowBounds</key>
-			<string>{{444, -0}, {1951, 1133}}</string>
+			<string>{{158, 106}, {994, 648}}</string>
 		</dict>
 	</dict>
 </dict>
