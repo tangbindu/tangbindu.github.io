@@ -63,7 +63,7 @@
 			</dict>
 		</array>
 		<key>FXScope</key>
-		<integer>1396929382</integer>
+		<integer>1396925814</integer>
 		<key>FXScopeArrayOfPaths</key>
 		<array>
 			<string>kMDQueryScopeComputer</string>
@@ -368,7 +368,7 @@
 			<key>ShowToolbar</key>
 			<true/>
 			<key>WindowBounds</key>
-			<string>{{456, 231}, {1679, 849}}</string>
+			<string>{{158, 71}, {1813, 1036}}</string>
 		</dict>
 	</dict>
 </dict>

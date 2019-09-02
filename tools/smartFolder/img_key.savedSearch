@@ -5,13 +5,13 @@
 	<key>CompatibleVersion</key>
 	<integer>1</integer>
 	<key>RawQuery</key>
-	<string>((kMDItemDisplayName = "*.png"cd) &amp;&amp; (kMDItemPhysicalSize &gt; 50000))</string>
+	<string>((kMDItemDisplayName = "*key"cd) &amp;&amp; (kMDItemPhysicalSize &gt; 520000))</string>
 	<key>RawQueryDict</key>
 	<dict>
 		<key>FinderFilesOnly</key>
 		<true/>
 		<key>RawQuery</key>
-		<string>((kMDItemDisplayName = "*.png"cd) &amp;&amp; (kMDItemPhysicalSize &gt; 50000))</string>
+		<string>((kMDItemDisplayName = "*key"cd) &amp;&amp; (kMDItemPhysicalSize &gt; 520000))</string>
 		<key>SearchScopes</key>
 		<array>
 			<string>kMDQueryScopeComputer</string>
@@ -34,7 +34,7 @@
 				<array>
 					<string>名称</string>
 					<string>ends with</string>
-					<string>.png</string>
+					<string>key</string>
 				</array>
 				<key>rowType</key>
 				<integer>0</integer>
@@ -53,7 +53,7 @@
 				<array>
 					<string>文件大小</string>
 					<string>is greater than</string>
-					<string>50</string>
+					<string>520</string>
 					<string>KB</string>
 				</array>
 				<key>rowType</key>
@@ -87,7 +87,7 @@
 					<key>visible</key>
 					<true/>
 					<key>width</key>
-					<integer>1548</integer>
+					<integer>1234</integer>
 				</dict>
 				<dict>
 					<key>ascending</key>
@@ -195,7 +195,7 @@
 			<key>showIconPreview</key>
 			<true/>
 			<key>sortColumn</key>
-			<string>size</string>
+			<string>dateLastOpened</string>
 			<key>textSize</key>
 			<real>12</real>
 			<key>useRelativeDates</key>
@@ -315,7 +315,7 @@
 					<key>visible</key>
 					<true/>
 					<key>width</key>
-					<integer>1548</integer>
+					<integer>1234</integer>
 				</dict>
 				<key>size</key>
 				<dict>
@@ -345,7 +345,7 @@
 			<key>showIconPreview</key>
 			<true/>
 			<key>sortColumn</key>
-			<string>size</string>
+			<string>dateLastOpened</string>
 			<key>textSize</key>
 			<real>12</real>
 			<key>useRelativeDates</key>
@@ -368,7 +368,7 @@
 			<key>ShowToolbar</key>
 			<true/>
 			<key>WindowBounds</key>
-			<string>{{1140, 113}, {2352, 1224}}</string>
+			<string>{{158, 71}, {1813, 1036}}</string>
 		</dict>
 	</dict>
 </dict>
