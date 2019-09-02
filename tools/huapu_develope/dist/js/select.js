@@ -25,7 +25,6 @@ document.onkeydown=function(event){
   if(/Mac/.test(navigator.platform)){
     if(event.keyCode==8){
       if(document.activeElement.tagName.toLowerCase()!="input"){
-        alert(23)
         removeIcon($(".icon-img.active"));
         event.preventDefault();
         return false;

@@ -545,7 +545,6 @@ stage.on("click", ".icon-base64", function() {
         var successful = document.execCommand('copy');
         var msg = successful ? '已经复制到粘贴板' : '获取失败';
         //console.log('Copying text command was ' + msg);
-        alert(msg)
     } catch (err) {
         console.log('获取失败');
     }
