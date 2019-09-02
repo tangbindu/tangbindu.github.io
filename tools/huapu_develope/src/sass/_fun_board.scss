@@ -1,0 +1,267 @@
+//布局区域
+.clip-img-wrap-layout{
+  border: 1px solid #d4d9d7;
+  background-color: #d4d9d7;
+  border-radius: 4px;
+  padding: 5px;
+  margin: 10px;
+  text-align: left;
+  .btn{
+    display: inline-block;
+    cursor: pointer;
+    z-index: 20;
+    width: 40px;
+    height: 40px;
+    font-size: 26px;
+    line-height:38px;
+    text-align: center;
+    color: #fff;
+    background-color: #808080;
+    border-radius: 4px;
+  }
+  .btn:not(.active):hover{
+    opacity: .5;
+  }
+  .btn.active{
+    background: #125a33;
+  }
+}
+#layout-table-button{
+  font-size: 26px;
+}
+#layout-row-button{
+  
+}
+#layout-rank-button{
+  line-height: 44px;
+}
+#layout-rank-button span{
+  display: block;
+  width: 100%;
+  height: 100%;    
+  position: relative;
+  top: -5px;
+  left: 2px;
+  font-size: 20px;
+  -webkit-transform:rotate(45deg);
+}
+
+
+
+#clip-img-wrap.layout-table{
+  display:block;
+  .icon-img-wrap{
+    float: left;
+    width: 150px;
+    height: 150px;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+  }
+  .icon-img{
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+
+
+
+
+
+
+//导航区
+@import "_nav";
+#fun-board{
+  position: relative;
+  height: 100%;
+  overflow-y:auto; 
+  width: 220px;
+  background-color: #e3e8e5;
+  text-align: center;
+  padding-bottom: 100px;
+  -webkit-box-sizing:border-box;
+  color:#777;
+  button{
+    color: #777;
+    background-color: #d4d9d7;
+  }
+  button:hover{
+    color: #fff;
+    background-color: #125a33;
+  }
+  //打包下载全部按钮
+  button#icon-download-all{
+    -webkit-animation:fadeUp .6s ease-in-out .3s;
+    position: fixed;
+    width: 220px;
+    z-index: 100;
+    bottom: 0;
+    right: 0;
+    height: 48px;
+    line-height: 48px;
+    font-size: 18px;
+    font-family: "iconfont","微软雅黑";
+    border: 0 none;
+    background-color: #125a33;
+    color: #fff;
+    font-weight: 100;
+    cursor: pointer;
+    span{
+      font-size: 24px;
+      margin-right: 5px;
+      vertical-align: bottom;
+    }
+    &:hover{
+      outline: none;
+      background-color: #167843;
+    }
+  }
+}
+
+
+//调整尺寸
+.resize-icon-target{
+  margin-top: 10px;
+  text-align: center;
+  ul{
+    display: inline-block;
+    width: 130px;
+    height: 130px;
+    list-style: none;
+    li{
+      position: relative;
+      z-index: 1;
+      width: 40px;
+      height: 40px;
+      line-height: 38px;
+      font-size: 28px;
+      border: 1px solid #d4d9d7;
+      float: left;
+      margin-top: -1px;
+      margin-left: -1px;
+      cursor: pointer;
+      -webkit-transition:all 0.1s;
+    }
+    li.active{
+      background-color: #eee;
+      z-index: 2;
+      color: #288543;
+    }
+    li:not(.active):hover{
+      background-color: #e2e2e2;
+    }
+  }
+}
+span.text-tag,input.input,button.btn{
+  display: inline-block;
+  height: 24px;
+  line-height: 24px;
+  outline: none;
+  font-size: 12px;
+}
+button.btn{
+  height: 24px;
+  border-radius: 4px;
+  border: 0px none;
+  width: 45px;
+  cursor: pointer;
+}
+input.input{
+  height: 24px;
+  padding: 0 5px;
+  line-height: 24px;
+  color: #333;
+  border-radius: 4px;
+  border: 1px solid #d4d9d7;
+  width: 45px;
+  margin-right: 5px;
+}
+input.input.double{
+  width: 90px;
+}
+.resize-icon{
+  text-align: left;
+  line-height: 24px;
+  height: 24px;
+  padding: 0 15px;
+  font-size: 0;
+}
+
+//
+.resize-icon-more{
+  font-family: arial;
+  margin: 5px 10px;
+  margin-top: 10px;
+  text-align: left;
+}
+.padding,.normalFuntion{
+  border-top: 1px solid #d4d9d7;
+  padding: 5px;
+}
+
+.dialog.show{
+  display: -webkit-box;
+}
+.dialog{
+  position:fixed;
+  left:0;
+  top:0;
+  right:0;
+  bottom:0;
+  z-index:100;
+  display: none;
+  -webkit-box-align: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: center;
+  .mask{
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+    background:rgba(0,0,0,.45);
+  }
+  .content{
+    position: relative;
+    z-index: 2;
+    width: 600px;
+    min-height: 60px;
+    background-color: #fff;
+  }
+  .header{
+    height: 40px;
+    font-size:16px;
+    line-height: 40px;
+    text-align: center;
+    h2{
+      font-size: 16px;
+    }
+    .close{
+      position:absolute;
+      z-index:3;
+      right:0;
+      top:0;
+      width: 40px;
+      height: 40px;
+      background: url(#) left top no-repeat;
+      background-size: 100% 100%;
+      :active{
+        opacity: .5;
+      }
+    }
+  }
+  .body{
+    height: 400px;
+    padding:10px;
+    textarea{
+      width:100%;
+      height: 100%;
+      border:1px dotted #ccc;
+      display: block;
+      outline: none;
+      padding:10px;
+    }
+  }
+}

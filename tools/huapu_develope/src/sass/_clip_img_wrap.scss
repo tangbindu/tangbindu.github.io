@@ -1,0 +1,209 @@
+#clip-img-wrap{
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-box-pack:center;
+  -webkit-box-align:center;
+  -webkit-box-sizing:border-box;
+  -webkit-box-flex:1;
+  padding: 20px;
+  position: relative;
+  background-image:url(../img/opacity.png); 
+  background-size: 80px 80px;
+  background-repeat: repeat;
+  overflow-y:auto;
+  -webkit-box-sizing:border-box;
+  padding-bottom: 100px;
+  height: 100%;
+  //上传提示ICON
+  &:before{
+    opacity:0.9;
+    display: block;
+    content: "\e603";
+    font-size: 140px;
+    font-weight: 100;
+    color: #125a33;
+  }
+  &:after{
+    opacity:0.9;
+    display: block;
+    content: "拖拽上传icon聚合图";
+    font-size: 28px;
+    margin-top: 10px;
+    font-weight: 100;
+    color: #125a33;
+  }
+  //icon图容器
+  .icon-img-wrap{
+    cursor:default;
+    display: inline-block;
+    margin:20px 10px;
+    text-align: center;
+    &:hover{
+      .icon-fun-board{
+        background-color: rgba(255,255,255,.85);
+        text-indent: -4px;
+      }
+    }
+  }
+  //icon图
+  .icon-img{
+    background-color: rgba(255,255,255,.6);
+    border:1px dashed #999;
+    vertical-align: bottom;
+  }
+  canvas{
+    border: 1px solid orange;
+    background-color: rgba(255,255,222,0.6);
+  }
+  //icon图（修改）状态
+  .icon-img.modify{
+    background-color: rgba(119,219,59,.25) !important;
+  }
+  .icon-img.active{
+    background-color: rgba(255,126,0,0.6);
+    box-shadow: 0px 0px 20px rgba(255,126,0,0.6);
+  }
+  //icon图信息
+  .icon-info{
+    margin-top: 5px;
+    width: 100%;
+    line-height: 24px;
+    color: #333;
+    font-size: 16px;
+    //-webkit-user-select: initial;
+  }
+  //icon自身常用工具
+  .icon-fun-board{
+    font-size: 18px;
+    color: #333;
+    height: 20px;
+    line-height: 18px;
+    padding: 2px 10px;
+    width: 102px;
+    text-align: center;
+    text-indent: 200px;
+    overflow:hidden;
+    position: relative;
+    z-index: 1;
+    border-radius: 5px;
+    margin:-3px auto 0;
+    span{
+      color: #333;
+      font-size: 18px;
+      padding: 0 5px;
+      cursor: pointer;
+      height: 22px;
+    }
+    .icon-base64{
+      font-size: 12px;
+    }
+    .icon-download:hover{
+      color: #58ad19;
+    }
+    .icon-delete:hover{
+      color: red;
+    }
+    .icon-base64:hover{
+      color: #1ea7f6;
+    }
+  }
+}
+
+
+
+#stage.working #clip-img-wrap{
+  cursor:crosshair;
+  &:before{
+    display:none;
+  }
+  &:after{
+    display: none;
+  }
+}
+
+#stage.working-cut-before{
+  .cut_board{
+    display: block;
+  }
+}
+
+
+
+//裁图面板----------------------------------------
+.cut_board{
+  display: none;
+  -webkit-animation:fadeUp 0.4s;
+  overflow: hidden;
+  position: fixed;
+  width: 400px;
+  margin-left: -350px;
+  padding: 10px;
+  background-color: #f1f1d9;
+  border-radius:10px;
+  bottom: 20px;
+  left: 50%;
+  box-shadow: 1px 1px 5px #999;
+  line-height: 48px;
+  .text-tag{
+    font-family: "arial";
+    color:#125a33;
+    font-size: 14px;
+    padding: 0 5px;
+  }
+  button,input{
+    vertical-align: middle;
+    margin: 0 5px;
+    outline: none;
+    cursor: pointer;
+  }
+  .protect-rect-btn{
+    height: 48px;
+    width: 48px;
+    border: 0px solid #f2f2f2;
+    -webkit-box-sizing:border-box;
+    background: url(../img/protect.png) 6px 4px;
+    background-repeat: no-repeat;
+    border-radius: 5px;
+    &:hover{
+      opacity:0.7;
+    };
+  }
+  .protect-rect-btn.active{
+    background-image:url(../img/protect_active.png); 
+  }
+  .start-cut-btn{
+    float: right;
+    border-radius: 4px;
+    background-color: #125a33;
+    color: #fff;
+    border-radius: 5px;
+    border:0 none;
+    width: 140px;
+    height: 48px;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 48px;
+    font-family: "微软雅黑";
+    font-weight: 100;
+    &:hover{
+      opacity:0.9;
+    };
+  }
+}
+input[type="range"] {
+    background-color: #999;
+    border-radius: 15px;
+    width: 120px;
+    -webkit-appearance: none;
+    height:10px;
+    outline: none
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    cursor: default;
+    height: 30px;
+    width: 20px;
+    cursor: pointer;
+    background-color: #125a33;
+    border-radius: 15px;
+}

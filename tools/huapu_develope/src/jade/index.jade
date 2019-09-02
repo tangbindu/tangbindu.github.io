@@ -1,0 +1,122 @@
+<doctype html/>
+html
+  head
+    meta(charset="UTF-8")
+    link(href="css/index.css" rel="stylesheet")
+    title 花圃切图－web流程方案23
+    link(rel="shortcut icon" href="favico.ico")
+  body
+    header
+      #logo
+      #upload &#xe603;
+        span 上传ICON聚合图
+        input(type="file" id="uploadImg")
+      //帮助
+      #help &#xe606;
+    //----------------------------------------舞台----------------------------------------
+    #stage(contenteditable)
+      //切图容器----------------------------------------
+      #clip-img-wrap
+      //裁图面板----------------------------------------
+      .cut_board
+        button.protect-rect-btn(title="点击框选保护区") 
+        input(type="range" name="points" value="20" min="0" max="40" title="调节ICON间距" id="fixed_range")
+        span.text-tag#fixed_range_val 20px
+        button.start-cut-btn#start-cut-btn 切图
+      //功能面板----------------------------------------
+      #fun-board
+        //布局区
+        .clip-img-wrap-layout
+          .btn#layout-row-button.active(title="自然行呈现icon") 
+            span &#xe614;
+          .btn#layout-table-button(title="table的形式呈现icon") 
+            span &#xe615;
+          .btn#layout-rank-button(title="宽度排序呈现icon") 
+            span &#xe61b;
+        //导航预览区
+        .nav.numx
+          ul
+        //导航内容选择或者取消
+        .nav-btn-group
+          button.cannel-choise 取消选择ctrl+d
+          button.all-choise 选择全部ctrl+a
+        //调整选择图片区域
+        .resize-icon-target
+          ul
+            li.target_l_t
+            li.target_c_t
+            li.target_r_t
+            li.target_l_c
+            li.target_c_c.active &#xe616;
+            li.target_r_c
+            li.target_l_b
+            li.target_c_b
+            li.target_r_b
+        //调整图片的尺寸
+        .resize-icon
+          form(action="#" onsubmit="return false")
+            span.text-tag 宽:&nbsp;
+            input(type="text" class="w").input.input-number
+            span.text-tag 高:&nbsp;
+            input(type="text" class="h").input.input-number
+            button(type="submit")#resize-icon-btn.btn 调整
+        //调整图片的留白
+        ul.resize-icon-more
+          //四周留白
+          li.padding
+            form(action="#" onsubmit="return false")
+              span.text-tag 四周留白:&nbsp;
+              input(type="text" class="padding").input.input-number#resize-icon-padding-val
+              span.text-tag px
+              button(type="submit")#resize-icon-padding-btn.btn 调整
+          //常用调整
+          li.normalFuntion
+            span.text-tag 偶数尺寸:&nbsp;
+            button#resize-icon-even.btn 调整
+          //获取sthle
+          li.normalFuntion
+            span.text-tag 获取&nbsp;&nbsp;css:&nbsp;
+            button#get-style.btn style
+          //序列帧
+          li.normalFuntion
+            span.text-tag 合序列帧:&nbsp;
+            button#composite-frame.btn 合成
+          //常用调整
+          li.normalFuntion
+            span.text-tag 前缀:&nbsp;
+              input(type="text" id="icon-name-before" value="icon").input.double
+            span.text-tag icon1.png
+        //现在全部
+        button#icon-download-all 
+          span &#xe602;
+          |打包下载
+      //进度
+      #g-loading
+    img(src="img/img_pattern.png")#img-pattern
+    //dialog
+    .dialog.style-dialog
+      .mask
+      .content
+        .header
+          h2 获取样式
+          .close X
+        .body 
+          textarea
+    script(src="js/jquery-2.1.4.min.js")
+    script(src="js/Icon.min.js")
+    //script(src="js/Icon.js")
+    //前台交互区
+    script(src="js/jszip.min.js")
+    script(src="js/front.min.js")
+    //script(src="js/front.js")
+    //交互区
+    script(src="js/bridge.min.js")
+    //快捷操作
+    script(src="js/select.min.js")
+    script.
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-81808116-1', 'auto');
+      ga('send', 'pageview');
+
+     
+    

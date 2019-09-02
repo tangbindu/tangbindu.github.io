@@ -1,0 +1,70 @@
+.nav{
+  position: relative;
+  width: 200px;
+  margin: 9px;
+  max-height: 198px;
+  overflow: hidden;
+  overflow-y:auto;
+  border: 1px solid #d4d9d7;
+  border-radius: 4px;
+  min-height: 200px;
+  ul{
+    position: relative;
+    overflow: hidden;
+    z-index: 5;
+    margin-top: 1px;
+    margin-left: 1px;
+    width: 100%;
+    li{
+      float: left;
+      width: 50px;
+      height: 50px;
+      padding:4px;
+      -webkit-box-sizing:border-box;
+      border:1px solid #d4d9d7;
+      margin-left: -1px;
+      margin-top: -1px;
+      display:-webkit-box;
+      -webkit-box-orient:vertical;
+      -webkit-box-pack:center;
+      -webkit-box-align:center;
+      -webkit-box-sizing:border-box;
+      background-color: #dfdfdf;
+      img{
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+  } 
+}
+.nav-btn-group{
+  margin-top: -5px;
+  padding: 0 5px;
+  button{
+    height: 30px;
+    width: 46%;
+    text-align: center;
+    margin: 2px;
+    border-radius: 4px;
+    border:  0 none;
+    outline: none;
+    cursor: pointer;
+  }
+}
+  
+.nav.num1 ul li{
+  width: 200px;
+  height: 200px;
+}
+.nav.num2 ul li,.nav.num3 ul li,.nav.num4 ul li{
+  width: 100px;
+  height: 100px;
+}
+.nav.num5 ul li,.nav.num6 ul li,.nav.num7 ul li,.nav.num8 ul li,.nav.num9 ul li{
+  width: 67px;
+  height: 67px;
+}
+.nav.numx ul li{
+  width: 50px;
+  height: 50px;
+}

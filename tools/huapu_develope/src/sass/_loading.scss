@@ -1,0 +1,27 @@
+#g-loading{
+  position: absolute;
+  display: none;
+  z-index: 300;
+  width: 60px;
+  height: 60px;
+  left: 50%;
+  top: 50%;
+  margin-top: -30px;
+  margin-left: -150px;
+  background: url(../img/loading.png);
+  background-size: 100% 100%;
+  -webkit-animation: loading 1.2s linear infinite; 
+}
+#stage.g-loading-show{
+  #g-loading{
+    display: block;
+  }  
+  #clip-img-wrap{
+    &:after{
+      display: none;
+    }
+    &:before{
+      display: none;
+    }
+  }
+}
