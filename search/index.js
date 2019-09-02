@@ -109,6 +109,31 @@ let search={
 search.init();
 
 
+function favoriteSites(){
+  var list=[
+    {
+      name: "花圃",
+      href: "https://tangbindu.github.io/huapu/"
+    },{
+      name: "CUI",
+      href: "https://tangbindu.github.io/cui/demo/dist/html/demo.html"
+    },{
+      name: "knowledge",
+      href: "https://tangbindu.github.io/knowledge/"
+    }
+  ]
+  list.map(
+    function(item){
+      var linkNode= document.createElement("a");
+      linkNode.setAttribute("href",item["href"]); 
+      linkNode.setAttribute("target","_blank"); 
+      linkNode.setAttribute("class","favoriteSite");
+      linkNode.innerText=item["name"]
+      document.body.appendChild(linkNode);
+    }
+  )
+};
+favoriteSites();
 
 
 
