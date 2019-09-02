@@ -1,3 +1,22 @@
+const Storage =  {
+  get : function (name) {
+      return JSON.parse(localStorage.getItem(name))
+  },
+  set : function (name, val) {
+      localStorage.setItem(name, JSON.stringify(val))
+  },
+  add : function (name, addVal) {
+      let oldVal = Storage.get(name)
+      if(!oldVal){
+        Storage.set(name,[addVal])
+      }
+      if(oldVal.indexOf(addVal)>=0){
+        return;
+      }
+      let newVal = oldVal.concat([addVal])
+      Storage.set(name, newVal)
+  }
+}
 
 
 
@@ -63,7 +82,8 @@ let search={
       document.body.appendChild(item.input);
     })
   },
-  openPages:function(searchList,words){
+  openPages:function(searchList,name,words){
+    Storage.add(name,words);
     for(var ifr in searchList){
       window[ifr]=window.open(searchList[ifr]+words);
     }
@@ -76,7 +96,7 @@ let search={
   search:function(e){
     // 8
     if (e.keyCode == 13) {
-      search.openPages(e.target.data.list,this.value)
+      search.openPages(e.target.data.list,e.target.data.name,this.value)
     }else{
       this.value=e.target.data.regExp?this.value.replace(e.target.data.regExp,''):this.value;
       search.closePages(e.target.data.list,this.value)
