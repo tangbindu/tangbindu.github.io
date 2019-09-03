@@ -54,7 +54,13 @@ let searchList=[
       zcool: "https://www.zcool.com.cn/search/content?&word=",
       unsplash: "https://unsplash.com/search/photos/",
       iconfont: "https://www.iconfont.cn/search/index?q=",
-      sketchrepo: "https://sketchrepo.com/?s="
+      sketchrepo: "https://sketchrepo.com/?s=",
+      pexels: "https://www.pexels.com/search/",
+      sccnn: "http://so.sccnn.com/search/",
+      reshot: "https://www.reshot.com/search/",
+      picjumbo: "https://picjumbo.com/?s=",
+      pixabay: "https://pixabay.com/images/search/",
+      stockvault: "https://www.stockvault.net/free-photos/"
     }
   },
   {
