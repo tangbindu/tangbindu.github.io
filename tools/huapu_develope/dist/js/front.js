@@ -412,6 +412,7 @@ stage[0].addEventListener("drop", function(e) {
         readerFiles(i);
     }
 }, false);
+var pasteNum=0;
 //查找box元素,检测当粘贴时候,
 stage[0].addEventListener('paste', function(e) {
     //判断是否是粘贴图片
@@ -424,7 +425,7 @@ stage[0].addEventListener('paste', function(e) {
             reader.onload = (function(theFile) {
                 var imgData = theFile.srcElement.result;
                 //图片名称
-                pc.curImgName="paste";
+                pc.curImgName="paste"+(pasteNum++)+".png";
                 //这里接受图片
                 pc.receiveImg(imgData);
             })
@@ -470,6 +471,17 @@ function downloadImg(imglist, param) {
     } else if (imglist.length > 1) {
         zipdownload(imglist);
     }
+    function dataURIToBlob(dataURI) {
+      var binStr = atob(dataURI.split(',')[1]),
+        len = binStr.length,
+        arr = new Uint8Array(len);
+
+      for (var i = 0; i < len; i++) {
+        arr[i] = binStr.charCodeAt(i);
+      }
+      var blob = new Blob([arr], {type: 'image/png'});
+      return blob;
+    }
 
     function download(imglist) {
         var a = document.createElement('a');
@@ -478,7 +490,7 @@ function downloadImg(imglist, param) {
         }else{
             a.setAttribute('download', conf.name + (++rank) + '.png');
         }
-        a.href = imglist.attr("src");
+        a.href = URL.createObjectURL(dataURIToBlob(imglist.attr("src")));
         a.innerHTML = 'download';
         a.style.display = 'none';
         document.body.appendChild(a);
