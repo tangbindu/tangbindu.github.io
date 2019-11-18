@@ -3,7 +3,7 @@ html
   head
     meta(charset="UTF-8")
     link(href="css/index.css" rel="stylesheet")
-    title 花圃切图－web流程方案23
+    title 花圃切图－web流程方案
     link(rel="shortcut icon" href="favico.ico")
   body
     header
@@ -55,11 +55,14 @@ html
         //调整图片的尺寸
         .resize-icon
           form(action="#" onsubmit="return false")
-            span.text-tag 宽:&nbsp;
-            input(type="text" class="w").input.input-number
-            span.text-tag 高:&nbsp;
-            input(type="text" class="h").input.input-number
-            button(type="submit")#resize-icon-btn.btn 调整
+            div.input-group
+              span.text-tag 宽:&nbsp;
+              input(type="text" class="w").input.input-number
+              span.text-tag 高:&nbsp;
+              input(type="text" class="h").input.input-number
+            div.btn-group
+              button(type="submit")#resize-icon-btn.btn.lg 裁剪
+              button(type="submit")#resize-icon-scale.btn.llg 等比&固定宽高
         //调整图片的留白
         ul.resize-icon-more
           //四周留白
@@ -80,7 +83,8 @@ html
           //序列帧
           li.normalFuntion
             span.text-tag 合序列帧:&nbsp;
-            button#composite-frame.btn 合成
+            button#composite-frame-v.btn.lg 水平合成
+            button#composite-frame-h.btn.lg 垂直合成
           //常用调整
           li.normalFuntion
             span.text-tag 前缀:&nbsp;
@@ -108,7 +112,7 @@ html
     //前台交互区
     script(src="js/jszip.min.js")
     script(src="js/front.min.js")
-    //script(src="js/front.js")
+    //- script(src="js/front.js")
     //交互区
     script(src="js/bridge.min.js")
     //快捷操作

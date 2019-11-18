@@ -830,7 +830,7 @@ input[type="range"]::-webkit-slider-thumb {
   height: 48px;
   line-height: 48px;
   font-size: 18px;
-  font-family: "iconfont","微软雅黑";
+  font-family: "iconfont";
   border: 0 none;
   background-color: #125a33;
   color: #fff;
@@ -850,6 +850,7 @@ input[type="range"]::-webkit-slider-thumb {
 .resize-icon-target {
   margin-top: 10px;
   text-align: center;
+  -webkit-transform: scale(0.9);
 }
 .resize-icon-target ul {
   display: inline-block;
@@ -895,6 +896,12 @@ button.btn {
   width: 45px;
   cursor: pointer;
 }
+button.btn.lg {
+  width: 60px;
+}
+button.btn.llg {
+  width: 100px;
+}
 
 input.input {
   height: 24px;
@@ -914,9 +921,24 @@ input.input.double {
 .resize-icon {
   text-align: left;
   line-height: 24px;
-  height: 24px;
-  padding: 0 15px;
   font-size: 0;
+}
+
+.input-group {
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: center;
+}
+
+.btn-group {
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: center;
+}
+.btn-group .btn {
+  margin: 3px 2px;
 }
 
 .resize-icon-more {

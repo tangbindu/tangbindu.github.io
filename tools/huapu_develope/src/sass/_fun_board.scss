@@ -101,7 +101,7 @@
     height: 48px;
     line-height: 48px;
     font-size: 18px;
-    font-family: "iconfont","微软雅黑";
+    font-family: "iconfont";
     border: 0 none;
     background-color: #125a33;
     color: #fff;
@@ -124,6 +124,7 @@
 .resize-icon-target{
   margin-top: 10px;
   text-align: center;
+  -webkit-transform:scale(.9);
   ul{
     display: inline-block;
     width: 130px;
@@ -166,6 +167,12 @@ button.btn{
   border: 0px none;
   width: 45px;
   cursor: pointer;
+  &.lg{
+    width: 60px;
+  }
+  &.llg{
+    width: 100px;
+  }
 }
 input.input{
   height: 24px;
@@ -183,9 +190,26 @@ input.input.double{
 .resize-icon{
   text-align: left;
   line-height: 24px;
-  height: 24px;
-  padding: 0 15px;
+  // height: 24px;
+  // padding: 0 15px;
   font-size: 0;
+}
+.input-group{
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-orient: vertical;
+  //-webkit-box-orient:horizontal;
+  -webkit-box-pack: center;
+}
+.btn-group{
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-orient: vertical;
+  //-webkit-box-orient:horizontal;
+  -webkit-box-pack: center;
+  .btn{
+    margin:3px 2px;
+  }
 }
 
 //

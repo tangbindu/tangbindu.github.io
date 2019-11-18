@@ -717,10 +717,10 @@ $(".input-number").bind("keyup", function() {
 //-------------------------------前台-调整尺寸-调整点-----------------------------
 //获取需要调整的图片，调整原点，获取尺寸，开始调整
 $(".resize-icon-target li").bind("click", function() {
-        $(this).addClass("active").siblings().html("").removeClass("active");
-        $(this).html("&#xe616;")
-    })
-    //调整尺寸
+    $(this).addClass("active").siblings().html("").removeClass("active");
+    $(this).html("&#xe616;")
+})
+//调整尺寸
 $("#resize-icon-btn").bind("click", function() {
     var resize_Images = $("#clip-img-wrap img.active");
     var origin = $(".resize-icon-target .active").attr("class").slice(7, 10);
@@ -730,7 +730,21 @@ $("#resize-icon-btn").bind("click", function() {
     h = h.toString().replace(/\D/, "");
     resize_Images.each(function() {
         $(this).parent().find(".icon-info").text(w + "*" + h);
-        resizeImage($(this)[0], {
+        resizeImage($(this)[0],"clip", {
+            "origin": origin,
+            "width": w,
+            "height": h
+        })
+    })
+})
+$("#resize-icon-scale").bind("click", function() {
+    var resize_Images = $("#clip-img-wrap img.active");
+    var w = $(".resize-icon .w").val();
+    var h = $(".resize-icon .h").val();
+    w = w.toString().replace(/\D/, "");
+    h = h.toString().replace(/\D/, "");
+    resize_Images.each(function() {
+        resizeImage($(this)[0], "scale",{
             "origin": origin,
             "width": w,
             "height": h
@@ -752,7 +766,7 @@ $("#resize-icon-padding-btn").bind("click", function() {
         w = $(this)[0].naturalWidth - 0 + padding * 2;
         h = $(this)[0].naturalHeight - 0 + padding * 2;
         $(this).parent().find(".icon-info").text(w + "*" + h);
-        resizeImage($(this)[0], {
+        resizeImage($(this)[0],"clip" ,{
             "origin": "c_c",
             "width": w,
             "height": h
@@ -772,7 +786,7 @@ $("#resize-icon-even").bind("click", function() {
         w = w % 2 == 1 ? ++w : w;
         h = h % 2 == 1 ? ++h : h;
         $(this).parent().find(".icon-info").text(w + "*" + h);
-        resizeImage($(this)[0], {
+        resizeImage($(this)[0],"clip" ,{
             "origin": "c_c",
             "width": w,
             "height": h
@@ -816,15 +830,20 @@ $("#get-style").bind("click", function() {
 })
 
 //-------------------------------合成序列帧-----------------------------
-//合序列帧
-$("#composite-frame").bind("click", function() {
-    compositeFrame();
+//合序列帧 
+//水平
+$("#composite-frame-h").bind("click", function() {
+    compositeFrame("v");
+}) 
+//垂直
+$("#composite-frame-v").bind("click", function() {
+    compositeFrame("h");
 })
 
 
 
 //合成序列帧
-function compositeFrame(){
+function compositeFrame(type){
     //合成后的信息注入在clipImgWrap上
     var clipImgWrap=$("#clip-img-wrap");
     var imgs=clipImgWrap.find("img");
@@ -834,30 +853,42 @@ function compositeFrame(){
     }
     var compositeFrameWidth=0;
     var compositeFrameHeight=0;
-    for(var i=0,il=imgs.length;i<il;i++){
-        compositeFrameWidth+=imgs.eq(i)[0].naturalWidth;
-        compositeFrameHeight=imgs.eq(i)[0].naturalHeight>compositeFrameHeight ? imgs.eq(i)[0].naturalHeight : compositeFrameHeight;
-    }
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext("2d");
-    canvas.width = compositeFrameWidth;
-    canvas.height = compositeFrameHeight;
-    var imgloc=0;
-    for(var i=0,il=imgs.length;i<il;i++){
-        ctx.drawImage(imgs.eq(i)[0], imgloc, 0, imgs.eq(i)[0].width, imgs.eq(i)[0].height);
-        imgloc+=imgs.eq(i)[0].naturalWidth;
+    if(type=="v"){
+        for(var i=0,il=imgs.length;i<il;i++){
+            compositeFrameWidth=Math.max(compositeFrameWidth,imgs.eq(i)[0].naturalWidth);
+            compositeFrameHeight+=imgs.eq(i)[0].naturalHeight;
+        }
+        canvas.width = compositeFrameWidth;
+        canvas.height = compositeFrameHeight;
+        var imgloc=0;
+        for(var i=0,il=imgs.length;i<il;i++){
+            ctx.drawImage(
+                imgs.eq(i)[0], 
+                0, 
+                imgloc, 
+                imgs.eq(i)[0].width, 
+                imgs.eq(i)[0].height
+            );
+            imgloc+=imgs.eq(i)[0].naturalHeight;
+        }
+
+    }else if(type=="h"){
+        for(var i=0,il=imgs.length;i<il;i++){
+            compositeFrameWidth+=imgs.eq(i)[0].naturalWidth;
+            compositeFrameHeight=imgs.eq(i)[0].naturalHeight>compositeFrameHeight ? imgs.eq(i)[0].naturalHeight : compositeFrameHeight;
+        }
+        canvas.width = compositeFrameWidth;
+        canvas.height = compositeFrameHeight;
+        var imgloc=0;
+        for(var i=0,il=imgs.length;i<il;i++){
+            ctx.drawImage(imgs.eq(i)[0], imgloc, 0, imgs.eq(i)[0].width, imgs.eq(i)[0].height);
+            imgloc+=imgs.eq(i)[0].naturalWidth;
+        }
     }
     clipImgWrap.html("");
-    // clipImgWrap.append($(canvas));
-
-    // img.src = cvs.toDataURL("image/png");
     pc.receiveImg(canvas.toDataURL("image/png")); 
-    console.dir(pc.clip_img_wrap.find("img"))
-    // ctx.drawImage(img, 0, 0, img.width, img.height);
-    // $(img).before(canvas);
-    // funNav.removeThumb($(img).attr("sid"));
-    // $(img).remove();
-    // return canvas;
 }
 
 
@@ -870,61 +901,74 @@ function compositeFrame(){
  *重新输出
  *替换原图片
  */
-function resizeImage(img, param) {
+function resizeImage(img,type, param) {
     var param = param || {};
     var new_width = param.width || img.width;
     var new_height = param.height || img.width;
     var origin = param.origin || "c_c";
     tempImg = new Image();
+    var canvas = document.createElement("canvas");
+    var ctx = canvas.getContext("2d");
     tempImg.onload = function() {
-        var canvas = document.createElement("canvas");
-        var ctx = canvas.getContext("2d");
-        canvas.width = new_width;
-        canvas.height = new_height;
         var x = 0;
         var y = 0;
-        switch (origin) {
-            case "l_t":
-                x = 0;
-                y = 0;
-                break;
-            case "l_c":
-                x = 0;
-                y = (canvas.height - img.height) / 2; 
-                break;
-            case "l_b":
-                x = 0;
-                y = canvas.height - img.height;
-                break;
-            case "c_t":
-                x = (canvas.width - img.width) / 2;;
-                y = 0;
-                break;
-            case "c_c":
-                x = (canvas.width - img.width) / 2;
-                y = (canvas.height - img.height) / 2;
-                break;
-            case "c_b":
-                x = (canvas.width - img.width) / 2;
-                y = canvas.height - img.height;
-                break;
-            case "r_t":
-                x = canvas.width - img.width;
-                y = 0;
-                break;
-            case "r_c":
-                x = canvas.width - img.width;
-                y = (canvas.height - img.height) / 2;
-                break;
-            case "r_b":
-                x = canvas.width - img.width;
-                y = canvas.height - img.height;
-                break;
+        if(type=="clip"){
+            canvas.width = new_width;
+            canvas.height = new_height;
+            switch (origin) {
+                case "l_t":
+                    x = 0;
+                    y = 0;
+                    break;
+                case "l_c":
+                    x = 0;
+                    y = (canvas.height - img.height) / 2; 
+                    break;
+                case "l_b":
+                    x = 0;
+                    y = canvas.height - img.height;
+                    break;
+                case "c_t":
+                    x = (canvas.width - img.width) / 2;;
+                    y = 0;
+                    break;
+                case "c_c":
+                    x = (canvas.width - img.width) / 2;
+                    y = (canvas.height - img.height) / 2;
+                    break;
+                case "c_b":
+                    x = (canvas.width - img.width) / 2;
+                    y = canvas.height - img.height;
+                    break;
+                case "r_t":
+                    x = canvas.width - img.width;
+                    y = 0;
+                    break;
+                case "r_c":
+                    x = canvas.width - img.width;
+                    y = (canvas.height - img.height) / 2;
+                    break;
+                case "r_b":
+                    x = canvas.width - img.width;
+                    y = canvas.height - img.height;
+                    break;
+            }
+            //绘制的位置调整
+            ctx.drawImage(img, x, y, img.width, img.height);
+            //取出图片，替换原有的图片
+            img.src = canvas.toDataURL("image/png");
+        }else if(type=="scale"){
+            var c_width = param.width || (param.height/this.height*this.width);
+            var c_height = param.height || (param.width/this.width*this.height);
+            $(img).parent().find(".icon-info").text(c_width + "*" + c_height);
+            canvas.width=c_width;
+            canvas.height=c_height;
+            //绘制的位置调整
+            ctx.drawImage(img, x, y, c_width, c_height);
+            //取出图片，替换原有的图片
+            img.src = canvas.toDataURL("image/png");
         }
-        //绘制的位置调整
-        ctx.drawImage(img, x, y, img.width, img.height);
-        //取出图片，替换原有的图片
-        img.src = canvas.toDataURL("image/png");
+        canvas=ctx=null;
     }
     tempImg.src = img.getAttribute("src");
 }

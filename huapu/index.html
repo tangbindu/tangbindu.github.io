@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8"/>
     <link href="css/index.css" rel="stylesheet"/>
-    <title>花圃切图－web流程方案23</title>
+    <title>花圃切图－web流程方案</title>
     <link rel="shortcut icon" href="favico.ico"/>
   </head>
   <body>
@@ -15,7 +15,7 @@
       <!--帮助-->
       <div id="help">&#xe606;</div>
     </header>
-    <div id="stage" contenteditable>
+    <div id="stage" contenteditable="contenteditable">
       <!--切图容器------------------------------------------>
       <div id="clip-img-wrap"></div>
       <!--裁图面板------------------------------------------>
@@ -57,10 +57,15 @@
         </div>
         <!--调整图片的尺寸-->
         <div class="resize-icon">
-          <form action="#" onsubmit="return false"><span class="text-tag">宽:&nbsp;</span>
-            <input type="text" class="w input input-number"/><span class="text-tag">高:&nbsp;</span>
-            <input type="text" class="h input input-number"/>
-            <button type="submit" id="resize-icon-btn" class="btn">调整</button>
+          <form action="#" onsubmit="return false">
+            <div class="input-group"><span class="text-tag">宽:&nbsp;</span>
+              <input type="text" class="w input input-number"/><span class="text-tag">高:&nbsp;</span>
+              <input type="text" class="h input input-number"/>
+            </div>
+            <div class="btn-group">
+              <button type="submit" id="resize-icon-btn" class="btn lg">裁剪</button>
+              <button type="submit" id="resize-icon-scale" class="btn llg">等比&固定宽高</button>
+            </div>
           </form>
         </div>
         <!--调整图片的留白-->
@@ -82,7 +87,8 @@
           </li>
           <!--序列帧-->
           <li class="normalFuntion"><span class="text-tag">合序列帧:&nbsp;</span>
-            <button id="composite-frame" class="btn">合成</button>
+            <button id="composite-frame-v" class="btn lg">水平合成</button>
+            <button id="composite-frame-h" class="btn lg">垂直合成</button>
           </li>
           <!--常用调整-->
           <li class="normalFuntion"><span class="text-tag">前缀:&nbsp;
@@ -113,7 +119,6 @@
     <!--前台交互区-->
     <script src="js/jszip.min.js"></script>
     <script src="js/front.min.js"></script>
-    <!--script(src="js/front.js")-->
     <!--交互区-->
     <script src="js/bridge.min.js"></script>
     <!--快捷操作-->
