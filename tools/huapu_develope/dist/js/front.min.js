@@ -729,7 +729,7 @@ $("#resize-icon-btn").bind("click", function() {
     w = w.toString().replace(/\D/, "");
     h = h.toString().replace(/\D/, "");
     resize_Images.each(function() {
-        $(this).parent().find(".icon-info").text(w + "*" + h);
+        // $(this).parent().find(".icon-info").text(w + "*" + h);
         resizeImage($(this)[0],"clip", {
             "origin": origin,
             "width": w,
@@ -904,7 +904,7 @@ function compositeFrame(type){
 function resizeImage(img,type, param) {
     var param = param || {};
     var new_width = param.width || img.width;
-    var new_height = param.height || img.width;
+    var new_height = param.height || img.height;
     var origin = param.origin || "c_c";
     tempImg = new Image();
     var canvas = document.createElement("canvas");
@@ -953,6 +953,7 @@ function resizeImage(img,type, param) {
                     y = canvas.height - img.height;
                     break;
             }
+            $(img).parent().find(".icon-info").text( canvas.width + "*" + canvas.height);
             //绘制的位置调整
             ctx.drawImage(img, x, y, img.width, img.height);
             //取出图片，替换原有的图片
