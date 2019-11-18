@@ -960,6 +960,8 @@ function resizeImage(img,type, param) {
         }else if(type=="scale"){
             var c_width = param.width || (param.height/this.height*this.width);
             var c_height = param.height || (param.width/this.width*this.height);
+            c_width=Math.ceil(c_width);
+            c_height=Math.ceil(c_height);
             $(img).parent().find(".icon-info").text(c_width + "*" + c_height);
             canvas.width=c_width;
             canvas.height=c_height;
