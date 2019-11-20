@@ -39,7 +39,6 @@ eventTarget.prototype = {
 };
 
 
-
 //构造操作对象源－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 function PngCut(config) {
     var conf = config || {};
@@ -414,7 +413,8 @@ stage[0].addEventListener("drop", function(e) {
 }, false);
 var pasteNum=0;
 //查找box元素,检测当粘贴时候,
-stage[0].addEventListener('paste', function(e) {
+window.addEventListener('paste', function(e) {
+    alert(23)
     //判断是否是粘贴图片
     if (e.clipboardData && e.clipboardData.items[0].type.indexOf('image') > -1) 
     {
