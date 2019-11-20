@@ -412,6 +412,10 @@ stage[0].addEventListener("drop", function(e) {
         readerFiles(i);
     }
 }, false);
+
+
+
+
 var pasteNum=0;
 //查找box元素,检测当粘贴时候,
 stage[0].addEventListener('paste', function(e) {
@@ -975,3 +979,64 @@ function resizeImage(img,type, param) {
     }
     tempImg.src = img.getAttribute("src");
 }
+
+
+function getQueryVariable(variable)
+{
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+}
+
+(function getOutSiteImages(){
+    // var artboardId="65E62557-0A48-47E9-9E7C-D7D5F432956F";
+    // var md5ProjectName="8eb9e19ea1d9c9d97e68012976067f27";
+    var artboardId=getQueryVariable("artboardId");
+    var md5ProjectName=getQueryVariable("md5ProjectName");
+    $.ajax({
+        type:"post",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data:{
+            "artboardId":artboardId,
+            "md5ProjectName":md5ProjectName
+        },
+        // url:"http://api.uitocode.oa.com/project/generate",
+        url:"http://9.134.32.201:3001/project/generate",
+        //请求成功
+        success : function(result) {
+            var imgList=result.data.imgList;
+            imgList.map((item)=>{
+                let image=new Image();
+                image.onload=function(){
+                    //这里接受图片
+                    pc.receiveImg(this.src);
+            
+                }
+                image.src=item.path;
+            })
+        },
+        error : function(e){
+            console.dir(e)
+        }
+      });
+})()
+
+// var outSiteImages=[
+//     {path:"http://10.85.21.78:8081/imgData?path=8eb9e19ea1d9c9d97e68012976067f27/images/c6444d52.png"},
+//     {path:"http://10.85.21.78:8081/imgData?path=8eb9e19ea1d9c9d97e68012976067f27/images/ca94d9cd.png"},
+//     {path: "http://10.85.21.78:8081/imgData?path=8eb9e19ea1d9c9d97e68012976067f27/images/eefe8f4c.png"}
+// ];
+// outSiteImages.map((item)=>{
+//     let image=new Image();
+//     image.onload=function(){
+//         //这里接受图片
+//         pc.receiveImg(this.src);
+
+//     }
+//     image.src=item.path;
+// })
