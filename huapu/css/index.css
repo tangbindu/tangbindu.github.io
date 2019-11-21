@@ -499,6 +499,7 @@ header {
   margin-top: 10px;
   font-weight: 100;
   color: #125a33;
+  font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
 }
 #clip-img-wrap .icon-img-wrap {
   cursor: default;
@@ -842,6 +843,9 @@ input[type="range"]::-webkit-slider-thumb {
   margin-right: 5px;
   vertical-align: bottom;
 }
+#fun-board button#icon-download-all .font {
+  font-size: 16px;
+}
 #fun-board button#icon-download-all:hover {
   outline: none;
   background-color: #167843;
@@ -1043,6 +1047,11 @@ input.input.double {
 }
 #stage.g-loading-show #clip-img-wrap:before {
   display: none;
+}
+
+.font {
+  font-family: "PingFangSC-Regular","Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+  font-weight: 100;
 }
 
 #stage {

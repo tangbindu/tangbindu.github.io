@@ -33,6 +33,10 @@ body{
 @import "_loading";
 
 
+.font{
+  font-family: "PingFangSC-Regular","Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+  font-weight: 100;;
+}
 //舞台
 #stage{
   position: fixed;
