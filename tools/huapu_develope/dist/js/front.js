@@ -1163,7 +1163,7 @@ function resizeImage(img,type, param,callback) {
                     break;
                 case "c_c":
                     x = (canvas.width - img.width) / 2;
-                    y = (canvas.height - img.height) / 2;
+                    y = (canvas.height - img.height) / 2+25;
                     break;
                 case "c_b":
                     x = (canvas.width - img.width) / 2;
@@ -1175,7 +1175,7 @@ function resizeImage(img,type, param,callback) {
                     break;
                 case "r_c":
                     x = canvas.width - img.width;
-                    y = (canvas.height - img.height) / 2;
+                    y = (canvas.height - img.height) / 2
                     break;
                 case "r_b":
                     x = canvas.width - img.width;
