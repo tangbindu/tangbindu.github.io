@@ -378,7 +378,7 @@ body {
 
 header {
   height: 48px;
-  background-color: #125a33;
+  background-color: #614BFF;
   line-height: 48px;
 }
 
@@ -489,27 +489,24 @@ header {
   content: "\e603";
   font-size: 140px;
   font-weight: 100;
-  color: #125a33;
+  color: #614BFF;
 }
 #clip-img-wrap:after {
   opacity: 0.9;
   display: block;
-  content: "拖拽上传icon聚合图";
+  content: "拖拽上传主题";
   font-size: 28px;
   margin-top: 10px;
   font-weight: 100;
-  color: #125a33;
+  color: #614BFF;
   font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
 }
 #clip-img-wrap .icon-img-wrap {
+  position: relative;
   cursor: default;
   display: inline-block;
   margin: 20px 10px;
   text-align: center;
-}
-#clip-img-wrap .icon-img-wrap:hover .icon-fun-board {
-  background-color: rgba(255, 255, 255, 0.85);
-  text-indent: -4px;
 }
 #clip-img-wrap .icon-img {
   background-color: rgba(255, 255, 255, 0.6);
@@ -523,10 +520,6 @@ header {
 #clip-img-wrap .icon-img.modify {
   background-color: rgba(119, 219, 59, 0.25) !important;
 }
-#clip-img-wrap .icon-img.active {
-  background-color: rgba(255, 126, 0, 0.6);
-  box-shadow: 0px 0px 20px rgba(255, 126, 0, 0.6);
-}
 #clip-img-wrap .icon-info {
   margin-top: 5px;
   width: 100%;
@@ -535,16 +528,16 @@ header {
   font-size: 16px;
 }
 #clip-img-wrap .icon-fun-board {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   font-size: 18px;
   color: #333;
   height: 20px;
   line-height: 20px;
   padding: 2px 10px;
-  width: 102px;
-  text-align: center;
-  text-indent: 200px;
-  overflow: hidden;
-  position: relative;
+  text-align: right;
   z-index: 1;
   border-radius: 5px;
   margin: -3px auto 0;
@@ -558,12 +551,31 @@ header {
 }
 #clip-img-wrap .icon-fun-board .icon-base64 {
   font-size: 12px;
+  position: absolute;
+  right: 0;
+  top: 91px;
+  width: 40px;
+  height: 20px;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 0;
+  border: 2px solid transparent;
+  background: transparent;
+}
+#clip-img-wrap .icon-fun-board .icon-download {
+  color: #614BFF;
 }
 #clip-img-wrap .icon-fun-board .icon-download:hover {
-  color: #58ad19;
+  opacity: .7;
+}
+#clip-img-wrap .icon-fun-board .icon-delete {
+  margin-left: 30px;
+}
+#clip-img-wrap .icon-fun-board .icon-delete {
+  color: red;
 }
 #clip-img-wrap .icon-fun-board .icon-delete:hover {
-  color: red;
+  opacity: .7;
 }
 #clip-img-wrap .icon-fun-board .icon-base64:hover {
   color: #1ea7f6;
@@ -579,10 +591,6 @@ header {
   display: none;
 }
 
-#stage.working-cut-before .cut_board {
-  display: block;
-}
-
 .cut_board {
   display: none;
   -webkit-animation: fadeUp 0.4s;
@@ -591,16 +599,17 @@ header {
   width: 400px;
   margin-left: -350px;
   padding: 10px;
-  background-color: #f1f1d9;
   border-radius: 10px;
   bottom: 20px;
   left: 50%;
-  box-shadow: 1px 1px 5px #999;
   line-height: 48px;
+  -webkit-box-align: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: center;
 }
 .cut_board .text-tag {
   font-family: "arial";
-  color: #125a33;
+  color: #614BFF;
   font-size: 14px;
   padding: 0 5px;
 }
@@ -626,9 +635,8 @@ header {
   background-image: url(../img/protect_active.png);
 }
 .cut_board .start-cut-btn {
-  float: right;
   border-radius: 4px;
-  background-color: #125a33;
+  background-color: #614BFF;
   color: #fff;
   border-radius: 5px;
   border: 0 none;
@@ -659,7 +667,7 @@ input[type="range"]::-webkit-slider-thumb {
   height: 30px;
   width: 20px;
   cursor: pointer;
-  background-color: #125a33;
+  background-color: #614BFF;
   border-radius: 15px;
 }
 
@@ -688,7 +696,7 @@ input[type="range"]::-webkit-slider-thumb {
   opacity: .5;
 }
 .clip-img-wrap-layout .btn.active {
-  background: #125a33;
+  background: #614BFF;
 }
 
 #layout-table-button {
@@ -803,11 +811,11 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 #fun-board {
-  position: relative;
-  height: 100%;
+  position: absolute;
+  right: 0;
+  height: 48px;
   overflow-y: auto;
   width: 220px;
-  background-color: #e3e8e5;
   text-align: center;
   padding-bottom: 100px;
   -webkit-box-sizing: border-box;
@@ -819,7 +827,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 #fun-board button:hover {
   color: #fff;
-  background-color: #125a33;
+  background-color: #614BFF;
 }
 #fun-board button#icon-download-all {
   -webkit-animation: fadeUp .6s ease-in-out .3s;
@@ -833,7 +841,7 @@ input[type="range"]::-webkit-slider-thumb {
   font-size: 18px;
   font-family: "iconfont";
   border: 0 none;
-  background-color: #125a33;
+  background-color: #614BFF;
   color: #fff;
   font-weight: 100;
   cursor: pointer;

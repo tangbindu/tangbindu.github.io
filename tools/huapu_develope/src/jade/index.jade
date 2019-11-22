@@ -7,9 +7,9 @@ html
     link(rel="shortcut icon" href="favico.ico")
   body
     header
-      #logo
+      //- #logo
       #upload &#xe603;
-        span.font 上传ICON聚合图
+        span.font 上传主题图片
         input(type="file" id="uploadImg")
       //帮助
       #help &#xe606;
@@ -19,14 +19,14 @@ html
       #clip-img-wrap
       //裁图面板----------------------------------------
       .cut_board
-        button.protect-rect-btn(title="点击框选保护区") 
-        input(type="range" name="points" value="20" min="0" max="40" title="调节ICON间距" id="fixed_range")
-        span.text-tag#fixed_range_val 20px
-        button.start-cut-btn#start-cut-btn 切图
+        //- button.protect-rect-btn(title="点击框选保护区") 
+        //- input(type="range" name="points" value="20" min="0" max="40" title="调节ICON间距" id="fixed_range")
+        //- span.text-tag#fixed_range_val 20px
+        button.start-cut-btn#start-cut-btn 批量生成主题
       //功能面板----------------------------------------
       #fun-board
         //布局区
-        .clip-img-wrap-layout
+        //- .clip-img-wrap-layout
           .btn#layout-row-button.active(title="自然行呈现icon") 
             span &#xe614;
           .btn#layout-table-button(title="table的形式呈现icon") 
@@ -34,37 +34,37 @@ html
           .btn#layout-rank-button(title="宽度排序呈现icon") 
             span &#xe61b;
         //导航预览区
-        .nav.numx
-          ul
-        //导航内容选择或者取消
-        .nav-btn-group
-          button.cannel-choise 取消选择ctrl+d
-          button.all-choise 选择全部ctrl+a
-        //调整选择图片区域
-        .resize-icon-target
-          ul
-            li.target_l_t
-            li.target_c_t
-            li.target_r_t
-            li.target_l_c
-            li.target_c_c.active &#xe616;
-            li.target_r_c
-            li.target_l_b
-            li.target_c_b
-            li.target_r_b
-        //调整图片的尺寸
-        .resize-icon
-          form(action="#" onsubmit="return false")
-            div.input-group
-              span.text-tag 宽:&nbsp;
-              input(type="text" class="w").input.input-number
-              span.text-tag 高:&nbsp;
-              input(type="text" class="h").input.input-number
-            div.btn-group
-              button(type="submit")#resize-icon-btn.btn.lg 裁剪
-              button(type="submit")#resize-icon-scale.btn.llg 等比&固定宽高
+        //- .nav.numx
+        //-   ul
+        //- //导航内容选择或者取消
+        //- .nav-btn-group
+        //-   button.cannel-choise 取消选择ctrl+d
+        //-   button.all-choise 选择全部ctrl+a
+        //- //调整选择图片区域
+        //- .resize-icon-target
+        //-   ul
+        //-     li.target_l_t
+        //-     li.target_c_t
+        //-     li.target_r_t
+        //-     li.target_l_c
+        //-     li.target_c_c.active &#xe616;
+        //-     li.target_r_c
+        //-     li.target_l_b
+        //-     li.target_c_b
+        //-     li.target_r_b
+        //- //调整图片的尺寸
+        //- .resize-icon
+        //-   form(action="#" onsubmit="return false")
+        //-     div.input-group
+        //-       span.text-tag 宽:&nbsp;
+        //-       input(type="text" class="w").input.input-number
+        //-       span.text-tag 高:&nbsp;
+        //-       input(type="text" class="h").input.input-number
+        //-     div.btn-group
+        //-       button(type="submit")#resize-icon-btn.btn.lg 裁剪
+        //-       button(type="submit")#resize-icon-scale.btn.llg 等比&固定宽高
         //调整图片的留白
-        ul.resize-icon-more
+        //- ul.resize-icon-more
           //四周留白
           li.padding
             form(action="#" onsubmit="return false")
@@ -107,12 +107,12 @@ html
         .body 
           textarea
     script(src="js/jquery-2.1.4.min.js")
-    script(src="js/Icon.min.js")
-    //script(src="js/Icon.js")
+    //- script(src="js/Icon.min.js")
+    script(src="js/Icon.js")
     //前台交互区
     script(src="js/jszip.min.js")
-    script(src="js/front.min.js")
-    //- script(src="js/front.js")
+    //- script(src="js/front.min.js")
+    script(src="js/front.js")
     //交互区
     script(src="js/bridge.min.js")
     //快捷操作

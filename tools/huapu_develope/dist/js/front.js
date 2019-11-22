@@ -146,6 +146,7 @@ function setProtectRect(canvas) {
 }
 
 //接受图片后的处理
+var ttt=null;
 pc.handler("receiveImg", function() {
     //工作
     pc.stage.addClass("working");
@@ -154,7 +155,7 @@ pc.handler("receiveImg", function() {
     var icon_img_info = document.createElement("div"); //图片信息
     var icon_fun_board = document.createElement("div"); //功能板块
     var icon_img_download = document.createElement("span"); //下载按钮
-    var icon_img_base64 = document.createElement("span"); //base64
+    var icon_img_base64 = document.createElement("input"); //base64
     var icon_img_delete = document.createElement("span"); //下载按钮
     icon_img_wrap.setAttribute("class", "icon-img-wrap");
     //图片
@@ -168,13 +169,12 @@ pc.handler("receiveImg", function() {
     icon_img.setAttribute("name",pc.curImgName);
     //图片信息
     icon_img_info.setAttribute("class", "icon-info");
-    setTimeout(function(){
-        icon_img_info.innerHTML = icon_img.naturalWidth + "*" + icon_img.naturalHeight;
-    },100)
+    
     //base64
     icon_img_base64.setAttribute("class", "icon-base64");
-    icon_img_base64.setAttribute("title", "获取图base64");
-    icon_img_base64.innerHTML = "base64"
+    icon_img_base64.setAttribute("type", "color");
+    icon_img_base64.setAttribute("value", "#999999");
+
     //下载，删除
     icon_img_download.setAttribute("class", "icon-download");
     icon_img_download.setAttribute("title", "下载当前icon");
@@ -184,14 +184,18 @@ pc.handler("receiveImg", function() {
     icon_img_delete.innerHTML = "&#xe613;"
     //功能面板
     icon_fun_board.setAttribute("class", "icon-fun-board");
-    icon_fun_board.appendChild(icon_img_download);
     icon_fun_board.appendChild(icon_img_base64);
     icon_fun_board.appendChild(icon_img_delete);
+    icon_fun_board.appendChild(icon_img_download);
     //包装
     icon_img_wrap.appendChild(icon_img);
     icon_img_wrap.appendChild(icon_img_info);
     icon_img_wrap.appendChild(icon_fun_board);
     clip_img_wrap.append(icon_img_wrap);
+    ttt && clearTimeout(ttt);
+    ttt=setTimeout(function(){
+        clipfortheme();
+    },300);
 })
 
 //框选保护区
@@ -239,35 +243,53 @@ function watchActiveIconImg(){
 
 //切图
 pc.start_cut_btn.bind("click", function() {
-    if (pc.protect_rect_btn.hasClass("active")) {
-        pc.protect_rect_btn.trigger("click")
-    }
-    var cp=pc.clip_img_wrap.find("canvas").eq(0).parent();
-    var ip=pc.clip_img_wrap.find(".icon-img.active").eq(0).parent();
-    var icon_wrap= cp.length==1 ? cp : ip;
-    if (pc.clip_img_wrap.find("img").eq(0).hasClass("active")) {
-        pc.clip_img_wrap.find("img").eq(0).trigger("click");
-    }
-    //获取修改后的图片
-    var imgData = icon_wrap.find("img").eq(0).attr("src");
-    //获取最初的图片
-    var originImg = pc.receiveImgData;
-    //获取配置
-    var fixed = pc.fixed_range.val();
-    //loading
-    util.show_g_loading();
-    //开始切图
-    var ico = new Icon(imgData, {
-        fixed: Math.round(fixed / 2)
-    });
-    ico.init(function() {
-        cutIconFromImg(
-            icon_wrap,//节点
-            originImg, //图片对象
-            this.boxes, //切割数据
-            "clip-img-wrap" //输出容器
-        );
-    });
+    // var images=pc.clip_img_wrap.find("img");
+    // images.each(function(i,item){
+    //     let imgData=$(item).attr("src");
+    //     let ico = new Icon(imgData, {
+    //         fixed: 1
+    //     });
+    //     ico.init(function() {
+    //         cutIconFromImg(
+    //             pc.clip_img_wrap.find("canvas").eq(0).parent(),//节点
+    //             imgData, //图片对象
+    //             this.boxes, //切割数据
+    //             "clip-img-wrap" //输出容器
+    //         );
+    //     });
+    // });
+    // clipfortheme();
+
+
+    // if (pc.protect_rect_btn.hasClass("active")) {
+    //     pc.protect_rect_btn.trigger("click")
+    // }
+    // var cp=pc.clip_img_wrap.find("canvas").eq(0).parent();
+    // var ip=pc.clip_img_wrap.find(".icon-img.active").eq(0).parent();
+    // var icon_wrap= cp.length==1 ? cp : ip;
+    // if (pc.clip_img_wrap.find("img").eq(0).hasClass("active")) {
+    //     pc.clip_img_wrap.find("img").eq(0).trigger("click");
+    // }
+    // //获取修改后的图片
+    // var imgData = icon_wrap.find("img").eq(0).attr("src");
+    // //获取最初的图片
+    // var originImg = pc.receiveImgData;
+    // //获取配置
+    // var fixed = pc.fixed_range.val();
+    // //loading
+    // util.show_g_loading();
+    // //开始切图
+    // var ico = new Icon(imgData, {
+    //     fixed: Math.round(fixed / 2)
+    // });
+    // ico.init(function() {
+    //     cutIconFromImg(
+    //         icon_wrap,//节点
+    //         originImg, //图片对象
+    //         this.boxes, //切割数据
+    //         "clip-img-wrap" //输出容器
+    //     );
+    // });
 })
 
 
@@ -276,10 +298,6 @@ pc.start_cut_btn.bind("click", function() {
 function cutIconFromImg(icon_wrap,img, boxes, output) {
     util.hide_g_loading();
     pc.stage.removeClass("working-cut-before");
-    //清空clip_img_wrap
-    //$("#clip-img-wrap").html("");
-    //cv
-    //canvas
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext("2d");
     var imgDa=ctx.createImageData(1,1);
@@ -544,23 +562,206 @@ stage.on("click", ".icon-download", function() {
     )
 });
 
-//获取base64
-stage.on("click", ".icon-base64", function() {
-    var base64=$(this).parent().parent().find(".icon-img").attr("src");
-    var copyTextarea = document.createElement('textarea');
-    copyTextarea.value=base64;
-    copyTextarea.style.height="0";
-    document.body.appendChild(copyTextarea);
-    copyTextarea.select();
-    try {
-        var successful = document.execCommand('copy');
-        var msg = successful ? '已经复制到粘贴板' : '获取失败';
-        //console.log('Copying text command was ' + msg);
-    } catch (err) {
-        console.log('获取失败');
+function rgb2hsv (r, g, b) {
+    let rabs, gabs, babs, rr, gg, bb, h, s, v, diff, diffc, percentRoundFn;
+    rabs = r / 255;
+    gabs = g / 255;
+    babs = b / 255;
+    v = Math.max(rabs, gabs, babs),
+    diff = v - Math.min(rabs, gabs, babs);
+    diffc = c => (v - c) / 6 / diff + 1 / 2;
+    percentRoundFn = num => Math.round(num * 100) / 100;
+    if (diff == 0) {
+        h = s = 0;
+    } else {
+        s = diff / v;
+        rr = diffc(rabs);
+        gg = diffc(gabs);
+        bb = diffc(babs);
+
+        if (rabs === v) {
+            h = bb - gg;
+        } else if (gabs === v) {
+            h = (1 / 3) + rr - bb;
+        } else if (babs === v) {
+            h = (2 / 3) + gg - rr;
+        }
+        if (h < 0) {
+            h += 1;
+        }else if (h > 1) {
+            h -= 1;
+        }
     }
-    $(copyTextarea).remove()
+    return {
+        h: Math.round(h * 360),
+        s: percentRoundFn(s * 100),
+        v: percentRoundFn(v * 100)
+    };
+}
+
+String.prototype.colorRgb = function(){
+    var sColor = this.toLowerCase();
+    //十六进制颜色值的正则表达式
+    var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
+    // 如果是16进制颜色
+    if (sColor && reg.test(sColor)) {
+        if (sColor.length === 4) {
+            var sColorNew = "#";
+            for (var i=1; i<4; i+=1) {
+                sColorNew += sColor.slice(i, i+1).concat(sColor.slice(i, i+1));    
+            }
+            sColor = sColorNew;
+        }
+        //处理六位的颜色值
+        var sColorChange = [];
+        for (var i=1; i<7; i+=2) {
+            sColorChange.push(parseInt("0x"+sColor.slice(i, i+2)));    
+        }
+        return sColorChange;
+        // return "RGB(" + sColorChange.join(",") + ")";
+    }
+};
+
+ 
+function drawRoundedRect(rect, r, ctx,color1,color2) {
+    var Point = function(x, y) {
+        return {x:x, y:y};
+    };
+    var ptA = Point(rect.x + r, rect.y);
+    var ptB = Point(rect.x + rect.width, rect.y);
+    var ptC = Point(rect.x + rect.width, rect.y + rect.height);
+    var ptD = Point(rect.x, rect.y + rect.height);
+    var ptE = Point(rect.x, rect.y);
+    ctx.beginPath();
+    ctx.moveTo(ptA.x, ptA.y);
+    ctx.arcTo(ptB.x, ptB.y, ptC.x, ptC.y, r);
+    ctx.arcTo(ptC.x, ptC.y, ptD.x, ptD.y, r);
+    ctx.arcTo(ptD.x, ptD.y, ptE.x, ptE.y, r);
+    ctx.arcTo(ptE.x, ptE.y, ptA.x, ptA.y, r);
+    var grd = ctx.createLinearGradient(0, 0, 480, 0);
+    grd.addColorStop(0, color1);
+    grd.addColorStop(1, color2); 
+    ctx.fillStyle=grd;
+    ctx.fill();
+}
+function rgbtohsl(r,g,b){
+	r=r/255;
+	g=g/255;
+	b=b/255;
+
+	var min=Math.min(r,g,b);
+	var max=Math.max(r,g,b);
+	var l=(min+max)/2;
+	var difference = max-min;
+	var h,s,l;
+	if(max==min){
+		h=0;
+		s=0;
+	}else{
+		s=l>0.5?difference/(2.0-max-min):difference/(max+min);
+		switch(max){
+			case r: h=(g-b)/difference+(g < b ? 6 : 0);break;
+			case g: h=2.0+(b-r)/difference;break;
+			case b: h=4.0+(r-g)/difference;break;
+		}
+		h=Math.round(h*60);
+	}
+	s=Math.round(s*100);//转换成百分比的形式
+	l=Math.round(l*100);
+	return [h,s,l];
+}
+
+function drawTheme(imageData,color16){
+    var rbg=color16.colorRgb();
+    var hsl=rgbtohsl(rbg[0],rbg[1],rbg[2]);
+    var oh=Math.ceil(hsl[0]);
+    var os=Math.ceil(hsl[1]);
+    var ob=Math.ceil(hsl[2]);
+    window.drawThemeCanvans=window.drawThemeCanvans? window.drawThemeCanvans : document.createElement("canvas");
+    drawThemeCanvans.style.position="absolute";
+    drawThemeCanvans.style.zIndex=1000;
+    drawThemeCanvans.width=480;
+    drawThemeCanvans.height=82;
+    window.drawThemeCtx=window.drawThemeCtx? window.drawThemeCtx: drawThemeCanvans.getContext("2d");
+    function drawCircle(centerX,centery,radius,color){
+        drawThemeCtx.beginPath();
+        drawThemeCtx.arc(centerX, centery, radius, 0, 2 * Math.PI);
+        drawThemeCtx.fillStyle=color;
+        drawThemeCtx.fill();
+        drawThemeCtx.closePath();
+    }
+    var h=oh;
+    var s=os;
+    var b=ob;
+    var rangB=Math.min((100-b),14);
+    var rangS=Math.min((100-s),0);
+    b=ob+rangB*7/6;
+    s=os+rangS*7/6;
+    //圆0
+    drawRoundedRect({x:0,y:0,width:480,height:82},41,drawThemeCtx,'hsl('+ h +','+s+'%'+','+b+'%'+')','hsl('+ h +','+s+'%'+','+(b+2)+'%'+')');
+    drawThemeCtx.globalCompositeOperation="source-atop";
+    //圆1
+    b=ob+rangB*5/6;
+    s=os+rangS*5/6;
+    drawCircle(365,82,201,'hsl('+ h +','+s+'%'+','+b+'%'+')');
+    //圆2
+    b=ob+rangB*4/6;
+    s=os+rangS*4/6;
+    drawCircle(365,82,170,'hsl('+ h +','+s+'%'+','+b+'%'+')');
+    //圆3
+    b=ob+rangB*3/6;
+    s=os+rangS*3/6;
+    drawCircle(365,82,139,'hsl('+ h +','+s+'%'+','+b+'%'+')');
+    //圆4
+    b=ob+rangB*2/6;
+    s=os+rangS*2/6;
+    drawCircle(365,82,108,'hsl('+ h +','+s+'%'+','+b+'%'+')');
+    //圆5
+    b=ob+rangB*1/6;
+    s=os+rangS*1/6;
+    drawCircle(365,82,76,'hsl('+ h +','+s+'%'+','+b+'%'+')');
+    b=ob;
+    s=os;
+    console.log('hsl('+ h +','+s+'%'+','+b+'%'+')')
+    //圆6
+    drawCircle(365,82,48,'hsl('+ h +','+s+'%'+','+b+'%'+')');
+    //矩7
+    imageData && drawThemeCtx.drawImage(
+        imageData, 
+        180,
+        0, 
+        260, 
+        82
+    );
+    return drawThemeCanvans.toDataURL("image/png");
+    // document.body.appendChild(drawThemeCanvans);
+}
+
+//获取base64
+stage.on("change", ".icon-base64", function(event) {
+    var curentImg=$(this).parent().parent().find(".icon-img");
+    clipfortheme_to_temple(curentImg,event.target.value);
+    // var base64=curentImg.attr("src");
+    // !curentImg.eq(0)[0].getAttribute("origin") && curentImg.eq(0)[0].setAttribute("origin",base64)
+    // var image=new Image();
+    // var that= $(this);
+    // image.onload=function(){
+    //     that.parent().parent().find(".icon-img")[0].src=drawTheme(this,event.target.value);
+    // }
+    // image.src=curentImg.eq(0)[0].getAttribute("origin");
 });
+
+function clipfortheme_to_temple(icon_img,color){
+    // var rbg=event.target.value.colorRgb();
+    color=color || "#999999";
+    let base64=icon_img.attr("src");
+    !icon_img[0].getAttribute("origin") && icon_img[0].setAttribute("origin",base64)
+    let image=new Image();
+    image.onload=function(){
+        icon_img[0].src=drawTheme(this,color);
+    }
+    image.src=icon_img[0].getAttribute("origin");
+}
 
 
 //前台-选择-删除-更新预览区
@@ -719,6 +920,35 @@ $(".resize-icon-target li").bind("click", function() {
     $(this).addClass("active").siblings().html("").removeClass("active");
     $(this).html("&#xe616;")
 })
+
+
+function clipfortheme(){
+    var resize_Images = $("#clip-img-wrap img");
+    var h = undefined;
+    var w = 260;
+    var z=0;
+    resize_Images.each(function(i) {
+        resizeImage($(this)[0], "scale",{
+            "origin": origin,
+            "width": w,
+            "height": h
+        },function(){
+            if(++z==resize_Images.length){
+                 resize_Images.each(function() {
+                    resizeImage($(this)[0],"clip", {
+                        "origin": "c_c",
+                        "width": 260,
+                        "height": 82
+                    })
+                })
+            }
+        })
+    })
+    
+}
+
+
+
 //调整尺寸
 $("#resize-icon-btn").bind("click", function() {
     var resize_Images = $("#clip-img-wrap img.active");
@@ -900,7 +1130,7 @@ function compositeFrame(type){
  *重新输出
  *替换原图片
  */
-function resizeImage(img,type, param) {
+function resizeImage(img,type, param,callback) {
     var param = param || {};
     var new_width = param.width || img.width;
     var new_height = param.height || img.height;
@@ -957,6 +1187,8 @@ function resizeImage(img,type, param) {
             ctx.drawImage(img, x, y, img.width, img.height);
             //取出图片，替换原有的图片
             img.src = canvas.toDataURL("image/png");
+            // alert("开搞吧！")
+            clipfortheme_to_temple($(img));
         }else if(type=="scale"){
             var c_width = param.width || (param.height/this.height*this.width);
             var c_height = param.height || (param.width/this.width*this.height);
@@ -971,6 +1203,7 @@ function resizeImage(img,type, param) {
             img.src = canvas.toDataURL("image/png");
         }
         canvas=ctx=null;
+        callback && callback()
     }
     tempImg.src = img.getAttribute("src");
 }

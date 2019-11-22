@@ -23,7 +23,7 @@
     opacity: .5;
   }
   .btn.active{
-    background: #125a33;
+    background: #614BFF;
   }
 }
 #layout-table-button{
@@ -73,11 +73,12 @@
 //导航区
 @import "_nav";
 #fun-board{
-  position: relative;
-  height: 100%;
+  position: absolute;
+  right: 0;
+  height: 48px;
   overflow-y:auto; 
   width: 220px;
-  background-color: #e3e8e5;
+  // background-color: #e3e8e5;
   text-align: center;
   padding-bottom: 100px;
   -webkit-box-sizing:border-box;
@@ -88,7 +89,7 @@
   }
   button:hover{
     color: #fff;
-    background-color: #125a33;
+    background-color: #614BFF;
   }
   //打包下载全部按钮
   button#icon-download-all{
@@ -103,7 +104,7 @@
     font-size: 18px;
     font-family: "iconfont";
     border: 0 none;
-    background-color: #125a33;
+    background-color: #614BFF;
     color: #fff;
     font-weight: 100;
     cursor: pointer;

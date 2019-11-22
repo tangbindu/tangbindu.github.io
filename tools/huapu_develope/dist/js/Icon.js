@@ -276,6 +276,15 @@ Icon.prototype ={
     self.img.onload=function(){
       self.width=self.img.width;
       self.height=self.img.height;
+      callback && callback.call({
+        boxes:[{
+          left:0,
+          top:0,
+          right:self.width,
+          bottom:self.height
+        }]
+      })
+      return;
       /*上传限制*/
       // if(self.width>3000 || self.height>3000){
       //   util.hide_g_loading();
