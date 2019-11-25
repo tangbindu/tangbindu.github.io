@@ -749,13 +749,13 @@ function drawTheme(imageData,color16){
     //圆6
     drawCircle(365,82,48,'hsl('+ h +','+s+'%'+','+b+'%'+')');
     //矩7
-    // imageData && drawThemeCtx.drawImage(
-    //     imageData, 
-    //     180,
-    //     0, 
-    //     300, 
-    //     82
-    // );
+    imageData && drawThemeCtx.drawImage(
+        imageData, 
+        180,
+        0, 
+        300, 
+        82
+    );
     return drawThemeCanvans.toDataURL("image/png");
     // document.body.appendChild(drawThemeCanvans);
 }
@@ -1187,7 +1187,7 @@ function resizeImage(img,type, param,callback) {
                     break;
                 case "c_c":
                     x = (canvas.width - img.width) / 2;
-                    y = (canvas.height - img.height) / 2+25;
+                    y = (canvas.height - img.height) / 2;
                     break;
                 case "c_b":
                     x = (canvas.width - img.width) / 2;
