@@ -258,7 +258,7 @@ input.input.double{
     background-color: #fff;
   }
   .header{
-    height: 40px;
+    // height: 40px;
     font-size:16px;
     line-height: 40px;
     text-align: center;
@@ -289,6 +289,41 @@ input.input.double{
       display: block;
       outline: none;
       padding:10px;
+    }
+  }
+}
+.fun-style{
+  display: -webkit-box;
+  -webkit-box-align: center;
+  // -webkit-box-orient: vertical;
+  -webkit-box-orient:horizontal;
+  -webkit-box-pack: start;
+  margin-bottom: -10px;
+  .item{
+    display: -webkit-box;
+    -webkit-box-align: center;
+    // -webkit-box-orient: vertical;
+    -webkit-box-orient:horizontal;
+    -webkit-box-pack: start;
+    padding:0 10px;
+  }
+  .btn-th{
+    font-size:12px;
+  }
+  .min-btn{
+    font-family: "aial";
+    min-width: 40px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 4px;
+    background-color: #f2f2f2;
+    font-size: 12px;
+    padding:0 4px;
+    margin:5px;
+    margin-left: 0px;
+    &.active{
+      color: #ffffff;
+      background-color: #125a33;
     }
   }
 }

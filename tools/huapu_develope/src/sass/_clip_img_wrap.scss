@@ -208,3 +208,14 @@ input[type="range"]::-webkit-slider-thumb {
     background-color: #125a33;
     border-radius: 15px;
 }
+.iconName{
+  margin-left: 5px;
+  border-radius: 2px;
+  &:hover{
+    background-color: #f2f2f2;
+  }
+  input:focus{
+    outline-offset: 0;
+    outline: 0;
+  }
+}

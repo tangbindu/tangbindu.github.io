@@ -663,6 +663,18 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 15px;
 }
 
+.iconName {
+  margin-left: 5px;
+  border-radius: 2px;
+}
+.iconName:hover {
+  background-color: #f2f2f2;
+}
+.iconName input:focus {
+  outline-offset: 0;
+  outline: 0;
+}
+
 .clip-img-wrap-layout {
   border: 1px solid #d4d9d7;
   background-color: #d4d9d7;
@@ -990,7 +1002,6 @@ input.input.double {
   background-color: #fff;
 }
 .dialog .header {
-  height: 40px;
   font-size: 16px;
   line-height: 40px;
   text-align: center;
@@ -1022,6 +1033,40 @@ input.input.double {
   display: block;
   outline: none;
   padding: 10px;
+}
+
+.fun-style {
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: start;
+  margin-bottom: -10px;
+}
+.fun-style .item {
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: start;
+  padding: 0 10px;
+}
+.fun-style .btn-th {
+  font-size: 12px;
+}
+.fun-style .min-btn {
+  font-family: "aial";
+  min-width: 40px;
+  height: 20px;
+  line-height: 20px;
+  border-radius: 4px;
+  background-color: #f2f2f2;
+  font-size: 12px;
+  padding: 0 4px;
+  margin: 5px;
+  margin-left: 0px;
+}
+.fun-style .min-btn.active {
+  color: #ffffff;
+  background-color: #125a33;
 }
 
 #g-loading {

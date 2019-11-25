@@ -46,11 +46,17 @@ document.onkeydown=function(event){
 
 //全选
 keyboardJS.bind('ctrl + a', function(e) {
+  if(document.activeElement.getAttribute("class")=="inputname"){
+    return;
+  }
   choise_icon(stage.find(".icon-img"));
   $(".resize-icon input").eq(0).focus();
   return false;
 });
 keyboardJS.bind('command + a', function(e) {
+  if(document.activeElement.getAttribute("class")=="inputname"){
+    return;
+  }
   choise_icon(stage.find(".icon-img"));
   $(".resize-icon input").eq(0).focus();
   return false;

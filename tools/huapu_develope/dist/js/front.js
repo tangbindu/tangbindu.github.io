@@ -169,7 +169,7 @@ pc.handler("receiveImg", function() {
     //图片信息
     icon_img_info.setAttribute("class", "icon-info");
     setTimeout(function(){
-        icon_img_info.innerHTML = icon_img.naturalWidth + "*" + icon_img.naturalHeight;
+        icon_img_info.innerHTML = "<span class='iconSize'>"+icon_img.naturalWidth + "*" + icon_img.naturalHeight+"</span><span class='iconName'>"+icon_img.getAttribute("name")+"</span>";
     },100)
     //base64
     icon_img_base64.setAttribute("class", "icon-base64");
@@ -273,6 +273,7 @@ pc.start_cut_btn.bind("click", function() {
 
 
 //切割icon
+var rank = 0;
 function cutIconFromImg(icon_wrap,img, boxes, output) {
     util.hide_g_loading();
     pc.stage.removeClass("working-cut-before");
@@ -317,53 +318,9 @@ function cutIconFromImg(icon_wrap,img, boxes, output) {
         //         }
         //     })
         // })
-
-        //过滤多余部分over
-        var icon_img_wrap = document.createElement("div"); //icon容器
-        var icon_img = document.createElement("img"); //icon图片
-        var icon_img_info = document.createElement("div"); //图片信息
-        var icon_fun_board = document.createElement("div"); //功能板块
-        var icon_img_download = document.createElement("span"); //下载按钮
-        var icon_img_delete = document.createElement("span"); //下载按钮
-        var icon_img_base64 = document.createElement("span"); //base64
-        icon_img_wrap.setAttribute("class", "icon-img-wrap");
-        //图片
-        icon_img.src = canvas.toDataURL("image/png");
-        icon_img.setAttribute("class", "icon-img");
-        if (modify == true) {
-            icon_img.setAttribute("class", "icon-img modify");
-        }
-        //图片打标签
-        var ram = (Math.random() * 100000).toFixed(5);
-        ram = ram >> 0;
-        var sid = "sid" + ram + i;
-        icon_img.setAttribute("sid", sid);
-        //图片信息
-        icon_img_info.setAttribute("class", "icon-info");
-        icon_img_info.innerHTML = width + "*" + height;
-        //删除
-        icon_img_delete.setAttribute("class", "icon-delete");
-        icon_img_delete.setAttribute("title", "删除当前icon");
-        icon_img_delete.innerHTML = "&#xe613;"
-        //base64
-        icon_img_base64.setAttribute("class", "icon-base64");
-        icon_img_base64.setAttribute("title", "获取图base64");
-        icon_img_base64.innerHTML = "base64"
-            //下载
-        icon_img_download.setAttribute("class", "icon-download");
-        icon_img_download.setAttribute("title", "下载当前icon");
-        icon_img_download.innerHTML = "&#xe612;"
-
-        //功能面板
-        icon_fun_board.setAttribute("class", "icon-fun-board");
-        icon_fun_board.appendChild(icon_img_delete);
-        icon_fun_board.appendChild(icon_img_base64);
-        icon_fun_board.appendChild(icon_img_download);
-        //包装
-        icon_img_wrap.appendChild(icon_img);
-        icon_img_wrap.appendChild(icon_img_info);
-        icon_img_wrap.appendChild(icon_fun_board);
-        icon_wrap.after(icon_img_wrap);
+        
+        pc.curImgName=$("#icon-name-before").val() + (++rank) + '.png';
+        pc.receiveImg(canvas.toDataURL("image/png"));
     }
 }
 
@@ -457,14 +414,13 @@ $("#uploadImg").bind("change", function(event) {
  *imglist {imglist}  jq_img_list 图片对象列表
  *param {json}  下载的一些配置
  */
-var rank = 0;
 
 function downloadImg(imglist, param) {
-    var conf = {
-        name: "icon",
-        sizeType: "odd" // even
-    }
-    conf = $.extend(conf, param);
+    // var conf = {
+    //     name: "icon",
+    //     sizeType: "odd" // even
+    // }
+    // conf = $.extend(conf, param);
     if (imglist.length == 1) {
         download(imglist);
     } else if (imglist.length > 1) {
@@ -484,11 +440,11 @@ function downloadImg(imglist, param) {
 
     function download(imglist) {
         var a = document.createElement('a');
-        if(imglist.attr("name")){
+        // if(imglist.attr("name")){
             a.setAttribute('download', imglist.attr("name"));
-        }else{
-            a.setAttribute('download', conf.name + (++rank) + '.png');
-        }
+        // }else{
+            // a.setAttribute('download', conf.name + (++rank) + '.png');
+        // }
         a.href = URL.createObjectURL(dataURIToBlob(imglist.attr("src")));
         a.innerHTML = 'download';
         a.style.display = 'none';
@@ -498,23 +454,18 @@ function downloadImg(imglist, param) {
     //zip download
     function zipdownload(imglist) {
         var zip = new JSZip();
-        //zip.file("Hello.txt", "Hello World\n");
-        var img = zip.folder("icons");
+        var img = zip.folder("images");
         rank = 0;
         imglist.each(function() {
             var name=$(this).attr("name");
             var src=$(this).attr("src");
             var imgData=src.substr(src.indexOf(',')+1);
-            if(name){
-                img.file(name, imgData, { base64: true });
-            }else{
-                img.file(conf.name + (++rank) + '.png', imgData, { base64: true });
-            }
+            img.file(name, imgData, { base64: true });
 
         })
         var content = zip.generate({ type: "blob" });
         // see FileSaver.js
-        saveAs(content, conf.reName+".zip");
+        saveAs(content, "images.zip");
     }
 }
 
@@ -656,7 +607,7 @@ function choise_icon(icon_img){
         icon_img.eq(i).addClass("active");
         funNav.addThumb(icon_img.eq(i).clone(false))
         //前台-选择-删除-更新尺寸区
-        var size = icon_img.eq(i).parent().find(".icon-info").text();
+        var size = icon_img.eq(i).parent().find(".iconSize").text();
         var size_w = size.split("*")[0];
         var size_h = size.split("*")[1];
         $(".resize-icon .w").val(size_w);
@@ -699,6 +650,28 @@ $(".all-choise").bind("click", function() {
 })
 
 
+$(".iconName").live("click",(event)=>{
+    let innerHTML=$(event.currentTarget)[0].innerHTML;
+    if(innerHTML.indexOf("input")<0){
+        let input=document.createElement("input");
+        input.setAttribute("class","inputname");
+        let format=document.createElement("span");
+        format.innerHTML=".png";
+        input.value=innerHTML.split(".")[0];
+        $(event.currentTarget)[0].innerHTML="";
+        $(event.currentTarget)[0].appendChild(input);
+        $(event.currentTarget)[0].appendChild(format);
+        input.focus();
+        $(input).live("change",(event)=>{
+            if($(event.currentTarget).val()!=""){
+                $(event.currentTarget).parent().parent().parent().find(".icon-img").attr("name",$(event.currentTarget).val()+".png");
+                $(event.currentTarget).parent()[0].innerHTML=$(event.currentTarget).val()+".png";
+            }else{
+                $(event.currentTarget).parent()[0].innerHTML=$(event.currentTarget).parent().parent().parent().find(".icon-img").attr("name");
+            }
+        })
+    }
+})
 
 
 
@@ -794,38 +767,69 @@ $("#resize-icon-even").bind("click", function() {
 })
 //-------------------------------get style-----------------------------
 //get style
-$(".style-dialog .close").bind("click",function(){
-    $(".style-dialog").removeClass("show");
-})
-$("#get-style").bind("click", function() {
-    var styledialog=$(".style-dialog");
+function showStyle(){
+    $(".style-dialog").addClass("show");
+}
+function setStyleValue(param){
     var imgs=$("#clip-img-wrap").find("img[name]");
     function showstyle(img){
-        var name=$(img).attr("name").slice(0,$(img).attr("name").indexOf("."));
-        var width=($(img).width()/100).toFixed(2);
-        var height=($(img).height()/100).toFixed(2);
+        var name;
+        var src;
+        var width;
+        var height;
+        param.map(function(item){
+            if(item=="px"){
+                width=$(img).width()+"px;";
+                height=$(img).height()+"px;";
+            }
+            if(item=="rem"){
+                width=($(img).width()/100).toFixed(2)+"rem;"
+                height=($(img).height()/100).toFixed(2)+"rem;"
+            }
+            if(item==".png"){
+                name=$(img).attr("name").slice(0,$(img).attr("name").indexOf("."));
+                src="../img/"+$(img).attr("name").slice(0,$(img).attr("name").indexOf("."))+".png";
+            }
+            if(item=="base64"){
+                name=$(img).attr("name").slice(0,$(img).attr("name").indexOf("."));
+                src=$(img).attr("src");
+            }
+        })
         return [
             " ",
             "."+name+"{",
-                "    width:"+width+"rem;",
-                "    height:"+height+"rem;",
-                "    background-image:url(../img/"+name+".png)",
+                "    width:"+width,
+                "    height:"+height,
+                "    background-image:url("+src+")",
+                "    background-repeat:no-repeat",
+                "    background-size:100% 100%",
             "}"
         ].join("\n");
     }
     var template="{}"
-    if(imgs.length==0){
-        alert("没有已命名的图片，请先上传后获取style")
-    }else{
-        styledialog.addClass("show");
-        var styles="";
-        var names="";
-        for(var i=0;i<imgs.length;i++){
-            styles+=showstyle(imgs.eq(i));
-            names+=("."+imgs.eq(i).attr("name").slice(0,imgs.eq(i).attr("name").indexOf("."))+"\n");
-        }
-        styledialog.find("textarea").val(styles+"\n"+"\n"+"\n"+names); 
+    var styles="";
+    var names="";
+    for(var i=0;i<imgs.length;i++){
+        styles+=showstyle(imgs.eq(i));
+        names+=("."+imgs.eq(i).attr("name").slice(0,imgs.eq(i).attr("name").indexOf("."))+"\n");
     }
+    $(".style-dialog").find("textarea").val(styles+"\n"+"\n"+"\n"+names); 
+}
+
+$(".style-dialog .close").live("click",function(){
+    $(".style-dialog").removeClass("show");
+})
+$("#get-style").live("click", function() {
+    showStyle();
+    setStyleValue(["px",".png"]);
+})
+$(".fun-style .min-btn").live("click",function(){
+    $(this).addClass("active").siblings().removeClass("active");
+    var arr=[];
+    $(".fun-style .min-btn.active").each(function(){
+        arr.push($(this)[0].innerHTML);
+        setStyleValue(arr);
+    })
 })
 
 //-------------------------------合成序列帧-----------------------------
