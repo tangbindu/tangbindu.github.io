@@ -751,9 +751,9 @@ function drawTheme(imageData,color16){
     //矩7
     imageData && drawThemeCtx.drawImage(
         imageData, 
-        180,
+        260,
         0, 
-        300, 
+        220, 
         82
     );
     return drawThemeCanvans.toDataURL("image/png");
@@ -949,7 +949,7 @@ $(".resize-icon-target li").bind("click", function() {
 function clipfortheme(){
     var resize_Images = $("#clip-img-wrap img:not([doing='true'])");
     var h = undefined;
-    var w = 300;
+    var w = 220;
     var z=0;
     resize_Images.each(function(i) {
         resizeImage($(this)[0], "scale",{
@@ -961,7 +961,7 @@ function clipfortheme(){
                  resize_Images.each(function() {
                     resizeImage($(this)[0],"clip", {
                         "origin": "c_c",
-                        "width": 300,
+                        "width": 220,
                         "height": 82
                     })
                 })
