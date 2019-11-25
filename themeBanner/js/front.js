@@ -295,6 +295,7 @@ pc.start_cut_btn.bind("click", function() {
 
 
 //切割icon
+var rank = 0;
 function cutIconFromImg(icon_wrap,img, boxes, output) {
     util.hide_g_loading();
     pc.stage.removeClass("working-cut-before");
@@ -326,6 +327,9 @@ function cutIconFromImg(icon_wrap,img, boxes, output) {
         imgNode.setAttribute("src", img);
         ctx.drawImage(imgNode, left, top, width, height, 0, 0, width, height);
 
+        pc.curImgName=$("#icon-name-before").val() + (++rank) + '.png';
+        pc.receiveImg(canvas.toDataURL("image/png"));
+        return;
         //过滤多余部分
         // util.show2D(item.data);
         // item.data.forEach(function(val,index){
@@ -532,7 +536,7 @@ function downloadImg(imglist, param) {
         })
         var content = zip.generate({ type: "blob" });
         // see FileSaver.js
-        saveAs(content, conf.reName+".zip");
+        saveAs(content, "images.zip");
     }
 }
 
@@ -683,8 +687,20 @@ function drawTheme(imageData,color16){
     drawThemeCanvans.width=480;
     drawThemeCanvans.height=82;
     window.drawThemeCtx=window.drawThemeCtx? window.drawThemeCtx: drawThemeCanvans.getContext("2d");
-    function drawCircle(centerX,centery,radius,color){
+    function drawCircle(centerX,centery,radius,color,color1){
         drawThemeCtx.beginPath();
+        drawThemeCtx.arc(centerX, centery, radius, 0, 2 * Math.PI);
+
+
+
+        // var radial = drawThemeCtx.createRadialGradient(centerX,centery,0,centerX,centery,radius);
+        // radial.addColorStop(0,color);
+        // radial.addColorStop(1,color1 || color);
+        // drawThemeCtx.fillStyle=radial;
+        // drawThemeCtx.fill();
+        // drawThemeCtx.closePath();
+
+
         drawThemeCtx.arc(centerX, centery, radius, 0, 2 * Math.PI);
         drawThemeCtx.fillStyle=color;
         drawThemeCtx.fill();
@@ -693,46 +709,53 @@ function drawTheme(imageData,color16){
     var h=oh;
     var s=os;
     var b=ob;
-    var rangB=Math.min((100-b),14);
+    var rangH=Math.min((360-h),5);
+    var rangB=Math.min((100-b),15);
     var rangS=Math.min((100-s),0);
+    h=oh+rangH*7/6;
     b=ob+rangB*7/6;
     s=os+rangS*7/6;
     //圆0
     drawRoundedRect({x:0,y:0,width:480,height:82},41,drawThemeCtx,'hsl('+ h +','+s+'%'+','+b+'%'+')','hsl('+ h +','+s+'%'+','+(b+2)+'%'+')');
     drawThemeCtx.globalCompositeOperation="source-atop";
     //圆1
+    h=oh+rangH*5/6;
     b=ob+rangB*5/6;
     s=os+rangS*5/6;
-    drawCircle(365,82,201,'hsl('+ h +','+s+'%'+','+b+'%'+')');
+    drawCircle(365,82,201,'hsl('+ h +','+s+'%'+','+b+'%'+')','hsl('+ h +','+s+'%'+','+b/1.05+'%'+')');
     //圆2
+    h=oh+rangH*4/6;
     b=ob+rangB*4/6;
     s=os+rangS*4/6;
-    drawCircle(365,82,170,'hsl('+ h +','+s+'%'+','+b+'%'+')');
+    drawCircle(365,82,170,'hsl('+ h +','+s+'%'+','+b+'%'+')','hsl('+ h +','+s+'%'+','+b/1.05+'%'+')');
     //圆3
+    h=oh+rangH*3/6;
     b=ob+rangB*3/6;
     s=os+rangS*3/6;
-    drawCircle(365,82,139,'hsl('+ h +','+s+'%'+','+b+'%'+')');
+    drawCircle(365,82,139,'hsl('+ h +','+s+'%'+','+b+'%'+')','hsl('+ h +','+s+'%'+','+b/1.05+'%'+')');
     //圆4
+    h=oh+rangH*2/6;
     b=ob+rangB*2/6;
     s=os+rangS*2/6;
-    drawCircle(365,82,108,'hsl('+ h +','+s+'%'+','+b+'%'+')');
+    drawCircle(365,82,108,'hsl('+ h +','+s+'%'+','+b+'%'+')','hsl('+ h +','+s+'%'+','+b/1.05+'%'+')');
     //圆5
+    h=oh+rangH*1/6;
     b=ob+rangB*1/6;
     s=os+rangS*1/6;
-    drawCircle(365,82,76,'hsl('+ h +','+s+'%'+','+b+'%'+')');
+    drawCircle(365,82,76,'hsl('+ h +','+s+'%'+','+b+'%'+')','hsl('+ h +','+s+'%'+','+b/1.05+'%'+')');
     b=ob;
     s=os;
     console.log('hsl('+ h +','+s+'%'+','+b+'%'+')')
     //圆6
     drawCircle(365,82,48,'hsl('+ h +','+s+'%'+','+b+'%'+')');
     //矩7
-    imageData && drawThemeCtx.drawImage(
-        imageData, 
-        180,
-        0, 
-        260, 
-        82
-    );
+    // imageData && drawThemeCtx.drawImage(
+    //     imageData, 
+    //     180,
+    //     0, 
+    //     300, 
+    //     82
+    // );
     return drawThemeCanvans.toDataURL("image/png");
     // document.body.appendChild(drawThemeCanvans);
 }
@@ -755,6 +778,7 @@ function clipfortheme_to_temple(icon_img,color){
     // var rbg=event.target.value.colorRgb();
     color=color || "#999999";
     let base64=icon_img.attr("src");
+    icon_img.attr("doing","true");
     !icon_img[0].getAttribute("origin") && icon_img[0].setAttribute("origin",base64)
     let image=new Image();
     image.onload=function(){
@@ -923,9 +947,9 @@ $(".resize-icon-target li").bind("click", function() {
 
 
 function clipfortheme(){
-    var resize_Images = $("#clip-img-wrap img");
+    var resize_Images = $("#clip-img-wrap img:not([doing='true'])");
     var h = undefined;
-    var w = 260;
+    var w = 300;
     var z=0;
     resize_Images.each(function(i) {
         resizeImage($(this)[0], "scale",{
@@ -937,7 +961,7 @@ function clipfortheme(){
                  resize_Images.each(function() {
                     resizeImage($(this)[0],"clip", {
                         "origin": "c_c",
-                        "width": 260,
+                        "width": 300,
                         "height": 82
                     })
                 })
