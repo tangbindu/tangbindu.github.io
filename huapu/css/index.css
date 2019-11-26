@@ -695,6 +695,7 @@ input[type="range"]::-webkit-slider-thumb {
   color: #fff;
   background-color: #808080;
   border-radius: 4px;
+  margin-right: 5px;
 }
 .clip-img-wrap-layout .btn:not(.active):hover {
   opacity: .5;
@@ -952,6 +953,7 @@ input.input.double {
   -webkit-box-align: center;
   -webkit-box-orient: vertical;
   -webkit-box-pack: center;
+  margin-top: 3px;
 }
 .btn-group .btn {
   margin: 3px 2px;
