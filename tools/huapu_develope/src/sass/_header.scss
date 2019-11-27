@@ -26,6 +26,9 @@ header{
     margin-left: 50px;
   }; */
 }
+.working #upload{
+  opacity: .2 !important;
+}
 #upload{
   /* position: fixed;
   top: 40px;
@@ -47,7 +50,7 @@ header{
   color: $themeColor;
   border: 1px solid $themeColor;
   background-color: rgba(255,255,255,.8);
-  opacity:.5;
+  opacity:.8;
   &:hover{
     opacity:1;
   }

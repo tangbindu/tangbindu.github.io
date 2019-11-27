@@ -64,6 +64,10 @@ header {
   }; */
 }
 
+.working #upload {
+  opacity: .2 !important;
+}
+
 #upload {
   /* position: fixed;
   top: 40px;
@@ -85,7 +89,7 @@ header {
   color: #188843;
   border: 1px solid #188843;
   background-color: rgba(255, 255, 255, 0.8);
-  opacity: .5;
+  opacity: .8;
 }
 #upload:hover {
   opacity: 1;
@@ -153,7 +157,7 @@ header {
   -webkit-transform: scale(0.8);
 }
 #clip-img-wrap:after {
-  display: inline-block;
+  display: block;
   content: "拖拽上传icon聚合图";
   font-size: 28px;
   margin-top: 10px;
