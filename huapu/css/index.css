@@ -146,14 +146,14 @@ header {
   height: 100%;
 }
 #clip-img-wrap:before {
-  display: block;
+  display: inline-block;
   content: "\e603";
   font-size: 170px;
   color: #188843;
   -webkit-transform: scale(0.8);
 }
 #clip-img-wrap:after {
-  display: block;
+  display: inline-block;
   content: "拖拽上传icon聚合图";
   font-size: 28px;
   margin-top: 10px;
