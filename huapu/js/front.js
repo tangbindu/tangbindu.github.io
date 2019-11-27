@@ -149,7 +149,7 @@ function setProtectRect(canvas) {
 //接受图片后的处理
 pc.handler("receiveImg", function() {
     //工作
-    pc.stage.addClass("working");
+    pc.stage.parent().addClass("working");
     var icon_img = $("<img src='" + this.receiveImgData + "'/>")[0];
     var icon_img_wrap = document.createElement("div"); //icon容器
     var icon_img_info = document.createElement("div"); //图片信息
@@ -479,6 +479,9 @@ function removeIcon(icon_img){
         var sid = icon_img.eq(i).attr("sid");
         funNav.removeThumb(sid);
         icon_img.eq(i).parent().remove();
+    }
+    if(pc.stage.find(".icon-img-wrap").length==0){
+        pc.stage.parent().removeClass("working");
     }
 }
 //前台-删除单个

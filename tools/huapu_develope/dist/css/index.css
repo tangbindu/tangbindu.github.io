@@ -65,7 +65,7 @@ header {
 }
 
 .working #upload {
-  opacity: .2 !important;
+  opacity: 0;
 }
 
 #upload {
@@ -88,11 +88,13 @@ header {
   cursor: pointer;
   color: #188843;
   border: 1px solid #188843;
-  background-color: rgba(255, 255, 255, 0.8);
-  opacity: .8;
+  background-color: rgba(255, 255, 255, 0.5);
+  opacity: 1;
 }
 #upload:hover {
   opacity: 1;
+  border: 1px solid #1a9549;
+  background-color: white;
 }
 #upload span {
   font-size: 18px;
@@ -233,17 +235,17 @@ header {
   color: #1ea7f6;
 }
 
-#stage.working #clip-img-wrap {
+.working #clip-img-wrap {
   cursor: crosshair;
 }
-#stage.working #clip-img-wrap:before {
+.working #clip-img-wrap:before {
   display: none;
 }
-#stage.working #clip-img-wrap:after {
+.working #clip-img-wrap:after {
   display: none;
 }
 
-#stage.working-cut-before .cut_board {
+.working-cut-before .cut_board {
   display: block;
 }
 

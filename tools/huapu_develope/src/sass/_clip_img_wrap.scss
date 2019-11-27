@@ -111,7 +111,7 @@
 
 
 
-#stage.working #clip-img-wrap{
+.working #clip-img-wrap{
   cursor:crosshair;
   &:before{
     display:none;
@@ -121,7 +121,7 @@
   }
 }
 
-#stage.working-cut-before{
+.working-cut-before{
   .cut_board{
     display: block;
   }
