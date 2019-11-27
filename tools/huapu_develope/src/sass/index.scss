@@ -16,10 +16,17 @@ body{
 }
 body{
   background-color: rgba(255,255,255,1);
-  font-family:"iconfont","微软雅黑" !important;
+  font-family:"iconfont","PingFangSC-Regular","微软雅黑" !important;
 }
-
-
+button{
+  font-family:"iconfont","PingFangSC-Regular","微软雅黑" !important;
+}
+$themeColor:#125a33;
+// $grayBg:#d4d9d7;
+$grayBg:#d4d9d7;
+$lightGrayBg:#d4d9d7*.8;
+$grayFont:#777;
+// $themeColor:red;
 @import "_animation";
 //帮助
 @import "_header";
@@ -34,7 +41,6 @@ body{
 
 
 .font{
-  font-family: "PingFangSC-Regular","Arial","Microsoft YaHei","黑体","宋体",sans-serif;
   font-weight: 100;;
 }
 //舞台
@@ -42,7 +48,7 @@ body{
   position: fixed;
   display: -webkit-box;
   width: 100%;
-  top: 48px;
+  top: 0px;
   bottom: 0;
   z-index: 50;
 }
@@ -70,7 +76,7 @@ body{
   background-color: #fff;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #288543;
+  background-color: $themeColor;
 } 
 ::-webkit-scrollbar-button {
   height: 0px;

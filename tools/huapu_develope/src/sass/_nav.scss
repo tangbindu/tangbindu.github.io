@@ -5,7 +5,7 @@
   max-height: 198px;
   overflow: hidden;
   overflow-y:auto;
-  border: 1px solid #d4d9d7;
+  border: 1px solid $grayBg;
   border-radius: 4px;
   min-height: 200px;
   ul{
@@ -21,7 +21,7 @@
       height: 50px;
       padding:4px;
       -webkit-box-sizing:border-box;
-      border:1px solid #d4d9d7;
+      border:1px solid $grayBg;
       margin-left: -1px;
       margin-top: -1px;
       display:-webkit-box;
