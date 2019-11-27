@@ -31,9 +31,7 @@ util={
     }
   }
 }
-
 util.isChrome();
-
 /*
 *param {canvas} cvs  canvas对象
 *param {array}  piex2D 图片地图 
@@ -112,19 +110,15 @@ function findIcon(cvs,piex2D,fixed){
       }
     }catch(event){}
   }
-
-  for(y=0;y<piex2D.length;y++){
+  for(y=0;y<piex2D.length;y++)
+  {
     for(x=0;x<piex2D[y].length;x++){
       var tirm=piex2D[y][x-1]==0 ? true :false; //|| (piex2D[y][x-1]==undefined);
       if(piex2D[y][x]==2 && !piex2D[y][x-1]){
-        //console.log(piex2D[y][x-1]+"^^^^^^^^^^^^^^^^^^^")
         piex2D[y][x]=++flag;
-        //递归查找
         recursion({"x":x,"y":y},flag);
       }else if(piex2D[y][x]==2 && piex2D[y][x-1]){
-        //console.log(piex2D[y][x-1]+"^^^^^^^^^^^^^^^^^^^")
         piex2D[y][x]=1;
-        //递归查找
         recursion({"x":x,"y":y},1);
       }
     }
@@ -144,7 +138,6 @@ function findIcon(cvs,piex2D,fixed){
     //过滤掉
     return part;
   }
-
   //获取icon的尺寸，和坐标
   function findIconBox(num){
     var points=[];
@@ -176,7 +169,6 @@ function findIcon(cvs,piex2D,fixed){
     box.data=getPart2d(piex2D,box) 
     return box;
   }
-
   //收集每个icon 的尺寸和坐标
   var iconBoxes=[];
   for(var i=3;i<=flag;i++){
@@ -184,8 +176,6 @@ function findIcon(cvs,piex2D,fixed){
   }
   return iconBoxes;
 }
-
-
 
 //查找边界
 function findBorder(map2d,fixed){
@@ -209,7 +199,6 @@ function findBorder(map2d,fixed){
           }
         }  
       }
-      //cur range
     }
   }
 }
@@ -243,16 +232,6 @@ function biggerIcon(map2d,fixed){
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
 
 function Icon(imgData,param){
   this.imgData=imgData;
@@ -303,17 +282,8 @@ Icon.prototype ={
       /*再次查找边界*/
       findBorder(self.piex2D)
       //util.show2D(self.piex2D)
-      //console.log("------------------------------")
       //找出icon
       self.boxes=findIcon(self.canvas,self.piex2D,self.fixed);
-      //console.log("完成"+(new Date().getTime()-t)/1000);
-      //mac 20xp 4.834s 完成  无提取
-      //util.show2D(self.piex2D)
-      //console.log(self.boxes)
-
-      // for(var i=0;i<self.boxes.length;i++){
-      //   util.show2D(self.boxes[i].data) 
-      // }
       //回调
       callback && callback.call(self)
     }
@@ -345,16 +315,12 @@ Icon.prototype ={
         this.piex2D[y][x]=cur;
       }
     };
-    //提炼2纬地图边界
-    
   },
   //是否为可用像素
   isPiex:function(r,g,b,a){
     return  r | g | b | a;
   }
 };
-
-
 
 
 

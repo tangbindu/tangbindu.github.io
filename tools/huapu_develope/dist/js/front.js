@@ -111,6 +111,7 @@ function canvas2Img(cvs,data) {
 
     $(cvs).before(img);
     $(cvs).remove();
+    return img;
 }
 
 function setProtectRect(canvas) {
@@ -204,7 +205,8 @@ $(".protect-rect-btn").bind("click", function() {
         setProtectRect(cvs);
     } else {
         var canvas = pc.clip_img_wrap.find("canvas").eq(0)[0];
-        canvas2Img(canvas)
+        var img=canvas2Img(canvas);
+        $(img).addClass("active")
     }
 });
 
@@ -269,9 +271,6 @@ pc.start_cut_btn.bind("click", function() {
         );
     });
 })
-
-
-
 //切割icon
 var rank = 0;
 function cutIconFromImg(icon_wrap,img, boxes, output) {
@@ -279,7 +278,6 @@ function cutIconFromImg(icon_wrap,img, boxes, output) {
     pc.stage.removeClass("working-cut-before");
     //清空clip_img_wrap
     //$("#clip-img-wrap").html("");
-    //cv
     //canvas
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext("2d");
@@ -300,7 +298,6 @@ function cutIconFromImg(icon_wrap,img, boxes, output) {
         cut(i, boxes[i]);
     }
     icon_wrap.remove();
-
     function cut(i, item) {
         var modify = false;
         canvas.width = width;
@@ -308,33 +305,14 @@ function cutIconFromImg(icon_wrap,img, boxes, output) {
         var imgNode = document.createElement("img");
         imgNode.setAttribute("src", img);
         ctx.drawImage(imgNode, left, top, width, height, 0, 0, width, height);
-
-        //过滤多余部分
-        // util.show2D(item.data);
-        // item.data.forEach(function(val,index){
-        //     val.forEach(function(val_inner,index_inner){
-        //         if(val_inner!=item.flag){
-        //             ctx.putImageData(imgDa,index_inner,index);
-        //         }
-        //     })
-        // })
-        
         pc.curImgName=$("#icon-name-before").val() + (++rank) + '.png';
         pc.receiveImg(canvas.toDataURL("image/png"));
     }
 }
-
-
-
-
-
-
-
 //舞台
 var stage = $("#stage");
 //icon容器
 var clip_img_wrap = $("#clip-img-wrap");
-
 //前台-拖拽上传
 stage[0].addEventListener("dragenter", function(e) {
     e.stopPropagation();
@@ -403,18 +381,10 @@ $("#uploadImg").bind("change", function(event) {
     })
     reader.readAsDataURL(file);
 })
-
-
-
-
-
-
-
 /*
  *imglist {imglist}  jq_img_list 图片对象列表
  *param {json}  下载的一些配置
  */
-
 function downloadImg(imglist, param) {
     // var conf = {
     //     name: "icon",
@@ -437,7 +407,6 @@ function downloadImg(imglist, param) {
       var blob = new Blob([arr], {type: 'image/png'});
       return blob;
     }
-
     function download(imglist) {
         var a = document.createElement('a');
         // if(imglist.attr("name")){
@@ -468,10 +437,6 @@ function downloadImg(imglist, param) {
         saveAs(content, "images.zip");
     }
 }
-
-
-
-
 //前台-下载全部
 $("#icon-download-all").bind("click", function() {
     var imglist = clip_img_wrap.find("img");
@@ -482,9 +447,6 @@ $("#icon-download-all").bind("click", function() {
         }
     )
 })
-
-
-
 //前台-下载单个
 stage.on("click", ".icon-download", function() {
     var img = $(this).parent().parent().find("img");
@@ -494,7 +456,6 @@ stage.on("click", ".icon-download", function() {
         }
     )
 });
-
 //获取base64
 stage.on("click", ".icon-base64", function() {
     var base64=$(this).parent().parent().find(".icon-img").attr("src");
@@ -512,8 +473,6 @@ stage.on("click", ".icon-base64", function() {
     }
     $(copyTextarea).remove()
 });
-
-
 //前台-选择-删除-更新预览区
 function removeIcon(icon_img){
     for(var i=0;i<icon_img.length;i++){
@@ -522,7 +481,6 @@ function removeIcon(icon_img){
         icon_img.eq(i).parent().remove();
     }
 }
-
 //前台-删除单个
 stage.on("click", ".icon-delete", function() {
     removeIcon($(this).parent().parent().find(".icon-img"))
@@ -535,12 +493,7 @@ $("#help").bind("click", function(event) {
 })
 
 
-
-
-
-
-
-//----------------------------------前台-icon布局-----------------------------------
+//前台-icon布局
 $("#layout-row-button").on("click", function() {
     $(this).addClass("active").siblings().removeClass("active");
     $("#clip-img-wrap").attr("class", "");
@@ -569,9 +522,6 @@ $("#layout-rank-button").on("click", function() {
     }
 
 })
-
-
-
 //----------------------------------前台-导航区-----------------------------------
 funNav = {
     removeThumb: function(sid) {
@@ -598,10 +548,6 @@ funNav = {
         }
     }
 }
-
-
-
-
 function choise_icon(icon_img){
     for(var i=0;i<icon_img.length;i++){
         icon_img.eq(i).addClass("active");
@@ -622,10 +568,6 @@ function unchoise_icon(icon_img){
     }
     watchActiveIconImg();
 }
-
-
-
-
 //前台-选择-更新预览区
 $("#clip-img-wrap").delegate(".icon-img", "click", function() {
     var hasActive = $(this).hasClass("active");
@@ -635,12 +577,6 @@ $("#clip-img-wrap").delegate(".icon-img", "click", function() {
         choise_icon($(this))
     }
 })
-
-
-
-
-
-//-----------------------------------前台-选择区-----------------------------------
 //前台-选择全部 ，取消选择
 $(".cannel-choise").bind("click", function() {
     $("#clip-img-wrap").find(".icon-img.active").trigger("click");
@@ -648,8 +584,6 @@ $(".cannel-choise").bind("click", function() {
 $(".all-choise").bind("click", function() {
     $("#clip-img-wrap").find(".icon-img").trigger("click");
 })
-
-
 $(".iconName").live("click",(event)=>{
     let innerHTML=$(event.currentTarget)[0].innerHTML;
     if(innerHTML.indexOf("input")<0){
@@ -672,12 +606,6 @@ $(".iconName").live("click",(event)=>{
         })
     }
 })
-
-
-
-
-
-
 //文本输入框
 $(".input-number").bind("keyup", function() {
     var val = $(this).val();
@@ -685,8 +613,6 @@ $(".input-number").bind("keyup", function() {
     if (val != newval)
         $(this).val(newval)
 })
-
-//-------------------------------前台-调整尺寸-调整点-----------------------------
 //获取需要调整的图片，调整原点，获取尺寸，开始调整
 $(".resize-icon-target li").bind("click", function() {
     $(this).addClass("active").siblings().html("").removeClass("active");
@@ -723,9 +649,6 @@ $("#resize-icon-scale").bind("click", function() {
         })
     })
 })
-
-
-//-------------------------------前台-调整尺寸-留白-----------------------------
 //调整尺寸
 $("#resize-icon-padding-btn").bind("click", function() {
     var padding = $("#resize-icon-padding-val").val();
@@ -745,7 +668,6 @@ $("#resize-icon-padding-btn").bind("click", function() {
         })
     })
 })
-//-------------------------------前台-调整尺寸-留白-----------------------------
 //调整尺寸
 $("#resize-icon-even").bind("click", function() {
     var resize_Images = $("#clip-img-wrap img");
@@ -765,7 +687,6 @@ $("#resize-icon-even").bind("click", function() {
         })
     })
 })
-//-------------------------------get style-----------------------------
 //get style
 function showStyle(){
     $(".style-dialog").addClass("show");
@@ -831,8 +752,6 @@ $(".fun-style .min-btn").live("click",function(){
         setStyleValue(arr);
     })
 })
-
-//-------------------------------合成序列帧-----------------------------
 //合序列帧 
 //水平
 $("#composite-frame-h").bind("click", function() {
@@ -842,9 +761,6 @@ $("#composite-frame-h").bind("click", function() {
 $("#composite-frame-v").bind("click", function() {
     compositeFrame("h");
 })
-
-
-
 //合成序列帧
 function compositeFrame(type){
     //合成后的信息注入在clipImgWrap上
@@ -893,8 +809,6 @@ function compositeFrame(type){
     clipImgWrap.html("");
     pc.receiveImg(canvas.toDataURL("image/png")); 
 }
-
-
 //调整图片
 /*
  *获取图片
