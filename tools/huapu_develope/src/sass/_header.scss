@@ -46,8 +46,10 @@ header{
   cursor: pointer;
   color: $themeColor;
   border: 1px solid $themeColor;
+  background-color: rgba(255,255,255,.8);
+  opacity:.5;
   &:hover{
-    opacity:.5;
+    opacity:1;
   }
   span{
     font-size: 18px;

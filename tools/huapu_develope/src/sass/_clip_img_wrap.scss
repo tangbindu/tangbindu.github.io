@@ -16,23 +16,21 @@
   height: 100%;
   //上传提示ICON
   &:before{
-    opacity:0.9;
     display: block;
     content: "\e603";
-    font-size: 120px;
-    font-weight: 100;
+    font-size: 170px;
+    // font-weight: 100;
     color: $themeColor;
-    opacity: .75;
+    -webkit-transform: scale(.8);
   }
   &:after{
-    opacity:0.9;
     display: block;
     content: "拖拽上传icon聚合图";
     font-size: 28px;
     margin-top: 10px;
     font-weight: 100;
     color: $themeColor;
-    opacity: .75;
+    font-family:"iconfont","PingFangSC-Thin","微软雅黑";
   }
   //icon图容器
   .icon-img-wrap{

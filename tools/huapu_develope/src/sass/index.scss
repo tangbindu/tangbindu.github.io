@@ -16,12 +16,15 @@ body{
 }
 body{
   background-color: rgba(255,255,255,1);
-  font-family:"iconfont","PingFangSC-Regular","微软雅黑" !important;
+  font-family:"iconfont","PingFangSC-Regular","微软雅黑";
 }
 button{
-  font-family:"iconfont","PingFangSC-Regular","微软雅黑" !important;
+  font-family:"iconfont","PingFangSC-Regular","微软雅黑";
 }
-$themeColor:#125a33;
+$themeColor:#1fab54*.8;
+// $themeColor:#31a161;
+
+
 // $grayBg:#d4d9d7;
 $grayBg:#d4d9d7;
 $lightGrayBg:#d4d9d7*.8;
