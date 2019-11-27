@@ -361,7 +361,6 @@ input[type="range"]::-webkit-slider-thumb {
   color: #777777;
   background-color: #d4d9d7;
   border-radius: 4px;
-  margin-right: 5px;
 }
 .clip-img-wrap-layout .btn:not(.active):hover {
   background-color: #a9adac;
