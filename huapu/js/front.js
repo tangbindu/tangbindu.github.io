@@ -38,6 +38,16 @@ eventTarget.prototype = {
     }
 };
 
+var tool={
+    isImage:function(name){
+        var re=new RegExp(".*?.(jpg|png|gif)","i"); 
+        return re.test(name)
+    },
+    getUrlImageName(url){
+        return url.match(new RegExp("[^/]*?.(jpg|png|gif)","i"))[0];
+    }
+}
+
 
 //构造操作对象源－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 function PngCut(config) {
@@ -71,7 +81,8 @@ PngCut.prototype = {
             callback && callback(list);
         })
     },
-    receiveImg: function(imgData) {
+    receiveImg: function(imgData,imgName) {
+        this.curImgName=imgName;
         this.receiveImgData = imgData;
         this.trigger("receiveImg");
     }
@@ -237,8 +248,6 @@ function watchActiveIconImg(){
      }
 }
 
-
-
 //切图
 pc.start_cut_btn.bind("click", function() {
     if (pc.protect_rect_btn.hasClass("active")) {
@@ -305,8 +314,11 @@ function cutIconFromImg(icon_wrap,img, boxes, output) {
         var imgNode = document.createElement("img");
         imgNode.setAttribute("src", img);
         ctx.drawImage(imgNode, left, top, width, height, 0, 0, width, height);
-        pc.curImgName=$("#icon-name-before").val() + (++rank) + '.png';
-        pc.receiveImg(canvas.toDataURL("image/png"));
+        var imgName=$("#icon-name-before").val() + (++rank) + '.png';
+        pc.receiveImg(
+            canvas.toDataURL("image/png"),
+            imgName
+        );
     }
 }
 //舞台
@@ -323,47 +335,75 @@ stage[0].addEventListener("dragover", function(e) {
     e.preventDefault();
 }, false);
 stage[0].addEventListener("drop", function(e) {
+    if(e.dataTransfer && e.dataTransfer.items[0].type.indexOf('text/uri-list') > -1){
+        e.dataTransfer.items[0].getAsString(function (str) {
+            if(IsURL(str) && tool.isImage(str)){
+                pc.receiveImg(str,tool.getUrlImageName(str));
+            }
+        })
+    }else{
+        handleFile(e.dataTransfer.files);
+        //获取图片
+        function handleFile(files) {
+            var i=0;
+            var reader = new FileReader();
+            function readerFiles(i){
+                var file = files[i];
+                if(i==files.length){return false;}
+                reader.onload = (function(theFile) {
+                    var imgData = theFile.srcElement.result;
+                    //这里接受图片
+                    pc.receiveImg(imgData,file.name);
+                    readerFiles(++i);
+                })
+                reader.readAsDataURL(file);
+            }
+            readerFiles(i);
+        }
+    }
     e.stopPropagation();
     e.preventDefault();
-    handleFile(e.dataTransfer.files);
-    //获取图片
-    function handleFile(files) {
-        var i=0;
-        var reader = new FileReader();
-        function readerFiles(i){
-            var file = files[i];
-            if(i==files.length){return false;}
-            reader.onload = (function(theFile) {
-                var imgData = theFile.srcElement.result;
-                //图片名称
-                pc.curImgName=file.name;
-                //这里接受图片
-                pc.receiveImg(imgData);
-                readerFiles(++i);
-            })
-            reader.readAsDataURL(file);
-        }
-        readerFiles(i);
-    }
 }, false);
 var pasteNum=0;
+function IsURL (str_url) { 
+    var strRegex = '^((https|http|ftp|rtsp|mms)?://)' 
+    + '?(([0-9a-z_!~*\'().&=+$%-]+: )?[0-9a-z_!~*\'().&=+$%-]+@)?' //ftp的user@ 
+    + '(([0-9]{1,3}.){3}[0-9]{1,3}' // IP形式的URL- 199.194.52.184 
+    + '|' // 允许IP和DOMAIN（域名） 
+    + '([0-9a-z_!~*\'()-]+.)*' // 域名- www. 
+    + '([0-9a-z][0-9a-z-]{0,61})?[0-9a-z].' // 二级域名 
+    + '[a-z]{2,6})' // first level domain- .com or .museum 
+    + '(:[0-9]{1,4})?' // 端口- :80 
+    + '((/?)|' // a slash isn't required if there is no file name 
+    + '(/[0-9a-zA-Z_!~*\'().;?:@&=+$,%#-]+)+/?)$'; 
+    var re=new RegExp(strRegex); 
+    return re.test(str_url);
+}
 //查找box元素,检测当粘贴时候,
 window.addEventListener('paste', function(e) {
+    console.log("见鬼")
     //判断是否是粘贴图片
     if (e.clipboardData && e.clipboardData.items[0].type.indexOf('image') > -1) 
     {
         var that     = this,
             reader   = new FileReader();
             file     = e.clipboardData.items[0].getAsFile();
-
             reader.onload = (function(theFile) {
                 var imgData = theFile.srcElement.result;
                 //图片名称
-                pc.curImgName="paste"+(pasteNum++)+".png";
+                var imgName="paste"+(pasteNum++)+".png";
                 //这里接受图片
-                pc.receiveImg(imgData);
+                pc.receiveImg(imgData,imgName);
             })
             reader.readAsDataURL(file);
+    }else if(e.clipboardData && e.clipboardData.items[0].type.indexOf('text/plain') > -1){
+        e.clipboardData.items[0].getAsString(function (str) {
+            if(IsURL(str) && tool.isImage(str)){
+                pc.receiveImg(str,tool.getUrlImageName(str));
+            }
+        })
+    }else{
+        console.log("来了老弟")
     }
 }, false);
 //前台-手动上传
@@ -375,9 +415,9 @@ $("#uploadImg").bind("change", function(event) {
     reader.onload = (function(theFile) {
         var imgData = theFile.srcElement.result;
         //这里接受图片
-        pc.curImgName=file.name;
+        var imgName=file.name;
         //这里接受图片z
-        pc.receiveImg(imgData); 
+        pc.receiveImg(imgData,imgName); 
     })
     reader.readAsDataURL(file);
 })
@@ -712,7 +752,7 @@ function setStyleValue(param){
             }
             if(item==".png"){
                 name=$(img).attr("name").slice(0,$(img).attr("name").indexOf("."));
-                src="../img/"+$(img).attr("name").slice(0,$(img).attr("name").indexOf("."))+".png";
+                src="../img/"+$(img).attr("name");
             }
             if(item=="base64"){
                 name=$(img).attr("name").slice(0,$(img).attr("name").indexOf("."));
@@ -764,6 +804,7 @@ $("#composite-frame-h").bind("click", function() {
 $("#composite-frame-v").bind("click", function() {
     compositeFrame("h");
 })
+var spriteRank=0;
 //合成序列帧
 function compositeFrame(type){
     //合成后的信息注入在clipImgWrap上
@@ -810,7 +851,7 @@ function compositeFrame(type){
         }
     }
     clipImgWrap.html("");
-    pc.receiveImg(canvas.toDataURL("image/png")); 
+    pc.receiveImg(canvas.toDataURL("image/png"),"sprite"+(spriteRank++)+".png"); 
 }
 //调整图片
 /*

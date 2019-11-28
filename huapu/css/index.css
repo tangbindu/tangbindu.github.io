@@ -144,7 +144,7 @@ header {
   padding: 20px;
   position: relative;
   background-image: url(../img/opacity.png);
-  background-size: 80px 80px;
+  background-size: 50px 50px;
   background-repeat: repeat;
   overflow-y: auto;
   -webkit-box-sizing: border-box;
@@ -497,6 +497,7 @@ input[type="range"]::-webkit-slider-thumb {
   text-align: center;
   padding-bottom: 100px;
   -webkit-box-sizing: border-box;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
   color: #777777;
 }
 #fun-board button {
