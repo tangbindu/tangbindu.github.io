@@ -198,7 +198,8 @@ header {
   width: 100%;
   line-height: 24px;
   color: #333;
-  font-size: 16px;
+  font-size: 12px;
+  font-family: "PingFangSC-Regular","微软雅黑";
 }
 #clip-img-wrap .icon-fun-board {
   font-size: 18px;
@@ -329,9 +330,12 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 15px;
 }
 
+.iconSize {
+  margin-left: 5px;
+}
+
 .iconName {
   margin-left: 5px;
-  font-family: "PingFangSC-Regular","微软雅黑";
   border-radius: 2px;
 }
 .iconName:hover {

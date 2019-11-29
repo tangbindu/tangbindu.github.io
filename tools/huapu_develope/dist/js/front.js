@@ -45,6 +45,14 @@ var tool={
     },
     getUrlImageName(url){
         return url.match(new RegExp("[^/]*?.(jpg|png|gif)","i"))[0];
+    },
+    dataURLtoBlob(dataurl) {
+        var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], { type: mime });
     }
 }
 
@@ -157,6 +165,7 @@ function setProtectRect(canvas) {
     })
 }
 
+
 //接受图片后的处理
 pc.handler("receiveImg", function() {
     //工作
@@ -169,6 +178,17 @@ pc.handler("receiveImg", function() {
     var icon_img_base64 = document.createElement("span"); //base64
     var icon_img_delete = document.createElement("span"); //下载按钮
     icon_img_wrap.setAttribute("class", "icon-img-wrap");
+
+    let blob=tool.dataURLtoBlob(this.receiveImgData);
+    var volume=0;
+    if(blob.size<1024){
+        volume=parseInt(blob.size)+"byte" 
+    }else if(blob.size<(1024*1024)){
+        volume=(blob.size/1024).toFixed(2)+"K"
+    }else if(blob.size<(1024*1024*1014)){
+        volume=(blob.size/(1024*1024)).toFixed(2)+"M"
+    }
+   
     //图片
     icon_img.setAttribute("class", "icon-img");
     //图片打标签
@@ -181,7 +201,7 @@ pc.handler("receiveImg", function() {
     //图片信息
     icon_img_info.setAttribute("class", "icon-info");
     setTimeout(function(){
-        icon_img_info.innerHTML = "<span class='iconSize'>"+icon_img.naturalWidth + "*" + icon_img.naturalHeight+"</span><span class='iconName'>"+icon_img.getAttribute("name")+"</span>";
+        icon_img_info.innerHTML = "<span class='iconVolume'>"+volume+"</span>"+"<span class='iconSize'>"+icon_img.naturalWidth + "*" + icon_img.naturalHeight+"</span>"+"<span class='iconName'>"+icon_img.getAttribute("name")+"</span>";
     },100)
     //base64
     icon_img_base64.setAttribute("class", "icon-base64");
@@ -336,6 +356,7 @@ stage[0].addEventListener("dragover", function(e) {
 }, false);
 stage[0].addEventListener("drop", function(e) {
     if(e.dataTransfer && e.dataTransfer.items[0].type.indexOf('text/uri-list') > -1){
+        return;
         e.dataTransfer.items[0].getAsString(function (str) {
             if(IsURL(str) && tool.isImage(str)){
                 pc.receiveImg(str,tool.getUrlImageName(str));
@@ -381,7 +402,6 @@ function IsURL (str_url) {
 }
 //查找box元素,检测当粘贴时候,
 window.addEventListener('paste', function(e) {
-    console.log("见鬼")
     //判断是否是粘贴图片
     if (e.clipboardData && e.clipboardData.items[0].type.indexOf('image') > -1) 
     {
@@ -397,13 +417,14 @@ window.addEventListener('paste', function(e) {
             })
             reader.readAsDataURL(file);
     }else if(e.clipboardData && e.clipboardData.items[0].type.indexOf('text/plain') > -1){
+        return;
         e.clipboardData.items[0].getAsString(function (str) {
             if(IsURL(str) && tool.isImage(str)){
                 pc.receiveImg(str,tool.getUrlImageName(str));
             }
         })
     }else{
-        console.log("来了老弟")
+        return;
     }
 }, false);
 //前台-手动上传
