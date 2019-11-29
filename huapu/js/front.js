@@ -335,6 +335,9 @@ function cutIconFromImg(icon_wrap,img, boxes, output) {
         imgNode.setAttribute("src", img);
         ctx.drawImage(imgNode, left, top, width, height, 0, 0, width, height);
         var imgName=$("#icon-name-before").val() + (++rank) + '.png';
+        if( boxes.length==1){
+            imgName=icon_wrap.find("img").attr("name");
+        }
         pc.receiveImg(
             canvas.toDataURL("image/png"),
             imgName
