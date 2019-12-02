@@ -5,6 +5,50 @@ wilddog.initializeApp(config);
 var ref = wilddog.sync().ref();
 
 
+//临时方案 = 中转ref
+// personObj={
+//   "yyy":{
+
+//   },
+//   "xxx":{
+
+//   }
+// }
+if(!localStorage.getItem("xgdk")){
+  localStorage.setItem("xgdk",JSON.stringify({
+    "bowentang":{}
+  }))
+}
+ref={
+  data:JSON.parse(localStorage.getItem("xgdk")),
+  currentKeyVal:null,
+  update(data){
+    for(var i in data){
+      var ldata=JSON.parse(localStorage.getItem("xgdk"));
+      ldata[i]=data[i];
+      localStorage.setItem("xgdk",JSON.stringify(ldata))
+    }
+  },
+  orderByKey(){
+    return this;
+  },
+  equalTo(dataName){
+    this.currentKeyVal=this.data[dataName];
+    return this;
+  },
+  on(param,callback){
+    var that=this;
+    var obj={
+      val(){
+        return that.data;
+      }
+    }
+    callback && callback(obj)
+  }
+}
+//临时方案
+
+
 var dataControl={
   //提交数据
   push:function(userName,data){
