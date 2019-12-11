@@ -1,5 +1,7 @@
 //依赖的事件源
-;function extend(subType, superType) {
+;
+
+function extend(subType, superType) {
     subType.prototype = $.extend(subType.prototype, new superType());
     subType.prototype.constructor = subType;
 }
@@ -38,17 +40,20 @@ eventTarget.prototype = {
     }
 };
 
-var tool={
-    isImage:function(name){
-        var re=new RegExp(".*?.(jpg|png|gif)","i"); 
+var tool = {
+    isImage: function(name) {
+        var re = new RegExp(".*?.(jpg|png|gif)", "i");
         return re.test(name)
     },
-    getUrlImageName(url){
-        return url.match(new RegExp("[^/]*?.(jpg|png|gif)","i"))[0];
+    getUrlImageName(url) {
+        return url.match(new RegExp("[^/]*?.(jpg|png|gif)", "i"))[0];
     },
     dataURLtoBlob(dataurl) {
-        var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+        var arr = dataurl.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]),
+            n = bstr.length,
+            u8arr = new Uint8Array(n);
         while (n--) {
             u8arr[n] = bstr.charCodeAt(n);
         }
@@ -67,7 +72,7 @@ function PngCut(config) {
     this.start_cut_btn = $("#start-cut-btn");
     this.protect_rect_btn = $(".protect-rect-btn");
     this.fixed_range = $("#fixed_range");
-    this.curImgName=null;
+    this.curImgName = null;
     $.extend(this, conf);
     //初始化裁切交互
     this.init = function() {
@@ -89,8 +94,8 @@ PngCut.prototype = {
             callback && callback(list);
         })
     },
-    receiveImg: function(imgData,imgName) {
-        this.curImgName=imgName;
+    receiveImg: function(imgData, imgName) {
+        this.curImgName = imgName;
         this.receiveImgData = imgData;
         this.trigger("receiveImg");
     }
@@ -114,13 +119,13 @@ function img2Canvas(img) {
     return canvas;
 }
 
-function canvas2Img(cvs,data) {
+function canvas2Img(cvs, data) {
     var img = document.createElement("img");
     img.setAttribute("class", "icon-img");
     //取出图片，替换原有的图片
     img.src = cvs.toDataURL("image/png");
-    if(data){
-        img.src=data;
+    if (data) {
+        img.src = data;
     }
 
     var ram = (Math.random() * 100000).toFixed(5);
@@ -179,16 +184,16 @@ pc.handler("receiveImg", function() {
     var icon_img_delete = document.createElement("span"); //下载按钮
     icon_img_wrap.setAttribute("class", "icon-img-wrap");
 
-    let blob=tool.dataURLtoBlob(this.receiveImgData);
-    var volume=0;
-    if(blob.size<1024){
-        volume=parseInt(blob.size)+"byte" 
-    }else if(blob.size<(1024*1024)){
-        volume=(blob.size/1024).toFixed(2)+"K"
-    }else if(blob.size<(1024*1024*1014)){
-        volume=(blob.size/(1024*1024)).toFixed(2)+"M"
+    let blob = tool.dataURLtoBlob(this.receiveImgData);
+    var volume = 0;
+    if (blob.size < 1024) {
+        volume = parseInt(blob.size) + "byte"
+    } else if (blob.size < (1024 * 1024)) {
+        volume = (blob.size / 1024).toFixed(2) + "K"
+    } else if (blob.size < (1024 * 1024 * 1014)) {
+        volume = (blob.size / (1024 * 1024)).toFixed(2) + "M"
     }
-   
+
     //图片
     icon_img.setAttribute("class", "icon-img");
     //图片打标签
@@ -197,24 +202,24 @@ pc.handler("receiveImg", function() {
     var sid = "sid" + ram;
     icon_img.setAttribute("sid", sid);
     //获取图片名称
-    icon_img.setAttribute("name",pc.curImgName);
+    icon_img.setAttribute("name", pc.curImgName);
     //图片信息
     icon_img_info.setAttribute("class", "icon-info");
-    setTimeout(function(){
-        icon_img_info.innerHTML = "<span class='iconVolume'>"+volume+"</span>"+"<span class='iconSize'>"+icon_img.naturalWidth + "*" + icon_img.naturalHeight+"</span>"+"<span class='iconName'>"+icon_img.getAttribute("name")+"</span>";
-    },100)
-    //base64
+    setTimeout(function() {
+            icon_img_info.innerHTML = "<span class='iconVolume'>" + volume + "</span>" + "<span class='iconSize'>" + icon_img.naturalWidth + "*" + icon_img.naturalHeight + "</span>" + "<span class='iconName'>" + icon_img.getAttribute("name") + "</span>";
+        }, 100)
+        //base64
     icon_img_base64.setAttribute("class", "icon-base64");
     icon_img_base64.setAttribute("title", "获取图base64");
     icon_img_base64.innerHTML = "base64"
-    //下载，删除
+        //下载，删除
     icon_img_download.setAttribute("class", "icon-download");
     icon_img_download.setAttribute("title", "下载当前icon");
     icon_img_download.innerHTML = "&#xe612;"
     icon_img_delete.setAttribute("class", "icon-delete");
     icon_img_delete.setAttribute("title", "删除当前icon");
     icon_img_delete.innerHTML = "&#xe613;"
-    //功能面板
+        //功能面板
     icon_fun_board.setAttribute("class", "icon-fun-board");
     icon_fun_board.appendChild(icon_img_download);
     icon_fun_board.appendChild(icon_img_base64);
@@ -236,7 +241,7 @@ $(".protect-rect-btn").bind("click", function() {
         setProtectRect(cvs);
     } else {
         var canvas = pc.clip_img_wrap.find("canvas").eq(0)[0];
-        var img=canvas2Img(canvas);
+        var img = canvas2Img(canvas);
         $(img).addClass("active")
     }
 });
@@ -244,65 +249,66 @@ $(".protect-rect-btn").bind("click", function() {
 
 
 //监视icon选择态
-function watchActiveIconImg(){
+function watchActiveIconImg() {
     if (pc.clip_img_wrap.find(".icon-img.active").length == 1 && pc.clip_img_wrap.find("canvas").length == 0) {
         //显示切图面板
         pc.stage.addClass("working-cut-before");
-        pc.receiveImgData=pc.clip_img_wrap.find(".icon-img.active").attr("src");
+        pc.receiveImgData = pc.clip_img_wrap.find(".icon-img.active").attr("src");
         /*//第一张图改canvas
         var cvs=img2Canvas(icon_img);
         //给canvas绑定事件
         setProtectRect(cvs);*/
-     } else {
-         pc.stage.removeClass("working-cut-before");
-         var cvs=pc.clip_img_wrap.find("canvas");
-         $(".protect-rect-btn").removeClass("active")
-         if(cvs.length==1){
-            canvas2Img(cvs.eq(0)[0],pc.receiveImgData);
+    } else {
+        pc.stage.removeClass("working-cut-before");
+        var cvs = pc.clip_img_wrap.find("canvas");
+        $(".protect-rect-btn").removeClass("active")
+        if (cvs.length == 1) {
+            canvas2Img(cvs.eq(0)[0], pc.receiveImgData);
             //重新审视
             if (pc.clip_img_wrap.find(".icon-img.active").length == 1 && pc.clip_img_wrap.find("canvas").length == 0) {
                 pc.stage.addClass("working-cut-before");
-                pc.receiveImgData=pc.clip_img_wrap.find(".icon-img.active").attr("src");
-             } 
+                pc.receiveImgData = pc.clip_img_wrap.find(".icon-img.active").attr("src");
+            }
         }
-     }
+    }
 }
 
 //切图
 pc.start_cut_btn.bind("click", function() {
-    if (pc.protect_rect_btn.hasClass("active")) {
-        pc.protect_rect_btn.trigger("click")
-    }
-    var cp=pc.clip_img_wrap.find("canvas").eq(0).parent();
-    var ip=pc.clip_img_wrap.find(".icon-img.active").eq(0).parent();
-    var icon_wrap= cp.length==1 ? cp : ip;
-    if (pc.clip_img_wrap.find("img").eq(0).hasClass("active")) {
-        pc.clip_img_wrap.find("img").eq(0).trigger("click");
-    }
-    //获取修改后的图片
-    var imgData = icon_wrap.find("img").eq(0).attr("src");
-    //获取最初的图片
-    var originImg = pc.receiveImgData;
-    //获取配置
-    var fixed = pc.fixed_range.val();
-    //loading
-    util.show_g_loading();
-    //开始切图
-    var ico = new Icon(imgData, {
-        fixed: Math.round(fixed / 2)
-    });
-    ico.init(function() {
-        cutIconFromImg(
-            icon_wrap,//节点
-            originImg, //图片对象
-            this.boxes, //切割数据
-            "clip-img-wrap" //输出容器
-        );
-    });
-})
-//切割icon
+        if (pc.protect_rect_btn.hasClass("active")) {
+            pc.protect_rect_btn.trigger("click")
+        }
+        var cp = pc.clip_img_wrap.find("canvas").eq(0).parent();
+        var ip = pc.clip_img_wrap.find(".icon-img.active").eq(0).parent();
+        var icon_wrap = cp.length == 1 ? cp : ip;
+        if (pc.clip_img_wrap.find("img").eq(0).hasClass("active")) {
+            pc.clip_img_wrap.find("img").eq(0).trigger("click");
+        }
+        //获取修改后的图片
+        var imgData = icon_wrap.find("img").eq(0).attr("src");
+        //获取最初的图片
+        var originImg = pc.receiveImgData;
+        //获取配置
+        var fixed = pc.fixed_range.val();
+        //loading
+        util.show_g_loading();
+        //开始切图
+        var ico = new Icon(imgData, {
+            fixed: Math.round(fixed / 2)
+        });
+        ico.init(function() {
+            cutIconFromImg(
+                icon_wrap, //节点
+                originImg, //图片对象
+                this.boxes, //切割数据
+                "clip-img-wrap" //输出容器
+            );
+        });
+    })
+    //切割icon
 var rank = 0;
-function cutIconFromImg(icon_wrap,img, boxes, output) {
+
+function cutIconFromImg(icon_wrap, img, boxes, output) {
     util.hide_g_loading();
     pc.stage.removeClass("working-cut-before");
     //清空clip_img_wrap
@@ -310,7 +316,7 @@ function cutIconFromImg(icon_wrap,img, boxes, output) {
     //canvas
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext("2d");
-    var imgDa=ctx.createImageData(1,1);
+    var imgDa = ctx.createImageData(1, 1);
     imgDa.data[0] = 0;
     imgDa.data[1] = 0;
     imgDa.data[2] = 0;
@@ -327,6 +333,7 @@ function cutIconFromImg(icon_wrap,img, boxes, output) {
         cut(i, boxes[i]);
     }
     icon_wrap.remove();
+
     function cut(i, item) {
         var modify = false;
         canvas.width = width;
@@ -334,9 +341,9 @@ function cutIconFromImg(icon_wrap,img, boxes, output) {
         var imgNode = document.createElement("img");
         imgNode.setAttribute("src", img);
         ctx.drawImage(imgNode, left, top, width, height, 0, 0, width, height);
-        var imgName=$("#icon-name-before").val() + (++rank) + '.png';
-        if( boxes.length==1){
-            imgName=icon_wrap.find("img").attr("name");
+        var imgName = $("#icon-name-before").val() + (++rank) + '.png';
+        if (boxes.length == 1) {
+            imgName = icon_wrap.find("img").attr("name");
         }
         pc.receiveImg(
             canvas.toDataURL("image/png"),
@@ -358,26 +365,27 @@ stage[0].addEventListener("dragover", function(e) {
     e.preventDefault();
 }, false);
 stage[0].addEventListener("drop", function(e) {
-    if(e.dataTransfer && e.dataTransfer.items[0].type.indexOf('text/uri-list') > -1){
+    if (e.dataTransfer && e.dataTransfer.items[0].type.indexOf('text/uri-list') > -1) {
         return;
-        e.dataTransfer.items[0].getAsString(function (str) {
-            if(IsURL(str) && tool.isImage(str)){
-                pc.receiveImg(str,tool.getUrlImageName(str));
+        e.dataTransfer.items[0].getAsString(function(str) {
+            if (IsURL(str) && tool.isImage(str)) {
+                pc.receiveImg(str, tool.getUrlImageName(str));
             }
         })
-    }else{
+    } else {
         handleFile(e.dataTransfer.files);
         //获取图片
         function handleFile(files) {
-            var i=0;
+            var i = 0;
             var reader = new FileReader();
-            function readerFiles(i){
+
+            function readerFiles(i) {
                 var file = files[i];
-                if(i==files.length){return false;}
+                if (i == files.length) { return false; }
                 reader.onload = (function(theFile) {
                     var imgData = theFile.srcElement.result;
                     //这里接受图片
-                    pc.receiveImg(imgData,file.name);
+                    pc.receiveImg(imgData, file.name);
                     readerFiles(++i);
                 })
                 reader.readAsDataURL(file);
@@ -388,67 +396,75 @@ stage[0].addEventListener("drop", function(e) {
     e.stopPropagation();
     e.preventDefault();
 }, false);
-var pasteNum=0;
-function IsURL (str_url) { 
-    var strRegex = '^((https|http|ftp|rtsp|mms)?://)' 
-    + '?(([0-9a-z_!~*\'().&=+$%-]+: )?[0-9a-z_!~*\'().&=+$%-]+@)?' //ftp的user@ 
-    + '(([0-9]{1,3}.){3}[0-9]{1,3}' // IP形式的URL- 199.194.52.184 
-    + '|' // 允许IP和DOMAIN（域名） 
-    + '([0-9a-z_!~*\'()-]+.)*' // 域名- www. 
-    + '([0-9a-z][0-9a-z-]{0,61})?[0-9a-z].' // 二级域名 
-    + '[a-z]{2,6})' // first level domain- .com or .museum 
-    + '(:[0-9]{1,4})?' // 端口- :80 
-    + '((/?)|' // a slash isn't required if there is no file name 
-    + '(/[0-9a-zA-Z_!~*\'().;?:@&=+$,%#-]+)+/?)$'; 
-    var re=new RegExp(strRegex); 
+var pasteNum = 0;
+
+function IsURL(str_url) {
+    var strRegex = '^((https|http|ftp|rtsp|mms)?://)' +
+        '?(([0-9a-z_!~*\'().&=+$%-]+: )?[0-9a-z_!~*\'().&=+$%-]+@)?' //ftp的user@ 
+        +
+        '(([0-9]{1,3}.){3}[0-9]{1,3}' // IP形式的URL- 199.194.52.184 
+        +
+        '|' // 允许IP和DOMAIN（域名） 
+        +
+        '([0-9a-z_!~*\'()-]+.)*' // 域名- www. 
+        +
+        '([0-9a-z][0-9a-z-]{0,61})?[0-9a-z].' // 二级域名 
+        +
+        '[a-z]{2,6})' // first level domain- .com or .museum 
+        +
+        '(:[0-9]{1,4})?' // 端口- :80 
+        +
+        '((/?)|' // a slash isn't required if there is no file name 
+        +
+        '(/[0-9a-zA-Z_!~*\'().;?:@&=+$,%#-]+)+/?)$';
+    var re = new RegExp(strRegex);
     return re.test(str_url);
 }
 //查找box元素,检测当粘贴时候,
 window.addEventListener('paste', function(e) {
     //判断是否是粘贴图片
-    if (e.clipboardData && e.clipboardData.items[0].type.indexOf('image') > -1) 
-    {
-        var that     = this,
-            reader   = new FileReader();
-            file     = e.clipboardData.items[0].getAsFile();
-            reader.onload = (function(theFile) {
-                var imgData = theFile.srcElement.result;
-                //图片名称
-                var imgName="paste"+(pasteNum++)+".png";
-                //这里接受图片
-                pc.receiveImg(imgData,imgName);
-            })
-            reader.readAsDataURL(file);
-    }else if(e.clipboardData && e.clipboardData.items[0].type.indexOf('text/plain') > -1){
+    if (e.clipboardData && e.clipboardData.items[0].type.indexOf('image') > -1) {
+        var that = this,
+            reader = new FileReader();
+        file = e.clipboardData.items[0].getAsFile();
+        reader.onload = (function(theFile) {
+            var imgData = theFile.srcElement.result;
+            //图片名称
+            var imgName = "paste" + (pasteNum++) + ".png";
+            //这里接受图片
+            pc.receiveImg(imgData, imgName);
+        })
+        reader.readAsDataURL(file);
+    } else if (e.clipboardData && e.clipboardData.items[0].type.indexOf('text/plain') > -1) {
         return;
-        e.clipboardData.items[0].getAsString(function (str) {
-            if(IsURL(str) && tool.isImage(str)){
-                pc.receiveImg(str,tool.getUrlImageName(str));
+        e.clipboardData.items[0].getAsString(function(str) {
+            if (IsURL(str) && tool.isImage(str)) {
+                pc.receiveImg(str, tool.getUrlImageName(str));
             }
         })
-    }else{
+    } else {
         return;
     }
 }, false);
 //前台-手动上传
 $("#uploadImg").bind("change", function(event) {
-    //变化场景
-    var file = event.target.files[0];
-    //图片数据
-    var reader = new FileReader();
-    reader.onload = (function(theFile) {
-        var imgData = theFile.srcElement.result;
-        //这里接受图片
-        var imgName=file.name;
-        //这里接受图片z
-        pc.receiveImg(imgData,imgName); 
+        //变化场景
+        var file = event.target.files[0];
+        //图片数据
+        var reader = new FileReader();
+        reader.onload = (function(theFile) {
+            var imgData = theFile.srcElement.result;
+            //这里接受图片
+            var imgName = file.name;
+            //这里接受图片z
+            pc.receiveImg(imgData, imgName);
+        })
+        reader.readAsDataURL(file);
     })
-    reader.readAsDataURL(file);
-})
-/*
- *imglist {imglist}  jq_img_list 图片对象列表
- *param {json}  下载的一些配置
- */
+    /*
+     *imglist {imglist}  jq_img_list 图片对象列表
+     *param {json}  下载的一些配置
+     */
 function downloadImg(imglist, param) {
     // var conf = {
     //     name: "icon",
@@ -460,23 +476,25 @@ function downloadImg(imglist, param) {
     } else if (imglist.length > 1) {
         zipdownload(imglist);
     }
-    function dataURIToBlob(dataURI) {
-      var binStr = atob(dataURI.split(',')[1]),
-        len = binStr.length,
-        arr = new Uint8Array(len);
 
-      for (var i = 0; i < len; i++) {
-        arr[i] = binStr.charCodeAt(i);
-      }
-      var blob = new Blob([arr], {type: 'image/png'});
-      return blob;
+    function dataURIToBlob(dataURI) {
+        var binStr = atob(dataURI.split(',')[1]),
+            len = binStr.length,
+            arr = new Uint8Array(len);
+
+        for (var i = 0; i < len; i++) {
+            arr[i] = binStr.charCodeAt(i);
+        }
+        var blob = new Blob([arr], { type: 'image/png' });
+        return blob;
     }
+
     function download(imglist) {
         var a = document.createElement('a');
         // if(imglist.attr("name")){
-            a.setAttribute('download', imglist.attr("name"));
+        a.setAttribute('download', imglist.attr("name"));
         // }else{
-            // a.setAttribute('download', conf.name + (++rank) + '.png');
+        // a.setAttribute('download', conf.name + (++rank) + '.png');
         // }
         a.href = URL.createObjectURL(dataURIToBlob(imglist.attr("src")));
         a.innerHTML = 'download';
@@ -490,9 +508,9 @@ function downloadImg(imglist, param) {
         var img = zip.folder("images");
         rank = 0;
         imglist.each(function() {
-            var name=$(this).attr("name");
-            var src=$(this).attr("src");
-            var imgData=src.substr(src.indexOf(',')+1);
+            var name = $(this).attr("name");
+            var src = $(this).attr("src");
+            var imgData = src.substr(src.indexOf(',') + 1);
             img.file(name, imgData, { base64: true });
 
         })
@@ -503,15 +521,15 @@ function downloadImg(imglist, param) {
 }
 //前台-下载全部
 $("#icon-download-all").bind("click", function() {
-    var imglist = clip_img_wrap.find("img");
-    var name = $("#icon-name-before").val();
-    downloadImg(
-        imglist, {
-            "name": $("#icon-name-before").val()
-        }
-    )
-})
-//前台-下载单个
+        var imglist = clip_img_wrap.find("img");
+        var name = $("#icon-name-before").val();
+        downloadImg(
+            imglist, {
+                "name": $("#icon-name-before").val()
+            }
+        )
+    })
+    //前台-下载单个
 stage.on("click", ".icon-download", function() {
     var img = $(this).parent().parent().find("img");
     downloadImg(
@@ -522,10 +540,10 @@ stage.on("click", ".icon-download", function() {
 });
 //获取base64
 stage.on("click", ".icon-base64", function() {
-    var base64=$(this).parent().parent().find(".icon-img").attr("src");
+    var base64 = $(this).parent().parent().find(".icon-img").attr("src");
     var copyTextarea = document.createElement('textarea');
-    copyTextarea.value=base64;
-    copyTextarea.style.height="0";
+    copyTextarea.value = base64;
+    copyTextarea.style.height = "0";
     document.body.appendChild(copyTextarea);
     copyTextarea.select();
     try {
@@ -538,13 +556,13 @@ stage.on("click", ".icon-base64", function() {
     $(copyTextarea).remove()
 });
 //前台-选择-删除-更新预览区
-function removeIcon(icon_img){
-    for(var i=0;i<icon_img.length;i++){
+function removeIcon(icon_img) {
+    for (var i = 0; i < icon_img.length; i++) {
         var sid = icon_img.eq(i).attr("sid");
         funNav.removeThumb(sid);
         icon_img.eq(i).parent().remove();
     }
-    if(pc.stage.find(".icon-img-wrap").length==0){
+    if (pc.stage.find(".icon-img-wrap").length == 0) {
         pc.stage.parent().removeClass("working");
     }
 }
@@ -566,39 +584,38 @@ $("#layout-row-button").on("click", function() {
     $("#clip-img-wrap").attr("class", "");
 })
 $("#layout-table-button").on("click", function() {
-    $(this).addClass("active").siblings().removeClass("active");
-    $("#clip-img-wrap").attr("class", "layout-table");
-})
-//大小排序
+        $(this).addClass("active").siblings().removeClass("active");
+        $("#clip-img-wrap").attr("class", "layout-table");
+    })
+    //大小排序
 
 $("#layout-rank-button").on("click", function() {
-    $(this).addClass("active").siblings().removeClass("active");
-    $("#clip-img-wrap").attr("class", "layout-rank");
+        $(this).addClass("active").siblings().removeClass("active");
+        $("#clip-img-wrap").attr("class", "layout-rank");
 
-    var icon_arr=[];
-    for(var i=0;i<$("#clip-img-wrap .icon-img-wrap").length;i++){
-        icon_arr.push($("#clip-img-wrap .icon-img-wrap").eq(i).clone(true))
-    }
-    icon_arr.sort(function(a,b){
-        return a.find(".icon-img").eq(0)[0].naturalWidth-b.find(".icon-img").eq(0)[0].naturalWidth;
+        var icon_arr = [];
+        for (var i = 0; i < $("#clip-img-wrap .icon-img-wrap").length; i++) {
+            icon_arr.push($("#clip-img-wrap .icon-img-wrap").eq(i).clone(true))
+        }
+        icon_arr.sort(function(a, b) {
+            return a.find(".icon-img").eq(0)[0].naturalWidth - b.find(".icon-img").eq(0)[0].naturalWidth;
+        })
+        icon_arr.reverse();
+        $("#clip-img-wrap").html("");
+        for (var i = 0; i < icon_arr.length; i++) {
+            $("#clip-img-wrap").append(icon_arr[i]);
+        }
+
     })
-    icon_arr.reverse();
-    $("#clip-img-wrap").html("");
-    for(var i=0;i<icon_arr.length;i++){
-        $("#clip-img-wrap").append(icon_arr[i]);
-    }
-
-})
-//----------------------------------前台-导航区-----------------------------------
+    //----------------------------------前台-导航区-----------------------------------
 funNav = {
     removeThumb: function(sid) {
         $("#fun-board .nav ul").find("[sid=" + sid + "]").parent().remove();
         this.refreshList();
     },
     addThumb: function(img) {
-        var sid=img.attr("sid");
-        if($("#fun-board .nav ul").find("[sid=" + sid + "]").length==0)
-        {
+        var sid = img.attr("sid");
+        if ($("#fun-board .nav ul").find("[sid=" + sid + "]").length == 0) {
             var li = $("<li>").append(img);
             $("#fun-board .nav ul").append(li);
             this.refreshList();
@@ -615,11 +632,12 @@ funNav = {
         }
     }
 }
-function choise_icon(icon_img){
-    for(var i=0;i<icon_img.length;i++){
+
+function choise_icon(icon_img) {
+    for (var i = 0; i < icon_img.length; i++) {
         icon_img.eq(i).addClass("active");
         funNav.addThumb(icon_img.eq(i).clone(false))
-        //前台-选择-删除-更新尺寸区
+            //前台-选择-删除-更新尺寸区
         var size = icon_img.eq(i).parent().find(".iconSize").text();
         var size_w = size.split("*")[0];
         var size_h = size.split("*")[1];
@@ -628,8 +646,9 @@ function choise_icon(icon_img){
     }
     watchActiveIconImg();
 }
-function unchoise_icon(icon_img){
-    for(var i=0;i<icon_img.length;i++){
+
+function unchoise_icon(icon_img) {
+    for (var i = 0; i < icon_img.length; i++) {
         icon_img.eq(i).removeClass("active");
         funNav.removeThumb(icon_img.eq(i).attr("sid"))
     }
@@ -637,55 +656,55 @@ function unchoise_icon(icon_img){
 }
 //前台-选择-更新预览区
 $("#clip-img-wrap").delegate(".icon-img", "click", function() {
-    var hasActive = $(this).hasClass("active");
-    if (hasActive == true) {
-        unchoise_icon($(this))
-    } else {
-        choise_icon($(this))
-    }
-})
-//前台-选择全部 ，取消选择
+        var hasActive = $(this).hasClass("active");
+        if (hasActive == true) {
+            unchoise_icon($(this))
+        } else {
+            choise_icon($(this))
+        }
+    })
+    //前台-选择全部 ，取消选择
 $(".cannel-choise").bind("click", function() {
     $("#clip-img-wrap").find(".icon-img.active").trigger("click");
 })
 $(".all-choise").bind("click", function() {
     $("#clip-img-wrap").find(".icon-img").trigger("click");
 })
-$(".iconName").live("click",(event)=>{
-    let innerHTML=$(event.currentTarget)[0].innerHTML;
-    if(innerHTML.indexOf("input")<0){
-        let input=document.createElement("input");
-        input.setAttribute("class","inputname");
-        let format=document.createElement("span");
-        format.innerHTML=".png";
-        input.value=innerHTML.split(".")[0];
-        $(event.currentTarget)[0].innerHTML="";
-        $(event.currentTarget)[0].appendChild(input);
-        $(event.currentTarget)[0].appendChild(format);
-        input.focus();
-        $(input).live("change",(event)=>{
-            if($(event.currentTarget).val()!=""){
-                $(event.currentTarget).parent().parent().parent().find(".icon-img").attr("name",$(event.currentTarget).val()+".png");
-                $(event.currentTarget).parent()[0].innerHTML=$(event.currentTarget).val()+".png";
-            }else{
-                $(event.currentTarget).parent()[0].innerHTML=$(event.currentTarget).parent().parent().parent().find(".icon-img").attr("name");
-            }
-        })
-    }
-})
-//文本输入框
+$(".iconName").live("click", (event) => {
+        let innerHTML = $(event.currentTarget)[0].innerHTML;
+        if (innerHTML.indexOf("input") < 0) {
+            let input = document.createElement("input");
+            input.setAttribute("class", "inputname");
+            let format = document.createElement("span");
+            format.innerHTML = ".png";
+            input.value = innerHTML.split(".")[0];
+            $(event.currentTarget)[0].innerHTML = "";
+            $(event.currentTarget)[0].appendChild(input);
+            $(event.currentTarget)[0].appendChild(format);
+            input.focus();
+            $(input).live("change", (event) => {
+                if ($(event.currentTarget).val() != "") {
+                    $(event.currentTarget).parent().parent().parent().find(".icon-img").attr("name", $(event.currentTarget).val() + ".png");
+                    $(event.currentTarget).parent()[0].innerHTML = $(event.currentTarget).val() + ".png";
+                } else {
+                    $(event.currentTarget).parent()[0].innerHTML = $(event.currentTarget).parent().parent().parent().find(".icon-img").attr("name");
+                }
+            })
+        }
+    })
+    //文本输入框
 $(".input-number").bind("keyup", function() {
-    var val = $(this).val();
-    var newval = val.replace(/\D/, "")
-    if (val != newval)
-        $(this).val(newval)
-})
-//获取需要调整的图片，调整原点，获取尺寸，开始调整
+        var val = $(this).val();
+        var newval = val.replace(/\D/, "")
+        if (val != newval)
+            $(this).val(newval)
+    })
+    //获取需要调整的图片，调整原点，获取尺寸，开始调整
 $(".resize-icon-target li").bind("click", function() {
-    $(this).addClass("active").siblings().html("").removeClass("active");
-    $(this).html("&#xe616;")
-})
-//调整尺寸
+        $(this).addClass("active").siblings().html("").removeClass("active");
+        $(this).html("&#xe616;")
+    })
+    //调整尺寸
 $("#resize-icon-btn").bind("click", function() {
     var resize_Images = $("#clip-img-wrap img.active");
     var origin = $(".resize-icon-target .active").attr("class").slice(7, 10);
@@ -695,7 +714,7 @@ $("#resize-icon-btn").bind("click", function() {
     h = h.toString().replace(/\D/, "");
     resize_Images.each(function() {
         // $(this).parent().find(".icon-info").text(w + "*" + h);
-        resizeImage($(this)[0],"clip", {
+        resizeImage($(this)[0], "clip", {
             "origin": origin,
             "width": w,
             "height": h
@@ -703,179 +722,181 @@ $("#resize-icon-btn").bind("click", function() {
     })
 })
 $("#resize-icon-scale").bind("click", function() {
-    var resize_Images = $("#clip-img-wrap img.active");
-    var w = $(".resize-icon .w").val();
-    var h = $(".resize-icon .h").val();
-    w = w.toString().replace(/\D/, "");
-    h = h.toString().replace(/\D/, "");
-    resize_Images.each(function() {
-        resizeImage($(this)[0], "scale",{
-            "origin": origin,
-            "width": w,
-            "height": h
+        var resize_Images = $("#clip-img-wrap img.active");
+        var w = $(".resize-icon .w").val();
+        var h = $(".resize-icon .h").val();
+        w = w.toString().replace(/\D/, "");
+        h = h.toString().replace(/\D/, "");
+        resize_Images.each(function() {
+            resizeImage($(this)[0], "scale", {
+                "origin": origin,
+                "width": w,
+                "height": h
+            })
         })
     })
-})
-//调整尺寸
+    //调整尺寸
 $("#resize-icon-padding-btn").bind("click", function() {
-    var padding = $("#resize-icon-padding-val").val();
-    var resize_Images = $("#clip-img-wrap img.active");
-    if (padding < 0 || padding > 5000 || resize_Images.length == 0) {
-        return false;
-    }
-    $("#resize-icon-padding-val").val("");
-    resize_Images.each(function() {
-        w = $(this)[0].naturalWidth - 0 + padding * 2;
-        h = $(this)[0].naturalHeight - 0 + padding * 2;
-        $(this).parent().find(".icon-info").text(w + "*" + h);
-        resizeImage($(this)[0],"clip" ,{
-            "origin": "c_c",
-            "width": w,
-            "height": h
+        var padding = $("#resize-icon-padding-val").val();
+        var resize_Images = $("#clip-img-wrap img.active");
+        if (padding < 0 || padding > 5000 || resize_Images.length == 0) {
+            return false;
+        }
+        $("#resize-icon-padding-val").val("");
+        resize_Images.each(function() {
+            w = $(this)[0].naturalWidth - 0 + padding * 2;
+            h = $(this)[0].naturalHeight - 0 + padding * 2;
+            $(this).parent().find(".icon-info").text(w + "*" + h);
+            resizeImage($(this)[0], "clip", {
+                "origin": "c_c",
+                "width": w,
+                "height": h
+            })
         })
     })
-})
-//调整尺寸
+    //调整尺寸
 $("#resize-icon-even").bind("click", function() {
-    var resize_Images = $("#clip-img-wrap img");
-    if (resize_Images.length == 0) {
-        return false;
-    }
-    resize_Images.each(function() {
-        w = $(this)[0].naturalWidth;
-        h = $(this)[0].naturalHeight;
-        w = w % 2 == 1 ? ++w : w;
-        h = h % 2 == 1 ? ++h : h;
-        $(this).parent().find(".icon-info").text(w + "*" + h);
-        resizeImage($(this)[0],"clip" ,{
-            "origin": "c_c",
-            "width": w,
-            "height": h
+        var resize_Images = $("#clip-img-wrap img");
+        if (resize_Images.length == 0) {
+            return false;
+        }
+        resize_Images.each(function() {
+            w = $(this)[0].naturalWidth;
+            h = $(this)[0].naturalHeight;
+            w = w % 2 == 1 ? ++w : w;
+            h = h % 2 == 1 ? ++h : h;
+            $(this).parent().find(".icon-info").text(w + "*" + h);
+            resizeImage($(this)[0], "clip", {
+                "origin": "c_c",
+                "width": w,
+                "height": h
+            })
         })
     })
-})
-//get style
-function showStyle(){
+    //get style
+function showStyle() {
     $(".style-dialog").addClass("show");
 }
-function setStyleValue(param){
-    var imgs=$("#clip-img-wrap").find("img[name]");
-    function showstyle(img){
+
+function setStyleValue(param) {
+    var imgs = $("#clip-img-wrap").find("img[name]");
+
+    function showstyle(img) {
         var name;
         var src;
         var width;
         var height;
-        param.map(function(item){
-            if(item=="px"){
-                width=$(img).width()+"px;";
-                height=$(img).height()+"px;";
+        param.map(function(item) {
+            if (item == "px") {
+                width = $(img).width() + "px;";
+                height = $(img).height() + "px;";
             }
-            if(item=="rem"){
-                width=($(img).width()/100).toFixed(2)+"rem;"
-                height=($(img).height()/100).toFixed(2)+"rem;"
+            if (item == "rem") {
+                width = ($(img).width() / 100).toFixed(2) + "rem;"
+                height = ($(img).height() / 100).toFixed(2) + "rem;"
             }
-            if(item==".png"){
-                name=$(img).attr("name").slice(0,$(img).attr("name").indexOf("."));
-                src="../img/"+$(img).attr("name");
+            if (item == ".png") {
+                name = $(img).attr("name").slice(0, $(img).attr("name").indexOf("."));
+                src = "../img/" + $(img).attr("name");
             }
-            if(item=="base64"){
-                name=$(img).attr("name").slice(0,$(img).attr("name").indexOf("."));
-                src=$(img).attr("src");
+            if (item == "base64") {
+                name = $(img).attr("name").slice(0, $(img).attr("name").indexOf("."));
+                src = $(img).attr("src");
             }
         })
         return [
             " ",
-            "."+name+"{",
-                "    width:"+width,
-                "    height:"+height,
-                "    background-image:url("+src+")",
-                "    background-repeat:no-repeat",
-                "    background-size:100% 100%",
+            "." + name + "{",
+            "    width:" + width,
+            "    height:" + height,
+            "    background-image:url(" + src + ")",
+            "    background-repeat:no-repeat;",
+            "    background-size:100% 100%;",
             "}"
         ].join("\n");
     }
-    var template="{}"
-    var styles="";
-    var names="";
-    for(var i=0;i<imgs.length;i++){
-        styles+=showstyle(imgs.eq(i));
-        names+=("."+imgs.eq(i).attr("name").slice(0,imgs.eq(i).attr("name").indexOf("."))+"\n");
+    var template = "{}"
+    var styles = "";
+    var names = "";
+    for (var i = 0; i < imgs.length; i++) {
+        styles += showstyle(imgs.eq(i));
+        names += ("." + imgs.eq(i).attr("name").slice(0, imgs.eq(i).attr("name").indexOf(".")) + "\n");
     }
-    $(".style-dialog").find("textarea").val(styles+"\n"+"\n"+"\n"+names); 
+    $(".style-dialog").find("textarea").val(styles + "\n" + "\n" + "\n" + names);
 }
 
-$(".style-dialog .close").live("click",function(){
+$(".style-dialog .close").live("click", function() {
     $(".style-dialog").removeClass("show");
 })
 $("#get-style").live("click", function() {
     showStyle();
-    setStyleValue(["px",".png"]);
+    setStyleValue(["px", ".png"]);
 })
-$(".fun-style .min-btn").live("click",function(){
-    $(this).addClass("active").siblings().removeClass("active");
-    var arr=[];
-    $(".fun-style .min-btn.active").each(function(){
-        arr.push($(this)[0].innerHTML);
-        setStyleValue(arr);
+$(".fun-style .min-btn").live("click", function() {
+        $(this).addClass("active").siblings().removeClass("active");
+        var arr = [];
+        $(".fun-style .min-btn.active").each(function() {
+            arr.push($(this)[0].innerHTML);
+            setStyleValue(arr);
+        })
     })
-})
-//合序列帧 
-//水平
+    //合序列帧 
+    //水平
 $("#composite-frame-h").bind("click", function() {
-    compositeFrame("v");
-}) 
-//垂直
+        compositeFrame("v");
+    })
+    //垂直
 $("#composite-frame-v").bind("click", function() {
     compositeFrame("h");
 })
-var spriteRank=0;
+var spriteRank = 0;
 //合成序列帧
-function compositeFrame(type){
+function compositeFrame(type) {
     //合成后的信息注入在clipImgWrap上
-    var clipImgWrap=$("#clip-img-wrap");
-    var imgs=clipImgWrap.find("img");
-    if(imgs.length<2){
+    var clipImgWrap = $("#clip-img-wrap");
+    var imgs = clipImgWrap.find("img");
+    if (imgs.length < 2) {
         alert("舞台上没有图片，或者少于2张")
         return false;
     }
-    var compositeFrameWidth=0;
-    var compositeFrameHeight=0;
+    var compositeFrameWidth = 0;
+    var compositeFrameHeight = 0;
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext("2d");
-    if(type=="v"){
-        for(var i=0,il=imgs.length;i<il;i++){
-            compositeFrameWidth=Math.max(compositeFrameWidth,imgs.eq(i)[0].naturalWidth);
-            compositeFrameHeight+=imgs.eq(i)[0].naturalHeight;
+    if (type == "v") {
+        for (var i = 0, il = imgs.length; i < il; i++) {
+            compositeFrameWidth = Math.max(compositeFrameWidth, imgs.eq(i)[0].naturalWidth);
+            compositeFrameHeight += imgs.eq(i)[0].naturalHeight;
         }
         canvas.width = compositeFrameWidth;
         canvas.height = compositeFrameHeight;
-        var imgloc=0;
-        for(var i=0,il=imgs.length;i<il;i++){
+        var imgloc = 0;
+        for (var i = 0, il = imgs.length; i < il; i++) {
             ctx.drawImage(
-                imgs.eq(i)[0], 
-                0, 
-                imgloc, 
-                imgs.eq(i)[0].width, 
+                imgs.eq(i)[0],
+                0,
+                imgloc,
+                imgs.eq(i)[0].width,
                 imgs.eq(i)[0].height
             );
-            imgloc+=imgs.eq(i)[0].naturalHeight;
+            imgloc += imgs.eq(i)[0].naturalHeight;
         }
 
-    }else if(type=="h"){
-        for(var i=0,il=imgs.length;i<il;i++){
-            compositeFrameWidth+=imgs.eq(i)[0].naturalWidth;
-            compositeFrameHeight=imgs.eq(i)[0].naturalHeight>compositeFrameHeight ? imgs.eq(i)[0].naturalHeight : compositeFrameHeight;
+    } else if (type == "h") {
+        for (var i = 0, il = imgs.length; i < il; i++) {
+            compositeFrameWidth += imgs.eq(i)[0].naturalWidth;
+            compositeFrameHeight = imgs.eq(i)[0].naturalHeight > compositeFrameHeight ? imgs.eq(i)[0].naturalHeight : compositeFrameHeight;
         }
         canvas.width = compositeFrameWidth;
         canvas.height = compositeFrameHeight;
-        var imgloc=0;
-        for(var i=0,il=imgs.length;i<il;i++){
+        var imgloc = 0;
+        for (var i = 0, il = imgs.length; i < il; i++) {
             ctx.drawImage(imgs.eq(i)[0], imgloc, 0, imgs.eq(i)[0].width, imgs.eq(i)[0].height);
-            imgloc+=imgs.eq(i)[0].naturalWidth;
+            imgloc += imgs.eq(i)[0].naturalWidth;
         }
     }
     clipImgWrap.html("");
-    pc.receiveImg(canvas.toDataURL("image/png"),"sprite"+(spriteRank++)+".png"); 
+    pc.receiveImg(canvas.toDataURL("image/png"), "sprite" + (spriteRank++) + ".png");
 }
 //调整图片
 /*
@@ -886,7 +907,7 @@ function compositeFrame(type){
  *重新输出
  *替换原图片
  */
-function resizeImage(img,type, param) {
+function resizeImage(img, type, param) {
     var param = param || {};
     var new_width = param.width || img.width;
     var new_height = param.height || img.height;
@@ -897,7 +918,7 @@ function resizeImage(img,type, param) {
     tempImg.onload = function() {
         var x = 0;
         var y = 0;
-        if(type=="clip"){
+        if (type == "clip") {
             canvas.width = new_width;
             canvas.height = new_height;
             switch (origin) {
@@ -907,7 +928,7 @@ function resizeImage(img,type, param) {
                     break;
                 case "l_c":
                     x = 0;
-                    y = (canvas.height - img.height) / 2; 
+                    y = (canvas.height - img.height) / 2;
                     break;
                 case "l_b":
                     x = 0;
@@ -938,25 +959,25 @@ function resizeImage(img,type, param) {
                     y = canvas.height - img.height;
                     break;
             }
-            $(img).parent().find(".icon-info").text( canvas.width + "*" + canvas.height);
+            $(img).parent().find(".icon-info").text(canvas.width + "*" + canvas.height);
             //绘制的位置调整
             ctx.drawImage(img, x, y, img.width, img.height);
             //取出图片，替换原有的图片
             img.src = canvas.toDataURL("image/png");
-        }else if(type=="scale"){
-            var c_width = param.width || (param.height/this.height*this.width);
-            var c_height = param.height || (param.width/this.width*this.height);
-            c_width=Math.ceil(c_width);
-            c_height=Math.ceil(c_height);
+        } else if (type == "scale") {
+            var c_width = param.width || (param.height / this.height * this.width);
+            var c_height = param.height || (param.width / this.width * this.height);
+            c_width = Math.ceil(c_width);
+            c_height = Math.ceil(c_height);
             $(img).parent().find(".icon-info").text(c_width + "*" + c_height);
-            canvas.width=c_width;
-            canvas.height=c_height;
+            canvas.width = c_width;
+            canvas.height = c_height;
             //绘制的位置调整
             ctx.drawImage(img, x, y, c_width, c_height);
             //取出图片，替换原有的图片
             img.src = canvas.toDataURL("image/png");
         }
-        canvas=ctx=null;
+        canvas = ctx = null;
     }
     tempImg.src = img.getAttribute("src");
 }
