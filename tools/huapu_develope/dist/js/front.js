@@ -341,7 +341,7 @@ function cutIconFromImg(icon_wrap, img, boxes, output) {
         var imgNode = document.createElement("img");
         imgNode.setAttribute("src", img);
         ctx.drawImage(imgNode, left, top, width, height, 0, 0, width, height);
-        var imgName = $("#icon-name-before").val() + (++rank) + '.png';
+        var imgName = $("#icon-name-before").val() + new Date().getTime() + (++rank) + '.png';
         if (boxes.length == 1) {
             imgName = icon_wrap.find("img").attr("name");
         }
@@ -779,21 +779,21 @@ function showStyle() {
 }
 
 function setStyleValue(param) {
-    var imgs = $("#clip-img-wrap").find("img[name]");
+    var imgs = $("#clip-img-wrap").find("img[name].active");
 
     function showstyle(img) {
         var name;
         var src;
-        var width;
-        var height;
+        var width = parseInt($(img).width());
+        var height = parseInt($(img).height());
         param.map(function(item) {
             if (item == "px") {
-                width = $(img).width() + "px;";
-                height = $(img).height() + "px;";
+                width = width + "px;";
+                height = height + "px;";
             }
             if (item == "rem") {
-                width = ($(img).width() / 100).toFixed(2) + "rem;"
-                height = ($(img).height() / 100).toFixed(2) + "rem;"
+                width = (width / 100).toFixed(2) + "rem;"
+                height = (height / 100).toFixed(2) + "rem;"
             }
             if (item == ".png") {
                 name = $(img).attr("name").slice(0, $(img).attr("name").indexOf("."));
@@ -809,7 +809,7 @@ function setStyleValue(param) {
             "." + name + "{",
             "    width:" + width,
             "    height:" + height,
-            "    background-image:url(" + src + ")",
+            "    background-image:url(" + src + ");",
             "    background-repeat:no-repeat;",
             "    background-size:100% 100%;",
             "}"
@@ -822,7 +822,7 @@ function setStyleValue(param) {
         styles += showstyle(imgs.eq(i));
         names += ("." + imgs.eq(i).attr("name").slice(0, imgs.eq(i).attr("name").indexOf(".")) + "\n");
     }
-    $(".style-dialog").find("textarea").val(styles + "\n" + "\n" + "\n" + names);
+    $(".style-dialog").find(".textareaStyle").val(styles + "\n" + "\n" + "\n" + names);
 }
 
 $(".style-dialog .close").live("click", function() {
