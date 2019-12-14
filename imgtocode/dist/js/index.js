@@ -1,7 +1,7 @@
 
 // 工具
 const tools = {
-    ratio:1.0,
+    ratio:2.0,
     drawGrid(ctx, width, height, gap) {
         ctx.save();
         ctx.lineWidth = .5;
@@ -26,12 +26,15 @@ const tools = {
     clear(ctx, x, y, width, height) {
         ctx.clearRect(x, y, width, height);
     },
+    drawImage(ctx,img,x,y,w,h){
+        ctx.drawImage(img, x, y, w, h);
+    },
     drawGuidewires(canvas, ctx, x, y, viewX, viewY) {
         const text = viewX + ", " + viewY;
         const fontSize = this.ratio* 14;
         canvas.style.cursor = 'crosshair';
         ctx.save();
-        ctx.strokeStyle = 'rgba(255,0,0,1)';
+        ctx.strokeStyle = 'rgba(255,0,0,.6)';
         ctx.lineWidth = 0.5;
         ctx.beginPath();
         ctx.moveTo(x - 0.5, 0);
@@ -47,7 +50,7 @@ const tools = {
             text,
             Math.min(
                 x + 20,
-                canvas.width - text.length * fontSize
+                canvas.width - text.length * fontSize/2
             ) - 10,
             Math.max(y - 10, 40));
         ctx.restore();
@@ -57,7 +60,19 @@ const tools = {
             x: event.clientX*this.ratio,
             y: event.clientY*this.ratio
         }
-    }
+    },
+    posDrawEvent(event,scale) {
+        return {
+            x: event.clientX*this.ratio/scale,
+            y: event.clientY*this.ratio/scale
+        }
+    },
+    // posLogicEvent(event,scale){
+    //     return {
+    //         x: event.clientX*this.ratio*scale,
+    //         y: event.clientY*this.ratio*scale
+    //     }
+    // }
 }
 
 // 绘图 
@@ -65,38 +80,40 @@ class Graph {
     constructor(pos) {
         this.x = pos.x;
         this.y = pos.y;
+        this.w=0;
+        this.h=0;
         this.points = [];
         this.posStart = pos;
         this.posEnd = pos;
         //draw config
         this.lineWidth = 1;
-        this.strokeStyle = '#f00';
-        this.fillStyle = 'rgba(0,255,0,.1)';
-        this.font = tools.ratio*14+"px Georgia";
+        this.strokeStyle = 'rgba(255,0,0,.2)';
+        this.fillStyle = 'rgba(0,255,0,.2)';
+        this.font = tools.ratio*14+'px STHeiti, SimHei';
         this.fontColor = 'rgba(255,0,0,1)';
         this.isFill = true;
     }
     updatePoints(i, pos) {
 
     }
-    draw(ctx) {
+    draw(ctx,scale) {
         ctx.save();
         ctx.lineWidth = this.lineWidth;
         ctx.strokeStyle = this.strokeStyle;
         ctx.fillStyle = this.fillStyle;
-        ctx.lineCap = "round";
-        ctx.lineJoin = "round";
-        this.drawPath(ctx);
+        // ctx.lineCap = "round";
+        // ctx.lineJoin = "round";
+        this.drawPath(ctx,scale);
         this.isFill && ctx.fill();
         ctx.font = this.font;
         ctx.fillStyle = this.fontColor;
-        ctx.fillText(this.name, this.points[0].x + 5, this.points[0].y - 5);
+        ctx.fillText(this.w+"x"+this.h, this.points[0].x*scale, (this.points[0].y - 5)*scale);
         ctx.restore();
     }
-    drawPath(ctx) {
+    drawPath(ctx,scale) {
         ctx.beginPath();
         this.points.forEach((p, i) => {
-            ctx[i == 0 ? 'moveTo' : 'lineTo'](p.x, p.y);
+            ctx[i == 0 ? 'moveTo' : 'lineTo'](p.x*scale, p.y*scale);
         });
         ctx.closePath();
         ctx.stroke();
@@ -123,6 +140,8 @@ class Rect extends Graph {
             y1 = Math.round(this.posStart.y),
             x2 = Math.round(this.posEnd.x),
             y2 = Math.round(this.posEnd.y);
+        this.w=Math.abs(x2-x1);
+        this.h=Math.abs(y2-y1);
         this.points[0] = {
             x: x1,
             y: y1
@@ -140,13 +159,22 @@ class Rect extends Graph {
             y: y2
         };
     }
+    drawPath(ctx,scale) {
+        ctx.beginPath();
+        this.points.forEach((p, i) => {
+            ctx[i == 0 ? 'moveTo' : 'lineTo'](p.x*scale-.5, p.y*scale-.5-.5);
+        });
+        ctx.closePath();
+        ctx.stroke();
+    }
 }
 
 
 var imgToCode = new Vue({
     el: '#app',
     data: {
-        shapes: [],
+        shapes: [],//绘图集合
+        designImage: null,//上传的图片
         //坐标原点位置
         coordinateOrigin: {
             x: 0,
@@ -161,7 +189,7 @@ var imgToCode = new Vue({
         scale: 1.0,
         stageWidth: null,
         stageHeight: null,
-        gap: 100
+        gap: 100*tools.ratio
     },
     created() {
     },
@@ -170,7 +198,10 @@ var imgToCode = new Vue({
         this.refresh();
     },
     watch: {
-        "gap": function (val) {
+        "gap": function () {
+            this.refresh();
+        },
+        "designImage": function(){
             this.refresh();
         }
     },
@@ -184,7 +215,27 @@ var imgToCode = new Vue({
             this.resize();
             this.clear();
             this.drawGrid();
+            this.drawDesignImage();
             this.drawShapes();
+        },
+        //绘制图片
+        drawDesignImage(){
+            if(this.designImage){
+                const x=Math.ceil((this.stageWidth-this.designImage.src.width*imgToCode.scale)*.5);
+                const y=Math.ceil(Math.max((this.stageHeight-this.designImage.src.height*imgToCode.scale)*.5,10));
+                this.coordinateOrigin={
+                    "x":x,
+                    "y":y
+                }
+                tools.drawImage(
+                    this.stageCTX,
+                    this.designImage.src,
+                    x,
+                    y,
+                    this.designImage.src.width*imgToCode.scale,
+                    this.designImage.src.height*imgToCode.scale
+                );   
+            }
         },
         //重制尺寸
         resize() {
@@ -201,7 +252,7 @@ var imgToCode = new Vue({
         //绘制图像
         drawShapes(){
             this.shapes.map((item)=>{
-                item.draw(this.stageCTX);
+                item.draw(this.stageCTX,this.scale);
             })
         },
         //清空画布
@@ -212,13 +263,17 @@ var imgToCode = new Vue({
         drawGuidewires(pos) {
             const clientX = pos.x;
             const clientY = pos.y;
+            let viewX=Math.ceil((clientX - this.coordinateOrigin.x)/this.scale);
+            let viewY=Math.ceil((clientY - this.coordinateOrigin.y)/this.scale);
+            viewX=viewX%2==0? viewX : viewX++;
+            viewY=viewY%2==0? viewY : viewY++;
             tools.drawGuidewires(
                 this.stageCanvas,
                 this.stageCTX,
                 clientX,
                 clientY,
-                clientX - this.coordinateOrigin.x * this.ratio,
-                clientY - this.coordinateOrigin.y * this.ratio
+                viewX,
+                viewY,
             )
         }
     }
@@ -228,8 +283,11 @@ var imgToCode = new Vue({
 window.addEventListener("resize", () => {
     imgToCode.refresh();
 })
-
 window.addEventListener("mousemove", (event) => {
+    imgToCode.refresh();
+    imgToCode.drawGuidewires(tools.posEvent(event))
+})
+window.addEventListener("mouseend", (event) => {
     imgToCode.refresh();
     imgToCode.drawGuidewires(tools.posEvent(event))
 })
@@ -237,18 +295,17 @@ window.addEventListener("mousemove", (event) => {
 
 window.addEventListener("mousedown", (event) => {
     let newShape;
-    if (!imgToCode.drawShapeType) {
+    if (imgToCode.drawShapeType == "rect") {
+        newShape = new Rect(tools.posDrawEvent(event,imgToCode.scale));
+    }else{
         return;
-    } else if (imgToCode.drawShapeType == "rect") {
-        newShape = new Rect(tools.posEvent(event));
     }
     imgToCode.shapes.push(newShape);
     const drawing = (event) => {
-        newShape.updatePoints(tools.posEvent(event));
-        newShape.draw(imgToCode.stageCTX);
+        newShape.updatePoints(tools.posDrawEvent(event,imgToCode.scale));
     }
     const drawEnd = (event) => {
-        newShape.updatePoints(tools.posEvent(event));
+        newShape.updatePoints(tools.posDrawEvent(event,imgToCode.scale));
         window.removeEventListener("mousemove", drawing);
         window.removeEventListener("mouseup", drawEnd);
     }
@@ -256,13 +313,55 @@ window.addEventListener("mousedown", (event) => {
     window.addEventListener("mouseup", drawEnd);
 })
 
+
+//前台-拖拽上传
+window.document.addEventListener("dragenter", function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+}, false);
+window.document.addEventListener("dragover", function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+}, false);
+window.document.addEventListener("drop", function(e) {
+    handleFile(e.dataTransfer.files);
+    //获取图片
+    function handleFile(files) {
+        var i = 0;
+        var reader = new FileReader();
+        function readerFiles(i) {
+            var file = files[i];
+            if (i == files.length) { return false; }
+            reader.onload = (function(theFile) {
+                var imgData = theFile.srcElement.result;
+                //这里接受图片
+                const img=new Image();
+                img.onload=()=>{
+                    imgToCode.designImage={
+                        src:img,
+                        name:file.name
+                    }
+                }
+                img.src=imgData;
+                // readerFiles(++i);
+            })
+            reader.readAsDataURL(file);
+        }
+        readerFiles(i);
+    }
+    e.stopPropagation();
+    e.preventDefault();
+}, false);
+
 document.onkeydown = function (event) {
     if (/Mac/.test(navigator.platform)) {
         if (event.keyCode == 187) {
-            imgToCode.gap += 5;
+            imgToCode.scale+=1/75;
+            imgToCode.gap = 100*imgToCode.ratio*imgToCode.scale;
             event.preventDefault();
         } else if (event.keyCode == 189) {
-            imgToCode.gap -= 5;
+            imgToCode.scale-=1/75;
+            imgToCode.gap = 100*imgToCode.ratio*imgToCode.scale;
             event.preventDefault();
         }
     } else {
