@@ -352,10 +352,6 @@ input[type="range"]::-webkit-slider-thumb {
   padding: 0 3px;
 }
 
-.iconVolume {
-  display: none;
-}
-
 .clip-img-wrap-layout {
   border: 1px solid #d4d9d7;
   border-radius: 4px;
