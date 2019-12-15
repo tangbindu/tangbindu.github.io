@@ -28,6 +28,7 @@ const tools = {
     drawImage(ctx,img,x,y,w,h){
         ctx.drawImage(img, x, y, w, h);
     },
+    //引导线
     drawGuidewires(canvas, ctx, x, y, viewX, viewY,ratio,scale) {
         if(this.ratio==2){
             viewX=viewX%2==0?viewX:(++viewX)
@@ -66,6 +67,7 @@ const tools = {
             Math.max(y - 10, 20*ratio));
         ctx.restore();
     },
+    //转换mouse坐标
     posEvent(event) {
         let x=event.clientX*this.ratio;
         let y=event.clientY*this.ratio;
@@ -77,6 +79,18 @@ const tools = {
         }
         return {x,y}
     },
+    //重置换rect的坐标
+    resetRectPoint(rectShape){
+        let tempPoints=rectShape.points.sort(function(a,b){
+            return a.y-b.y
+        })
+        rectShape.points=tempPoints.slice(0,2).sort(function(a,b){
+            return a.x-b.x
+        }).concat(tempPoints.slice(2,4).sort(function(a,b){
+            return b.x-a.x
+        }))
+    },
+    //mouse换算到新坐标系
     posDrawEvent(event,scale,coordinateOrigin) {
         let x=(event.clientX*this.ratio-coordinateOrigin.x)/scale;
         let y=(event.clientY*this.ratio-coordinateOrigin.y)/scale;
@@ -87,6 +101,26 @@ const tools = {
         x=Math.round(x);
         y=Math.round(y);
         return {x,y}
+    },
+    scaleRectPoint(points,num){
+        let newPoint=[];
+        newPoint.push({
+            x:points[0].x+num,
+            y:points[0].y+num
+        })
+        newPoint.push({
+            x:points[1].x-num,
+            y:points[1].y+num
+        })
+        newPoint.push({
+            x:points[2].x-num,
+            y:points[2].y-num
+        })
+        newPoint.push({
+            x:points[3].x+num,
+            y:points[3].y-num
+        })
+        return newPoint;
     }
 }
 
@@ -102,8 +136,8 @@ class Graph {
         this.posEnd = pos;
         //draw config
         this.lineWidth = 1;
-        this.strokeStyle = 'rgba(255,0,0,.2)';
-        this.fillStyle = 'rgba(0,255,0,.2)';
+        this.strokeStyle = 'rgba(255,0,0,0.5)';
+        this.fillStyle = 'rgba(0,255,0,0.2)';
         this.font = tools.ratio*10+'px STHeiti, SimHei';
         this.fontColor = 'rgba(255,0,0,1)';
         this.isFill = true;
@@ -115,7 +149,7 @@ class Graph {
         ctx.save();
         ctx.fillStyle = this.fillStyle;
         this.drawPath(ctx,scale,coordinateOrigin);
-        this.fill(ctx);
+        this.fill();
         this.stroke(ctx,scale,coordinateOrigin);
         this.drawText(ctx,scale,coordinateOrigin);
         ctx.restore();
@@ -124,7 +158,6 @@ class Graph {
         ctx.font = this.font;
         ctx.fillStyle = this.fontColor;
         let text="("+this.x+","+this.y+")"+"  "+this.w+"x"+this.h;
-        // let text=this.w+"x"+this.h;
         ctx.fillText(
             text, 
             (this.points[0].x*scale+coordinateOrigin.x), 
@@ -140,6 +173,7 @@ class Graph {
         ctx.stroke();
     }
     drawPath(){
+        this.isFill && this.fill(ctx);
     }
     isInPath(ctx, pos) {
     }
@@ -181,13 +215,22 @@ class Rect extends Graph {
             x: x1,
             y: y2
         };
+        tools.resetRectPoint(this);
+        this.x=this.points[0].x;
+        this.y=this.points[0].y;
     }
     stroke(ctx,scale,coordinateOrigin){
-        // ctx.beginPath();
-        // this.points.forEach((p, i) => {
-        //     ctx[i == 0 ? 'moveTo' : 'lineTo']((p.x)*scale+coordinateOrigin.x-.5, (p.y)*scale+coordinateOrigin.y-.5);
-        // });
-        // ctx.closePath();
+        ctx.beginPath();
+        let points=tools.scaleRectPoint(this.points,.5);
+        points.forEach((p, i) => {
+            let px=p.x;
+            let py=p.y;
+            ctx[i == 0 ? 'moveTo' : 'lineTo']((px)*scale+coordinateOrigin.x-.5, (py)*scale+coordinateOrigin.y-.5);
+        });
+        ctx.closePath();
+        ctx.lineWidth = this.lineWidth;
+        ctx.strokeStyle = this.strokeStyle;
+        ctx.stroke();
     }
     drawPath(ctx,scale,coordinateOrigin) {
         ctx.beginPath();
@@ -195,6 +238,10 @@ class Rect extends Graph {
             ctx[i == 0 ? 'moveTo' : 'lineTo']((p.x)*scale+coordinateOrigin.x-.5, (p.y)*scale+coordinateOrigin.y-.5);
         });
         ctx.closePath();
+        this.isFill && ctx.fill();
+    }
+    fill(){
+
     }
 }
 
@@ -350,7 +397,7 @@ window.addEventListener("mousedown", (event) => {
     window.addEventListener("mousemove", drawing);
     window.addEventListener("mouseup", drawEnd);
 })
-
+console.dir(imgToCode)
 
 //前台-拖拽上传
 window.document.addEventListener("dragenter", function(e) {
