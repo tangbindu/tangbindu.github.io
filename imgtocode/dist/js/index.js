@@ -29,21 +29,34 @@ const tools = {
     drawImage(ctx,img,x,y,w,h){
         ctx.drawImage(img, x, y, w, h);
     },
-    drawGuidewires(canvas, ctx, x, y, viewX, viewY) {
+    drawGuidewires(canvas, ctx, x, y, viewX, viewY,ratio,scale) {
+        if(this.ratio==2){
+            viewX=viewX%2==0?viewX:(++viewX)
+            viewY=viewY%2==0?viewY:(++viewY)
+        }
+        // var halfV=ratio*scale/2;
+        var halfV=.5;
         const text = viewX + ", " + viewY;
         const fontSize = this.ratio* 14;
         canvas.style.cursor = 'crosshair';
+        //竖
         ctx.save();
-        ctx.strokeStyle = 'rgba(255,0,0,.6)';
-        ctx.lineWidth = 0.5;
+        ctx.fillStyle = 'rgba(255,0,0,.8)';
         ctx.beginPath();
-        ctx.moveTo(x - 0.5, 0);
-        ctx.lineTo(x - 0.5, canvas.height);
-        ctx.stroke();
+        ctx.moveTo(Math.round(x - 0.5-halfV), 0);
+        ctx.lineTo(Math.round(x - 0.5+halfV), 0);
+        ctx.lineTo(Math.round(x - 0.5+halfV), canvas.height);
+        ctx.lineTo(Math.round(x - 0.5-halfV), canvas.height);
+        ctx.closePath();
+        ctx.fill();
+        //横
         ctx.beginPath();
-        ctx.moveTo(0, y - 0.5);
-        ctx.lineTo(canvas.width, y - 0.5);
-        ctx.stroke();
+        ctx.moveTo(0, Math.round(y - 0.5-halfV));
+        ctx.lineTo(0, Math.round(y - 0.5+halfV));
+        ctx.lineTo(canvas.width, Math.round(y - 0.5+halfV));
+        ctx.lineTo(canvas.width, Math.round(y - 0.5-halfV));
+        ctx.closePath();
+        ctx.fill();
         //相对坐标
         ctx.font = fontSize + 'px STHeiti, SimHei';
         ctx.fillText(
@@ -52,25 +65,31 @@ const tools = {
                 x + 20,
                 canvas.width - text.length * fontSize/2
             ) - 10,
-            Math.max(y - 10, 40));
+            Math.max(y - 10, 20*ratio));
         ctx.restore();
     },
     posEvent(event) {
         let x=event.clientX*this.ratio;
         let y=event.clientY*this.ratio;
+        x=Math.round(x);
+        y=Math.round(y);
+        if(this.ratio==2){
+            x=x%2==0?x:(++x)
+            y=y%2==0?y:(++y)
+        }
         return {x,y}
     },
     posDrawEvent(event,scale,coordinateOrigin) {
         let x=(event.clientX*this.ratio-coordinateOrigin.x)/scale;
         let y=(event.clientY*this.ratio-coordinateOrigin.y)/scale;
+        if(this.ratio==2){
+            x=x%2==0?x:(++x)
+            y=y%2==0?y:(++y)
+        }
+        x=Math.round(x);
+        y=Math.round(y);
         return {x,y}
-    },
-    // posLogicEvent(event,scale){
-    //     return {
-    //         x: event.clientX*this.ratio*scale,
-    //         y: event.clientY*this.ratio*scale
-    //     }
-    // }
+    }
 }
 
 // 绘图 
@@ -96,13 +115,14 @@ class Graph {
     }
     draw(ctx,scale,coordinateOrigin) {
         ctx.save();
-        ctx.lineWidth = this.lineWidth;
-        ctx.strokeStyle = this.strokeStyle;
         ctx.fillStyle = this.fillStyle;
-        // ctx.lineCap = "round";
-        // ctx.lineJoin = "round";
         this.drawPath(ctx,scale,coordinateOrigin);
-        this.isFill && ctx.fill();
+        this.fill(ctx);
+        this.stroke(ctx,scale,coordinateOrigin);
+        this.drawText(ctx,scale,coordinateOrigin);
+        ctx.restore();
+    }
+    drawText(ctx,scale,coordinateOrigin){
         ctx.font = this.font;
         ctx.fillStyle = this.fontColor;
         ctx.fillText(
@@ -110,7 +130,17 @@ class Graph {
             (this.points[0].x*scale+coordinateOrigin.x), 
             (this.points[0].y*scale+coordinateOrigin.y - 5)
         );
-        ctx.restore();
+    }
+    fill(ctx){
+        this.isFill && ctx.fill();
+    }
+    stroke(ctx,scale,coordinateOrigin){
+        ctx.lineWidth = this.lineWidth;
+        ctx.strokeStyle = this.strokeStyle;
+        ctx.stroke();
+    }
+    drawPath(){
+
     }
     isInPath(ctx, pos) {
     }
@@ -130,10 +160,10 @@ class Rect extends Graph {
     }
     updatePoints(pos) {
         this.posEnd = pos;
-        const x1 = Math.round(this.posStart.x),
-            y1 = Math.round(this.posStart.y),
-            x2 = Math.round(this.posEnd.x),
-            y2 = Math.round(this.posEnd.y);
+        const x1 = this.posStart.x,
+            y1 = this.posStart.y,
+            x2 = this.posEnd.x,
+            y2 = this.posEnd.y;
         this.w=Math.abs(x2-x1);
         this.h=Math.abs(y2-y1);
         this.points[0] = {
@@ -153,14 +183,20 @@ class Rect extends Graph {
             y: y2
         };
     }
+    stroke(ctx,scale,coordinateOrigin){
+        // ctx.beginPath();
+        // this.points.forEach((p, i) => {
+        //     ctx[i == 0 ? 'moveTo' : 'lineTo']((p.x)*scale+coordinateOrigin.x-.5, (p.y)*scale+coordinateOrigin.y-.5);
+        // });
+        // ctx.closePath();
+
+    }
     drawPath(ctx,scale,coordinateOrigin) {
         ctx.beginPath();
         this.points.forEach((p, i) => {
-            // ctx[i == 0 ? 'moveTo' : 'lineTo']((p.x)*scale-.5, (p.y)*scale-.5);
             ctx[i == 0 ? 'moveTo' : 'lineTo']((p.x)*scale+coordinateOrigin.x-.5, (p.y)*scale+coordinateOrigin.y-.5);
         });
         ctx.closePath();
-        ctx.stroke();
     }
 }
 
@@ -216,11 +252,11 @@ var imgToCode = new Vue({
         //绘制图片
         drawDesignImage(){
             if(this.designImage){
-                const x=Math.ceil((this.stageWidth-this.designImage.src.width*imgToCode.scale)*.5);
-                const y=Math.ceil(Math.max((this.stageHeight-this.designImage.src.height*imgToCode.scale)*.5,10));
+                const x=(this.stageWidth-this.designImage.src.width*imgToCode.scale)*.5;
+                const y=Math.max((this.stageHeight-this.designImage.src.height*imgToCode.scale)*.5,10);
                 this.coordinateOrigin={
-                    "x":x,
-                    "y":y
+                    "x":Math.round(x),
+                    "y":Math.round(y)
                 }
                 tools.drawImage(
                     this.stageCTX,
@@ -258,10 +294,10 @@ var imgToCode = new Vue({
         drawGuidewires(pos) {
             const clientX = pos.x;
             const clientY = pos.y;
-            let viewX=Math.ceil((clientX - this.coordinateOrigin.x)/this.scale);
-            let viewY=Math.ceil((clientY - this.coordinateOrigin.y)/this.scale);
-            viewX=viewX%2==0? viewX : viewX++;
-            viewY=viewY%2==0? viewY : viewY++;
+            let viewX=(clientX - this.coordinateOrigin.x)/this.scale;
+            let viewY=(clientY - this.coordinateOrigin.y)/this.scale;
+            viewX=Math.round(viewX);
+            viewY=Math.round(viewY);
             tools.drawGuidewires(
                 this.stageCanvas,
                 this.stageCTX,
@@ -269,6 +305,8 @@ var imgToCode = new Vue({
                 clientY,
                 viewX,
                 viewY,
+                this.ratio,
+                this.scale
             )
         }
     }

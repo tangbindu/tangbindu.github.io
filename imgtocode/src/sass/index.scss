@@ -9,9 +9,13 @@ $grayFont:#777;
 // @import "_animation";
 
 
-html,body{
+html,body,#app{
     height: 100%;
     width: 100%;
     background-color: $white;
     overflow: hidden;
+}
+#stage{
+    width: 100%;
+    height: 100%;
 }
