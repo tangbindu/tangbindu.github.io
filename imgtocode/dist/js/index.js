@@ -1,4 +1,3 @@
-
 // 工具
 const tools = {
     ratio:2.0,
@@ -34,9 +33,8 @@ const tools = {
             viewX=viewX%2==0?viewX:(++viewX)
             viewY=viewY%2==0?viewY:(++viewY)
         }
-        // var halfV=ratio*scale/2;
         var halfV=.5;
-        const text = viewX + ", " + viewY;
+        const text = "("+viewX + ", " + viewY+")";
         const fontSize = this.ratio* 14;
         canvas.style.cursor = 'crosshair';
         //竖
@@ -51,10 +49,10 @@ const tools = {
         ctx.fill();
         //横
         ctx.beginPath();
-        ctx.moveTo(0, Math.round(y - 0.5-halfV));
-        ctx.lineTo(0, Math.round(y - 0.5+halfV));
-        ctx.lineTo(canvas.width, Math.round(y - 0.5+halfV));
-        ctx.lineTo(canvas.width, Math.round(y - 0.5-halfV));
+        ctx.moveTo(0, Math.round(y + 0.5-halfV));
+        ctx.lineTo(0, Math.round(y + 0.5+halfV));
+        ctx.lineTo(canvas.width, Math.round(y + 0.5+halfV));
+        ctx.lineTo(canvas.width, Math.round(y + 0.5-halfV));
         ctx.closePath();
         ctx.fill();
         //相对坐标
@@ -106,7 +104,7 @@ class Graph {
         this.lineWidth = 1;
         this.strokeStyle = 'rgba(255,0,0,.2)';
         this.fillStyle = 'rgba(0,255,0,.2)';
-        this.font = tools.ratio*14+'px STHeiti, SimHei';
+        this.font = tools.ratio*10+'px STHeiti, SimHei';
         this.fontColor = 'rgba(255,0,0,1)';
         this.isFill = true;
     }
@@ -125,8 +123,10 @@ class Graph {
     drawText(ctx,scale,coordinateOrigin){
         ctx.font = this.font;
         ctx.fillStyle = this.fontColor;
+        let text="("+this.x+","+this.y+")"+"  "+this.w+"x"+this.h;
+        // let text=this.w+"x"+this.h;
         ctx.fillText(
-            this.x+","+this.y+"  "+this.w+"x"+this.h, 
+            text, 
             (this.points[0].x*scale+coordinateOrigin.x), 
             (this.points[0].y*scale+coordinateOrigin.y - 5)
         );
@@ -140,7 +140,6 @@ class Graph {
         ctx.stroke();
     }
     drawPath(){
-
     }
     isInPath(ctx, pos) {
     }
@@ -189,7 +188,6 @@ class Rect extends Graph {
         //     ctx[i == 0 ? 'moveTo' : 'lineTo']((p.x)*scale+coordinateOrigin.x-.5, (p.y)*scale+coordinateOrigin.y-.5);
         // });
         // ctx.closePath();
-
     }
     drawPath(ctx,scale,coordinateOrigin) {
         ctx.beginPath();
@@ -200,10 +198,10 @@ class Rect extends Graph {
     }
 }
 
-
 var imgToCode = new Vue({
     el: '#app',
     data: {
+        workMode: "drawing",
         shapes: [],//绘图集合
         designImage: null,//上传的图片
         //坐标原点位置
@@ -253,7 +251,10 @@ var imgToCode = new Vue({
         drawDesignImage(){
             if(this.designImage){
                 const x=(this.stageWidth-this.designImage.src.width*imgToCode.scale)*.5;
-                const y=Math.max((this.stageHeight-this.designImage.src.height*imgToCode.scale)*.5,10);
+                const y=Math.max(
+                    (this.stageHeight-this.designImage.src.height*imgToCode.scale)*.5
+                    ,20*this.ratio
+                );
                 this.coordinateOrigin={
                     "x":Math.round(x),
                     "y":Math.round(y)
@@ -316,6 +317,7 @@ var imgToCode = new Vue({
 window.addEventListener("resize", () => {
     imgToCode.refresh();
 })
+
 window.addEventListener("mousemove", (event) => {
     imgToCode.refresh();
     imgToCode.drawGuidewires(tools.posEvent(event))
