@@ -56,16 +56,14 @@ const tools = {
         ctx.restore();
     },
     posEvent(event) {
-        return {
-            x: event.clientX*this.ratio,
-            y: event.clientY*this.ratio
-        }
+        let x=event.clientX*this.ratio;
+        let y=event.clientY*this.ratio;
+        return {x,y}
     },
-    posDrawEvent(event,scale) {
-        return {
-            x: event.clientX*this.ratio/scale,
-            y: event.clientY*this.ratio/scale
-        }
+    posDrawEvent(event,scale,coordinateOrigin) {
+        let x=(event.clientX*this.ratio-coordinateOrigin.x)/scale;
+        let y=(event.clientY*this.ratio-coordinateOrigin.y)/scale;
+        return {x,y}
     },
     // posLogicEvent(event,scale){
     //     return {
@@ -96,27 +94,23 @@ class Graph {
     updatePoints(i, pos) {
 
     }
-    draw(ctx,scale) {
+    draw(ctx,scale,coordinateOrigin) {
         ctx.save();
         ctx.lineWidth = this.lineWidth;
         ctx.strokeStyle = this.strokeStyle;
         ctx.fillStyle = this.fillStyle;
         // ctx.lineCap = "round";
         // ctx.lineJoin = "round";
-        this.drawPath(ctx,scale);
+        this.drawPath(ctx,scale,coordinateOrigin);
         this.isFill && ctx.fill();
         ctx.font = this.font;
         ctx.fillStyle = this.fontColor;
-        ctx.fillText(this.w+"x"+this.h, this.points[0].x*scale, (this.points[0].y - 5)*scale);
+        ctx.fillText(
+            this.x+","+this.y+"  "+this.w+"x"+this.h, 
+            (this.points[0].x*scale+coordinateOrigin.x), 
+            (this.points[0].y*scale+coordinateOrigin.y - 5)
+        );
         ctx.restore();
-    }
-    drawPath(ctx,scale) {
-        ctx.beginPath();
-        this.points.forEach((p, i) => {
-            ctx[i == 0 ? 'moveTo' : 'lineTo'](p.x*scale, p.y*scale);
-        });
-        ctx.closePath();
-        ctx.stroke();
     }
     isInPath(ctx, pos) {
     }
@@ -159,10 +153,11 @@ class Rect extends Graph {
             y: y2
         };
     }
-    drawPath(ctx,scale) {
+    drawPath(ctx,scale,coordinateOrigin) {
         ctx.beginPath();
         this.points.forEach((p, i) => {
-            ctx[i == 0 ? 'moveTo' : 'lineTo'](p.x*scale-.5, p.y*scale-.5-.5);
+            // ctx[i == 0 ? 'moveTo' : 'lineTo']((p.x)*scale-.5, (p.y)*scale-.5);
+            ctx[i == 0 ? 'moveTo' : 'lineTo']((p.x)*scale+coordinateOrigin.x-.5, (p.y)*scale+coordinateOrigin.y-.5);
         });
         ctx.closePath();
         ctx.stroke();
@@ -252,7 +247,7 @@ var imgToCode = new Vue({
         //绘制图像
         drawShapes(){
             this.shapes.map((item)=>{
-                item.draw(this.stageCTX,this.scale);
+                item.draw(this.stageCTX,this.scale,this.coordinateOrigin);
             })
         },
         //清空画布
@@ -296,18 +291,21 @@ window.addEventListener("mouseend", (event) => {
 window.addEventListener("mousedown", (event) => {
     let newShape;
     if (imgToCode.drawShapeType == "rect") {
-        newShape = new Rect(tools.posDrawEvent(event,imgToCode.scale));
+        newShape = new Rect(tools.posDrawEvent(event,imgToCode.scale,imgToCode.coordinateOrigin));
     }else{
         return;
     }
     imgToCode.shapes.push(newShape);
     const drawing = (event) => {
-        newShape.updatePoints(tools.posDrawEvent(event,imgToCode.scale));
+        newShape.updatePoints(tools.posDrawEvent(event,imgToCode.scale,imgToCode.coordinateOrigin));
     }
     const drawEnd = (event) => {
-        newShape.updatePoints(tools.posDrawEvent(event,imgToCode.scale));
+        newShape.updatePoints(tools.posDrawEvent(event,imgToCode.scale,imgToCode.coordinateOrigin));
         window.removeEventListener("mousemove", drawing);
         window.removeEventListener("mouseup", drawEnd);
+        if((newShape.points[2].x-newShape.points[0].x)<10 & (newShape.points[2].y-newShape.points[0].y)<10){
+            imgToCode.shapes.pop();
+        }
     }
     window.addEventListener("mousemove", drawing);
     window.addEventListener("mouseup", drawEnd);
@@ -356,11 +354,11 @@ window.document.addEventListener("drop", function(e) {
 document.onkeydown = function (event) {
     if (/Mac/.test(navigator.platform)) {
         if (event.keyCode == 187) {
-            imgToCode.scale+=1/75;
+            imgToCode.scale*=(1+5/75);
             imgToCode.gap = 100*imgToCode.ratio*imgToCode.scale;
             event.preventDefault();
         } else if (event.keyCode == 189) {
-            imgToCode.scale-=1/75;
+            imgToCode.scale*=(1-5/75);
             imgToCode.gap = 100*imgToCode.ratio*imgToCode.scale;
             event.preventDefault();
         }
