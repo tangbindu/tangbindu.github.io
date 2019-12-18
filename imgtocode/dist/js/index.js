@@ -100,8 +100,6 @@ var imgToCode = new Vue({
             const clientY = pos.y;
             let viewX=(clientX - this.coordinateOrigin.x)/this.scale;
             let viewY=(clientY - this.coordinateOrigin.y)/this.scale;
-            viewX=Math.round(viewX);
-            viewY=Math.round(viewY);
             tools.drawGuidewires(
                 this.stageCanvas,
                 this.stageCTX,

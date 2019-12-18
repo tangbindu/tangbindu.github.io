@@ -1,22 +1,45 @@
+let xxx=.1;
 let tools={
     ratio:2.0,
+    //整数策略
+    toInt(val){
+        return Math.round(val)
+    },
+    //绘制策略
+    toDrawVal(val){
+        console.log(val+.5)
+        return val+.5;
+    },
+    //转换mouse坐标
+    posEvent(event) {
+        let x=event.clientX*this.ratio;
+        let y=event.clientY*this.ratio;
+        return {x,y}
+    },
+    //mouse换算到新坐标系
+    posDrawEvent(event,scale,coordinateOrigin) {
+        let x=(event.clientX*this.ratio-coordinateOrigin.x)/scale;
+        let y=(event.clientY*this.ratio-coordinateOrigin.y)/scale;
+        return {x,y}
+    },
     drawGrid(ctx, width, height, gap) {
+        gap=this.toInt(gap);
         ctx.save();
-        ctx.lineWidth = .5;
+        ctx.lineWidth = 1;
         ctx.strokeStyle = "rgba(0,0,0,.2)";
-        ctx.setLineDash([4, 4]);
+        // ctx.setLineDash([4, 4]);
         let y = 0;
         while (gap * y++ < height) {
             ctx.beginPath();
-            ctx.moveTo(0, gap * y - .5);
-            ctx.lineTo(width, gap * y - .5);
+            ctx.moveTo(0, this.toDrawVal(gap * y));
+            ctx.lineTo(width, this.toDrawVal(gap * y));
             ctx.stroke();
         }
         let x = 0;
         while (gap * x++ < width) {
             ctx.beginPath();
-            ctx.moveTo(gap * x - .5, 0);
-            ctx.lineTo(gap * x - .5, height);
+            ctx.moveTo(this.toDrawVal(gap * x), 0);
+            ctx.lineTo(this.toDrawVal(gap * x), height);
             ctx.stroke();
         }
         ctx.restore();
@@ -29,11 +52,8 @@ let tools={
     },
     //引导线
     drawGuidewires(canvas, ctx, x, y, viewX, viewY,ratio,scale) {
-        if(this.ratio==2){
-            viewX=viewX%2==0?viewX:(++viewX)
-            viewY=viewY%2==0?viewY:(++viewY)
-        }
-        var halfV=.5;
+        viewX=this.toInt(viewX);
+        viewY=this.toInt(viewY);
         const text = "("+viewX + ", " + viewY+")";
         const fontSize = this.ratio* 14;
         canvas.style.cursor = 'crosshair';
@@ -41,18 +61,18 @@ let tools={
         ctx.save();
         ctx.fillStyle = 'rgba(255,0,0,.8)';
         ctx.beginPath();
-        ctx.moveTo(Math.round(x - 0.5-halfV), 0);
-        ctx.lineTo(Math.round(x - 0.5+halfV), 0);
-        ctx.lineTo(Math.round(x - 0.5+halfV), canvas.height);
-        ctx.lineTo(Math.round(x - 0.5-halfV), canvas.height);
+        ctx.moveTo(this.toDrawVal(x), this.toDrawVal(0));
+        ctx.lineTo(this.toDrawVal(x+1), this.toDrawVal(0));
+        ctx.lineTo(this.toDrawVal(x+1), this.toDrawVal(canvas.height));
+        ctx.lineTo(this.toDrawVal(x), this.toDrawVal(canvas.height));
         ctx.closePath();
         ctx.fill();
         //横
         ctx.beginPath();
-        ctx.moveTo(0, Math.round(y + 0.5-halfV));
-        ctx.lineTo(0, Math.round(y + 0.5+halfV));
-        ctx.lineTo(canvas.width, Math.round(y + 0.5+halfV));
-        ctx.lineTo(canvas.width, Math.round(y + 0.5-halfV));
+        ctx.moveTo(this.toDrawVal(0), this.toDrawVal(y));
+        ctx.lineTo(this.toDrawVal(0), this.toDrawVal(y+1));
+        ctx.lineTo(this.toDrawVal(canvas.width), this.toDrawVal(y+1));
+        ctx.lineTo(this.toDrawVal(canvas.width), this.toDrawVal(y));
         ctx.closePath();
         ctx.fill();
         //相对坐标
@@ -66,18 +86,6 @@ let tools={
             Math.max(y - 10, 20*ratio));
         ctx.restore();
     },
-    //转换mouse坐标
-    posEvent(event) {
-        let x=event.clientX*this.ratio;
-        let y=event.clientY*this.ratio;
-        x=Math.round(x);
-        y=Math.round(y);
-        if(this.ratio==2){
-            x=x%2==0?x:(++x)
-            y=y%2==0?y:(++y)
-        }
-        return {x,y}
-    },
     //重置换rect的坐标
     resetRectPoint(rectShape){
         let tempPoints=rectShape.points.sort(function(a,b){
@@ -89,18 +97,7 @@ let tools={
             return b.x-a.x
         }))
     },
-    //mouse换算到新坐标系
-    posDrawEvent(event,scale,coordinateOrigin) {
-        let x=(event.clientX*this.ratio-coordinateOrigin.x)/scale;
-        let y=(event.clientY*this.ratio-coordinateOrigin.y)/scale;
-        if(this.ratio==2){
-            x=x%2==0?x:(++x)
-            y=y%2==0?y:(++y)
-        }
-        x=Math.round(x);
-        y=Math.round(y);
-        return {x,y}
-    },
+    //缩放ract的size
     scaleRectPoint(points,num){
         let newPoint=[];
         newPoint.push({
