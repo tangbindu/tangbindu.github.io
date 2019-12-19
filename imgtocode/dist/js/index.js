@@ -1,11 +1,13 @@
 import tools from "./tools.js";
 import interact from "./interact.js";
+import {Rect} from "./graph.js";
 
-var imgToCode = new Vue({
+window.imgToCode = new Vue({
     el: '#app',
     data: {
         workMode: "draw",
         shapes: [],//绘图集合
+        activeShapes:[],
         designImage: null,//上传的图片
         //坐标原点位置
         coordinateOrigin: {
@@ -18,10 +20,10 @@ var imgToCode = new Vue({
         //舞台绘图对象
         stageCTX: null,
         ratio: tools.ratio,//视网膜屏比例
-        scale: 1.0,
+        scale: 2.0,
         stageWidth: null,
         stageHeight: null,
-        gap: 100*tools.ratio
+        gap: 100//tools.ratio
     },
     created() {
     },
@@ -30,7 +32,7 @@ var imgToCode = new Vue({
         this.refresh();
     },
     watch: {
-        "gap": function () {
+        "scale": function () {
             this.refresh();
         },
         "designImage": function(){
@@ -53,22 +55,24 @@ var imgToCode = new Vue({
         //绘制图片
         drawDesignImage(){
             if(this.designImage){
-                const x=(this.stageWidth-this.designImage.src.width*imgToCode.scale)*.5;
+                let w=this.designImage.src.width*imgToCode.scale;
+                let h=this.designImage.src.height*imgToCode.scale;
+                const x=(this.stageWidth-w)*.5;
                 const y=Math.max(
-                    (this.stageHeight-this.designImage.src.height*imgToCode.scale)*.5
+                    (this.stageHeight-h)*.5
                     ,20*this.ratio
                 );
                 this.coordinateOrigin={
-                    "x":Math.round(x),
-                    "y":Math.round(y)
+                    "x":tools.toInt(x),
+                    "y":tools.toInt(y)
                 }
                 tools.drawImage(
                     this.stageCTX,
                     this.designImage.src,
                     x,
                     y,
-                    this.designImage.src.width*imgToCode.scale,
-                    this.designImage.src.height*imgToCode.scale
+                    w,
+                    h
                 );   
             }
         },
@@ -82,7 +86,7 @@ var imgToCode = new Vue({
         },
         //绘制网格
         drawGrid() {
-            tools.drawGrid(this.stageCTX, this.stageWidth, this.stageHeight, this.gap / this.ratio);
+            tools.drawGrid(this.stageCTX, this.stageWidth, this.stageHeight, this.gap, this.scale);
         },
         //绘制图像
         drawShapes(){
@@ -94,24 +98,36 @@ var imgToCode = new Vue({
         clear() {
             tools.clear(this.stageCTX, 0, 0, this.stageWidth, this.stageHeight);
         },
-        //绘制辅助线
-        drawGuidewires(pos) {
-            const clientX = pos.x;
-            const clientY = pos.y;
-            let viewX=(clientX - this.coordinateOrigin.x)/this.scale;
-            let viewY=(clientY - this.coordinateOrigin.y)/this.scale;
-            tools.drawGuidewires(
-                this.stageCanvas,
-                this.stageCTX,
-                clientX,
-                clientY,
-                viewX,
-                viewY,
-                this.ratio,
-                this.scale
-            )
+        mouseEvent(type,point){
+            if(this.workMode=="draw"){
+                if ((type=="mousedown") && (imgToCode.drawShapeType == "rect")) {
+                    let newShape = new Rect(
+                        tools.posDraw(
+                            point,
+                            imgToCode.scale,
+                            imgToCode.coordinateOrigin
+                        )
+                    );
+                    imgToCode.shapes.push(newShape);
+                }
+                if(type=="mousemove"){
+                    imgToCode.shapes[imgToCode.shapes.length-1].updatePoints(
+                        tools.posDraw(
+                            point,
+                            imgToCode.scale,
+                            imgToCode.coordinateOrigin
+                        )
+                    )
+                }
+                if(type=="mouseup"){
+                    // 剔除过小的图形
+                    // if((newShape.points[2].x-newShape.points[0].x)<10 & (newShape.points[2].y-newShape.points[0].y)<10){
+                    //     imgToCode.shapes.pop();
+                    // }
+                }
+            }
         }
     }
 })
-
+console.dir(imgToCode);
 interact(imgToCode);

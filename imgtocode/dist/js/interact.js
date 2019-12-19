@@ -1,65 +1,62 @@
 import tools from "./tools.js";
 import {Rect} from "./graph.js";
 export default function(imgToCode){
+    let drawGuidewires=(event)=>{
+        let pos=tools.posEvent(event);
+        const clientX = pos.x;
+        const clientY = pos.y;
+        let viewX=(clientX - imgToCode.coordinateOrigin.x)/imgToCode.scale;
+        let viewY=(clientY - imgToCode.coordinateOrigin.y)/imgToCode.scale;
+        tools.drawGuidewires(
+            imgToCode.stageCanvas,
+            imgToCode.stageCTX,
+            clientX,
+            clientY,
+            viewX,
+            viewY,
+            imgToCode.ratio,
+            imgToCode.scale
+        )
+    }
+    let editMode=(event,canvas)=>{
+        imgToCode.stageCanvas.style.cursor = 'default';
+    }
     window.addEventListener("resize", () => {
         imgToCode.refresh();
     })
     window.addEventListener("mousemove", (event) => {
         imgToCode.refresh();
-        imgToCode.drawGuidewires(tools.posEvent(event))
+        imgToCode.workMode=="draw" && drawGuidewires(event);
+        imgToCode.workMode=="edit" && editMode(event);
     })
-    window.addEventListener("mouseend", (event) => {
+    window.addEventListener("mouseup", ()=>{
         imgToCode.refresh();
-        imgToCode.drawGuidewires(tools.posEvent(event))
-    })
-    function drawShapes(event){
-        if (imgToCode.drawShapeType == "rect") {
-            let newShape = new Rect(tools.posDrawEvent(event,imgToCode.scale,imgToCode.coordinateOrigin));
-        }
-        imgToCode.shapes.push(newShape);
-        const drawing = (event) => {
-            newShape.updatePoints(tools.posDrawEvent(event,imgToCode.scale,imgToCode.coordinateOrigin));
-        }
-        const drawEnd = (event) => {
-            newShape.updatePoints(tools.posDrawEvent(event,imgToCode.scale,imgToCode.coordinateOrigin));
-            window.removeEventListener("mousemove", drawing);
-            window.removeEventListener("mouseup", drawEnd);
-            if((newShape.points[2].x-newShape.points[0].x)<10 & (newShape.points[2].y-newShape.points[0].y)<10){
-                imgToCode.shapes.pop();
-            }
-        }
-    }
+    });
+    
     window.addEventListener("mousedown", (event) => {
-        let startPoint={};
-        let endPoint={};
-        let mousedown=(event)=>{
-            startPoint=endPoint={
+        if(imgToCode.workMode=="draw"){
+            let startPoint={};
+            let endPoint={};
+            startPoint={
                 x:event.clientX,
                 y:event.clientY
             }
-        }
-        let mousemove=(event)=>{
-            endPoint={
-                x:event.clientX,
-                y:event.clientY
+            imgToCode.mouseEvent("mousedown",startPoint);
+            let mousemove=(event)=>{
+                endPoint={
+                    x:event.clientX,
+                    y:event.clientY
+                }
+                imgToCode.mouseEvent("mousemove",endPoint);
             }
+            let mouseup=(event)=>{
+                imgToCode.mouseEvent("mouseup",endPoint);
+                window.removeEventListener("mousemove", mousemove);
+                window.removeEventListener("mouseup", mouseup);
+            }
+            window.addEventListener("mousemove", mousemove);
+            window.addEventListener("mouseup", mouseup);
         }
-        let mouseup=(event)=>{
-            window.removeEventListener("mousemove", mousemove);
-            window.removeEventListener("mouseup", mouseup);
-        }
-        // switch(imgToCode.workMode){
-        //     case "draw" : {
-        //         drawShapes(event);
-        //         break
-        //     }
-        //     case "edit" : {
-        //         editShapes(event);
-        //         break
-        //     }
-        // }
-        window.addEventListener("mousemove", mousemove);
-        window.addEventListener("mouseup", mouseup);
     })
     //前台-拖拽上传
     window.document.addEventListener("dragenter", function(e) {
@@ -104,11 +101,9 @@ export default function(imgToCode){
         if (/Mac/.test(navigator.platform)) {
             if (event.keyCode == 187) {
                 imgToCode.scale*=(1+5/75);
-                imgToCode.gap = 100*imgToCode.ratio*imgToCode.scale;
                 event.preventDefault();
             } else if (event.keyCode == 189) {
                 imgToCode.scale*=(1-5/75);
-                imgToCode.gap = 100*imgToCode.ratio*imgToCode.scale;
                 event.preventDefault();
             } else if (event.keyCode == 86){
                 imgToCode.workMode="edit"

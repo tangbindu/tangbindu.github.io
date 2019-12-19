@@ -18,12 +18,12 @@ let tools={
         }
     },
     //移动point array
-    movePoints(points,moveVector){
-        points.map((item)=>{
-            item.x+=moveVector[0];
-            item.y+=moveVector[1];
-        })
-    },
+    // movePoints(points,moveVector){
+    //     points.map((item)=>{
+    //         item.x+=moveVector[0];
+    //         item.y+=moveVector[1];
+    //     })
+    // },
     //point in shape
     //转换mouse坐标
     posEvent(event) {
@@ -32,13 +32,16 @@ let tools={
         return {x,y}
     },
     //mouse换算到新坐标系
-    posDrawEvent(event,scale,coordinateOrigin) {
-        let x=(event.clientX*this.ratio-coordinateOrigin.x)/scale;
-        let y=(event.clientY*this.ratio-coordinateOrigin.y)/scale;
-        return {x,y}
+    posDraw(point,scale,coordinateOrigin) {
+        let x=(point.x*this.ratio-coordinateOrigin.x)/scale;
+        let y=(point.y*this.ratio-coordinateOrigin.y)/scale;
+        return {
+            x:this.toInt(x),
+            y:this.toInt(y)
+        }
     },
-    drawGrid(ctx, width, height, gap) {
-        gap=this.toInt(gap);
+    drawGrid(ctx, width, height, gap ,scale) {
+        gap=this.toInt(gap*scale);
         ctx.save();
         ctx.lineWidth = 1;
         ctx.strokeStyle = "rgba(0,0,0,.2)";
@@ -112,6 +115,12 @@ let tools={
         }).concat(tempPoints.slice(2,4).sort(function(a,b){
             return b.x-a.x
         }))
+    },
+    getCenterFromRect(rectShape){
+        return {
+            x:rectShape.points[0].x+(rectShape.points[1].x-rectShape.points[0].x)*.5,
+            y:rectShape.points[0].y+(rectShape.points[2].y-rectShape.points[0].y)*.5
+        }
     },
     //缩放ract的size
     scaleRectPoint(points,num){

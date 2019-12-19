@@ -16,6 +16,7 @@ class Graph {
         this.font = tools.ratio*10+'px STHeiti, SimHei';
         this.fontColor = 'rgba(255,0,0,1)';
         this.isFill = true;
+        this.active=false;
     }
     updatePoints(i, pos) {
 
@@ -24,7 +25,7 @@ class Graph {
         ctx.save();
         ctx.fillStyle = this.fillStyle;
         this.drawPath(ctx,scale,coordinateOrigin);
-        this.fill();
+        this.fill(ctx);
         this.stroke(ctx,scale,coordinateOrigin);
         this.drawText(ctx,scale,coordinateOrigin);
         ctx.restore();
@@ -32,15 +33,33 @@ class Graph {
     drawText(ctx,scale,coordinateOrigin){
         ctx.font = this.font;
         ctx.fillStyle = this.fontColor;
-        let text="("+this.x+","+this.y+")"+"  "+this.w+"x"+this.h;
+        let loc=this.x+","+this.y;
+        let size=this.w+"x"+this.h
+        let center=tools.getCenterFromRect(this);
+        let fontSizeRatio=(this.points[1].x-this.points[0].x+44)/750;
+        ctx.font = Math.min(tools.ratio*10*scale,tools.ratio*10*fontSizeRatio*scale)+'px STHeiti, SimHei';
+        ctx.textBaseline = 'top';
+        ctx.textAlign = "left";
         ctx.fillText(
-            text, 
-            (this.points[0].x*scale+coordinateOrigin.x), 
-            (this.points[0].y*scale+coordinateOrigin.y - 5)
+            loc, 
+            (this.points[0].x+5)*scale+coordinateOrigin.x, 
+            (this.points[0].y+5)*scale+coordinateOrigin.y
+        );
+        ctx.font = tools.ratio*30*fontSizeRatio*scale+'px STHeiti, SimHei';
+        ctx.textBaseline = 'middle';
+        ctx.textAlign = "center";
+        ctx.fillText(
+            size, 
+            center.x*scale+coordinateOrigin.x, 
+            center.y*scale+coordinateOrigin.y
         );
     }
     fill(ctx){
-        this.isFill && ctx.fill();
+        if(this.active){
+            this.fillStyle = 'rgba(255,128,0,0.2)';
+        }else{
+            this.fillStyle = 'rgba(0,255,0,0.2)';
+        }
     }
     stroke(ctx,scale,coordinateOrigin){
         ctx.lineWidth = this.lineWidth;
@@ -125,8 +144,8 @@ class Rect extends Graph {
         ctx.closePath();
         this.isFill && ctx.fill();
     }
-    fill(){
-
-    }
+    // fill(ctx){
+    //     this.isFill && ctx.fill();
+    // }
 }
 export {Graph,Rect};
