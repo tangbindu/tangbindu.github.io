@@ -12,12 +12,9 @@ export default function(imgToCode){
         imgToCode.refresh();
         imgToCode.drawGuidewires(tools.posEvent(event))
     })
-    window.addEventListener("mousedown", (event) => {
-        let newShape;
+    function drawShapes(event){
         if (imgToCode.drawShapeType == "rect") {
-            newShape = new Rect(tools.posDrawEvent(event,imgToCode.scale,imgToCode.coordinateOrigin));
-        }else{
-            return;
+            let newShape = new Rect(tools.posDrawEvent(event,imgToCode.scale,imgToCode.coordinateOrigin));
         }
         imgToCode.shapes.push(newShape);
         const drawing = (event) => {
@@ -31,8 +28,38 @@ export default function(imgToCode){
                 imgToCode.shapes.pop();
             }
         }
-        window.addEventListener("mousemove", drawing);
-        window.addEventListener("mouseup", drawEnd);
+    }
+    window.addEventListener("mousedown", (event) => {
+        let startPoint={};
+        let endPoint={};
+        let mousedown=(event)=>{
+            startPoint=endPoint={
+                x:event.clientX,
+                y:event.clientY
+            }
+        }
+        let mousemove=(event)=>{
+            endPoint={
+                x:event.clientX,
+                y:event.clientY
+            }
+        }
+        let mouseup=(event)=>{
+            window.removeEventListener("mousemove", mousemove);
+            window.removeEventListener("mouseup", mouseup);
+        }
+        // switch(imgToCode.workMode){
+        //     case "draw" : {
+        //         drawShapes(event);
+        //         break
+        //     }
+        //     case "edit" : {
+        //         editShapes(event);
+        //         break
+        //     }
+        // }
+        window.addEventListener("mousemove", mousemove);
+        window.addEventListener("mouseup", mouseup);
     })
     //前台-拖拽上传
     window.document.addEventListener("dragenter", function(e) {
@@ -83,6 +110,10 @@ export default function(imgToCode){
                 imgToCode.scale*=(1-5/75);
                 imgToCode.gap = 100*imgToCode.ratio*imgToCode.scale;
                 event.preventDefault();
+            } else if (event.keyCode == 86){
+                imgToCode.workMode="edit"
+            }else if (event.keyCode == 77){
+                imgToCode.workMode="draw"
             }
         } else {
 

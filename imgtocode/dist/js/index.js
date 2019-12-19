@@ -4,7 +4,7 @@ import interact from "./interact.js";
 var imgToCode = new Vue({
     el: '#app',
     data: {
-        workMode: "drawing",
+        workMode: "draw",
         shapes: [],//绘图集合
         designImage: null,//上传的图片
         //坐标原点位置

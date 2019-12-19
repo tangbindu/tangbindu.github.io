@@ -56,6 +56,15 @@ class Graph {
     }
     createCode() {
     }
+    //移动shape
+    move(moveVector,includeChildrens){
+        tools.movePoints(this.points,moveVector);
+        if(includeChildrens &&  this.children){
+            this.children.map((item)=>{
+                this.moveShape(item,moveVector,includeChildrens);
+            })
+        }
+    }
 }
 /**
 * 矩形
@@ -95,6 +104,7 @@ class Rect extends Graph {
         this.y=this.points[0].y;
     }
     stroke(ctx,scale,coordinateOrigin){
+        return;
         ctx.beginPath();
         let points=tools.scaleRectPoint(this.points,.5);
         points.forEach((p, i) => {

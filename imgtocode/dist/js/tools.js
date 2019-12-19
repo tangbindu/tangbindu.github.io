@@ -7,9 +7,24 @@ let tools={
     },
     //绘制策略
     toDrawVal(val){
-        console.log(val+.5)
+        // console.log(val+.5)
         return val+.5;
     },
+    //点到local原点的距离
+    toLocalOriginDistance(localOriginPoint,curPoint){
+        return {
+            x:curPoint.x-localOriginPoint.x,
+            y:curPoint.y-localOriginPoint.y
+        }
+    },
+    //移动point array
+    movePoints(points,moveVector){
+        points.map((item)=>{
+            item.x+=moveVector[0];
+            item.y+=moveVector[1];
+        })
+    },
+    //point in shape
     //转换mouse坐标
     posEvent(event) {
         let x=event.clientX*this.ratio;
@@ -27,20 +42,21 @@ let tools={
         ctx.save();
         ctx.lineWidth = 1;
         ctx.strokeStyle = "rgba(0,0,0,.2)";
-        // ctx.setLineDash([4, 4]);
         let y = 0;
-        while (gap * y++ < height) {
+        while (gap * y < height) {
             ctx.beginPath();
             ctx.moveTo(0, this.toDrawVal(gap * y));
             ctx.lineTo(width, this.toDrawVal(gap * y));
             ctx.stroke();
+            ++y;
         }
         let x = 0;
-        while (gap * x++ < width) {
+        while (gap * x < width) {
             ctx.beginPath();
             ctx.moveTo(this.toDrawVal(gap * x), 0);
             ctx.lineTo(this.toDrawVal(gap * x), height);
             ctx.stroke();
+            x++;
         }
         ctx.restore();
     },
@@ -51,7 +67,7 @@ let tools={
         ctx.drawImage(img, x, y, w, h);
     },
     //引导线
-    drawGuidewires(canvas, ctx, x, y, viewX, viewY,ratio,scale) {
+    drawGuidewires(canvas, ctx, x, y, viewX, viewY,ratio, scale) {
         viewX=this.toInt(viewX);
         viewY=this.toInt(viewY);
         const text = "("+viewX + ", " + viewY+")";
