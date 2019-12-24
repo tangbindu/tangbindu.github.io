@@ -20,7 +20,7 @@ window.imgToCode = new Vue({
         //舞台绘图对象
         stageCTX: null,
         ratio: tools.ratio,//视网膜屏比例
-        scale: 2.0,
+        scale: 1.0,
         stageWidth: null,
         stageHeight: null,
         gap: 100//tools.ratio
@@ -29,23 +29,26 @@ window.imgToCode = new Vue({
     },
     mounted() {
         this.init();
-        this.refresh();
+        this.draw();
     },
     watch: {
+        //scale变化了
         "scale": function () {
-            this.refresh();
+            this.draw();
         },
+        //绘制的图片变化了
         "designImage": function(){
-            this.refresh();
+            this.draw();
         }
     },
     methods: {
+        // 初始化
         init() {
             this.stageCanvas = document.getElementById("stage");
             this.stageCTX = this.stageCanvas.getContext("2d");
         },
-        //刷新
-        refresh() {
+        //绘制入口
+        draw() {
             this.resize();
             this.clear();
             this.drawGrid();

@@ -22,15 +22,15 @@ export default function(imgToCode){
         imgToCode.stageCanvas.style.cursor = 'default';
     }
     window.addEventListener("resize", () => {
-        imgToCode.refresh();
+        imgToCode.draw();
     })
     window.addEventListener("mousemove", (event) => {
-        imgToCode.refresh();
+        imgToCode.draw();
         imgToCode.workMode=="draw" && drawGuidewires(event);
         imgToCode.workMode=="edit" && editMode(event);
     })
     window.addEventListener("mouseup", ()=>{
-        imgToCode.refresh();
+        imgToCode.draw();
     });
     
     window.addEventListener("mousedown", (event) => {

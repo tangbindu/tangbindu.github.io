@@ -81,16 +81,16 @@ let tools={
         ctx.fillStyle = 'rgba(255,0,0,.8)';
         ctx.beginPath();
         ctx.moveTo(this.toDrawVal(x), this.toDrawVal(0));
-        ctx.lineTo(this.toDrawVal(x+1), this.toDrawVal(0));
-        ctx.lineTo(this.toDrawVal(x+1), this.toDrawVal(canvas.height));
+        ctx.lineTo(this.toDrawVal(x+scale), this.toDrawVal(0));
+        ctx.lineTo(this.toDrawVal(x+scale), this.toDrawVal(canvas.height));
         ctx.lineTo(this.toDrawVal(x), this.toDrawVal(canvas.height));
         ctx.closePath();
         ctx.fill();
         //横
         ctx.beginPath();
         ctx.moveTo(this.toDrawVal(0), this.toDrawVal(y));
-        ctx.lineTo(this.toDrawVal(0), this.toDrawVal(y+1));
-        ctx.lineTo(this.toDrawVal(canvas.width), this.toDrawVal(y+1));
+        ctx.lineTo(this.toDrawVal(0), this.toDrawVal(y+scale));
+        ctx.lineTo(this.toDrawVal(canvas.width), this.toDrawVal(y+scale));
         ctx.lineTo(this.toDrawVal(canvas.width), this.toDrawVal(y));
         ctx.closePath();
         ctx.fill();
@@ -116,6 +116,7 @@ let tools={
             return b.x-a.x
         }))
     },
+    //获取中心点
     getCenterFromRect(rectShape){
         return {
             x:rectShape.points[0].x+(rectShape.points[1].x-rectShape.points[0].x)*.5,
