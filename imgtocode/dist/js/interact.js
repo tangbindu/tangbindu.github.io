@@ -33,31 +33,31 @@ export default function(imgToCode){
         imgToCode.draw();
     });
     
-    window.addEventListener("mousedown", (event) => {
-        if(imgToCode.workMode=="draw"){
-            let startPoint={};
-            let endPoint={};
-            startPoint={
-                x:event.clientX,
-                y:event.clientY
-            }
-            imgToCode.mouseEvent("mousedown",startPoint);
-            let mousemove=(event)=>{
-                endPoint={
-                    x:event.clientX,
-                    y:event.clientY
-                }
-                imgToCode.mouseEvent("mousemove",endPoint);
-            }
-            let mouseup=(event)=>{
-                imgToCode.mouseEvent("mouseup",endPoint);
-                window.removeEventListener("mousemove", mousemove);
-                window.removeEventListener("mouseup", mouseup);
-            }
-            window.addEventListener("mousemove", mousemove);
-            window.addEventListener("mouseup", mouseup);
-        }
-    })
+    // window.addEventListener("mousedown", (event) => {
+    //     if(imgToCode.workMode=="draw"){
+    //         let startPoint={};
+    //         let endPoint={};
+    //         startPoint={
+    //             x:event.clientX,
+    //             y:event.clientY
+    //         }
+    //         imgToCode.mouseEvent("mousedown",startPoint);
+    //         let mousemove=(event)=>{
+    //             endPoint={
+    //                 x:event.clientX,
+    //                 y:event.clientY
+    //             }
+    //             imgToCode.mouseEvent("mousemove",endPoint);
+    //         }
+    //         let mouseup=(event)=>{
+    //             imgToCode.mouseEvent("mouseup",endPoint);
+    //             window.removeEventListener("mousemove", mousemove);
+    //             window.removeEventListener("mouseup", mouseup);
+    //         }
+    //         window.addEventListener("mousemove", mousemove);
+    //         window.addEventListener("mouseup", mouseup);
+    //     }
+    // })
     //前台-拖拽上传
     window.document.addEventListener("dragenter", function(e) {
         e.stopPropagation();
@@ -106,8 +106,10 @@ export default function(imgToCode){
                 imgToCode.scale*=(1-5/75);
                 event.preventDefault();
             } else if (event.keyCode == 86){
+                //v
                 imgToCode.workMode="edit"
             }else if (event.keyCode == 77){
+                //m
                 imgToCode.workMode="draw"
             }
         } else {

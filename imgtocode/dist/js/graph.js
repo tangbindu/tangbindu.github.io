@@ -6,6 +6,7 @@ class Graph {
         this.y = pos.y;
         this.w=0;
         this.h=0;
+        this.index=100;
         this.points = [];
         this.posStart = pos;
         this.posEnd = pos;
@@ -69,20 +70,20 @@ class Graph {
     drawPath(){
         this.isFill && this.fill(ctx);
     }
-    isInPath(ctx, pos) {
+    isInPath(ctx,pos) {
+        if(ctx.isPointInPath(pos.x, pos.y)){
+            return true;
+        }
     }
     drawPoints() {
     }
     createCode() {
     }
-    //移动shape
-    move(moveVector,includeChildrens){
-        tools.movePoints(this.points,moveVector);
-        if(includeChildrens &&  this.children){
-            this.children.map((item)=>{
-                this.moveShape(item,moveVector,includeChildrens);
-            })
-        }
+    move(vector){
+        this.points.map((item)=>{
+            item.x+=vector[0];
+            item.y+=vector[1];
+        })
     }
 }
 /**

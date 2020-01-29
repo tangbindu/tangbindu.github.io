@@ -1,4 +1,3 @@
-let xxx=.1;
 let tools={
     ratio:2.0,
     //整数策略
@@ -24,6 +23,11 @@ let tools={
     //         item.y+=moveVector[1];
     //     })
     // },
+    getEventRealPos(event){
+        let x=event.clientX*this.ratio;
+        let y=event.clientY*this.ratio;
+        return {x,y}
+    },
     //point in shape
     //转换mouse坐标
     posEvent(event) {
