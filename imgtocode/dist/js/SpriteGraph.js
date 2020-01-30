@@ -1,15 +1,13 @@
 import tools from "./tools.js";
+import Sprite from "./Sprite.js";
 // 绘图 
-class Graph {
+class Graph extends Sprite{
     constructor(pos) {
-        this.x = pos.x;
-        this.y = pos.y;
-        this.w=0;
-        this.h=0;
-        this.index=100;
-        this.points = [];
-        this.posStart = pos;
-        this.posEnd = pos;
+        super(pos)
+        this.name = null;//绘图的名字 rect line等
+        this.points = [];//绘图的点
+        this.posStart = pos;//起始点
+        this.posEnd = pos;//结束点
         //draw config
         this.lineWidth = 1;
         this.strokeStyle = 'rgba(255,0,0,0.5)';
@@ -17,11 +15,12 @@ class Graph {
         this.font = tools.ratio*10+'px STHeiti, SimHei';
         this.fontColor = 'rgba(255,0,0,1)';
         this.isFill = true;
-        this.active=false;
+        // this.active=false;
     }
-    updatePoints(i, pos) {
-
+    //更新点
+    updatePoints(pos) {
     }
+    //绘制图形精灵
     draw(ctx,scale,coordinateOrigin) {
         ctx.save();
         ctx.fillStyle = this.fillStyle;
@@ -31,6 +30,7 @@ class Graph {
         this.drawText(ctx,scale,coordinateOrigin);
         ctx.restore();
     }
+    //绘制文本
     drawText(ctx,scale,coordinateOrigin){
         ctx.font = this.font;
         ctx.fillStyle = this.fontColor;
@@ -55,6 +55,7 @@ class Graph {
             center.y*scale+coordinateOrigin.y
         );
     }
+    //填充
     fill(ctx){
         if(this.active){
             this.fillStyle = 'rgba(255,128,0,0.2)';
@@ -62,28 +63,34 @@ class Graph {
             this.fillStyle = 'rgba(0,255,0,0.2)';
         }
     }
+    //描边
     stroke(ctx,scale,coordinateOrigin){
         ctx.lineWidth = this.lineWidth;
         ctx.strokeStyle = this.strokeStyle;
         ctx.stroke();
     }
+    //绘制路径
     drawPath(){
         this.isFill && this.fill(ctx);
     }
+    //判断点击
     isInPath(ctx,pos) {
         if(ctx.isPointInPath(pos.x, pos.y)){
+            this.active=true;
             return true;
         }
     }
-    drawPoints() {
-    }
+    //创建代码
     createCode() {
     }
+    //重写move
     move(vector){
         this.points.map((item)=>{
             item.x+=vector[0];
             item.y+=vector[1];
         })
+        this.x=this.points[0].x;
+        this.y=this.points[0].y;
     }
 }
 /**
@@ -145,8 +152,5 @@ class Rect extends Graph {
         ctx.closePath();
         this.isFill && ctx.fill();
     }
-    // fill(ctx){
-    //     this.isFill && ctx.fill();
-    // }
 }
 export {Graph,Rect};

@@ -57,20 +57,20 @@ class MEvent{
         // }
     }
     mousedown(event){
-        this.startPos=tools.getEventRealPos(event);
+        this.startPos={x:event.clientX,y:event.clientY};
         this.curPos=this.startPos;
         this.prevPos = this.startPos;
         this.run("down")
     }
     mousemove(event){
-        this.endPos=tools.getEventRealPos(event);
+        this.endPos={x:event.clientX,y:event.clientY};
         this.curPos=this.endPos;
         this.run("move")
         this.prevPos=this.endPos;
         event.preventDefault();
     }
     mouseup(event){
-        this.endPos=tools.getEventRealPos(event);
+        this.endPos={x:event.clientX,y:event.clientY};
         this.curPos=this.endPos;
         this.run("up")
         event.preventDefault();

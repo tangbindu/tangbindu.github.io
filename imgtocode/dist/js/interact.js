@@ -1,8 +1,7 @@
 import tools from "./tools.js";
-import {Rect} from "./graph.js";
 export default function(imgToCode){
     let drawGuidewires=(event)=>{
-        let pos=tools.posEvent(event);
+        let pos=tools.posEvent(event,imgToCode.ratio);
         const clientX = pos.x;
         const clientY = pos.y;
         let viewX=(clientX - imgToCode.coordinateOrigin.x)/imgToCode.scale;

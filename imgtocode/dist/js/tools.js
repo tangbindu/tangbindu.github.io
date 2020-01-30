@@ -1,5 +1,4 @@
 let tools={
-    ratio:2.0,
     //整数策略
     toInt(val){
         return Math.round(val)
@@ -23,22 +22,25 @@ let tools={
     //         item.y+=moveVector[1];
     //     })
     // },
-    getEventRealPos(event){
-        let x=event.clientX*this.ratio;
-        let y=event.clientY*this.ratio;
-        return {x,y}
-    },
     //point in shape
     //转换mouse坐标
-    posEvent(event) {
-        let x=event.clientX*this.ratio;
-        let y=event.clientY*this.ratio;
+    posEvent(event,ratio) {
+        let x=event.clientX*ratio;
+        let y=event.clientY*ratio;
         return {x,y}
     },
     //mouse换算到新坐标系
-    posDraw(point,scale,coordinateOrigin) {
-        let x=(point.x*this.ratio-coordinateOrigin.x)/scale;
-        let y=(point.y*this.ratio-coordinateOrigin.y)/scale;
+    posToDraw(point,scale,coordinateOrigin) {
+        let x=(point.x-coordinateOrigin.x)/scale;
+        let y=(point.y-coordinateOrigin.y)/scale;
+        return {
+            x:this.toInt(x),
+            y:this.toInt(y)
+        }
+    },
+    posDraw(point,ratio,scale,coordinateOrigin) {
+        let x=(point.x*ratio-coordinateOrigin.x)/scale;
+        let y=(point.y*ratio-coordinateOrigin.y)/scale;
         return {
             x:this.toInt(x),
             y:this.toInt(y)
@@ -78,7 +80,7 @@ let tools={
         viewX=this.toInt(viewX);
         viewY=this.toInt(viewY);
         const text = "("+viewX + ", " + viewY+")";
-        const fontSize = this.ratio* 14;
+        const fontSize = ratio* 14;
         canvas.style.cursor = 'crosshair';
         //竖
         ctx.save();

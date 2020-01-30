@@ -1,14 +1,16 @@
 import tools from "./tools.js";
 import interact from "./interact.js";
-import { Rect } from "./graph.js";
+import { Rect } from "./SpriteGraph.js";
+import SpriteController from "./SpriteController.js";
+// import { Image } from "./SpriteImage.js";
 import MEvent from "./MEvent.js"
-
 window.imgToCode = new Vue({
     el: '#app',
     data: {
         workMode: "draw",
         shapes: [],//绘图集合
         activeShapes: [],
+        activeEle: null,
         designImage: null,//上传的图片
         //坐标原点位置
         coordinateOrigin: {
@@ -20,15 +22,13 @@ window.imgToCode = new Vue({
         stageCanvas: null,
         //舞台绘图对象
         stageCTX: null,
-        ratio: tools.ratio,//视网膜屏比例
+        ratio: 2.0,//视网膜屏比例
         scale: 1.0,
         stageWidth: null,
         stageHeight: null,
         gap: 100,//tools.ratio
         //event
-        MEvent: null,
-        //ele
-        activeEle:null
+        MEvent: null
     },
     created() {
     },
@@ -59,55 +59,65 @@ window.imgToCode = new Vue({
             let that = this;
             this.MEvent.event(function () {
                 let me = this;
-                switch(that.workMode) {
+                switch (that.workMode) {
                     case "draw":
                         that.drawModel(me);
-                    break;
+                        break;
                     case "edit":
                         that.editModel(me);
-                    break;
+                        break;
                 }
                 that.draw();
             })
         },
         //绘图模式
-        drawModel(me){
-            let point=me.curPos;
-            let type=me.type;
-            if (type == "down"){
-                switch(this.drawShapeType) {
+        drawModel(me) {
+            let point = me.curPos;
+            point=tools.posDraw(point,this.ratio,this.scale,this.coordinateOrigin);
+            let type = me.type;
+            if (type == "down") {
+                switch (this.drawShapeType) {
                     case "rect":
                         let newShape = new Rect(point);
                         this.shapes.push(newShape);
-                    break;
+                        break;
                 }
             }
-            let lastSpape=this.shapes[this.shapes.length - 1];
+            let lastSpape = this.shapes[this.shapes.length - 1];
             if (type == "move") {
                 lastSpape && lastSpape.updatePoints(point)
             }
             if (type == "up") {
                 // 剔除过小的图形
-                if(lastSpape && (lastSpape.points[2].x-lastSpape.points[0].x)<30 && (lastSpape.points[2].y-lastSpape.points[0].y)<30){
+                if (
+                    lastSpape && 
+                    (lastSpape.points[2].x - lastSpape.points[0].x) < 30 && 
+                    (lastSpape.points[2].y - lastSpape.points[0].y) < 30
+                ) {
                     this.shapes.pop();
                 }
             }
         },
         //编辑模式
-        editModel(me){
-            let point=me.curPos;
-            let type=me.type;
-            if (type == "down"){
+        editModel(me) {
+            let point = me.curPos;
+            point=tools.posEvent(point,this.ratio);
+            let type = me.type;
+            if (type == "down") {
                 //获取到点击的元素
                 this.shapes.map((item) => {
                     item.draw(this.stageCTX, this.scale, this.coordinateOrigin);
-                    if(item.isInPath(this.stageCTX, point)){
-                        this.activeEle=item;
+                    item.active = false;
+                    if (item.isInPath(this.stageCTX, point)) {
+                        this.activeEle = item;
                     }
                 })
             }
-            if (type == "move"){
+            if (type == "move") {
                 this.activeEle && this.activeEle.move(me.moveVector)
+            }
+            if (type == "up") {
+                this.activeEle = null;
             }
         },
         //绘制入口
@@ -152,12 +162,22 @@ window.imgToCode = new Vue({
         },
         //绘制网格
         drawGrid() {
-            tools.drawGrid(this.stageCTX, this.stageWidth, this.stageHeight, this.gap, this.scale);
+            tools.drawGrid(
+                this.stageCTX,
+                this.stageWidth,
+                this.stageHeight,
+                this.gap,
+                this.scale
+            );
         },
         //绘制图像
         drawShapes() {
             this.shapes.map((item) => {
-                item.draw(this.stageCTX, this.scale, this.coordinateOrigin);
+                item.draw(
+                    this.stageCTX,
+                    this.scale,
+                    this.coordinateOrigin
+                );
             })
         },
         //清空画布
