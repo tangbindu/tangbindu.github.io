@@ -12,7 +12,7 @@ class Graph extends Sprite{
         this.lineWidth = 1;
         this.strokeStyle = 'rgba(255,0,0,0.5)';
         this.fillStyle = 'rgba(0,255,0,0.2)';
-        this.font = tools.ratio*10+'px STHeiti, SimHei';
+        this.font = '10px STHeiti, SimHei';
         this.fontColor = 'rgba(255,0,0,1)';
         this.isFill = true;
         // this.active=false;
@@ -21,24 +21,24 @@ class Graph extends Sprite{
     updatePoints(pos) {
     }
     //绘制图形精灵
-    draw(ctx,scale,coordinateOrigin) {
+    draw(ctx,ratio,scale,coordinateOrigin) {
         ctx.save();
         ctx.fillStyle = this.fillStyle;
-        this.drawPath(ctx,scale,coordinateOrigin);
+        this.drawPath(ctx,ratio,scale,coordinateOrigin);
         this.fill(ctx);
-        this.stroke(ctx,scale,coordinateOrigin);
-        this.drawText(ctx,scale,coordinateOrigin);
+        this.stroke(ctx,ratio,scale,coordinateOrigin);
+        this.drawText(ctx,ratio,scale,coordinateOrigin);
         ctx.restore();
     }
     //绘制文本
-    drawText(ctx,scale,coordinateOrigin){
+    drawText(ctx,ratio,scale,coordinateOrigin){
         ctx.font = this.font;
         ctx.fillStyle = this.fontColor;
         let loc=this.x+","+this.y;
         let size=this.w+"x"+this.h
         let center=tools.getCenterFromRect(this);
         let fontSizeRatio=(this.points[1].x-this.points[0].x+44)/750;
-        ctx.font = Math.min(tools.ratio*10*scale,tools.ratio*10*fontSizeRatio*scale)+'px STHeiti, SimHei';
+        ctx.font = Math.min(ratio*10*scale,ratio*10*fontSizeRatio*scale)+'px STHeiti, SimHei';
         ctx.textBaseline = 'top';
         ctx.textAlign = "left";
         ctx.fillText(
@@ -46,7 +46,7 @@ class Graph extends Sprite{
             (this.points[0].x+5)*scale+coordinateOrigin.x, 
             (this.points[0].y+5)*scale+coordinateOrigin.y
         );
-        ctx.font = tools.ratio*30*fontSizeRatio*scale+'px STHeiti, SimHei';
+        ctx.font = ratio*30*fontSizeRatio*scale+'px STHeiti, SimHei';
         ctx.textBaseline = 'middle';
         ctx.textAlign = "center";
         ctx.fillText(
@@ -144,7 +144,7 @@ class Rect extends Graph {
         ctx.strokeStyle = this.strokeStyle;
         ctx.stroke();
     }
-    drawPath(ctx,scale,coordinateOrigin) {
+    drawPath(ctx,ratio,scale,coordinateOrigin) {
         ctx.beginPath();
         this.points.forEach((p, i) => {
             ctx[i == 0 ? 'moveTo' : 'lineTo']((p.x)*scale+coordinateOrigin.x-.5, (p.y)*scale+coordinateOrigin.y-.5);

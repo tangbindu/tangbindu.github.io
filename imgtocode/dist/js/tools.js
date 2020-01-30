@@ -29,6 +29,14 @@ let tools={
         let y=event.clientY*ratio;
         return {x,y}
     },
+    posToEdit(point,ratio) {
+        let x=point.x*ratio;
+        let y=point.y*ratio;
+        return {x,y}
+    },
+    vectorToEdit(vector,ratio){
+        return [vector[0]*ratio,vector[1]*ratio]
+    },
     //mouse换算到新坐标系
     posToDraw(point,scale,coordinateOrigin) {
         let x=(point.x-coordinateOrigin.x)/scale;

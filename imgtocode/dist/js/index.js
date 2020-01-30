@@ -101,12 +101,14 @@ window.imgToCode = new Vue({
         //编辑模式
         editModel(me) {
             let point = me.curPos;
-            point=tools.posEvent(point,this.ratio);
             let type = me.type;
+            let moveVector=me.moveVector;
+            point=tools.posToEdit(point,this.ratio);
+            // moveVector=tools.vectorToEdit(moveVector,this.ratio);
             if (type == "down") {
                 //获取到点击的元素
                 this.shapes.map((item) => {
-                    item.draw(this.stageCTX, this.scale, this.coordinateOrigin);
+                    item.draw(this.stageCTX, this.ratio, this.scale, this.coordinateOrigin);
                     item.active = false;
                     if (item.isInPath(this.stageCTX, point)) {
                         this.activeEle = item;
@@ -114,7 +116,7 @@ window.imgToCode = new Vue({
                 })
             }
             if (type == "move") {
-                this.activeEle && this.activeEle.move(me.moveVector)
+                this.activeEle && this.activeEle.move(moveVector)
             }
             if (type == "up") {
                 this.activeEle = null;
@@ -175,6 +177,7 @@ window.imgToCode = new Vue({
             this.shapes.map((item) => {
                 item.draw(
                     this.stageCTX,
+                    this.ratio,
                     this.scale,
                     this.coordinateOrigin
                 );
