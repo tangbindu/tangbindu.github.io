@@ -1,6 +1,6 @@
 import tools from "./tools.js";
 import interact from "./interact.js";
-import { Rect } from "./SpriteGraph.js";
+import { Rect , Grid , Guidewires} from "./SpriteGraph.js";
 import SpriteController from "./SpriteController.js";
 // import { Image } from "./SpriteImage.js";
 import MEvent from "./MEvent.js"
@@ -14,8 +14,8 @@ window.imgToCode = new Vue({
         designImage: null,//上传的图片
         //坐标原点位置
         coordinateOrigin: {
-            x: 0,
-            y: 0
+            x: 200,
+            y: 200
         },
         drawShapeType: "rect",
         //舞台canvas
@@ -51,8 +51,33 @@ window.imgToCode = new Vue({
         init() {
             this.stageCanvas = document.getElementById("stage");
             this.stageCTX = this.stageCanvas.getContext("2d");
+            this.resize();
+            //界面
+            this.initWindow();
+            //交互
             this.MEvent = new MEvent(this.stageCanvas);
             this.executeModel();
+        },
+        initWindow(){
+            //添加网格
+            this.addGrid();
+            this.addGuidewires();
+        },
+        //添加网格
+        addGrid(){
+            let grid = new Grid({x:0,y:0});
+            grid.width=this.stageCanvas.width;
+            grid.height=this.stageCanvas.height;
+            grid.gap=100;
+            this.shapes.push(grid);
+        },
+        //添加引导线
+        addGuidewires(){
+            let grid = new Guidewires({x:100,y:100},0,0);
+            grid.width=this.stageCanvas.width;
+            grid.height=this.stageCanvas.height;
+            grid.gap=100;
+            this.shapes.push(grid);
         },
         //初始化鼠标交互
         executeModel() {
@@ -73,8 +98,14 @@ window.imgToCode = new Vue({
         //绘图模式
         drawModel(me) {
             let point = me.curPos;
-            point=tools.posDraw(point,this.ratio,this.scale,this.coordinateOrigin);
             let type = me.type;
+            point=tools.posToDrawPixel(
+                point,
+                this.ratio,
+                this.scale,
+                this.coordinateOrigin
+            );
+            //坐标转换
             if (type == "down") {
                 switch (this.drawShapeType) {
                     case "rect":
@@ -103,12 +134,13 @@ window.imgToCode = new Vue({
             let point = me.curPos;
             let type = me.type;
             let moveVector=me.moveVector;
-            point=tools.posToEdit(point,this.ratio);
-            // moveVector=tools.vectorToEdit(moveVector,this.ratio);
+            //坐标转换
+            point=tools.toPixel(point,this.ratio);
+            moveVector=tools.vectorToEdit(moveVector,this.ratio,this.scale);
             if (type == "down") {
                 //获取到点击的元素
                 this.shapes.map((item) => {
-                    item.draw(this.stageCTX, this.ratio, this.scale, this.coordinateOrigin);
+                    item.draw(this.stageCTX);
                     item.active = false;
                     if (item.isInPath(this.stageCTX, point)) {
                         this.activeEle = item;
@@ -124,9 +156,7 @@ window.imgToCode = new Vue({
         },
         //绘制入口
         draw() {
-            this.resize();
             this.clear();
-            this.drawGrid();
             this.drawDesignImage();
             this.drawShapes();
         },
@@ -162,19 +192,11 @@ window.imgToCode = new Vue({
             this.stageCanvas.height = this.stageHeight;
             this.stageCanvas.style.zoom = (1 / this.ratio);
         },
-        //绘制网格
-        drawGrid() {
-            tools.drawGrid(
-                this.stageCTX,
-                this.stageWidth,
-                this.stageHeight,
-                this.gap,
-                this.scale
-            );
-        },
         //绘制图像
         drawShapes() {
             this.shapes.map((item) => {
+                item.scale=this.scale;
+                item.translate=this.coordinateOrigin;
                 item.draw(
                     this.stageCTX,
                     this.ratio,

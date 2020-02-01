@@ -12,7 +12,7 @@ class Graph extends Sprite{
         this.lineWidth = 1;
         this.strokeStyle = 'rgba(255,0,0,0.5)';
         this.fillStyle = 'rgba(0,255,0,0.2)';
-        this.font = '10px STHeiti, SimHei';
+        this.font = '12px STHeiti, SimHei';
         this.fontColor = 'rgba(255,0,0,1)';
         this.isFill = true;
         // this.active=false;
@@ -21,38 +21,38 @@ class Graph extends Sprite{
     updatePoints(pos) {
     }
     //绘制图形精灵
-    draw(ctx,ratio,scale,coordinateOrigin) {
+    draw(ctx) {
         ctx.save();
         ctx.fillStyle = this.fillStyle;
-        this.drawPath(ctx,ratio,scale,coordinateOrigin);
+        this.drawPath(ctx);
         this.fill(ctx);
-        this.stroke(ctx,ratio,scale,coordinateOrigin);
-        this.drawText(ctx,ratio,scale,coordinateOrigin);
+        this.stroke(ctx);
+        this.drawText(ctx);
         ctx.restore();
     }
     //绘制文本
-    drawText(ctx,ratio,scale,coordinateOrigin){
+    drawText(ctx){
         ctx.font = this.font;
         ctx.fillStyle = this.fontColor;
         let loc=this.x+","+this.y;
         let size=this.w+"x"+this.h
         let center=tools.getCenterFromRect(this);
         let fontSizeRatio=(this.points[1].x-this.points[0].x+44)/750;
-        ctx.font = Math.min(ratio*10*scale,ratio*10*fontSizeRatio*scale)+'px STHeiti, SimHei';
+        ctx.font = Math.max(10,10*fontSizeRatio)+'px STHeiti, SimHei';
         ctx.textBaseline = 'top';
         ctx.textAlign = "left";
         ctx.fillText(
             loc, 
-            (this.points[0].x+5)*scale+coordinateOrigin.x, 
-            (this.points[0].y+5)*scale+coordinateOrigin.y
+            (this.points[0].x*this.scale+this.translate.x*this.scale+5), 
+            (this.points[0].y*this.scale+this.translate.y*this.scale+5)
         );
-        ctx.font = ratio*30*fontSizeRatio*scale+'px STHeiti, SimHei';
+        ctx.font = 60*fontSizeRatio*this.scale+'px STHeiti, SimHei';
         ctx.textBaseline = 'middle';
         ctx.textAlign = "center";
         ctx.fillText(
             size, 
-            center.x*scale+coordinateOrigin.x, 
-            center.y*scale+coordinateOrigin.y
+            center.x*this.scale+this.translate.x*this.scale, 
+            center.y*this.scale+this.translate.y*this.scale
         );
     }
     //填充
@@ -64,7 +64,7 @@ class Graph extends Sprite{
         }
     }
     //描边
-    stroke(ctx,scale,coordinateOrigin){
+    stroke(ctx){
         ctx.lineWidth = this.lineWidth;
         ctx.strokeStyle = this.strokeStyle;
         ctx.stroke();
@@ -91,6 +91,93 @@ class Graph extends Sprite{
         })
         this.x=this.points[0].x;
         this.y=this.points[0].y;
+    }
+}
+
+/**
+* 网格
+*/
+class Guidewires extends Graph{
+    constructor(pos,viewX,viewY) {
+        super(pos);
+        this.points = [pos, pos, pos, pos];
+        this.name = 'app_guidewires';
+        this.viewX=viewX;
+        this.viewY=viewY;
+    }
+    draw(ctx){
+        let x=this.x;
+        let y=this.y;
+        let viewX=tools.toInt(this.viewX);
+        let viewY=tools.toInt(this.viewY);
+        let ratio=1;
+        const text = "("+viewX + ", " + viewY+")";
+        const fontSize = ratio* 14;
+        // canvas.style.cursor = 'crosshair';
+        //竖
+        ctx.save();
+        ctx.fillStyle = 'rgba(255,0,0,.8)';
+        ctx.beginPath();
+        ctx.moveTo(tools.toDrawVal(x), tools.toDrawVal(0));
+        ctx.lineTo(tools.toDrawVal(x+1), tools.toDrawVal(0));
+        ctx.lineTo(tools.toDrawVal(x+1), tools.toDrawVal(this.height));
+        ctx.lineTo(tools.toDrawVal(x), tools.toDrawVal(this.height));
+        ctx.closePath();
+        ctx.fill();
+        //横
+        ctx.beginPath();
+        ctx.moveTo(tools.toDrawVal(0), tools.toDrawVal(y));
+        ctx.lineTo(tools.toDrawVal(0), tools.toDrawVal(y+1));
+        ctx.lineTo(tools.toDrawVal(this.width), tools.toDrawVal(y+1));
+        ctx.lineTo(tools.toDrawVal(this.width), tools.toDrawVal(y));
+        ctx.closePath();
+        ctx.fill();
+        //相对坐标
+        ctx.font = fontSize + 'px STHeiti, SimHei';
+        ctx.fillText(
+            text,
+            Math.min(
+                x + 20,
+                this.width - text.length * fontSize/2
+            ) - 10,
+            Math.max(y - 10, 20*ratio));
+        ctx.restore();
+    }
+}
+/**
+* 网格
+*/
+class Grid extends Graph{
+    constructor(pos) {
+        super(pos);
+        this.points = [pos, pos, pos, pos];
+        this.name = 'app_grid';
+    }
+    // draw(ctx,width, height, gap){
+    draw(ctx){
+        ctx.save();
+        let gap=tools.toInt(this.gap*this.scale);
+        let width=this.width;
+        let height=this.height;
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = "rgba(0,0,0,.2)";
+        let y = 0;
+        while (gap * y < height) {
+            ctx.beginPath();
+            ctx.moveTo(0, tools.toDrawVal(gap * y));
+            ctx.lineTo(width, tools.toDrawVal(gap * y));
+            ctx.stroke();
+            ++y;
+        }
+        let x = 0;
+        while (gap * x < width) {
+            ctx.beginPath();
+            ctx.moveTo(tools.toDrawVal(gap * x), 0);
+            ctx.lineTo(tools.toDrawVal(gap * x), height);
+            ctx.stroke();
+            x++;
+        }
+        ctx.restore();
     }
 }
 /**
@@ -130,27 +217,31 @@ class Rect extends Graph {
         this.x=this.points[0].x;
         this.y=this.points[0].y;
     }
-    stroke(ctx,scale,coordinateOrigin){
+    stroke(ctx){
         return;
         ctx.beginPath();
         let points=tools.scaleRectPoint(this.points,.5);
         points.forEach((p, i) => {
             let px=p.x;
             let py=p.y;
-            ctx[i == 0 ? 'moveTo' : 'lineTo']((px)*scale+coordinateOrigin.x-.5, (py)*scale+coordinateOrigin.y-.5);
+            ctx[i == 0 ? 'moveTo' : 'lineTo'](px-.5,py-.5);
         });
         ctx.closePath();
         ctx.lineWidth = this.lineWidth;
         ctx.strokeStyle = this.strokeStyle;
         ctx.stroke();
     }
-    drawPath(ctx,ratio,scale,coordinateOrigin) {
+    drawPath(ctx) {
         ctx.beginPath();
-        this.points.forEach((p, i) => {
-            ctx[i == 0 ? 'moveTo' : 'lineTo']((p.x)*scale+coordinateOrigin.x-.5, (p.y)*scale+coordinateOrigin.y-.5);
+        let x,y;
+        this.points.forEach((p, i) => { 
+            x=tools.toDrawVal((p.x+this.translate.x)*this.scale);
+            y=tools.toDrawVal((p.y+this.translate.y)*this.scale);
+            ctx[i == 0 ? 'moveTo' : 'lineTo'](x,y);
         });
         ctx.closePath();
         this.isFill && ctx.fill();
     }
 }
-export {Graph,Rect};
+
+export {Rect,Grid,Guidewires};

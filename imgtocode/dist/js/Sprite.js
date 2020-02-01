@@ -13,6 +13,8 @@ class Sprite {
         this.h=0;
         this.index=100;
         this.active=false;
+        this.scale=1.0;
+        this.translate={x:0,y:0};
     }
     //移动
     move(vector){
