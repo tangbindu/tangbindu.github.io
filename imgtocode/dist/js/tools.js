@@ -15,10 +15,8 @@ let tools={
     },
     //逻辑像素
     toLogicPixel(point,ratio,scale,coordinateOrigin){
-        let x=point.x*ratio;
-        let y=point.y*ratio;
-        x=(x-coordinateOrigin.x)/scale;
-        y=(y-coordinateOrigin.y)/scale;
+        let x=(point.x*ratio-coordinateOrigin.x)/scale;
+        let y=(point.y*ratio-coordinateOrigin.y)/scale;
         return {
             x:this.toInt(x),
             y:this.toInt(y)

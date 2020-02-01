@@ -12,8 +12,8 @@ window.imgToCode = new Vue({
         designImage: null,//上传的图片
         //坐标原点位置
         coordinateOrigin: {
-            x: 200,
-            y: 200
+            x: 0,
+            y: 0
         },
         drawShapeType: "rect",
         //舞台canvas
@@ -105,7 +105,7 @@ window.imgToCode = new Vue({
             let point = me.curPos;
             let type = me.type;
             let lastSpape;
-            point=tools.posToDrawPixel(
+            point=tools.toLogicPixel(
                 point,
                 this.ratio,
                 this.scale,

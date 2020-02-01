@@ -91,9 +91,11 @@ export default function(imgToCode){
             }else if (event.keyCode == 77){
                 //m
                 imgToCode.workMode="draw"
+                event.preventDefault();
             }else if (event.keyCode == 86){
                 //v
                 imgToCode.workMode="edit"
+                event.preventDefault();
             }
         } else {
 
