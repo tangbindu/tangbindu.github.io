@@ -34,17 +34,6 @@ let tools={
             y:this.toInt(y/scale-coordinateOrigin.y)
         }
     },
-    posToEdit(point,ratio) {
-        let x=point.x*ratio;
-        let y=point.y*ratio;
-        return {x,y}
-    },
-    //转换mouse坐标
-    posEvent(event,ratio) {
-        let x=event.clientX*ratio;
-        let y=event.clientY*ratio;
-        return {x,y}
-    },
     vectorToEdit(vector,ratio,scale){
         return [
             this.toInt(vector[0]*ratio/scale),

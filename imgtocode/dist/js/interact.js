@@ -1,22 +1,6 @@
 import tools from "./tools.js";
 export default function(imgToCode){
-    // let drawGuidewires=(event)=>{
-    //     let pos=tools.posEvent(event,imgToCode.ratio);
-    //     const mouseX = pos.x;
-    //     const mouseY = pos.y;
-    //     let viewX=(mouseX - imgToCode.coordinateOrigin.x)/imgToCode.scale;
-    //     let viewY=(mouseY - imgToCode.coordinateOrigin.y)/imgToCode.scale;
-    //     tools.drawGuidewires(
-    //         imgToCode.stageCanvas,
-    //         imgToCode.stageCTX,
-    //         mouseX,
-    //         mouseY,
-    //         viewX,
-    //         viewY,
-    //         imgToCode.ratio,
-    //         imgToCode.scale
-    //     )
-    // }
+    //鼠标标线
     let editMode=(event,canvas)=>{
         imgToCode.stageCanvas.style.cursor = 'default';
     }
@@ -26,28 +10,31 @@ export default function(imgToCode){
     window.addEventListener("mousemove", (event) => {
         let point;
         let LogicPoint;
-        imgToCode.shapes.map((item) => {
-            if(item.name=="app_guidewires"){
-                point=tools.toPixel(
-                    {x:event.clientX,y:event.clientY},
-                    imgToCode.ratio
-                );
-                LogicPoint=tools.toLogicPixel(
-                    {x:event.clientX,y:event.clientY},
-                    imgToCode.ratio,
-                    imgToCode.scale,
-                    imgToCode.coordinateOrigin
-                );
-                item.x=point.x;
-                item.y=point.y;
-                item.viewX=LogicPoint.x;
-                item.viewY=LogicPoint.y;
-                console.log(item.y)
-            }
-        })
+        //处理引导线 start
+        point=tools.toPixel(
+            {x:event.clientX,y:event.clientY},
+            imgToCode.ratio
+        );
+        LogicPoint=tools.toLogicPixel(
+            {x:event.clientX,y:event.clientY},
+            imgToCode.ratio,
+            imgToCode.scale,
+            imgToCode.coordinateOrigin
+        );
+        imgToCode.guidewires.x=point.x;
+        imgToCode.guidewires.y=point.y;
+        imgToCode.guidewires.viewX=LogicPoint.x;
+        imgToCode.guidewires.viewY=LogicPoint.y;
+        // 处理引导线 end
+        switch(imgToCode.workMode){
+            case "draw":
+                imgToCode.guidewires.visible=true
+            break;
+            case "edit":
+                imgToCode.guidewires.visible=false
+            break;
+        }
         imgToCode.draw();
-        // imgToCode.workMode=="draw" && drawGuidewires(event);
-        // imgToCode.workMode=="edit" && editMode(event);
     })
     window.addEventListener("mouseup", ()=>{
         imgToCode.draw();
@@ -101,12 +88,12 @@ export default function(imgToCode){
                 //- 缩小
                 imgToCode.scale*=(1-5/75);
                 event.preventDefault();
-            } else if (event.keyCode == 86){
-                //v
-                imgToCode.workMode="edit"
             }else if (event.keyCode == 77){
                 //m
                 imgToCode.workMode="draw"
+            }else if (event.keyCode == 86){
+                //v
+                imgToCode.workMode="edit"
             }
         } else {
 

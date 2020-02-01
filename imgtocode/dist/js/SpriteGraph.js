@@ -101,11 +101,15 @@ class Guidewires extends Graph{
     constructor(pos,viewX,viewY) {
         super(pos);
         this.points = [pos, pos, pos, pos];
-        this.name = 'app_guidewires';
+        this.id = 'app_guidewires';
         this.viewX=viewX;
         this.viewY=viewY;
     }
     draw(ctx){
+        //是否可绘制
+        if(!this.visible){
+            return;
+        }
         let x=this.x;
         let y=this.y;
         let viewX=tools.toInt(this.viewX);
@@ -151,10 +155,14 @@ class Grid extends Graph{
     constructor(pos) {
         super(pos);
         this.points = [pos, pos, pos, pos];
-        this.name = 'app_grid';
+        this.id = 'app_grid';
     }
     // draw(ctx,width, height, gap){
     draw(ctx){
+        //是否可绘制
+        if(!this.visible){
+            return;
+        }
         ctx.save();
         let gap=tools.toInt(this.gap*this.scale);
         let width=this.width;

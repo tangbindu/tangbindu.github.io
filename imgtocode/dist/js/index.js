@@ -1,15 +1,13 @@
 import tools from "./tools.js";
 import interact from "./interact.js";
 import { Rect , Grid , Guidewires} from "./SpriteGraph.js";
-import SpriteController from "./SpriteController.js";
+import SpritesController from "./SpritesController.js";
 // import { Image } from "./SpriteImage.js";
 import MEvent from "./MEvent.js"
 window.imgToCode = new Vue({
     el: '#app',
     data: {
         workMode: "draw",
-        shapes: [],//绘图集合
-        activeShapes: [],
         activeEle: null,
         designImage: null,//上传的图片
         //坐标原点位置
@@ -28,7 +26,10 @@ window.imgToCode = new Vue({
         stageHeight: null,
         gap: 100,//tools.ratio
         //event
-        MEvent: null
+        MEvent: null,
+        spritesController:new SpritesController(),
+        //鼠标标线
+        guidewires:null
     },
     created() {
     },
@@ -58,9 +59,11 @@ window.imgToCode = new Vue({
             this.MEvent = new MEvent(this.stageCanvas);
             this.executeModel();
         },
+        //初始化基础窗口
         initWindow(){
             //添加网格
             this.addGrid();
+            //添加引导线
             this.addGuidewires();
         },
         //添加网格
@@ -68,16 +71,16 @@ window.imgToCode = new Vue({
             let grid = new Grid({x:0,y:0});
             grid.width=this.stageCanvas.width;
             grid.height=this.stageCanvas.height;
-            grid.gap=100;
-            this.shapes.push(grid);
+            grid.gap=this.gap;
+            this.spritesController.addSprite(grid);
         },
         //添加引导线
         addGuidewires(){
-            let grid = new Guidewires({x:100,y:100},0,0);
-            grid.width=this.stageCanvas.width;
-            grid.height=this.stageCanvas.height;
-            grid.gap=100;
-            this.shapes.push(grid);
+            this.guidewires = new Guidewires({x:0,y:0},0,0);
+            this.guidewires.visible=false;
+            this.guidewires.width=this.stageCanvas.width;
+            this.guidewires.height=this.stageCanvas.height;
+            this.spritesController.addSprite(this.guidewires);
         },
         //初始化鼠标交互
         executeModel() {
@@ -97,8 +100,11 @@ window.imgToCode = new Vue({
         },
         //绘图模式
         drawModel(me) {
+            //显示鼠标标线
+            this.guidewires.visible=true;
             let point = me.curPos;
             let type = me.type;
+            let lastSpape;
             point=tools.posToDrawPixel(
                 point,
                 this.ratio,
@@ -110,11 +116,11 @@ window.imgToCode = new Vue({
                 switch (this.drawShapeType) {
                     case "rect":
                         let newShape = new Rect(point);
-                        this.shapes.push(newShape);
+                        this.spritesController.addSprite(newShape);
                         break;
                 }
             }
-            let lastSpape = this.shapes[this.shapes.length - 1];
+            lastSpape = this.spritesController.getLastSprite();
             if (type == "move") {
                 lastSpape && lastSpape.updatePoints(point)
             }
@@ -125,12 +131,14 @@ window.imgToCode = new Vue({
                     (lastSpape.points[2].x - lastSpape.points[0].x) < 30 && 
                     (lastSpape.points[2].y - lastSpape.points[0].y) < 30
                 ) {
-                    this.shapes.pop();
+                    this.SpritesController.removeLastSprite();
                 }
             }
         },
         //编辑模式
         editModel(me) {
+            //隐藏鼠标标线
+            this.guidewires.visible=false;
             let point = me.curPos;
             let type = me.type;
             let moveVector=me.moveVector;
@@ -139,13 +147,7 @@ window.imgToCode = new Vue({
             moveVector=tools.vectorToEdit(moveVector,this.ratio,this.scale);
             if (type == "down") {
                 //获取到点击的元素
-                this.shapes.map((item) => {
-                    item.draw(this.stageCTX);
-                    item.active = false;
-                    if (item.isInPath(this.stageCTX, point)) {
-                        this.activeEle = item;
-                    }
-                })
+                this.activeEle=this.spritesController.getClickSprite(this.stageCTX,point)
             }
             if (type == "move") {
                 this.activeEle && this.activeEle.move(moveVector)
@@ -194,7 +196,7 @@ window.imgToCode = new Vue({
         },
         //绘制图像
         drawShapes() {
-            this.shapes.map((item) => {
+            this.spritesController.sprites.map((item) => {
                 item.scale=this.scale;
                 item.translate=this.coordinateOrigin;
                 item.draw(
