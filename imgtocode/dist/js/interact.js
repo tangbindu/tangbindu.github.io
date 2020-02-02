@@ -34,10 +34,10 @@ export default function(imgToCode){
                 imgToCode.guidewires.visible=false
             break;
         }
-        imgToCode.draw();
+        // imgToCode.draw();
     })
     window.addEventListener("mouseup", ()=>{
-        imgToCode.draw();
+        // imgToCode.draw();
     });
     //前台-拖拽上传
     window.document.addEventListener("dragenter", function(e) {

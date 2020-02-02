@@ -23,29 +23,11 @@ let tools={
         }
         
     },
-    //位置到绘制像素
-    posToDrawPixel(point,ratio,scale,coordinateOrigin){
-        let x=point.x*ratio;
-        let y=point.y*ratio;
-        return {
-            x:this.toInt(x/scale-coordinateOrigin.x),
-            y:this.toInt(y/scale-coordinateOrigin.y)
-        }
-    },
     vectorToEdit(vector,ratio,scale){
         return [
             this.toInt(vector[0]*ratio/scale),
             this.toInt(vector[1]*ratio/scale)
         ]
-    },
-    //mouse换算到新坐标系
-    posToDraw(point,scale,coordinateOrigin) {
-        let x=(point.x-coordinateOrigin.x)/scale;
-        let y=(point.y-coordinateOrigin.y)/scale;
-        return {
-            x:this.toInt(x),
-            y:this.toInt(y)
-        }
     },
     clear(ctx, x, y, width, height) {
         ctx.clearRect(x, y, width, height);
