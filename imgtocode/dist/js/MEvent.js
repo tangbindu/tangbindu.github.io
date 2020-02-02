@@ -3,28 +3,24 @@ import tools from "./tools.js";
 class MEvent{
     constructor(ele){
         this.ele=ele;
-        this.curPos=null;
         this.startPos=null;//开始point
         this.prevPos=null;//上一个point
-        this.endPos=null;//结束point
+        this.curPos=null;//当前point
         this.moveVector=null;//vector
         this.totalMoveVector=null;//总移动vector
         this._toNextFrame=null;
+        this.isMoving=false;
         //事件列表
         this.eventList=[];
         this.type=null;
-        const move=(event)=>{
-            this.mousemove(event)
-        }
-        const up=(event)=>{
-            this.mouseup(event);
-            this.ele.removeEventListener("mousemove",move)
-            this.ele.removeEventListener("mouseup",up)
-        }
         this.ele.addEventListener("mousedown",(event)=>{
             this.mousedown(event)
-            this.ele.addEventListener("mousemove",move)
-            this.ele.addEventListener("mouseup",up)
+        })
+        this.ele.addEventListener("mousemove",(event)=>{
+            this.mousemove(event)
+        })
+        this.ele.addEventListener("mouseup",(event)=>{
+            this.mouseup(event);
         })
     }
     event(fun){
@@ -32,16 +28,16 @@ class MEvent{
     }
     run(type){
         this.type=type;
-        if(this.type=="move" || this.type=="up"){
+        if(this.startPos && this.prevPos){
             this.moveVector=[
-                this.endPos.x-this.prevPos.x,
-                this.endPos.y-this.prevPos.y
+                this.curPos.x-this.prevPos.x,
+                this.curPos.y-this.prevPos.y
             ];
             this.totalMoveVector=[
-                this.endPos.x-this.startPos.x,
-                this.endPos.y-this.startPos.y
+                this.curPos.x-this.startPos.x,
+                this.curPos.y-this.startPos.y
             ];
-        };
+        }
         // if(this.type=="move"){
         //     this._toNextFrame  && cancelAnimationFrame(this._toNextFrame);
         //     this._toNextFrame=requestAnimationFrame(()=>{
@@ -57,22 +53,24 @@ class MEvent{
         // }
     }
     mousedown(event){
-        this.startPos={x:event.clientX,y:event.clientY};
-        this.curPos=this.startPos;
-        this.prevPos = this.startPos;
+        this.isMoving=true;
+        this.curPos={x:event.clientX,y:event.clientY};
+        this.startPos=this.curPos;
+        this.prevPos = this.curPos;
         this.run("down")
     }
     mousemove(event){
-        this.endPos={x:event.clientX,y:event.clientY};
-        this.curPos=this.endPos;
+        this.curPos={x:event.clientX,y:event.clientY};
         this.run("move")
-        this.prevPos=this.endPos;
+        this.prevPos=this.curPos;
         event.preventDefault();
     }
     mouseup(event){
-        this.endPos={x:event.clientX,y:event.clientY};
-        this.curPos=this.endPos;
-        this.run("up")
+        this.isMoving=false;
+        this.curPos={x:event.clientX,y:event.clientY};
+        this.run("up");
+        this.startPos=null;
+        this.prevPos=null;
         event.preventDefault();
     }
 }

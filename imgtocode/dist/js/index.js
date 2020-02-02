@@ -8,7 +8,6 @@ window.imgToCode = new Vue({
     el: '#app',
     data: {
         workMode: "draw",
-        activeEle: null,
         designImage: null,//上传的图片
         //坐标原点位置
         coordinateOrigin: {
@@ -28,15 +27,20 @@ window.imgToCode = new Vue({
         //event
         MEvent: null,
         spritesController:new SpritesController(),
+        //选中的元素
+        activeElem: null,
         //鼠标标线
         guidewires:null
     },
+    //创建
     created() {
     },
+    //准备好
     mounted() {
         this.init();
         this.draw();
     },
+    //监听
     watch: {
         //scale变化了
         "scale": function () {
@@ -47,16 +51,20 @@ window.imgToCode = new Vue({
             this.draw();
         }
     },
+    //方法
     methods: {
         // 初始化
         init() {
+            //基础
             this.stageCanvas = document.getElementById("stage");
             this.stageCTX = this.stageCanvas.getContext("2d");
+            //初始化画布尺寸
             this.resize();
             //界面
             this.initWindow();
             //交互
             this.MEvent = new MEvent(this.stageCanvas);
+            //模式
             this.executeModel();
         },
         //初始化基础窗口
@@ -95,16 +103,36 @@ window.imgToCode = new Vue({
                         that.editModel(me);
                         break;
                 }
+                that.drawGuidewires(me);
                 that.draw();
             })
         },
+        //绘制鼠标标线
+        drawGuidewires(me){
+            if(me.type=="move"){
+                let point=me.curPos;
+                let LogicPoint;
+                //处理引导线 start
+                point=tools.toPixel(point,this.ratio);
+                LogicPoint=tools.toLogicPixel(
+                    point,
+                    this.ratio,
+                    this.scale,
+                    this.coordinateOrigin
+                );
+                this.guidewires.x=point.x;
+                this.guidewires.y=point.y;
+                this.guidewires.viewX=LogicPoint.x;
+                this.guidewires.viewY=LogicPoint.y;
+            }
+        },
         //绘图模式
         drawModel(me) {
+            this.stageCanvas.style.cursor = 'crosshair';
             //显示鼠标标线
             this.guidewires.visible=true;
             let point = me.curPos;
             let type = me.type;
-            let lastSpape;
             point=tools.toLogicPixel(
                 point,
                 this.ratio,
@@ -115,28 +143,28 @@ window.imgToCode = new Vue({
             if (type == "down") {
                 switch (this.drawShapeType) {
                     case "rect":
-                        let newShape = new Rect(point);
-                        this.spritesController.addSprite(newShape);
+                        this.newShape = new Rect(point);
+                        this.spritesController.addSprite(this.newShape);
                         break;
                 }
             }
-            lastSpape = this.spritesController.getLastSprite();
-            if (type == "move") {
-                lastSpape && lastSpape.updatePoints(point)
+            if (type == "move" && me.isMoving) {
+                this.newShape && this.newShape.updatePoints(point)
             }
-            if (type == "up") {
+            if (type == "up" && me.isMoving) {
                 // 剔除过小的图形
                 if (
-                    lastSpape && 
-                    (lastSpape.points[2].x - lastSpape.points[0].x) < 30 && 
-                    (lastSpape.points[2].y - lastSpape.points[0].y) < 30
+                    (this.newShape.points[2].x - this.newShape.points[0].x) < 30 && 
+                    (this.newShape.points[2].y - this.newShape.points[0].y) < 30
                 ) {
                     this.SpritesController.removeLastSprite();
                 }
+                this.newShape=null;
             }
         },
         //编辑模式
         editModel(me) {
+            this.stageCanvas.style.cursor = 'default';
             //隐藏鼠标标线
             this.guidewires.visible=false;
             let point = me.curPos;
@@ -147,13 +175,13 @@ window.imgToCode = new Vue({
             moveVector=tools.vectorToEdit(moveVector,this.ratio,this.scale);
             if (type == "down") {
                 //获取到点击的元素
-                this.activeEle=this.spritesController.getClickSprite(this.stageCTX,point)
+                this.activeElem=this.spritesController.getClickSprite(this.stageCTX,point);
             }
             if (type == "move") {
-                this.activeEle && this.activeEle.move(moveVector)
+                this.activeElem && this.activeElem.move(moveVector)
             }
             if (type == "up") {
-                this.activeEle = null;
+                this.activeElem = null;
             }
         },
         //绘制入口

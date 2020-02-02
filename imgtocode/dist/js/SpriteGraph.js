@@ -110,14 +110,13 @@ class Guidewires extends Graph{
         if(!this.visible){
             return;
         }
-        let x=this.x;
-        let y=this.y;
-        let viewX=tools.toInt(this.viewX);
-        let viewY=tools.toInt(this.viewY);
-        let ratio=1;
+        const x=this.x;
+        const y=this.y;
+        const viewX=tools.toInt(this.viewX);
+        const viewY=tools.toInt(this.viewY);
+        const ratio=1;
         const text = "("+viewX + ", " + viewY+")";
         const fontSize = ratio* 14;
-        // canvas.style.cursor = 'crosshair';
         //竖
         ctx.save();
         ctx.fillStyle = 'rgba(255,0,0,.8)';
