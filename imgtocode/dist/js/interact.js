@@ -45,20 +45,20 @@ export default function(imgToCode){
     document.onkeydown = function (event) {
         if (/Mac/.test(navigator.platform)) {
             if (event.keyCode == 187) {
-                //+ 放大
+                //放大
                 imgToCode.scale*=(1+5/75);
                 event.preventDefault();
             } else if (event.keyCode == 189) {
-                //- 缩小
+                //缩小
                 imgToCode.scale*=(1-5/75);
                 event.preventDefault();
             }else if (event.keyCode == 77){
-                //m
-                imgToCode.workMode="draw"
+                //draw mode
+                imgToCode.executeMode("draw");
                 event.preventDefault();
             }else if (event.keyCode == 86){
-                //v
-                imgToCode.workMode="edit"
+                //edit mode
+                imgToCode.executeMode("edit");
                 event.preventDefault();
             }
         } else {

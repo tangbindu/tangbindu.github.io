@@ -38,17 +38,16 @@ window.imgToCode = new Vue({
     //准备好
     mounted() {
         this.init();
-        this.draw();
     },
     //监听
     watch: {
         //scale变化了
         "scale": function () {
-            this.draw();
+            this.render();
         },
         //绘制的图片变化了
         "designImage": function () {
-            this.draw();
+            this.render();
         }
     },
     //方法
@@ -62,10 +61,49 @@ window.imgToCode = new Vue({
             this.resize();
             //界面
             this.initWindow();
-            //交互
+            //鼠标交互--绘图等
             this.MEvent = new MEvent(this.stageCanvas);
-            //模式
-            this.executeModel();
+            let self = this;
+            this.MEvent.event(function () {
+                switch (self.workMode) {
+                    case "draw":
+                        self.drawGraph(this);
+                        break;
+                    case "edit":
+                        self.editGraph(this);
+                        break;
+                }
+                self.drawGuidewires(this);
+                self.render();
+            })
+            //键盘交互-快捷键等
+            interact(this);
+            //默认进入绘图模式
+            this.executeMode("draw")
+        },
+        executeMode(mode){
+            switch (mode) {
+                case "draw":
+                    this.drawMode();
+                    break;
+                case "edit":
+                    this.editMode();
+                    break;
+            }
+            this.render();
+            this.workMode=mode;
+        },
+        //绘图模式
+        drawMode() {
+            //显示鼠标标线
+            this.guidewires.visible=true;
+            this.stageCanvas.style.cursor = 'crosshair';
+        },
+        //编辑模式
+        editMode() {
+            //隐藏鼠标标线
+            this.guidewires.visible=false;
+            this.stageCanvas.style.cursor = 'default';
         },
         //初始化基础窗口
         initWindow(){
@@ -90,47 +128,26 @@ window.imgToCode = new Vue({
             this.guidewires.height=this.stageCanvas.height;
             this.spritesController.addSprite(this.guidewires);
         },
-        //初始化鼠标交互
-        executeModel() {
-            let that = this;
-            this.MEvent.event(function () {
-                let me = this;
-                switch (that.workMode) {
-                    case "draw":
-                        that.drawModel(me);
-                        break;
-                    case "edit":
-                        that.editModel(me);
-                        break;
-                }
-                that.drawGuidewires(me);
-                that.draw();
-            })
-        },
         //绘制鼠标标线
         drawGuidewires(me){
             if(me.type=="move"){
                 let point=me.curPos;
                 let LogicPoint;
                 //处理引导线 start
-                point=tools.toPixel(point,this.ratio);
                 LogicPoint=tools.toLogicPixel(
                     point,
                     this.ratio,
                     this.scale,
                     this.coordinateOrigin
                 );
+                point=tools.toPixel(point,this.ratio);
                 this.guidewires.x=point.x;
                 this.guidewires.y=point.y;
                 this.guidewires.viewX=LogicPoint.x;
                 this.guidewires.viewY=LogicPoint.y;
             }
         },
-        //绘图模式
-        drawModel(me) {
-            this.stageCanvas.style.cursor = 'crosshair';
-            //显示鼠标标线
-            this.guidewires.visible=true;
+        drawGraph(me){
             let point = me.curPos;
             let type = me.type;
             point=tools.toLogicPixel(
@@ -162,58 +179,54 @@ window.imgToCode = new Vue({
                 this.newShape=null;
             }
         },
-        //编辑模式
-        editModel(me) {
-            this.stageCanvas.style.cursor = 'default';
-            //隐藏鼠标标线
-            this.guidewires.visible=false;
+        editGraph(me){
             let point = me.curPos;
             let type = me.type;
             let moveVector=me.moveVector;
             //坐标转换
             point=tools.toPixel(point,this.ratio);
-            moveVector=tools.vectorToEdit(moveVector,this.ratio,this.scale);
             if (type == "down") {
                 //获取到点击的元素
                 this.activeElem=this.spritesController.getClickSprite(this.stageCTX,point);
             }
-            if (type == "move") {
-                this.activeElem && this.activeElem.move(moveVector)
+            if (type == "move" && me.isMoving) {
+                moveVector=tools.vectorToEdit(moveVector,this.ratio,this.scale);
+                this.activeElem  && this.activeElem.move(moveVector)
             }
             if (type == "up") {
                 this.activeElem = null;
             }
         },
-        //绘制入口
-        draw() {
+        //渲染
+        render() {
             this.clear();
-            this.drawDesignImage();
+            // this.drawDesignImage();
             this.drawShapes();
         },
         //绘制图片
-        drawDesignImage() {
-            if (this.designImage) {
-                let w = this.designImage.src.width * imgToCode.scale;
-                let h = this.designImage.src.height * imgToCode.scale;
-                const x = (this.stageWidth - w) * .5;
-                const y = Math.max(
-                    (this.stageHeight - h) * .5
-                    , 20 * this.ratio
-                );
-                this.coordinateOrigin = {
-                    "x": tools.toInt(x),
-                    "y": tools.toInt(y)
-                }
-                tools.drawImage(
-                    this.stageCTX,
-                    this.designImage.src,
-                    x,
-                    y,
-                    w,
-                    h
-                );
-            }
-        },
+        // drawDesignImage() {
+        //     if (this.designImage) {
+        //         let w = this.designImage.src.width * imgToCode.scale;
+        //         let h = this.designImage.src.height * imgToCode.scale;
+        //         const x = (this.stageWidth - w) * .5;
+        //         const y = Math.max(
+        //             (this.stageHeight - h) * .5
+        //             , 20 * this.ratio
+        //         );
+        //         this.coordinateOrigin = {
+        //             "x": tools.toInt(x),
+        //             "y": tools.toInt(y)
+        //         }
+        //         tools.drawImage(
+        //             this.stageCTX,
+        //             this.designImage.src,
+        //             x,
+        //             y,
+        //             w,
+        //             h
+        //         );
+        //     }
+        // },
         //重制尺寸
         resize() {
             this.stageWidth = document.body.clientWidth * this.ratio;
@@ -241,4 +254,4 @@ window.imgToCode = new Vue({
         }
     }
 })
-interact(imgToCode);
+
