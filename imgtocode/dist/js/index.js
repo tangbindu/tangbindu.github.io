@@ -30,7 +30,9 @@ window.imgToCode = new Vue({
         //选中的元素
         activeElem: null,
         //鼠标标线
-        guidewires:null
+        guidewires:null,
+        //网格线
+        grid:null
     },
     //创建
     created() {
@@ -114,11 +116,11 @@ window.imgToCode = new Vue({
         },
         //添加网格
         addGrid(){
-            let grid = new Grid({x:0,y:0});
-            grid.width=this.stageCanvas.width;
-            grid.height=this.stageCanvas.height;
-            grid.gap=this.gap;
-            this.spritesController.addSprite(grid);
+            this.grid = new Grid({x:0,y:0});
+            this.grid.width=this.stageCanvas.width;
+            this.grid.height=this.stageCanvas.height;
+            this.grid.gap=this.gap;
+            this.spritesController.addSprite(this.grid);
         },
         //添加引导线
         addGuidewires(){
@@ -168,13 +170,13 @@ window.imgToCode = new Vue({
             if (type == "move" && me.isMoving) {
                 this.newShape && this.newShape.updatePoints(point)
             }
-            if (type == "up" && me.isMoving) {
+            if (type == "up") {
                 // 剔除过小的图形
                 if (
                     (this.newShape.points[2].x - this.newShape.points[0].x) < 30 && 
                     (this.newShape.points[2].y - this.newShape.points[0].y) < 30
                 ) {
-                    this.SpritesController.removeLastSprite();
+                    this.spritesController.removeLastSprite();
                 }
                 this.newShape=null;
             }
@@ -234,6 +236,10 @@ window.imgToCode = new Vue({
             this.stageCanvas.width = this.stageWidth;
             this.stageCanvas.height = this.stageHeight;
             this.stageCanvas.style.zoom = (1 / this.ratio);
+            if(this.grid){
+                this.grid.width=this.stageWidth;
+                this.grid.height=this.stageHeight;
+            }
         },
         //绘制图像
         drawShapes() {

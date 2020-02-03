@@ -18,9 +18,9 @@ class Sprite {
         //y坐标
         this.y = pos.y;
         //宽
-        this.w=0;
+        this.width=0;
         //高
-        this.h=0;
+        this.height=0;
         //层级
         this.index=100;
         //选中

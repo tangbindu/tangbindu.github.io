@@ -15,7 +15,6 @@ class Graph extends Sprite{
         this.font = '12px STHeiti, SimHei';
         this.fontColor = 'rgba(255,0,0,1)';
         this.isFill = true;
-        // this.active=false;
     }
     //更新点
     updatePoints(pos) {
@@ -35,7 +34,7 @@ class Graph extends Sprite{
         ctx.font = this.font;
         ctx.fillStyle = this.fontColor;
         let loc=this.x+","+this.y;
-        let size=this.w+"x"+this.h
+        let size=this.width+"x"+this.height
         let center=tools.getCenterFromRect(this);
         let fontSizeRatio=(this.points[1].x-this.points[0].x+44)/750;
         ctx.font = Math.max(10,10*fontSizeRatio)+'px STHeiti, SimHei';
@@ -156,7 +155,6 @@ class Grid extends Graph{
         this.points = [pos, pos, pos, pos];
         this.id = 'app_grid';
     }
-    // draw(ctx,width, height, gap){
     draw(ctx){
         //是否可绘制
         if(!this.visible){
@@ -202,8 +200,8 @@ class Rect extends Graph {
             y1 = this.posStart.y,
             x2 = this.posEnd.x,
             y2 = this.posEnd.y;
-        this.w=Math.abs(x2-x1);
-        this.h=Math.abs(y2-y1);
+        this.width=Math.abs(x2-x1);
+        this.height=Math.abs(y2-y1);
         this.points[0] = {
             x: x1,
             y: y1

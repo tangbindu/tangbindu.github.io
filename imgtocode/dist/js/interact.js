@@ -67,8 +67,8 @@ export default function(imgToCode){
     }
 
 
-//
-// keyboardJS.bind('ctrl + a', function(e) {
-//     e.preventDefault();
-// })
+    //
+    // keyboardJS.bind('ctrl + a', function(e) {
+    //     e.preventDefault();
+    // })
 };
