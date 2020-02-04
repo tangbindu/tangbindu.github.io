@@ -2,17 +2,17 @@
 
 $themeColor:#1fab54*.8;
 $white:#ffffff;
+$black:#2c3448;
 $grayBg:#d4d9d7;
 $lightGrayBg:#d4d9d7*.8;
 $grayFont:#777;
 // $themeColor:red;
 // @import "_animation";
 
-
 html,body,#app{
     height: 100%;
     width: 100%;
-    background-color: $white;
+    background-color: $black;
     overflow: hidden;
 }
 #stage{

@@ -66,11 +66,11 @@ class MEvent{
         event.preventDefault();
     }
     mouseup(event){
-        this.isMoving=false;
         this.curPos={x:event.clientX,y:event.clientY};
         this.run("up");
         this.startPos=null;
         this.prevPos=null;
+        this.isMoving=false;
         event.preventDefault();
     }
 }

@@ -9,14 +9,14 @@ let tools={
     },
     //绝对像素 deviceWidth*devicePixelRatio
     toPixel(point,ratio){
-        let x=point.x*ratio;
-        let y=point.y*ratio;
+        let x=this.toInt(point.x*ratio);
+        let y=this.toInt(point.y*ratio);
         return {x,y}
     },
     //逻辑像素
     toLogicPixel(point,ratio,scale,coordinateOrigin){
-        let x=(point.x*ratio-coordinateOrigin.x)/scale;
-        let y=(point.y*ratio-coordinateOrigin.y)/scale;
+        let x=(point.x*ratio)/scale-coordinateOrigin.x;
+        let y=(point.y*ratio)/scale-coordinateOrigin.y;
         return {
             x:this.toInt(x),
             y:this.toInt(y)
@@ -31,9 +31,6 @@ let tools={
     },
     clear(ctx, x, y, width, height) {
         ctx.clearRect(x, y, width, height);
-    },
-    drawImage(ctx,img,x,y,w,h){
-        ctx.drawImage(img, x, y, w, h);
     },
     //重置换rect的坐标
     resetRectPoint(rectShape){

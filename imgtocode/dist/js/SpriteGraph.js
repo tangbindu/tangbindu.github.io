@@ -37,7 +37,7 @@ class Graph extends Sprite{
         let size=this.width+"x"+this.height
         let center=tools.getCenterFromRect(this);
         let fontSizeRatio=(this.points[1].x-this.points[0].x+44)/750;
-        ctx.font = Math.max(10,10*fontSizeRatio)+'px STHeiti, SimHei';
+        ctx.font = 12*window.devicePixelRatio+'px STHeiti, SimHei';
         ctx.textBaseline = 'top';
         ctx.textAlign = "left";
         ctx.fillText(
@@ -45,7 +45,7 @@ class Graph extends Sprite{
             (this.points[0].x*this.scale+this.translate.x*this.scale+5), 
             (this.points[0].y*this.scale+this.translate.y*this.scale+5)
         );
-        ctx.font = 60*fontSizeRatio*this.scale+'px STHeiti, SimHei';
+        ctx.font = 60*window.devicePixelRatio*fontSizeRatio*this.scale+'px STHeiti, SimHei';
         ctx.textBaseline = 'middle';
         ctx.textAlign = "center";
         ctx.fillText(
@@ -57,7 +57,7 @@ class Graph extends Sprite{
     //填充
     fill(ctx){
         if(this.active){
-            this.fillStyle = 'rgba(255,128,0,0.2)';
+            this.fillStyle = 'rgba(255,128,60,0.2)';
         }else{
             this.fillStyle = 'rgba(0,255,0,0.2)';
         }
@@ -75,7 +75,6 @@ class Graph extends Sprite{
     //判断点击
     isInPath(ctx,pos) {
         if(ctx.isPointInPath(pos.x, pos.y)){
-            this.active=true;
             return true;
         }
     }
@@ -113,9 +112,8 @@ class Guidewires extends Graph{
         const y=this.y;
         const viewX=tools.toInt(this.viewX);
         const viewY=tools.toInt(this.viewY);
-        const ratio=1;
         const text = "("+viewX + ", " + viewY+")";
-        const fontSize = ratio* 14;
+        const fontSize = 12;
         //竖
         ctx.save();
         ctx.fillStyle = 'rgba(255,0,0,.8)';
@@ -135,14 +133,14 @@ class Guidewires extends Graph{
         ctx.closePath();
         ctx.fill();
         //相对坐标
-        ctx.font = fontSize + 'px STHeiti, SimHei';
+        ctx.font = fontSize*window.devicePixelRatio + 'px STHeiti, SimHei';
         ctx.fillText(
             text,
             Math.min(
-                x + 20,
-                this.width - text.length * fontSize/2
+                x + fontSize*window.devicePixelRatio,
+                this.width - text.length * fontSize*window.devicePixelRatio/2
             ) - 10,
-            Math.max(y - 10, 20*ratio));
+            Math.max(y - 10, fontSize*window.devicePixelRatio));
         ctx.restore();
     }
 }

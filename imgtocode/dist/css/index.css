@@ -64,7 +64,7 @@ a {
 html, body, #app {
   height: 100%;
   width: 100%;
-  background-color: white;
+  background-color: #2c3448;
   overflow: hidden;
 }
 

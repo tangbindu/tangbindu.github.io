@@ -31,6 +31,10 @@ class Sprite {
         this.translate={x:0,y:0};
         //可见性
         this.visible=true;
+        //zindex
+        this.zindex=0;
+        //allowClick
+        this.allowClick=true;
     }
     //移动
     move(vector){
@@ -38,7 +42,6 @@ class Sprite {
         this.y+=vector[1];
     }
     draw(ctx){
-        console.log("cuowu")
         //是否可绘制
         if(!this.visible){
             return;

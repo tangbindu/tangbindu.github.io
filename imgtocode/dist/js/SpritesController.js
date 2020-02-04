@@ -17,20 +17,29 @@ class SpritesController{
     }
     //获取点击的元素
     getClickSprite(ctx,point){
-        let activeEle=null;
-        this.sprites.map((item) => {
-            item.draw(ctx);
-            item.active = false;
-            if (item.isInPath(ctx, point)) {
-                activeEle = item;
+        let activeSprites=null;
+        for(var i=0;i<this.sprites.length;i++){
+            this.sprites[i].active = false;
+            if(!this.sprites[i].allowClick){
+                continue;
             }
-        })
-        return activeEle;
+            this.sprites[i].draw(ctx);
+            if (this.sprites[i].isInPath(ctx, point)) {
+                activeSprites=this.sprites[i];
+            }
+        }
+        if(activeSprites){
+            activeSprites.active=true;
+        }
+        return activeSprites;
     }
     //选择多个
     //增加
     addSprite(sprite){
-        this.sprites.push(sprite)
+        this.sprites.push(sprite);
+        this.sprites.sort((a,b)=>{
+            return a.zindex-b.zindex;
+        })
     }
     //获取最后一个
     getLastSprite(){
@@ -39,6 +48,15 @@ class SpritesController{
     //移除最后一个
     removeLastSprite(){
         this.sprites.pop();
+    }
+    //删除精灵
+    deleteSprites(sprites){
+        sprites.map((a)=>{
+            let index=this.sprites.findIndex((b)=>{
+                return a==b;
+            })
+            index>-1 && this.sprites.splice(index,1)
+        })
     }
 }
 export default SpritesController;

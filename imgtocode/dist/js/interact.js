@@ -26,8 +26,8 @@ export default function(imgToCode){
                     //这里接受图片
                     const img=new Image();
                     img.onload=()=>{
-                        imgToCode.designImage={
-                            src:img,
+                        imgToCode.uploadImage={
+                            img:img,
                             name:file.name
                         }
                     }
@@ -60,6 +60,8 @@ export default function(imgToCode){
                 //edit mode
                 imgToCode.executeMode("edit");
                 event.preventDefault();
+            }else if(event.keyCode == 8){
+                imgToCode.deleteSprites(imgToCode.activeSprites);
             }
         } else {
 

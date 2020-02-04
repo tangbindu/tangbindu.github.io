@@ -2,17 +2,17 @@ import tools from "./tools.js";
 import interact from "./interact.js";
 import { Rect , Grid , Guidewires} from "./SpriteGraph.js";
 import SpritesController from "./SpritesController.js";
-// import { Image } from "./SpriteImage.js";
+import { Image } from "./SpriteImage.js";
 import MEvent from "./MEvent.js"
 window.imgToCode = new Vue({
     el: '#app',
     data: {
         workMode: "draw",
-        designImage: null,//上传的图片
+        uploadImage: null,//上传的图片
         //坐标原点位置
         coordinateOrigin: {
-            x: 0,
-            y: 0
+            x: 600,
+            y: 200
         },
         drawShapeType: "rect",
         //舞台canvas
@@ -28,11 +28,14 @@ window.imgToCode = new Vue({
         MEvent: null,
         spritesController:new SpritesController(),
         //选中的元素
-        activeElem: null,
+        activeSprites: [],
         //鼠标标线
         guidewires:null,
         //网格线
-        grid:null
+        grid:null,
+        //pageImage
+        pageImage:null
+
     },
     //创建
     created() {
@@ -48,8 +51,8 @@ window.imgToCode = new Vue({
             this.render();
         },
         //绘制的图片变化了
-        "designImage": function () {
-            this.render();
+        "uploadImage": function () {
+            this.addImg()
         }
     },
     //方法
@@ -117,6 +120,8 @@ window.imgToCode = new Vue({
         //添加网格
         addGrid(){
             this.grid = new Grid({x:0,y:0});
+            this.grid.zindex=-1000000;
+            this.grid.allowClick=false;
             this.grid.width=this.stageCanvas.width;
             this.grid.height=this.stageCanvas.height;
             this.grid.gap=this.gap;
@@ -125,6 +130,8 @@ window.imgToCode = new Vue({
         //添加引导线
         addGuidewires(){
             this.guidewires = new Guidewires({x:0,y:0},0,0);
+            this.guidewires.allowClick=false;
+            this.guidewires.zindex=1000000;
             this.guidewires.visible=false;
             this.guidewires.width=this.stageCanvas.width;
             this.guidewires.height=this.stageCanvas.height;
@@ -189,46 +196,35 @@ window.imgToCode = new Vue({
             point=tools.toPixel(point,this.ratio);
             if (type == "down") {
                 //获取到点击的元素
-                this.activeElem=this.spritesController.getClickSprite(this.stageCTX,point);
+                this.activeSprites=[this.spritesController.getClickSprite(this.stageCTX,point)];
             }
             if (type == "move" && me.isMoving) {
                 moveVector=tools.vectorToEdit(moveVector,this.ratio,this.scale);
-                this.activeElem  && this.activeElem.move(moveVector)
+                this.activeSprites.length>0  && this.activeSprites.map((item)=>{item.move(moveVector)});
             }
             if (type == "up") {
-                this.activeElem = null;
+                // this.activeSprites = [];
             }
+        },
+        //添加img
+        addImg(){
+            let img=this.uploadImage.img;
+            let name=this.uploadImage.name;
+            this.pageImage=new Image({x:0,y:0});
+            this.pageImage.zindex=-900000;
+            this.pageImage.width=img.width;
+            this.pageImage.height=img.height;
+            this.pageImage.img=img;
+            this.pageImage.name="page_img";
+            this.pageImage.Pname=name;
+            this.spritesController.addSprite(this.pageImage);
+            this.render();
         },
         //渲染
         render() {
             this.clear();
-            // this.drawDesignImage();
             this.drawShapes();
         },
-        //绘制图片
-        // drawDesignImage() {
-        //     if (this.designImage) {
-        //         let w = this.designImage.src.width * imgToCode.scale;
-        //         let h = this.designImage.src.height * imgToCode.scale;
-        //         const x = (this.stageWidth - w) * .5;
-        //         const y = Math.max(
-        //             (this.stageHeight - h) * .5
-        //             , 20 * this.ratio
-        //         );
-        //         this.coordinateOrigin = {
-        //             "x": tools.toInt(x),
-        //             "y": tools.toInt(y)
-        //         }
-        //         tools.drawImage(
-        //             this.stageCTX,
-        //             this.designImage.src,
-        //             x,
-        //             y,
-        //             w,
-        //             h
-        //         );
-        //     }
-        // },
         //重制尺寸
         resize() {
             this.stageWidth = document.body.clientWidth * this.ratio;
@@ -236,16 +232,26 @@ window.imgToCode = new Vue({
             this.stageCanvas.width = this.stageWidth;
             this.stageCanvas.height = this.stageHeight;
             this.stageCanvas.style.zoom = (1 / this.ratio);
-            if(this.grid){
+            if(this.grid && this.guidewires){
                 this.grid.width=this.stageWidth;
                 this.grid.height=this.stageHeight;
+                this.guidewires.width=this.stageWidth;
+                this.guidewires.height=this.stageHeight;
             }
+        },
+        //根据图片更新坐标原点
+        updateCoordinateOriginByPageImage(){
+            this.coordinateOrigin.x=this.pageImage.x;
+            this.coordinateOrigin.y=this.pageImage.y;
         },
         //绘制图像
         drawShapes() {
+            this.pageImage && this.updateCoordinateOriginByPageImage();
             this.spritesController.sprites.map((item) => {
                 item.scale=this.scale;
-                item.translate=this.coordinateOrigin;
+                if(item.name!="page_img"){
+                    item.translate=this.coordinateOrigin;
+                }
                 item.draw(
                     this.stageCTX,
                     this.ratio,
@@ -257,6 +263,11 @@ window.imgToCode = new Vue({
         //清空画布
         clear() {
             tools.clear(this.stageCTX, 0, 0, this.stageWidth, this.stageHeight);
+        },
+        //删除精灵
+        deleteSprites(sprites){
+            this.spritesController.deleteSprites(sprites);
+            this.render()
         }
     }
 })
