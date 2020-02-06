@@ -61,11 +61,20 @@ export default function(imgToCode){
                 imgToCode.executeMode("edit");
                 event.preventDefault();
             }else if(event.keyCode == 8){
+                //delete
                 imgToCode.deleteSprites(imgToCode.activeSprites);
+            }else if(event.keyCode == 16){
+                //shift
+                imgToCode.pressShiftBtn=true;
+            }else{
+                console.log(event.keyCode)
             }
         } else {
 
         }
+    }
+    document.onkeyup=function(event){
+        imgToCode.pressShiftBtn=false;
     }
 
 

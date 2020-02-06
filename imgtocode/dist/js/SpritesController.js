@@ -1,5 +1,6 @@
 class SpritesController{
     constructor(){
+        this.lastSprite=null;
         this.sprites=[];
     }
     //队列问题
@@ -40,6 +41,7 @@ class SpritesController{
         this.sprites.sort((a,b)=>{
             return a.zindex-b.zindex;
         })
+        this.lastSprite=sprite;
     }
     //获取最后一个
     getLastSprite(){
@@ -47,7 +49,10 @@ class SpritesController{
     }
     //移除最后一个
     removeLastSprite(){
-        this.sprites.pop();
+        let lastSpriteIndex=this.sprites.findIndex((item)=>{
+            return item==this.lastSprite
+        });
+        this.sprites.splice(lastSpriteIndex,1);
     }
     //删除精灵
     deleteSprites(sprites){

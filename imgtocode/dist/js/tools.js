@@ -21,9 +21,14 @@ let tools={
             x:this.toInt(x),
             y:this.toInt(y)
         }
-        
     },
-    vectorToEdit(vector,ratio,scale){
+    //逻辑像素到devicePixel;
+    LogicPixelToDevicePixel(point,ratio,scale,coordinateOrigin){
+        let x=point.x*scale+coordinateOrigin.x;
+        let y=point.y*scale+coordinateOrigin.y;
+        return {x,y}
+    },
+    vectorToPixel(vector,ratio,scale){
         return [
             this.toInt(vector[0]*ratio/scale),
             this.toInt(vector[1]*ratio/scale)
@@ -70,6 +75,22 @@ let tools={
             y:points[3].y-num
         })
         return newPoint;
+    },
+    //磁性吸边效果
+    magneticBorder(point,sprites,stepNum){
+        let x=Math.round(point.x/stepNum)*stepNum;
+        let y=Math.round(point.y/stepNum)*stepNum;
+        for(var i=0;i<sprites.length;i++){
+            if(sprites[i].type=="default"){
+                x=Math.abs(sprites[i].x-point.x)<stepNum?sprites[i].x : x;
+                y=Math.abs(sprites[i].y-point.y)<stepNum?sprites[i].y : y;
+            }
+        }
+        point.x=x;
+        point.y=y;
+        return {
+            x,y
+        }
     }
 };
 export default tools;

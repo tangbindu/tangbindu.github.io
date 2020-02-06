@@ -4,6 +4,10 @@ import { Rect , Grid , Guidewires} from "./SpriteGraph.js";
 import SpritesController from "./SpritesController.js";
 import { Image } from "./SpriteImage.js";
 import MEvent from "./MEvent.js"
+import drawGraph from "./drawGraph.js"
+import editGraph from "./editGraph.js"
+import drawGuidewires from "./drawGuidewires.js"
+
 window.imgToCode = new Vue({
     el: '#app',
     data: {
@@ -11,8 +15,8 @@ window.imgToCode = new Vue({
         uploadImage: null,//上传的图片
         //坐标原点位置
         coordinateOrigin: {
-            x: 600,
-            y: 200
+            x: 0,
+            y: 0
         },
         drawShapeType: "rect",
         //舞台canvas
@@ -34,8 +38,9 @@ window.imgToCode = new Vue({
         //网格线
         grid:null,
         //pageImage
-        pageImage:null
-
+        pageImage:null,
+        //shift btn
+        pressShiftBtn:false
     },
     //创建
     created() {
@@ -70,15 +75,16 @@ window.imgToCode = new Vue({
             this.MEvent = new MEvent(this.stageCanvas);
             let self = this;
             this.MEvent.event(function () {
+                //按住shifit
                 switch (self.workMode) {
                     case "draw":
-                        self.drawGraph(this);
+                        drawGraph(this,self);
                         break;
                     case "edit":
-                        self.editGraph(this);
+                        editGraph(this,self);
                         break;
                 }
-                self.drawGuidewires(this);
+                drawGuidewires(this,self);
                 self.render();
             })
             //键盘交互-快捷键等
@@ -121,6 +127,7 @@ window.imgToCode = new Vue({
         addGrid(){
             this.grid = new Grid({x:0,y:0});
             this.grid.zindex=-1000000;
+            this.grid.type="tool";
             this.grid.allowClick=false;
             this.grid.width=this.stageCanvas.width;
             this.grid.height=this.stageCanvas.height;
@@ -132,79 +139,11 @@ window.imgToCode = new Vue({
             this.guidewires = new Guidewires({x:0,y:0},0,0);
             this.guidewires.allowClick=false;
             this.guidewires.zindex=1000000;
+            this.guidewires.type="tool";
             this.guidewires.visible=false;
             this.guidewires.width=this.stageCanvas.width;
             this.guidewires.height=this.stageCanvas.height;
             this.spritesController.addSprite(this.guidewires);
-        },
-        //绘制鼠标标线
-        drawGuidewires(me){
-            if(me.type=="move"){
-                let point=me.curPos;
-                let LogicPoint;
-                //处理引导线 start
-                LogicPoint=tools.toLogicPixel(
-                    point,
-                    this.ratio,
-                    this.scale,
-                    this.coordinateOrigin
-                );
-                point=tools.toPixel(point,this.ratio);
-                this.guidewires.x=point.x;
-                this.guidewires.y=point.y;
-                this.guidewires.viewX=LogicPoint.x;
-                this.guidewires.viewY=LogicPoint.y;
-            }
-        },
-        drawGraph(me){
-            let point = me.curPos;
-            let type = me.type;
-            point=tools.toLogicPixel(
-                point,
-                this.ratio,
-                this.scale,
-                this.coordinateOrigin
-            );
-            //坐标转换
-            if (type == "down") {
-                switch (this.drawShapeType) {
-                    case "rect":
-                        this.newShape = new Rect(point);
-                        this.spritesController.addSprite(this.newShape);
-                        break;
-                }
-            }
-            if (type == "move" && me.isMoving) {
-                this.newShape && this.newShape.updatePoints(point)
-            }
-            if (type == "up") {
-                // 剔除过小的图形
-                if (
-                    (this.newShape.points[2].x - this.newShape.points[0].x) < 30 && 
-                    (this.newShape.points[2].y - this.newShape.points[0].y) < 30
-                ) {
-                    this.spritesController.removeLastSprite();
-                }
-                this.newShape=null;
-            }
-        },
-        editGraph(me){
-            let point = me.curPos;
-            let type = me.type;
-            let moveVector=me.moveVector;
-            //坐标转换
-            point=tools.toPixel(point,this.ratio);
-            if (type == "down") {
-                //获取到点击的元素
-                this.activeSprites=[this.spritesController.getClickSprite(this.stageCTX,point)];
-            }
-            if (type == "move" && me.isMoving) {
-                moveVector=tools.vectorToEdit(moveVector,this.ratio,this.scale);
-                this.activeSprites.length>0  && this.activeSprites.map((item)=>{item.move(moveVector)});
-            }
-            if (type == "up") {
-                // this.activeSprites = [];
-            }
         },
         //添加img
         addImg(){

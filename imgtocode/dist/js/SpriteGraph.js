@@ -33,7 +33,7 @@ class Graph extends Sprite{
     drawText(ctx){
         ctx.font = this.font;
         ctx.fillStyle = this.fontColor;
-        let loc=this.x+","+this.y;
+        let loc="("+this.x+","+this.y+")";
         let size=this.width+"x"+this.height
         let center=tools.getCenterFromRect(this);
         let fontSizeRatio=(this.points[1].x-this.points[0].x+44)/750;
@@ -116,7 +116,7 @@ class Guidewires extends Graph{
         const fontSize = 12;
         //竖
         ctx.save();
-        ctx.fillStyle = 'rgba(255,0,0,.8)';
+        ctx.fillStyle = 'rgba(255,0,0,1)';
         ctx.beginPath();
         ctx.moveTo(tools.toDrawVal(x), tools.toDrawVal(0));
         ctx.lineTo(tools.toDrawVal(x+1), tools.toDrawVal(0));
