@@ -2,14 +2,9 @@ import tools from "./tools.js";
 import { Rect , Grid , Guidewires} from "./SpriteGraph.js";
 //event
 let drawGraph=(me,main)=>{
-    let point = me.curPos;
+    let point;
     let type = me.type;
-    point=tools.toLogicPixel(
-        point,
-        main.ratio,
-        main.scale,
-        main.coordinateOrigin
-    );
+    point=me.curLogicPos;
     main.pressShiftBtn && tools.magneticBorder(point,main.spritesController.sprites,10);
     //坐标转换
     if (type == "down") {

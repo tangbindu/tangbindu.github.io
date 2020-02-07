@@ -81,10 +81,10 @@ let tools={
         let x=Math.round(point.x/stepNum)*stepNum;
         let y=Math.round(point.y/stepNum)*stepNum;
         for(var i=0;i<sprites.length;i++){
-            if(sprites[i].type=="default"){
-                x=Math.abs(sprites[i].x-point.x)<stepNum?sprites[i].x : x;
-                y=Math.abs(sprites[i].y-point.y)<stepNum?sprites[i].y : y;
-            }
+            sprites[i].points && sprites[i].type=="default" && sprites[i].points.map((p)=>{
+                x=Math.abs(p.x-point.x)<stepNum?p.x : x;
+                y=Math.abs(p.y-point.y)<stepNum?p.y : y;
+            })
         }
         point.x=x;
         point.y=y;

@@ -53,6 +53,12 @@ window.imgToCode = new Vue({
     watch: {
         //scale变化了
         "scale": function () {
+            this.MEvent.scale=this.scale;
+            this.render();
+        },
+        //coordinateOrigin变化了
+        "coordinateOrigin": function () {
+            this.MEvent.coordinateOrigin=this.coordinateOrigin;
             this.render();
         },
         //绘制的图片变化了
@@ -72,7 +78,7 @@ window.imgToCode = new Vue({
             //界面
             this.initWindow();
             //鼠标交互--绘图等
-            this.MEvent = new MEvent(this.stageCanvas);
+            this.MEvent = new MEvent(this.stageCanvas,this.ratio,this.scale,this.coordinateOrigin);
             let self = this;
             this.MEvent.event(function () {
                 //按住shifit
@@ -84,6 +90,7 @@ window.imgToCode = new Vue({
                         editGraph(this,self);
                         break;
                 }
+                //鼠标坐标线
                 drawGuidewires(this,self);
                 self.render();
             })

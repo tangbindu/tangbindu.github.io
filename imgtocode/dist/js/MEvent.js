@@ -1,8 +1,10 @@
 import tools from "./tools.js";
 //event
 class MEvent{
-    constructor(ele){
+    constructor(ele,ratio,scale,coordinateOrigin){
+        //元素
         this.ele=ele;
+        //通用
         this.startPos=null;//开始point
         this.prevPos=null;//上一个point
         this.curPos=null;//当前point
@@ -10,6 +12,14 @@ class MEvent{
         this.totalMoveVector=null;//总移动vector
         this._toNextFrame=null;
         this.isMoving=false;
+        //特殊
+        this.ratio=ratio || 1;
+        this.scale=scale || 1;
+        this.coordinateOrigin=coordinateOrigin || {x:0,y:0};
+        this.realPoint=null;
+        this.curLogicPos=null;//逻辑像素
+        this.moveLogicVector=null;
+        this.totalMoveLogicVector=null;
         //事件列表
         this.eventList=[];
         this.type=null;
@@ -33,6 +43,11 @@ class MEvent{
                 this.curPos.x-this.prevPos.x,
                 this.curPos.y-this.prevPos.y
             ];
+            this.moveLogicVector=tools.vectorToPixel(
+                this.moveVector,
+                this.ratio,
+                this.scale
+            );
             this.totalMoveVector=[
                 this.curPos.x-this.startPos.x,
                 this.curPos.y-this.startPos.y
@@ -55,18 +70,39 @@ class MEvent{
     mousedown(event){
         this.isMoving=true;
         this.curPos={x:event.clientX,y:event.clientY};
+        this.realPoint=tools.toPixel(this.curPos,this.ratio);
+        this.curLogicPos=tools.toLogicPixel(
+            this.curPos,
+            this.ratio,
+            this.scale,
+            this.coordinateOrigin
+        );
         this.startPos=this.curPos;
         this.prevPos = this.curPos;
         this.run("down")
     }
     mousemove(event){
         this.curPos={x:event.clientX,y:event.clientY};
+        this.realPoint=tools.toPixel(this.curPos,this.ratio);
+        this.curLogicPos=tools.toLogicPixel(
+            this.curPos,
+            this.ratio,
+            this.scale,
+            this.coordinateOrigin
+        );
         this.run("move")
         this.prevPos=this.curPos;
         event.preventDefault();
     }
     mouseup(event){
         this.curPos={x:event.clientX,y:event.clientY};
+        this.realPoint=tools.toPixel(this.curPos,this.ratio);
+        this.curLogicPos=tools.toLogicPixel(
+            this.curPos,
+            this.ratio,
+            this.scale,
+            this.coordinateOrigin
+        );
         this.run("up");
         this.startPos=null;
         this.prevPos=null;
