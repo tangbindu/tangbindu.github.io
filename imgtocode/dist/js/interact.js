@@ -67,7 +67,7 @@ export default function(imgToCode){
                 //shift
                 imgToCode.pressShiftBtn=true;
             }else{
-                console.log(event.keyCode)
+                // console.log(event.keyCode)
             }
         } else {
 

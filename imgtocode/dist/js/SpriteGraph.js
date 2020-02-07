@@ -33,11 +33,14 @@ class Graph extends Sprite{
     drawText(ctx){
         ctx.font = this.font;
         ctx.fillStyle = this.fontColor;
-        let loc="("+this.x+","+this.y+")";
+        let loc=this.x+","+this.y;
         let size=this.width+"x"+this.height
         let center=tools.getCenterFromRect(this);
-        let fontSizeRatio=(this.points[1].x-this.points[0].x+44)/750;
-        ctx.font = 12*window.devicePixelRatio+'px STHeiti, SimHei';
+        let fontSize=Math.min(
+            (this.points[1].x-this.points[0].x)*.15,
+            (this.points[3].y-this.points[1].y)*.8
+        );
+        ctx.font = 10*window.devicePixelRatio+'px STHeiti, SimHei';
         ctx.textBaseline = 'top';
         ctx.textAlign = "left";
         ctx.fillText(
@@ -45,7 +48,7 @@ class Graph extends Sprite{
             (this.points[0].x*this.scale+this.translate.x*this.scale+5), 
             (this.points[0].y*this.scale+this.translate.y*this.scale+5)
         );
-        ctx.font = 60*window.devicePixelRatio*fontSizeRatio*this.scale+'px STHeiti, SimHei';
+        ctx.font = fontSize*this.scale+'px STHeiti, SimHei';
         ctx.textBaseline = 'middle';
         ctx.textAlign = "center";
         ctx.fillText(

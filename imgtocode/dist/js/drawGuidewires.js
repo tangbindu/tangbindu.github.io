@@ -7,7 +7,7 @@ let drawGuidewires=(me,main)=>{
         //shift 处理 start
         main.pressShiftBtn && tools.magneticBorder(viewPoint,main.spritesController.sprites,10);
         point=tools.LogicPixelToDevicePixel(
-            viewPoint,
+            me.curLogicPos,
             main.ratio,
             main.scale,
             main.coordinateOrigin

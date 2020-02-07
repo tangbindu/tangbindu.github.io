@@ -80,11 +80,17 @@ let tools={
     magneticBorder(point,sprites,stepNum){
         let x=Math.round(point.x/stepNum)*stepNum;
         let y=Math.round(point.y/stepNum)*stepNum;
+        let sprite;
         for(var i=0;i<sprites.length;i++){
-            sprites[i].points && sprites[i].type=="default" && sprites[i].points.map((p)=>{
+            sprite=sprites[i];
+            sprite.points && sprite.type=="default" && sprite.points.map((p)=>{
                 x=Math.abs(p.x-point.x)<stepNum?p.x : x;
                 y=Math.abs(p.y-point.y)<stepNum?p.y : y;
             })
+            if(sprite.name=="page_img"){
+                x=Math.abs(sprite.width-point.x)<stepNum?sprite.width : x;
+                y=Math.abs(sprite.height-point.y)<stepNum?sprite.height : y;
+            }
         }
         point.x=x;
         point.y=y;
