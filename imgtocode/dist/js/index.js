@@ -15,8 +15,8 @@ window.imgToCode = new Vue({
         uploadImage: null,//上传的图片
         //坐标原点位置
         coordinateOrigin: {
-            x: 0,
-            y: 0
+            x: 200,
+            y: 200
         },
         drawShapeType: "rect",
         //舞台canvas

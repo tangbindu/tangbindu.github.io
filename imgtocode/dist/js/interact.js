@@ -66,8 +66,16 @@ export default function(imgToCode){
             }else if(event.keyCode == 16){
                 //shift
                 imgToCode.pressShiftBtn=true;
+            }else if(event.keyCode == 37){
+                //left37
+                // imgToCode.spritesController.
+            }else if(event.keyCode == 39){
+                //right39
+            }else if(event.keyCode == 38){
+                //right38
+            }else if(event.keyCode == 40){
+                //bottom40
             }else{
-                // console.log(event.keyCode)
             }
         } else {
 

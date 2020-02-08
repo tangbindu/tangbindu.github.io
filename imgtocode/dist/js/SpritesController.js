@@ -1,5 +1,6 @@
 class SpritesController{
     constructor(){
+        this.activeSprites=[];
         this.lastSprite=null;
         this.sprites=[];
     }
@@ -18,7 +19,7 @@ class SpritesController{
     }
     //获取点击的元素
     getClickSprite(ctx,point){
-        let activeSprites=null;
+        this.activeSprites=[];
         for(var i=0;i<this.sprites.length;i++){
             this.sprites[i].active = false;
             if(!this.sprites[i].allowClick){
@@ -26,13 +27,13 @@ class SpritesController{
             }
             this.sprites[i].draw(ctx);
             if (this.sprites[i].isInPath(ctx, point)) {
-                activeSprites=this.sprites[i];
+                this.activeSprites=this.sprites[i];
             }
         }
-        if(activeSprites){
-            activeSprites.active=true;
+        if(this.activeSprites){
+            this.activeSprites.active=true;
         }
-        return activeSprites;
+        return this.activeSprites;
     }
     //选择多个
     //增加
@@ -63,5 +64,7 @@ class SpritesController{
             index>-1 && this.sprites.splice(index,1)
         })
     }
+    //移动
+
 }
 export default SpritesController;

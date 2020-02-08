@@ -24,8 +24,8 @@ let tools={
     },
     //逻辑像素到devicePixel;
     LogicPixelToDevicePixel(point,ratio,scale,coordinateOrigin){
-        let x=point.x*scale+coordinateOrigin.x;
-        let y=point.y*scale+coordinateOrigin.y;
+        let x=point.x*scale+coordinateOrigin.x*scale;
+        let y=point.y*scale+coordinateOrigin.y*scale;
         return {x,y}
     },
     vectorToPixel(vector,ratio,scale){
