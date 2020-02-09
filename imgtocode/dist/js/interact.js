@@ -62,7 +62,7 @@ export default function(imgToCode){
                 event.preventDefault();
             }else if(event.keyCode == 8){
                 //delete
-                imgToCode.deleteSprites(imgToCode.activeSprites);
+                imgToCode.deleteSprites();
             }else if(event.keyCode == 16){
                 //shift
                 imgToCode.pressShiftBtn=true;

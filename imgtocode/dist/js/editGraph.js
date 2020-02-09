@@ -7,17 +7,13 @@ let editGraph=(me,main)=>{
     //坐标转换
     if (type == "down") {
         //获取到点击的元素
-        main.activeSprites=[
-            main.spritesController.getClickSprite(
-                main.stageCTX,
-                point
-            )
-        ];
+        main.spritesController.getClickSprite(
+            main.stageCTX,
+            point
+        )
     }
     if (type == "move" && me.isMoving) {
-        main.activeSprites.length>0  && main.activeSprites.map((item)=>{
-            item.move(moveVector,main)
-        });
+        main.spritesController.moveSprites(moveVector);
     }
     if (type == "up") {
         // main.activeSprites = [];

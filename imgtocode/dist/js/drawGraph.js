@@ -1,5 +1,6 @@
 import tools from "./tools.js";
 import { Rect , Grid , Guidewires} from "./SpriteGraph.js";
+let newShape;
 //event
 let drawGraph=(me,main)=>{
     let point;
@@ -10,23 +11,23 @@ let drawGraph=(me,main)=>{
     if (type == "down") {
         switch (main.drawShapeType) {
             case "rect":
-                main.newShape = new Rect(point);
-                main.spritesController.addSprite(main.newShape);
+                newShape = new Rect(point);
+                main.spritesController.addSprite(newShape);
                 break;
         }
     }
     if (type == "move" && me.isMoving) {
-        main.newShape && main.newShape.updatePoints(point)
+        newShape && newShape.updatePoints(point)
     }
     if (type == "up") {
         // 剔除过小的图形
         if (
-            (main.newShape.points[2].x - main.newShape.points[0].x) < 30 && 
-            (main.newShape.points[2].y - main.newShape.points[0].y) < 30
+            (newShape.points[2].x - newShape.points[0].x) < 30 && 
+            (newShape.points[2].y - newShape.points[0].y) < 30
         ) {
             main.spritesController.removeLastSprite();
         }
-        main.newShape=null;
+        newShape=null;
     }
 }
 export default drawGraph;

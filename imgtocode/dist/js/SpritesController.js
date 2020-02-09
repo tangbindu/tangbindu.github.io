@@ -1,8 +1,10 @@
 class SpritesController{
     constructor(){
-        this.activeSprites=[];
+        //click的元素
+        this.clickSprites=[];
         this.lastSprite=null;
         this.sprites=[];
+        this.supportMultipleClick=false;
     }
     //队列问题
     //删除问题
@@ -19,21 +21,25 @@ class SpritesController{
     }
     //获取点击的元素
     getClickSprite(ctx,point){
-        this.activeSprites=[];
-        for(var i=0;i<this.sprites.length;i++){
-            this.sprites[i].active = false;
+        this.clickSprites=this.supportMultipleClick?this.clickSprites:[];
+        for(var i=(this.sprites.length-1);i>=0;i--){
             if(!this.sprites[i].allowClick){
                 continue;
             }
-            this.sprites[i].draw(ctx);
+            this.sprites[i].active = this.supportMultipleClick ? this.sprites[i].active : false;
+            this.sprites[i].draw(ctx);  
             if (this.sprites[i].isInPath(ctx, point)) {
-                this.activeSprites=this.sprites[i];
+                if(this.supportMultipleClick){
+                    !this.sprites[i].active && this.clickSprites.push(this.sprites[i]);
+                    this.sprites[i].active=true;
+                }else{
+                    this.sprites[i].active=true;
+                    this.clickSprites=[this.sprites[i]];
+                }
+                break;
             }
         }
-        if(this.activeSprites){
-            this.activeSprites.active=true;
-        }
-        return this.activeSprites;
+        return this.clickSprites;
     }
     //选择多个
     //增加
@@ -56,8 +62,8 @@ class SpritesController{
         this.sprites.splice(lastSpriteIndex,1);
     }
     //删除精灵
-    deleteSprites(sprites){
-        sprites.map((a)=>{
+    deleteSprites(){
+        this.clickSprites.map((a)=>{
             let index=this.sprites.findIndex((b)=>{
                 return a==b;
             })
@@ -65,6 +71,11 @@ class SpritesController{
         })
     }
     //移动
+    moveSprites(moveVector){
+        this.clickSprites.map((item)=>{
+            item.active && item.move(moveVector);
+        });
+    }
 
 }
 export default SpritesController;

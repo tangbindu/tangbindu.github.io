@@ -15,8 +15,8 @@ window.imgToCode = new Vue({
         uploadImage: null,//上传的图片
         //坐标原点位置
         coordinateOrigin: {
-            x: 200,
-            y: 200
+            x: 0,
+            y: 0
         },
         drawShapeType: "rect",
         //舞台canvas
@@ -64,6 +64,10 @@ window.imgToCode = new Vue({
         //绘制的图片变化了
         "uploadImage": function () {
             this.addImg()
+        },
+        //shift btn
+        "pressShiftBtn" : function(){
+            this.spritesController.supportMultipleClick=this.pressShiftBtn;
         }
     },
     //方法
@@ -211,8 +215,8 @@ window.imgToCode = new Vue({
             tools.clear(this.stageCTX, 0, 0, this.stageWidth, this.stageHeight);
         },
         //删除精灵
-        deleteSprites(sprites){
-            this.spritesController.deleteSprites(sprites);
+        deleteSprites(){
+            this.spritesController.deleteSprites();
             this.render()
         }
     }
