@@ -1,8 +1,11 @@
 import tools from "./tools.js";
+import eventTarget from "./eventTarget.js";
+
 // 绘图 
-class Sprite {
+class Sprite extends eventTarget{
     //构造
     constructor(pos) {
+        super();
         //类型，默认sprite
         this.type="default";
         //id
@@ -35,6 +38,7 @@ class Sprite {
         this.zindex=0;
         //allowClick
         this.allowClick=true;
+        //click event
     }
     //移动
     move(vector){

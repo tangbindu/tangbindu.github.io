@@ -1,5 +1,6 @@
 import tools from "./tools.js";
 //event
+let downTime;
 let editGraph=(me,main)=>{
     let type  = me.type;
     let point = me.realPoint;

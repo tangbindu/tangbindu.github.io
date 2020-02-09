@@ -1,7 +1,10 @@
 import tools from "./tools.js";
+import eventTarget from "./eventTarget.js";
+
 //event
-class MEvent{
+class MEvent extends eventTarget{
     constructor(ele,ratio,scale,coordinateOrigin){
+        super();
         //元素
         this.ele=ele;
         //通用
@@ -12,6 +15,8 @@ class MEvent{
         this.totalMoveVector=null;//总移动vector
         this._toNextFrame=null;
         this.isMoving=false;
+        this.downTime=null;
+        this.upTime=null;
         //特殊
         this.ratio=ratio || 1;
         this.scale=scale || 1;
@@ -68,6 +73,7 @@ class MEvent{
         // }
     }
     mousedown(event){
+        this.downTime=new Date().getTime();
         this.isMoving=true;
         this.curPos={x:event.clientX,y:event.clientY};
         this.realPoint=tools.toPixel(this.curPos,this.ratio);
@@ -95,6 +101,10 @@ class MEvent{
         event.preventDefault();
     }
     mouseup(event){
+        this.upTime=new Date().getTime();
+        if((this.upTime-this.downTime)<100){
+            this.trigger("click");
+        };
         this.curPos={x:event.clientX,y:event.clientY};
         this.realPoint=tools.toPixel(this.curPos,this.ratio);
         this.curLogicPos=tools.toLogicPixel(
