@@ -58,19 +58,7 @@ class MEvent extends eventTarget{
                 this.curPos.y-this.startPos.y
             ];
         }
-        // if(this.type=="move"){
-        //     this._toNextFrame  && cancelAnimationFrame(this._toNextFrame);
-        //     this._toNextFrame=requestAnimationFrame(()=>{
-        //         this.eventList.map((item)=>{
-        //             item.call(this)
-        //         })
-        //         this._toNextFrame=false;
-        //     })
-        // }else{
-            this.eventList.map((item)=>{
-                item.call(this)
-            })
-        // }
+        this.trigger("event");  
     }
     mousedown(event){
         this.downTime=new Date().getTime();
@@ -85,7 +73,8 @@ class MEvent extends eventTarget{
         );
         this.startPos=this.curPos;
         this.prevPos = this.curPos;
-        this.run("down")
+        this.run("down");
+        this.trigger("down");
     }
     mousemove(event){
         this.curPos={x:event.clientX,y:event.clientY};
@@ -96,7 +85,8 @@ class MEvent extends eventTarget{
             this.scale,
             this.coordinateOrigin
         );
-        this.run("move")
+        this.run("move");
+        this.trigger("move");
         this.prevPos=this.curPos;
         event.preventDefault();
     }
@@ -114,6 +104,7 @@ class MEvent extends eventTarget{
             this.coordinateOrigin
         );
         this.run("up");
+        this.trigger("up");
         this.startPos=null;
         this.prevPos=null;
         this.isMoving=false;

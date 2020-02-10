@@ -84,7 +84,7 @@ window.imgToCode = new Vue({
             //鼠标交互--绘图等
             this.MEvent = new MEvent(this.stageCanvas,this.ratio,this.scale,this.coordinateOrigin);
             let self = this;
-            this.MEvent.event(function () {
+            this.MEvent.handler("event",function(){
                 //按住shifit
                 switch (self.workMode) {
                     case "draw":
@@ -97,6 +97,8 @@ window.imgToCode = new Vue({
                 //鼠标坐标线
                 drawGuidewires(this,self);
                 self.render();
+            })
+            this.MEvent.handler("click",function(){
             })
             //键盘交互-快捷键等
             interact(this);
