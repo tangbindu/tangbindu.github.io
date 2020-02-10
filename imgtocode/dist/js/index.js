@@ -74,6 +74,7 @@ window.imgToCode = new Vue({
     methods: {
         // 初始化
         init() {
+            var that=this;
             //基础
             this.stageCanvas = document.getElementById("stage");
             this.stageCTX = this.stageCanvas.getContext("2d");
@@ -88,7 +89,7 @@ window.imgToCode = new Vue({
                 //按住shifit
                 switch (self.workMode) {
                     case "draw":
-                        drawGraph(this,self);
+                        drawGraph(this,self); 
                         break;
                     case "edit":
                         editGraph(this,self);
@@ -98,7 +99,17 @@ window.imgToCode = new Vue({
                 drawGuidewires(this,self);
                 self.render();
             })
+            //点击
             this.MEvent.handler("click",function(){
+                that.spritesController.clearActiveSprites();
+                //获取到点击的元素
+                let sprite=that.spritesController.getSpriteByPoint(
+                    that.stageCTX,
+                    this.realPoint
+                );
+                sprite && sprite.toggleActive();
+                sprite && sprite.trigger("click");
+                that.render();
             })
             //键盘交互-快捷键等
             interact(this);

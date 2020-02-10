@@ -1,7 +1,6 @@
 class SpritesController{
     constructor(){
         //click的元素
-        this.activeSprites=[];
         this.lastSprite=null;
         this.sprites=[];
         this.supportMultipleClick=false;
@@ -19,43 +18,21 @@ class SpritesController{
         })
         return sprite;
     }
-    //获取点击的元素
-    // getClickSprite(ctx,point){
-    //     this.activeSprites=this.supportMultipleClick?this.activeSprites:[];
-    //     for(var i=(this.sprites.length-1);i>=0;i--){
-    //         if(!this.sprites[i].allowClick){
-    //             continue;
-    //         }
-    //         this.sprites[i].active = this.supportMultipleClick ? this.sprites[i].active : false;
-    //         this.sprites[i].draw(ctx);  
-    //         if (this.sprites[i].isInPath(ctx, point)) {
-    //             if(this.supportMultipleClick){
-    //                 !this.sprites[i].active && this.activeSprites.push(this.sprites[i]);
-    //                 this.sprites[i].active=true;
-    //             }else{
-    //                 this.sprites[i].active=true;
-    //                 this.activeSprites=[this.sprites[i]];
-    //             }
-    //             break;
-    //         }
-    //     }
-    //     return this.activeSprites;
-    // }
-    getClickSprite(ctx,point){
+    //通过一点获取sprite
+    getSpriteByPoint(ctx,point){
+        let sprite=null;
         for(var i=(this.sprites.length-1);i>=0;i--){
             if(!this.sprites[i].allowClick){
                 continue;
             }
             this.sprites[i].draw(ctx);  
             if (this.sprites[i].isInPath(ctx, point)) {
-                this.sprites[i].active=true;
-                this.activeSprites=[this.sprites[i]];
+                sprite=this.sprites[i];
                 break;
             }
         }
-        return this.activeSprites;
+        return sprite;
     }
-    //选择多个
     //增加
     addSprite(sprite){
         this.sprites.push(sprite);
@@ -63,6 +40,22 @@ class SpritesController{
             return a.zindex-b.zindex;
         })
         this.lastSprite=sprite;
+    }
+    //全选
+    selectAll(){
+        this.sprites.map((sprite)=>{
+            if(sprite.allowClick){
+                sprite.active=true;
+            }
+        })
+    }
+    //反选择
+    reverseSelect(){
+        this.sprites.map((sprite)=>{
+            if(sprite.allowClick){
+                sprite.active=false;
+            }
+        })
     }
     //获取最后一个
     getLastSprite(){
@@ -77,16 +70,30 @@ class SpritesController{
     }
     //删除精灵
     deleteSprites(){
-        this.activeSprites.map((a)=>{
-            let index=this.sprites.findIndex((b)=>{
-                return a==b;
+        this.sprites.map((sprite)=>{
+            let index=this.sprites.findIndex((sprite)=>{
+                return sprite.active;
             })
             index>-1 && this.sprites.splice(index,1)
         })
     }
+    //获取active
+    getActiveSprites(){
+        let sprites=[];
+        this.sprites.map((sprite)=>{
+            sprite.active && sprites.push(sprite)
+        })
+        return sprites;
+    }
+    //删除active
+    clearActiveSprites(){
+        this.sprites.map((item)=>{
+            item.active=false
+        })
+    }
     //移动
     moveSprites(moveVector){
-        this.activeSprites.map((item)=>{
+        this.sprites.map((item)=>{
             item.active && item.move(moveVector);
         });
     }

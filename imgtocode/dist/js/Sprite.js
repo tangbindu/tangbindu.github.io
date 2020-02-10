@@ -51,5 +51,8 @@ class Sprite extends eventTarget{
             return;
         }
     }
+    toggleActive(){
+        this.active=!this.active;
+    }
 }
 export default Sprite;

@@ -42,6 +42,8 @@ export default function(imgToCode){
         e.preventDefault();
     }, false);
 
+    let cmd=false;
+    let shift=false;
     document.onkeydown = function (event) {
         if (/Mac/.test(navigator.platform)) {
             if (event.keyCode == 187) {
@@ -59,12 +61,12 @@ export default function(imgToCode){
             }else if (event.keyCode == 86){
                 //edit mode
                 imgToCode.executeMode("edit");
-                event.preventDefault();
             }else if(event.keyCode == 8){
                 //delete
                 imgToCode.deleteSprites();
             }else if(event.keyCode == 16){
                 //shift
+                shift=true;
                 imgToCode.pressShiftBtn=true;
             }else if(event.keyCode == 37){
                 //left37
@@ -75,14 +77,31 @@ export default function(imgToCode){
                 //right38
             }else if(event.keyCode == 40){
                 //bottom40
+            }else if(event.keyCode == 91){
+                //command
+                cmd=true;
+                event.preventDefault();
+            }else if(cmd && event.keyCode == 65){
+                //cmd+a
+                imgToCode.spritesController.selectAll();
+                imgToCode.render();
+                event.preventDefault();
+            }else if(cmd && event.keyCode == 68){
+                //cmd+d
+                imgToCode.spritesController.reverseSelect();
+                imgToCode.render();
+                event.preventDefault();
             }else{
+                // console.dir(event.keyCode)
             }
+            
         } else {
-
         }
     }
     document.onkeyup=function(event){
-        imgToCode.pressShiftBtn=false;
+        imgToCode.pressShiftBtn=false;    
+        cmd=false;
+        shift=false;
     }
 
 

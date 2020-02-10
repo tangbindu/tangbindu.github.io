@@ -22,9 +22,8 @@ class Graph extends Sprite{
     //绘制图形精灵
     draw(ctx) {
         ctx.save();
-        ctx.fillStyle = this.fillStyle;
-        this.drawPath(ctx);
         this.fill(ctx);
+        this.drawPath(ctx);
         this.stroke(ctx);
         this.drawText(ctx);
         ctx.restore();
@@ -64,6 +63,7 @@ class Graph extends Sprite{
         }else{
             this.fillStyle = 'rgba(0,255,0,0.2)';
         }
+        ctx.fillStyle=this.fillStyle;
     }
     //描边
     stroke(ctx){
@@ -73,7 +73,6 @@ class Graph extends Sprite{
     }
     //绘制路径
     drawPath(){
-        this.isFill && this.fill(ctx);
     }
     //判断点击
     isInPath(ctx,pos) {
