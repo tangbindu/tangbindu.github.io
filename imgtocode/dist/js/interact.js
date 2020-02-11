@@ -41,12 +41,30 @@ export default function(imgToCode){
         e.stopPropagation();
         e.preventDefault();
     }, false);
-
     let cmd=false;
     let shift=false;
     document.onkeydown = function (event) {
         if (/Mac/.test(navigator.platform)) {
-            if (event.keyCode == 187) {
+            if(cmd && event.keyCode == 65){
+                //cmd+a
+                imgToCode.spritesController.selectAll();
+                imgToCode.render();
+                event.preventDefault();
+            }else if(cmd && event.keyCode == 68){
+                //cmd+d
+                imgToCode.spritesController.reverseSelect();
+                imgToCode.render();
+                event.preventDefault();
+            }else if(cmd && event.keyCode == 67){
+                //cmd+c
+                imgToCode.spritesController.copyActiveSprites();
+                imgToCode.render();
+                event.preventDefault();
+            }else if(cmd && event.keyCode == 86){
+                //cmd+v
+                imgToCode.spritesController.pasteActiveSprites();
+                event.preventDefault();
+            }else if (event.keyCode == 187) {
                 //放大
                 imgToCode.scale*=(1+5/75);
                 event.preventDefault();
@@ -81,18 +99,8 @@ export default function(imgToCode){
                 //command
                 cmd=true;
                 event.preventDefault();
-            }else if(cmd && event.keyCode == 65){
-                //cmd+a
-                imgToCode.spritesController.selectAll();
-                imgToCode.render();
-                event.preventDefault();
-            }else if(cmd && event.keyCode == 68){
-                //cmd+d
-                imgToCode.spritesController.reverseSelect();
-                imgToCode.render();
-                event.preventDefault();
             }else{
-                // console.dir(event.keyCode)
+                console.dir(event.keyCode)
             }
             
         } else {

@@ -1,3 +1,6 @@
+import tools from "./tools.js";
+import { Rect , Grid , Guidewires} from "./SpriteGraph.js";
+
 class SpritesController{
     constructor(){
         //click的元素
@@ -57,6 +60,24 @@ class SpritesController{
             }
         })
     }
+    //复制
+    copyActiveSprites(){
+        this.getActiveSprites().map((sprite)=>{
+            if(sprite.type=="default" && sprite.name=="rect"){
+                let cloneSprite=new Rect({x:sprite.x,y:sprite.y});
+                for(let i in sprite){
+                    cloneSprite[i]=tools.deepClone(sprite[i]);
+                }
+                cloneSprite.active=true;
+                this.sprites.push(cloneSprite);
+                sprite.active=false;
+            }
+        })
+    }
+    //粘贴
+    pasteActiveSprites(){
+
+    }
     //获取最后一个
     getLastSprite(){
         return this.sprites[this.sprites.length - 1]
@@ -70,20 +91,15 @@ class SpritesController{
     }
     //删除精灵
     deleteSprites(){
-        this.sprites.map((sprite)=>{
-            let index=this.sprites.findIndex((sprite)=>{
-                return sprite.active;
-            })
-            index>-1 && this.sprites.splice(index,1)
+        this.sprites=this.sprites.filter((sprite)=>{
+            return !sprite.active;
         })
     }
     //获取active
     getActiveSprites(){
-        let sprites=[];
-        this.sprites.map((sprite)=>{
-            sprite.active && sprites.push(sprite)
+        return this.sprites.filter((sprite)=>{
+            return sprite.active
         })
-        return sprites;
     }
     //删除active
     clearActiveSprites(){

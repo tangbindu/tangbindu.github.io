@@ -92,7 +92,7 @@ class MEvent extends eventTarget{
     }
     mouseup(event){
         this.upTime=new Date().getTime();
-        if((this.upTime-this.downTime)<100){
+        if((this.upTime-this.downTime)<200){
             this.trigger("click");
         };
         this.curPos={x:event.clientX,y:event.clientY};

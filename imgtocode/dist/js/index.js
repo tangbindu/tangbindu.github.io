@@ -12,6 +12,7 @@ window.imgToCode = new Vue({
     el: '#app',
     data: {
         workMode: "draw",
+        //上传的图片
         uploadImage: null,//上传的图片
         //坐标原点位置
         coordinateOrigin: {
@@ -53,6 +54,8 @@ window.imgToCode = new Vue({
     watch: {
         //scale变化了
         "scale": function () {
+            // this.coordinateOrigin.x=-this.MEvent.curLogicPos.x;
+            // this.coordinateOrigin.y=-this.MEvent.curLogicPos.y;
             this.MEvent.scale=this.scale;
             this.render();
         },
@@ -101,7 +104,7 @@ window.imgToCode = new Vue({
             })
             //点击
             this.MEvent.handler("click",function(){
-                that.spritesController.clearActiveSprites();
+                !that.pressShiftBtn && that.spritesController.clearActiveSprites();
                 //获取到点击的元素
                 let sprite=that.spritesController.getSpriteByPoint(
                     that.stageCTX,
