@@ -58,7 +58,7 @@ class MEvent extends eventTarget{
                 this.curPos.y-this.startPos.y
             ];
         }
-        this.trigger("event");  
+        this.trigger("all");  
     }
     mousedown(event){
         this.downTime=new Date().getTime();

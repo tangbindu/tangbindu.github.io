@@ -88,7 +88,7 @@ window.imgToCode = new Vue({
             //鼠标交互--绘图等
             this.MEvent = new MEvent(this.stageCanvas,this.ratio,this.scale,this.coordinateOrigin);
             let self = this;
-            this.MEvent.handler("event",function(){
+            this.MEvent.handler("all",function(){
                 //按住shifit
                 switch (self.workMode) {
                     case "draw":
@@ -102,36 +102,21 @@ window.imgToCode = new Vue({
                 drawGuidewires(this,self);
                 self.render();
             })
-            //点击
-            this.MEvent.handler("click",function(){
+            //down
+            this.MEvent.handler("down",function(){
                 switch (self.workMode) {
                     case "edit":
-                        !that.pressShiftBtn && that.spritesController.clearActiveSprites();
                         //获取到点击的元素
                         let sprite=that.spritesController.getSpriteByPoint(
                             that.stageCTX,
                             this.realPoint
                         );
+                        !that.pressShiftBtn && that.spritesController.clearActiveSprites();
                         sprite && sprite.toggleActive();
-                        sprite && sprite.trigger("click");
                         that.render();
                     break;
                 }
             })
-            // this.MEvent.handler("down",function(){
-            //     switch (self.workMode) {
-            //         case "edit":
-            //             !that.pressShiftBtn && that.spritesController.clearActiveSprites();
-            //             //获取到点击的元素
-            //             let sprite=that.spritesController.getSpriteByPoint(
-            //                 that.stageCTX,
-            //                 this.realPoint
-            //             );
-            //             sprite.active=true;
-            //             that.render();
-            //         break;
-            //     }
-            // })
             //键盘交互-快捷键等
             interact(this);
             //默认进入绘图模式
