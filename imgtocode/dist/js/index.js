@@ -104,16 +104,34 @@ window.imgToCode = new Vue({
             })
             //点击
             this.MEvent.handler("click",function(){
-                !that.pressShiftBtn && that.spritesController.clearActiveSprites();
-                //获取到点击的元素
-                let sprite=that.spritesController.getSpriteByPoint(
-                    that.stageCTX,
-                    this.realPoint
-                );
-                sprite && sprite.toggleActive();
-                sprite && sprite.trigger("click");
-                that.render();
+                switch (self.workMode) {
+                    case "edit":
+                        !that.pressShiftBtn && that.spritesController.clearActiveSprites();
+                        //获取到点击的元素
+                        let sprite=that.spritesController.getSpriteByPoint(
+                            that.stageCTX,
+                            this.realPoint
+                        );
+                        sprite && sprite.toggleActive();
+                        sprite && sprite.trigger("click");
+                        that.render();
+                    break;
+                }
             })
+            // this.MEvent.handler("down",function(){
+            //     switch (self.workMode) {
+            //         case "edit":
+            //             !that.pressShiftBtn && that.spritesController.clearActiveSprites();
+            //             //获取到点击的元素
+            //             let sprite=that.spritesController.getSpriteByPoint(
+            //                 that.stageCTX,
+            //                 this.realPoint
+            //             );
+            //             sprite.active=true;
+            //             that.render();
+            //         break;
+            //     }
+            // })
             //键盘交互-快捷键等
             interact(this);
             //默认进入绘图模式
