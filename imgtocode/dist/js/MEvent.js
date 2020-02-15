@@ -91,10 +91,6 @@ class MEvent extends eventTarget{
         event.preventDefault();
     }
     mouseup(event){
-        this.upTime=new Date().getTime();
-        if((this.upTime-this.downTime)<200){
-            this.trigger("click");
-        };
         this.curPos={x:event.clientX,y:event.clientY};
         this.realPoint=tools.toPixel(this.curPos,this.ratio);
         this.curLogicPos=tools.toLogicPixel(
@@ -105,6 +101,10 @@ class MEvent extends eventTarget{
         );
         this.run("up");
         this.trigger("up");
+        this.upTime=new Date().getTime();
+        if((this.upTime-this.downTime)<200){
+            this.trigger("click");
+        };
         this.startPos=null;
         this.prevPos=null;
         this.isMoving=false;

@@ -38,7 +38,6 @@ class Image extends Sprite{
         );
         ctx.closePath();
         if(ctx.isPointInPath(pos.x, pos.y)){
-            this.active=true;
             return true;
         }
     }

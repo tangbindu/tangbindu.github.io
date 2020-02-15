@@ -7,6 +7,7 @@ import MEvent from "./MEvent.js"
 import drawGraph from "./drawGraph.js"
 import editGraph from "./editGraph.js"
 import drawGuidewires from "./drawGuidewires.js"
+import layout from "./layout.js"
 
 window.imgToCode = new Vue({
     el: '#app',
@@ -103,19 +104,15 @@ window.imgToCode = new Vue({
                 self.render();
             })
             //down
-            this.MEvent.handler("down",function(){
-                switch (self.workMode) {
-                    case "edit":
-                        //获取到点击的元素
-                        let sprite=that.spritesController.getSpriteByPoint(
-                            that.stageCTX,
-                            this.realPoint
-                        );
-                        !that.pressShiftBtn && that.spritesController.clearActiveSprites();
-                        sprite && sprite.toggleActive();
-                        that.render();
-                    break;
-                }
+            this.MEvent.handler("click",function(){
+                let sprite=that.spritesController.getSpriteByPoint(
+                    that.stageCTX,
+                    this.realPoint
+                );
+                !that.pressShiftBtn && that.spritesController.clearOtherActiveSprites(sprite);
+                sprite && sprite.toggleActive();
+                // that.spritesController.getActiveSprites().length>0? that.executeMode("edit") : that.executeMode("draw");
+                that.render();
             })
             //键盘交互-快捷键等
             interact(this);

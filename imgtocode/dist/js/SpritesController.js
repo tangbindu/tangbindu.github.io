@@ -101,10 +101,12 @@ class SpritesController{
             return sprite.active
         })
     }
-    //删除active
-    clearActiveSprites(){
+    //删除其他active
+    clearOtherActiveSprites(sprite){
         this.sprites.map((item)=>{
-            item.active=false
+            if(item!=sprite){
+                item.active=false
+            }
         })
     }
     //移动

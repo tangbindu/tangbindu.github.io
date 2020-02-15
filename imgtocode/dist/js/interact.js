@@ -1,4 +1,6 @@
 import tools from "./tools.js";
+import layout from "./layout.js";
+
 export default function(imgToCode){
     window.addEventListener("resize", () => {
         imgToCode.resize();
@@ -99,10 +101,11 @@ export default function(imgToCode){
                 //command
                 cmd=true;
                 event.preventDefault();
+            }else if(event.keyCode==57){
+                layout(imgToCode.spritesController.sprites)
             }else{
-                console.dir(event.keyCode)
+                // console.dir(event.keyCode)
             }
-            
         } else {
         }
     }
