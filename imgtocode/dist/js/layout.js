@@ -6,8 +6,9 @@ let layout=(sprites,type)=>{
     })
     //根据面积排序
     layoutSprites=layoutSprites.sort((a,b)=>{
-        return a.width*a.height<b.width*b.height;
+        return (a.width*a.height)-(b.width*b.height);
     })
+    // layoutSprites=layoutSprites.reverse()
     //checkParent
     let checkParent=(sub,parent)=>{
         if(sub==parent){
@@ -18,7 +19,7 @@ let layout=(sprites,type)=>{
             ((parent.x+parent.width)>=(sub.x+sub.width)) &&
             ((parent.y+parent.height)>=(sub.y+sub.height))
         ){
-            return  parent.width*parent.height-sub.width*sub.height;
+            return parent.width*parent.height;
         }else{
             return false;
         }
@@ -42,6 +43,31 @@ let layout=(sprites,type)=>{
             i--;
         }
     }
+    console.dir(layoutSprites)
+    //获取代码
+    function getCode(obj,root){
+        if(obj instanceof Array){
+            // let tree=document.createElement("div");
+            // root.appendChild(leef)
+            obj.map((sprite)=>{
+                getCode(sprite,root)
+            })
+        }else{
+            // console.log(obj.x+","+obj.y+"   "+obj.width+"x"+obj.height)
+            let leef=document.createElement("div");
+            leef.style.x=obj.x+"px";
+            leef.style.y=obj.y+"px";
+            leef.style.width=obj.width+"px";
+            leef.style.height=obj.height+"px";
+            root.appendChild(leef)
+            if(obj.children){
+                getCode(obj.children,leef)
+            }
+        }
+    }
+    let root=document.createElement("div");
+    getCode(layoutSprites,root);
+    document.getElementById("pageView").appendChild(root);
     // console.dir(layoutSprites)
     
     //统计
