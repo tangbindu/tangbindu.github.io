@@ -4,11 +4,14 @@ let layout=(sprites,type)=>{
     let layoutSprites=sprites.filter((sprite)=>{
         return sprite.type=="default"
     })
+    //还原布局数据
+    layoutSprites.map((sprite)=>{
+        delete sprite.children;
+    })
     //根据面积排序
     layoutSprites=layoutSprites.sort((a,b)=>{
         return (a.width*a.height)-(b.width*b.height);
     })
-    // layoutSprites=layoutSprites.reverse()
     //checkParent
     let checkParent=(sub,parent)=>{
         if(sub==parent){
@@ -43,7 +46,10 @@ let layout=(sprites,type)=>{
             i--;
         }
     }
-    console.dir(layoutSprites)
+    //根据y排序
+    layoutSprites=layoutSprites.sort((a,b)=>{
+        return (a.y-b.y);
+    })
     //获取代码
     function getCode(obj,root){
         if(obj instanceof Array){
@@ -65,8 +71,10 @@ let layout=(sprites,type)=>{
             }
         }
     }
+    //拿到结构
     let root=document.createElement("div");
     getCode(layoutSprites,root);
+    document.getElementById("pageView").innerHTML="";
     document.getElementById("pageView").appendChild(root);
     // console.dir(layoutSprites)
     
