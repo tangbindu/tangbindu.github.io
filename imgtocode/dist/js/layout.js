@@ -46,10 +46,27 @@ let layout=(sprites,type)=>{
             i--;
         }
     }
-    //根据y排序
+    //上下排序
     layoutSprites=layoutSprites.sort((a,b)=>{
         return (a.y-b.y);
     })
+    //左右排序
+    function rank(obj){
+        if(obj instanceof Array){
+            //符合行布局 start
+            obj.sort((a,b)=>{
+                return a.x-b.x;
+            })
+            //符合行布局 start
+            obj.map((item)=>{
+                item.children && rank(item.children)
+            })
+        }else if(obj.children){
+            rank(obj.children)
+        }
+        console.log(1)
+    }
+    rank(layoutSprites)
     //获取代码
     function getCode(obj,root){
         if(obj instanceof Array){
