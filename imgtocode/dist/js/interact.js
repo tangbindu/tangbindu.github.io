@@ -46,6 +46,7 @@ export default function(imgToCode){
     let cmd=false;
     let shift=false;
     document.onkeydown = function (event) {
+        console.log(event.keyCode)
         if (/Mac/.test(navigator.platform)) {
             if(cmd && event.keyCode == 65){
                 //cmd+a
@@ -66,11 +67,11 @@ export default function(imgToCode){
                 //cmd+v
                 imgToCode.spritesController.pasteActiveSprites();
                 event.preventDefault();
-            }else if (event.keyCode == 187) {
+            }else if (event.keyCode == 221) {
                 //放大
                 imgToCode.scale*=(1+5/75);
                 event.preventDefault();
-            } else if (event.keyCode == 189) {
+            } else if (event.keyCode == 219) {
                 //缩小
                 imgToCode.scale*=(1-5/75);
                 event.preventDefault();
@@ -90,7 +91,6 @@ export default function(imgToCode){
                 imgToCode.pressShiftBtn=true;
             }else if(event.keyCode == 37){
                 //left37
-                // imgToCode.spritesController.
             }else if(event.keyCode == 39){
                 //right39
             }else if(event.keyCode == 38){

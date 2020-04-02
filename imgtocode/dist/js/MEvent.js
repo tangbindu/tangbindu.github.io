@@ -58,7 +58,7 @@ class MEvent extends eventTarget{
                 this.curPos.y-this.startPos.y
             ];
         }
-        this.trigger("all");  
+        this.trigger("all");
     }
     mousedown(event){
         this.downTime=new Date().getTime();
@@ -73,8 +73,8 @@ class MEvent extends eventTarget{
         );
         this.startPos=this.curPos;
         this.prevPos = this.curPos;
-        this.run("down");
         this.trigger("down");
+        this.run("down");
     }
     mousemove(event){
         this.curPos={x:event.clientX,y:event.clientY};
@@ -85,8 +85,8 @@ class MEvent extends eventTarget{
             this.scale,
             this.coordinateOrigin
         );
-        this.run("move");
         this.trigger("move");
+        this.run("move");
         this.prevPos=this.curPos;
         event.preventDefault();
     }
@@ -99,12 +99,16 @@ class MEvent extends eventTarget{
             this.scale,
             this.coordinateOrigin
         );
-        this.run("up");
         this.trigger("up");
+        this.run("up");
         this.upTime=new Date().getTime();
-        if((this.upTime-this.downTime)<200){
+        if(
+            (this.upTime-this.downTime)<200 &&
+            this.curPos.x==this.startPos.x &&
+            this.curPos.y==this.startPos.y
+        ){
             this.trigger("click");
-        };
+        }
         this.startPos=null;
         this.prevPos=null;
         this.isMoving=false;
