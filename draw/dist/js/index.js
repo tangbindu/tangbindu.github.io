@@ -1,4 +1,5 @@
 import tools from "./tools.js";
+import MouseEvent from "./MouseEvent.js"
 import interact from "./interact.js";
 import stage from "./stage.js";
 import {Grid} from "./SpriteGraph.js";
@@ -8,9 +9,10 @@ window.imgToCode = new Vue({
     data: {
         //坐标原点位置
         coordinateOrigin: {
-            x: 35,
-            y: 35
+            x: 0,
+            y: 0
         },
+        app:null,
         //舞台
         stage: null,
         stageWidth: null,
@@ -21,6 +23,8 @@ window.imgToCode = new Vue({
         ratio: 2.0,
         //人工缩放比
         scale: 1.0,
+        //按键
+        pressSpaceBtn:false,//space button
         //依赖
         'spritesController': new SpritesController()
     },
@@ -39,35 +43,62 @@ window.imgToCode = new Vue({
         // 初始化
         init() {
             //stage
-            let app=document.getElementById("app");
+            this.app=document.getElementById("app");
             this.stage=stage.createStage(app);
             this.stageCTX = this.stage.getContext("2d");
-            this.updateStage(app);
             //内容
             this.addGrid();
+            //更新
+            this.update();
             //渲染
             this.render();
             // test
             let test=()=>{
-                this.coordinateOrigin.x-=4;
-                this.coordinateOrigin.y-=4;
+                this.coordinateOrigin.x+=1;
+                this.coordinateOrigin.y+=1;
                 this.render();
                 requestAnimationFrame(test)
             }
             // test()
+            //键盘交互--all
             interact(this);
-        },
-        /**
-         * updateStage
-         */
-        updateStage(app){
-            stage.updataStage(
+            //鼠标交互--绘图
+            this.MouseEvent = new MouseEvent(
                 this.stage,
-                app,
+                this.ratio,
+                this.scale,
+                this.coordinateOrigin
+            );
+            let self = this;
+            this.MouseEvent.handler("all",function(){
+                if (self.pressSpaceBtn && this.type == "move" && this.isMoving) {
+                    self.coordinateOrigin.x+=this.moveLogicVector[0];
+                    self.coordinateOrigin.y+=this.moveLogicVector[1];
+                }
+                //按住shifit
+                // switch (self.workMode) {
+                //     case "draw":
+                //         drawGraph(this,self); 
+                //         break;
+                //     case "edit":
+                //         editGraph(this,self);
+                //         break;
+                // }
+                self.render();
+            })
+        },
+        update(){
+            //更新舞台
+            stage.updataStage(
+                this.app,
+                this.stage,
                 this.ratio
             )
             this.stageWidth = this.stage.width;
             this.stageHeight = this.stage.height;
+            //更新grid
+            this.grid.width=this.stageWidth;
+            this.grid.height=this.stageHeight;
         },
         /**
          * 渲染
@@ -84,8 +115,6 @@ window.imgToCode = new Vue({
             this.grid.zindex=-1000000;
             this.grid.type="tool";
             this.grid.allowClick=false;
-            this.grid.width=this.stageWidth;
-            this.grid.height=this.stageHeight;
             this.grid.gap=100;
             this.spritesController.addSprite(this.grid);
         },
@@ -94,16 +123,15 @@ window.imgToCode = new Vue({
             //遍历精灵
             this.spritesController.sprites.map((item) => {
                 item.scale=this.scale;
-                // let x=item.x;
-                // let y=item.y;
-                // item.x=item.x+this.coordinateOrigin.x;
-                // item.y=item.y+this.coordinateOrigin.y;
+                let x=item.x;
+                let y=item.y;
+                item.x=item.x+this.coordinateOrigin.x;
+                item.y=item.y+this.coordinateOrigin.y;
                 item.draw(
-                    this.stageCTX,
-                    this.coordinateOrigin
+                    this.stageCTX
                 );
-                // item.x=x;
-                // item.y=y;
+                item.x=x;
+                item.y=y;
             })
         },
         //清空画布

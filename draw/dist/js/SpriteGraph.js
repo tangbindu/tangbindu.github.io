@@ -104,15 +104,15 @@ class Grid extends Graph{
         this.points = [pos, pos, pos, pos];
         this.id = 'app_grid';
     }
-    draw(ctx,coordinateOrigin){
+    draw(ctx){
         ctx.save();
         ctx.lineWidth = 1;//线条粗细
         ctx.strokeStyle = "rgba(0,0,0,.2)";//线条颜色
-        ctx.font = '14px STHeiti, SimHei';//字体
+        ctx.font = '18px STHeiti, SimHei';//字体
         ctx.fillStyle = 'rgba(255,255,255,.2)';//字体颜色
         //只画可见范围的线条
-        let sx=coordinateOrigin.x%this.gap;
-        let sy=coordinateOrigin.y%this.gap;
+        let sx=this.x%this.gap;
+        let sy=this.y%this.gap;
         let gap=this.gap*this.scale;
         //横轴
         let y = 0;
@@ -124,7 +124,7 @@ class Grid extends Graph{
             ctx.lineTo(this.width, tools.toDrawVal(gap * y+sy*this.scale));
             ctx.stroke();
             ctx.fillText(
-                this.gap * y-(coordinateOrigin.y-sy), 
+                this.gap * y-(this.y-sy), 
                 0, 
                 gap * y+sy*this.scale
             );
@@ -140,7 +140,7 @@ class Grid extends Graph{
             ctx.lineTo(tools.toDrawVal(gap * x+sx*this.scale), this.height);
             ctx.stroke();
             ctx.fillText(
-                this.gap * x-(coordinateOrigin.x-sx), 
+                this.gap * x-(this.x-sx), 
                 gap * x+sx*this.scale, 
                 0
             );

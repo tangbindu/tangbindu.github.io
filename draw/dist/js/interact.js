@@ -1,5 +1,4 @@
 import tools from "./tools.js";
-// import layout from "./layout.js";
 
 export default function(imgToCode){
     window.addEventListener("resize", () => {
@@ -45,6 +44,16 @@ export default function(imgToCode){
     }, false);
     let cmd=false;
     let shift=false;
+    document.body.onmousewheel = function(event) {
+        if(event.deltaY>0){
+            //放大
+            imgToCode.scale*=(1+2/75);
+        }else{
+            //缩小
+            imgToCode.scale*=(1-2/75);
+        }
+        imgToCode.render()
+    };
     document.onkeydown = function (event) {
         // console.log(event.keyCode)
         if (/Mac/.test(navigator.platform)) {
@@ -69,11 +78,11 @@ export default function(imgToCode){
                 event.preventDefault();
             }else if (event.keyCode == 221) {
                 //放大
-                imgToCode.scale*=(1+5/75);
+                imgToCode.scale*=(1+2/75);
                 event.preventDefault();
             } else if (event.keyCode == 219) {
                 //缩小
-                imgToCode.scale*=(1-5/75);
+                imgToCode.scale*=(1-2/75);
                 event.preventDefault();
             }else if (event.keyCode == 77){
                 //draw mode
@@ -102,7 +111,11 @@ export default function(imgToCode){
                 cmd=true;
                 event.preventDefault();
             }else if(event.keyCode==57){
-                // layout(imgToCode.spritesController.sprites)
+                //布局
+            }else if(event.keyCode==32){
+                //移动
+                imgToCode.pressSpaceBtn=true;
+                imgToCode.stage.style.cursor = 'move';
             }else{
                 // console.dir(event.keyCode)
             }
@@ -111,11 +124,17 @@ export default function(imgToCode){
         imgToCode.render()
     }
     document.onkeyup=function(event){
-        imgToCode.pressShiftBtn=false;    
+        imgToCode.pressShiftBtn=false;
+        imgToCode.pressSpaceBtn=false;
+        imgToCode.stage.style.cursor = 'default';    
         cmd=false;
         shift=false;
         imgToCode.render();
     }
+    window.addEventListener("resize",()=>{
+        imgToCode.update();
+        imgToCode.render();
+    })
 
 
     //

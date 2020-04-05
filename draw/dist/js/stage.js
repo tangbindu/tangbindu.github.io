@@ -13,12 +13,19 @@ let stage={
      * @param {dom} container 
      * @param {number} ratio 
      */
-    updataStage(stage,container,ratio){
+    updataStage(container,stage,ratio){
         let stageWidth=container.clientWidth*ratio;
         let stageHeight=container.clientHeight*ratio;
         stage.width=stageWidth;
         stage.height=stageHeight;
         stage.style.zoom=1/ratio;
+    },
+    /**
+     * 缩放舞台
+     * @param {point} scalePoint  缩放点
+     */
+    scaleStage(scalePoint){
+        
     }
 };
 export default stage;
