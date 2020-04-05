@@ -46,7 +46,7 @@ export default function(imgToCode){
     let cmd=false;
     let shift=false;
     document.onkeydown = function (event) {
-        console.log(event.keyCode)
+        // console.log(event.keyCode)
         if (/Mac/.test(navigator.platform)) {
             if(cmd && event.keyCode == 65){
                 //cmd+a

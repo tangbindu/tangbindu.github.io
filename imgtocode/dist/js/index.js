@@ -1,12 +1,12 @@
 import tools from "./tools.js";
 import interact from "./interact.js";
 import { Rect , Grid , Guidewires} from "./SpriteGraph.js";
+import updateGuidewires from "./updateGuidewires.js"
 import SpritesController from "./SpritesController.js";
 import { Image } from "./SpriteImage.js";
 import MEvent from "./MEvent.js"
 import drawGraph from "./drawGraph.js"
 import editGraph from "./editGraph.js"
-import drawGuidewires from "./drawGuidewires.js"
 import layout from "./layout.js"
 
 window.imgToCode = new Vue({
@@ -26,7 +26,7 @@ window.imgToCode = new Vue({
         //舞台绘图对象
         stageCTX: null,
         ratio: 2.0,//视网膜屏比例
-        scale: 1.0,
+        scale: 1.0,//人工缩放比
         stageWidth: null,
         stageHeight: null,
         gap: 100,//tools.ratio
@@ -55,9 +55,12 @@ window.imgToCode = new Vue({
     watch: {
         //scale变化了
         "scale": function () {
-            // this.coordinateOrigin.x=-this.MEvent.curLogicPos.x;
-            // this.coordinateOrigin.y=-this.MEvent.curLogicPos.y;
+            //通知mouseevent scale的变化
             this.MEvent.scale=this.scale;
+            //重新定位到鼠标
+            // this.MEvent.coordinateOrigin=this.MEvent.curLogicPos;
+            this.MEvent.coordinateOrigin=this.coordinateOrigin;
+            //渲染   
             this.render();
         },
         //coordinateOrigin变化了
@@ -87,7 +90,12 @@ window.imgToCode = new Vue({
             //界面
             this.initWindow();
             //鼠标交互--绘图等
-            this.MEvent = new MEvent(this.stageCanvas,this.ratio,this.scale,this.coordinateOrigin);
+            this.MEvent = new MEvent(
+                this.stageCanvas,
+                this.ratio,
+                this.scale,
+                this.coordinateOrigin
+            );
             let self = this;
             this.MEvent.handler("all",function(){
                 //按住shifit
@@ -99,8 +107,6 @@ window.imgToCode = new Vue({
                         editGraph(this,self);
                         break;
                 }
-                //鼠标坐标线
-                drawGuidewires(this,self);
                 self.render();
             })
             //down
@@ -119,6 +125,7 @@ window.imgToCode = new Vue({
             //默认进入绘图模式
             this.executeMode("draw")
         },
+        //模式
         executeMode(mode){
             switch (mode) {
                 case "draw":
@@ -188,7 +195,9 @@ window.imgToCode = new Vue({
         },
         //渲染
         render() {
+            //清空画布
             this.clear();
+            //绘制图像
             this.drawShapes();
         },
         //重制尺寸
@@ -212,7 +221,11 @@ window.imgToCode = new Vue({
         },
         //绘制图像
         drawShapes() {
+            //图片
             this.pageImage && this.updateCoordinateOriginByPageImage();
+            //鼠标坐标线
+            updateGuidewires(this.MEvent,this);
+            //绘图精灵
             this.spritesController.sprites.map((item) => {
                 item.scale=this.scale;
                 if(item.name!="page_img"){

@@ -11,7 +11,7 @@ class Graph extends Sprite{
         //draw config
         this.lineWidth = 1;
         this.strokeStyle = 'rgba(255,0,0,0.5)';
-        this.fillStyle = 'rgba(0,255,0,0.2)';
+        this.fillStyle = 'rgba(0,255,0,0.1)';
         this.font = '12px STHeiti, SimHei';
         this.fontColor = 'rgba(255,0,0,1)';
         this.isFill = true;
@@ -22,9 +22,9 @@ class Graph extends Sprite{
     //绘制图形精灵
     draw(ctx) {
         ctx.save();
-        this.fill(ctx);
         this.drawPath(ctx);
         this.stroke(ctx);
+        this.fill(ctx);
         this.drawText(ctx);
         ctx.restore();
     }
@@ -59,11 +59,12 @@ class Graph extends Sprite{
     //填充
     fill(ctx){
         if(this.active){
-            this.fillStyle = 'rgba(255,128,60,0.2)';
+            this.fillStyle = 'rgba(255,128,60,0.1)';
         }else{
-            this.fillStyle = 'rgba(0,255,0,0.2)';
+            this.fillStyle = 'rgba(0,255,0,0.1)';
         }
         ctx.fillStyle=this.fillStyle;
+        ctx.fill();
     }
     //描边
     stroke(ctx){
@@ -167,6 +168,7 @@ class Grid extends Graph{
         ctx.lineWidth = 1;
         ctx.strokeStyle = "rgba(0,0,0,.2)";
         let y = 0;
+        //横轴
         while (gap * y < height) {
             ctx.beginPath();
             ctx.moveTo(0, tools.toDrawVal(gap * y));
@@ -174,6 +176,7 @@ class Grid extends Graph{
             ctx.stroke();
             ++y;
         }
+        //纵轴
         let x = 0;
         while (gap * x < width) {
             ctx.beginPath();
@@ -224,6 +227,8 @@ class Rect extends Graph {
     }
     stroke(ctx){
         return;
+        //不对
+        ctx.setLineDash([8, 8]);
         ctx.beginPath();
         let points=tools.scaleRectPoint(this.points,.5);
         points.forEach((p, i) => {
@@ -245,8 +250,10 @@ class Rect extends Graph {
             ctx[i == 0 ? 'moveTo' : 'lineTo'](x,y);
         });
         ctx.closePath();
-        this.isFill && ctx.fill();
     }
+    // fill(ctx){
+    //     this.isFill && ctx.fill();
+    // }
 }
 
 export {Rect,Grid,Guidewires};
