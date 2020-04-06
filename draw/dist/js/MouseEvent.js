@@ -13,7 +13,7 @@ class MouseEvent extends eventTarget{
         this.curPos=null;//当前point
         this.moveVector=null;//vector
         this.totalMoveVector=null;//总移动vector
-        this._toNextFrame=null;
+        // this._toNextFrame=null;
         this.isMoving=false;
         this.downTime=null;
         this.upTime=null;
@@ -21,10 +21,10 @@ class MouseEvent extends eventTarget{
         this.ratio=ratio || 1;
         this.scale=scale || 1;
         this.coordinateOrigin=coordinateOrigin || {x:0,y:0};
-        this.realPoint=null;
-        this.curLogicPos=null;//逻辑像素
-        this.moveLogicVector=null;
-        this.totalMoveLogicVector=null;
+        // this.realPoint=null;
+        // this.curLogicPos=null;//逻辑像素
+        // this.moveLogicVector=null;
+        // this.totalMoveLogicVector=null;
         //事件列表
         this.eventList=[];
         this.type=null;
@@ -53,10 +53,10 @@ class MouseEvent extends eventTarget{
                 this.ratio,
                 this.scale
             );
-            this.totalMoveVector=[
-                this.curPos.x-this.startPos.x,
-                this.curPos.y-this.startPos.y
-            ];
+            // this.totalMoveVector=[
+            //     this.curPos.x-this.startPos.x,
+            //     this.curPos.y-this.startPos.y
+            // ];
         }
         this.trigger("all");
     }
@@ -64,13 +64,13 @@ class MouseEvent extends eventTarget{
         this.downTime=new Date().getTime();
         this.isMoving=true;
         this.curPos={x:event.clientX,y:event.clientY};
-        this.realPoint=tools.toPixel(this.curPos,this.ratio);
-        this.curLogicPos=tools.toLogicPixel(
-            this.curPos,
-            this.ratio,
-            this.scale,
-            this.coordinateOrigin
-        );
+        // this.realPoint=tools.toPixel(this.curPos,this.ratio);
+        // this.curLogicPos=tools.toLogicPixel(
+        //     this.curPos,
+        //     this.ratio,
+        //     this.scale,
+        //     this.coordinateOrigin
+        // );
         this.startPos=this.curPos;
         this.prevPos = this.curPos;
         this.trigger("down");
@@ -78,13 +78,13 @@ class MouseEvent extends eventTarget{
     }
     mousemove(event){
         this.curPos={x:event.clientX,y:event.clientY};
-        this.realPoint=tools.toPixel(this.curPos,this.ratio);
-        this.curLogicPos=tools.toLogicPixel(
-            this.curPos,
-            this.ratio,
-            this.scale,
-            this.coordinateOrigin
-        );
+        // this.realPoint=tools.toPixel(this.curPos,this.ratio);
+        // this.curLogicPos=tools.toLogicPixel(
+        //     this.curPos,
+        //     this.ratio,
+        //     this.scale,
+        //     this.coordinateOrigin
+        // );
         this.trigger("move");
         this.run("move");
         this.prevPos=this.curPos;
@@ -92,13 +92,13 @@ class MouseEvent extends eventTarget{
     }
     mouseup(event){
         this.curPos={x:event.clientX,y:event.clientY};
-        this.realPoint=tools.toPixel(this.curPos,this.ratio);
-        this.curLogicPos=tools.toLogicPixel(
-            this.curPos,
-            this.ratio,
-            this.scale,
-            this.coordinateOrigin
-        );
+        // this.realPoint=tools.toPixel(this.curPos,this.ratio);
+        // this.curLogicPos=tools.toLogicPixel(
+        //     this.curPos,
+        //     this.ratio,
+        //     this.scale,
+        //     this.coordinateOrigin
+        // );
         this.trigger("up");
         this.run("up");
         this.upTime=new Date().getTime();

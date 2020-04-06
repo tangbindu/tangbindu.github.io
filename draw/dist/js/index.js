@@ -9,8 +9,8 @@ window.imgToCode = new Vue({
     data: {
         //坐标原点位置
         coordinateOrigin: {
-            x: 40,
-            y: 40
+            x: 0,
+            y: 0
         },
         app:null,
         //舞台
@@ -54,14 +54,6 @@ window.imgToCode = new Vue({
             this.update();
             //渲染
             this.render();
-            // test
-            let test=()=>{
-                this.coordinateOrigin.x+=1;
-                this.coordinateOrigin.y+=1;
-                this.render();
-                requestAnimationFrame(test)
-            }
-            // test()
             //键盘交互--all
             interact(this);
             //鼠标交互--绘图
@@ -88,6 +80,23 @@ window.imgToCode = new Vue({
                 // }
                 self.render();
             })
+
+
+            // test
+            let test=()=>{
+                // this.coordinateOrigin.x+=1;
+                // this.coordinateOrigin.y+=1;
+                if(this.mouseEvent.curPos){
+                    let ratio_x=(this.mouseEvent.curPos.x*this.ratio/this.stageWidth);
+                    let ratio_y=(this.mouseEvent.curPos.y*this.ratio/this.stageHeight);
+                    this.scale+=0.001;
+                    this.coordinateOrigin.x=-this.stageWidth*(this.scale-1)*ratio_x/this.scale;
+                    this.coordinateOrigin.y=-this.stageHeight*(this.scale-1)*ratio_y/this.scale;
+                    this.render();
+                }
+                requestAnimationFrame(test)
+            }
+            // test()
         },
         /**
          * 缩放舞台策略
@@ -95,15 +104,18 @@ window.imgToCode = new Vue({
          * @param {point} scalePoint  缩放点    
          */
         scaleStage(newScale,scalePoint){
-            // stage.scaleStage(newScale,scalePoint)
-            var v=(this.stageHeight*newScale-this.stageHeight)*.5;
-            this.coordinateOrigin.x=v/this.ratio;
-            this.coordinateOrigin.y=v/this.ratio;
             this.scale*=newScale;
-            // this.coordinateOrigin.x+=(this.stageWidth*newScale-this.stageWidth)*(this.mouseEvent.curLogicPos.x/this.stageWidth)*.5;
-            // this.coordinateOrigin.x+=(this.stageHeight*newScale-this.stageHeight)*(this.mouseEvent.curLogicPos.x/this.stageHeight)*.5;
-            // console.log(this.mouseEvent.curLogicPos.x)
-            // console.log(this.mouseEvent.curLogicPos.y)
+            
+            // let coordinateOrigin_x=this.coordinateOrigin.x;
+            // let coordinateOrigin_y=this.coordinateOrigin.y;
+            if(this.mouseEvent.curPos){
+                let ratio_x=(this.mouseEvent.curPos.x*this.ratio/this.stageWidth);
+                let ratio_y=(this.mouseEvent.curPos.y*this.ratio/this.stageHeight);
+                this.coordinateOrigin.x=-this.stageWidth*(this.scale-1)*ratio_x/this.scale;
+                this.coordinateOrigin.y=-this.stageHeight*(this.scale-1)*ratio_y/this.scale;
+            }
+            //mouse
+            this.mouseEvent.scale=newScale;
         },
         /**
          * 集中更新

@@ -1,9 +1,6 @@
 import tools from "./tools.js";
 
 export default function(imgToCode){
-    window.addEventListener("resize", () => {
-        imgToCode.resize();
-    })
     //前台-拖拽上传
     window.document.addEventListener("dragenter", function(e) {
         e.stopPropagation();
@@ -135,8 +132,6 @@ export default function(imgToCode){
         imgToCode.update();
         imgToCode.render();
     })
-
-
     //
     // keyboardJS.bind('ctrl + a', function(e) {
     //     e.preventDefault();
