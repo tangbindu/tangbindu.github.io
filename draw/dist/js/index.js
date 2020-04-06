@@ -2,7 +2,8 @@ import tools from "./tools.js";
 import MouseEvent from "./MouseEvent.js"
 import interact from "./interact.js";
 import stage from "./stage.js";
-import {Grid} from "./SpriteGraph.js";
+import {Grid,Guidewires} from "./SpriteGraph.js";
+import updateGuidewires from "./updateGuidewires.js"
 import SpritesController from "./SpritesController.js";
 window.imgToCode = new Vue({
     el: '#app',
@@ -27,6 +28,8 @@ window.imgToCode = new Vue({
         mouseEvent:null,
         //按键
         pressSpaceBtn:false,//space button
+        //内容
+        guidewires:null,
         //依赖
         'spritesController': new SpritesController()
     },
@@ -48,14 +51,13 @@ window.imgToCode = new Vue({
             this.app=document.getElementById("app");
             this.stage=stage.createStage(app);
             this.stageCTX = this.stage.getContext("2d");
-            //内容
-            this.addGrid();
-            //更新
-            this.update();
-            //渲染
-            this.render();
             //键盘交互--all
             interact(this);
+
+            //内容
+            this.addGrid();//网格
+            this.addGuidewires();//辅助线
+            
             //鼠标交互--绘图
             this.mouseEvent = new MouseEvent(
                 this.stage,
@@ -65,10 +67,13 @@ window.imgToCode = new Vue({
             );
             let self = this;
             this.mouseEvent.handler("all",function(){
+                //拖动stage
                 if (self.pressSpaceBtn && this.type == "move" && this.isMoving) {
                     self.coordinateOrigin.x+=this.moveLogicVector[0];
                     self.coordinateOrigin.y+=this.moveLogicVector[1];
                 }
+                //updateGuidewires 处理标线
+                updateGuidewires(this,self);
                 //按住shifit
                 // switch (self.workMode) {
                 //     case "draw":
@@ -81,22 +86,27 @@ window.imgToCode = new Vue({
                 self.render();
             })
 
-
             // test
-            let test=()=>{
-                // this.coordinateOrigin.x+=1;
-                // this.coordinateOrigin.y+=1;
-                if(this.mouseEvent.curPos){
-                    let ratio_x=(this.mouseEvent.curPos.x*this.ratio/this.stageWidth);
-                    let ratio_y=(this.mouseEvent.curPos.y*this.ratio/this.stageHeight);
-                    this.scale+=0.001;
-                    this.coordinateOrigin.x=-this.stageWidth*(this.scale-1)*ratio_x/this.scale;
-                    this.coordinateOrigin.y=-this.stageHeight*(this.scale-1)*ratio_y/this.scale;
-                    this.render();
-                }
-                requestAnimationFrame(test)
-            }
+            // let test=()=>{
+            //     // this.coordinateOrigin.x+=1;
+            //     // this.coordinateOrigin.y+=1;
+            //     if(this.mouseEvent.curPos){
+            //         let ratio_x=(this.mouseEvent.curPos.x*this.ratio/this.stageWidth);
+            //         let ratio_y=(this.mouseEvent.curPos.y*this.ratio/this.stageHeight);
+            //         this.scale+=0.001;
+            //         this.coordinateOrigin.x=-this.stageWidth*(this.scale-1)*ratio_x/this.scale;
+            //         this.coordinateOrigin.y=-this.stageHeight*(this.scale-1)*ratio_y/this.scale;
+            //         this.render();
+            //     }
+            //     requestAnimationFrame(test)
+            // }
             // test()
+
+
+            //更新
+            this.update();
+            //渲染
+            this.render();
         },
         /**
          * 缩放舞台策略
@@ -105,9 +115,6 @@ window.imgToCode = new Vue({
          */
         scaleStage(newScale,scalePoint){
             this.scale*=newScale;
-            
-            // let coordinateOrigin_x=this.coordinateOrigin.x;
-            // let coordinateOrigin_y=this.coordinateOrigin.y;
             if(this.mouseEvent.curPos){
                 let ratio_x=(this.mouseEvent.curPos.x*this.ratio/this.stageWidth);
                 let ratio_y=(this.mouseEvent.curPos.y*this.ratio/this.stageHeight);
@@ -132,6 +139,9 @@ window.imgToCode = new Vue({
             //更新grid
             this.grid.width=this.stageWidth;
             this.grid.height=this.stageHeight;
+            //
+            this.guidewires.width=this.stageWidth;
+            this.guidewires.height=this.stageHeight;
         },
         /**
          * 渲染
@@ -150,6 +160,17 @@ window.imgToCode = new Vue({
             this.grid.allowClick=false;
             this.grid.gap=100;
             this.spritesController.addSprite(this.grid);
+        },
+        //添加引导线
+        addGuidewires(){
+            this.guidewires = new Guidewires({x:0,y:0},0,0);
+            this.guidewires.allowClick=false;
+            this.guidewires.zindex=1000000;
+            this.guidewires.type="tool";
+            this.guidewires.visible=false;
+            this.guidewires.width=this.stageWidth;
+            this.guidewires.height=this.stageHeight;
+            this.spritesController.addSprite(this.guidewires);
         },
         //绘制图像
         drawShapes() {

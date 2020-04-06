@@ -96,6 +96,50 @@ class Graph extends Sprite{
     }
 }
 /**
+* Guidewires
+*/
+class Guidewires extends Graph{
+    constructor(pos,viewX,viewY) {
+        super(pos);
+        this.points = [pos, pos, pos, pos];
+        this.id = 'app_guidewires';
+        this.viewX=viewX;
+        this.viewY=viewY;
+    }
+    draw(ctx){
+        //竖
+        ctx.save();
+        ctx.fillStyle = 'rgba(255,0,0,1)';
+        ctx.beginPath();
+        ctx.moveTo(tools.toDrawVal(this.x), tools.toDrawVal(0));
+        ctx.lineTo(tools.toDrawVal(this.x+1), tools.toDrawVal(0));
+        ctx.lineTo(tools.toDrawVal(this.x+1), tools.toDrawVal(this.height));
+        ctx.lineTo(tools.toDrawVal(this.x), tools.toDrawVal(this.height));
+        ctx.closePath();
+        ctx.fill();
+        //横
+        ctx.beginPath();
+        ctx.moveTo(tools.toDrawVal(0), tools.toDrawVal(this.y));
+        ctx.lineTo(tools.toDrawVal(0), tools.toDrawVal(this.y+1));
+        ctx.lineTo(tools.toDrawVal(this.width), tools.toDrawVal(this.y+1));
+        ctx.lineTo(tools.toDrawVal(this.width), tools.toDrawVal(this.y));
+        ctx.closePath();
+        ctx.fill();
+        //相对坐标
+        const fontSize = 12;
+        ctx.font = fontSize*window.devicePixelRatio + 'px STHeiti, SimHei';
+        const text = "("+tools.toInt(this.viewX) + ", " + tools.toInt(this.viewY)+")";
+        ctx.fillText(
+            text,
+            Math.min(
+                this.x + fontSize*window.devicePixelRatio,
+                this.width - text.length * fontSize*window.devicePixelRatio/2
+            ) - 10,
+            Math.max(this.y - 10, fontSize*window.devicePixelRatio));
+        ctx.restore();
+    }
+}
+/**
 * 网格
 */
 class Grid extends Graph{
@@ -149,4 +193,4 @@ class Grid extends Graph{
         ctx.restore();
     }
 }
-export {Grid};
+export {Grid,Guidewires};
