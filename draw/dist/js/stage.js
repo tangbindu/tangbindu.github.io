@@ -22,10 +22,11 @@ let stage={
     },
     /**
      * 缩放舞台
+     * @param {number} scale  缩放点
      * @param {point} scalePoint  缩放点
      */
-    scaleStage(scalePoint){
-        
-    }
+    // scaleStage(scale,scalePoint){
+    //     this.scale*=scale;
+    // }
 };
 export default stage;

@@ -47,10 +47,10 @@ export default function(imgToCode){
     document.body.onmousewheel = function(event) {
         if(event.deltaY>0){
             //放大
-            imgToCode.scale*=(1+2/75);
+            imgToCode.scaleStage(1+2/75);
         }else{
             //缩小
-            imgToCode.scale*=(1-2/75);
+            imgToCode.scaleStage(1-2/75);
         }
         imgToCode.render()
     };
@@ -78,11 +78,11 @@ export default function(imgToCode){
                 event.preventDefault();
             }else if (event.keyCode == 221) {
                 //放大
-                imgToCode.scale*=(1+2/75);
+                imgToCode.scaleStage(1+2/75);
                 event.preventDefault();
             } else if (event.keyCode == 219) {
                 //缩小
-                imgToCode.scale*=(1-2/75);
+                imgToCode.scaleStage(1-2/75);
                 event.preventDefault();
             }else if (event.keyCode == 77){
                 //draw mode

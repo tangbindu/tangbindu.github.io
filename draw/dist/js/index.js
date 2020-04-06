@@ -9,8 +9,8 @@ window.imgToCode = new Vue({
     data: {
         //坐标原点位置
         coordinateOrigin: {
-            x: 0,
-            y: 0
+            x: 40,
+            y: 40
         },
         app:null,
         //舞台
@@ -23,6 +23,8 @@ window.imgToCode = new Vue({
         ratio: 2.0,
         //人工缩放比
         scale: 1.0,
+        //mouseEvent
+        mouseEvent:null,
         //按键
         pressSpaceBtn:false,//space button
         //依赖
@@ -63,14 +65,14 @@ window.imgToCode = new Vue({
             //键盘交互--all
             interact(this);
             //鼠标交互--绘图
-            this.MouseEvent = new MouseEvent(
+            this.mouseEvent = new MouseEvent(
                 this.stage,
                 this.ratio,
                 this.scale,
                 this.coordinateOrigin
             );
             let self = this;
-            this.MouseEvent.handler("all",function(){
+            this.mouseEvent.handler("all",function(){
                 if (self.pressSpaceBtn && this.type == "move" && this.isMoving) {
                     self.coordinateOrigin.x+=this.moveLogicVector[0];
                     self.coordinateOrigin.y+=this.moveLogicVector[1];
@@ -87,6 +89,25 @@ window.imgToCode = new Vue({
                 self.render();
             })
         },
+        /**
+         * 缩放舞台策略
+         * @param {number} scale  缩放点
+         * @param {point} scalePoint  缩放点    
+         */
+        scaleStage(newScale,scalePoint){
+            // stage.scaleStage(newScale,scalePoint)
+            var v=(this.stageHeight*newScale-this.stageHeight)*.5;
+            this.coordinateOrigin.x=v/this.ratio;
+            this.coordinateOrigin.y=v/this.ratio;
+            this.scale*=newScale;
+            // this.coordinateOrigin.x+=(this.stageWidth*newScale-this.stageWidth)*(this.mouseEvent.curLogicPos.x/this.stageWidth)*.5;
+            // this.coordinateOrigin.x+=(this.stageHeight*newScale-this.stageHeight)*(this.mouseEvent.curLogicPos.x/this.stageHeight)*.5;
+            // console.log(this.mouseEvent.curLogicPos.x)
+            // console.log(this.mouseEvent.curLogicPos.y)
+        },
+        /**
+         * 集中更新
+         */
         update(){
             //更新舞台
             stage.updataStage(
@@ -123,15 +144,11 @@ window.imgToCode = new Vue({
             //遍历精灵
             this.spritesController.sprites.map((item) => {
                 item.scale=this.scale;
-                let x=item.x;
-                let y=item.y;
-                item.x=item.x+this.coordinateOrigin.x;
-                item.y=item.y+this.coordinateOrigin.y;
-                item.draw(
-                    this.stageCTX
-                );
-                item.x=x;
-                item.y=y;
+                item.x+=this.coordinateOrigin.x;
+                item.y+=this.coordinateOrigin.y;
+                item.draw(this.stageCTX);
+                item.x-=this.coordinateOrigin.x;
+                item.y-=this.coordinateOrigin.y;
             })
         },
         //清空画布
