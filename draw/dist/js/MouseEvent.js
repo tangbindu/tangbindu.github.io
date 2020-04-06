@@ -59,7 +59,6 @@ class MouseEvent extends eventTarget{
             // ];
         }
         this.trigger("all");
-        console.dir(this.coordinateOrigin.x)
     }
     mousedown(event){
         this.downTime=new Date().getTime();

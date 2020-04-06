@@ -10,8 +10,8 @@ window.imgToCode = new Vue({
     data: {
         //坐标原点位置
         coordinateOrigin: {
-            x: 0,
-            y: 0
+            x: 500,
+            y: 500
         },
         app:null,
         //舞台
@@ -53,11 +53,9 @@ window.imgToCode = new Vue({
             this.stageCTX = this.stage.getContext("2d");
             //键盘交互--all
             interact(this);
-
             //内容
             this.addGrid();//网格
-            this.addGuidewires();//辅助线
-            
+            // this.addGuidewires();//辅助线
             //鼠标交互--绘图
             this.mouseEvent = new MouseEvent(
                 this.stage,
@@ -73,7 +71,7 @@ window.imgToCode = new Vue({
                     self.coordinateOrigin.y+=this.moveLogicVector[1];
                 }
                 //updateGuidewires 处理标线
-                updateGuidewires(this,self);
+                // updateGuidewires(this,self);
                 //按住shifit
                 // switch (self.workMode) {
                 //     case "draw":
@@ -122,7 +120,7 @@ window.imgToCode = new Vue({
                 this.coordinateOrigin.y=-this.stageHeight*(this.scale-1)*ratio_y/this.scale;
             }
             //mouse
-            this.mouseEvent.scale=newScale;
+            this.mouseEvent.scale=this.scale;
         },
         /**
          * 集中更新
