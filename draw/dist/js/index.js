@@ -10,8 +10,8 @@ window.imgToCode = new Vue({
     data: {
         //坐标原点位置
         coordinateOrigin: {
-            x: 500,
-            y: 500
+            x: 0,
+            y: 0
         },
         app:null,
         //舞台
@@ -112,14 +112,20 @@ window.imgToCode = new Vue({
          * @param {point} scalePoint  缩放点    
          */
         scaleStage(newScale,scalePoint){
-            this.scale*=newScale;
+            let addScale=newScale-1;
+            this.scale+=addScale;   
+            // this.xxx=this.xxx || 0;
             if(this.mouseEvent.curPos){
                 let ratio_x=(this.mouseEvent.curPos.x*this.ratio/this.stageWidth);
                 let ratio_y=(this.mouseEvent.curPos.y*this.ratio/this.stageHeight);
-                this.coordinateOrigin.x=-this.stageWidth*(this.scale-1)*ratio_x/this.scale;
-                this.coordinateOrigin.y=-this.stageHeight*(this.scale-1)*ratio_y/this.scale;
+                // console.log(this.stageWidth*addScale*ratio_x)
+                this.coordinateOrigin.x+=tools.toInt(-(this.stageWidth+this.coordinateOrigin.x)*addScale*ratio_x/this.scale);
+                // this.coordinateOrigin.y+=tools.toInt(-this.stageHeight*addScale*ratio_y/this.scale);
+                // this.xxx+=tools.toInt(-this.stageWidth*addScale*1/this.scale)
+                // this.xxx+=addScale;
+                console.log(this.xxx)
             }
-            //mouse
+            // //mouse
             this.mouseEvent.scale=this.scale;
         },
         /**
@@ -138,8 +144,8 @@ window.imgToCode = new Vue({
             this.grid.width=this.stageWidth;
             this.grid.height=this.stageHeight;
             //
-            this.guidewires.width=this.stageWidth;
-            this.guidewires.height=this.stageHeight;
+            // this.guidewires.width=this.stageWidth;
+            // this.guidewires.height=this.stageHeight;
         },
         /**
          * 渲染
