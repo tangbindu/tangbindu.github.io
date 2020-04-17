@@ -50,6 +50,8 @@ export default function(imgToCode){
             imgToCode.scaleStage(1-2/75);
         }
         imgToCode.render()
+        event.preventDefault();
+        return false;
     };
     document.onkeydown = function (event) {
         // console.log(event.keyCode)

@@ -4,8 +4,9 @@ import interact from "./interact.js";
 import stage from "./stage.js";
 import {Grid,Guidewires} from "./SpriteGraph.js";
 import updateGuidewires from "./updateGuidewires.js"
+import { Image } from "./SpriteImage.js";
 import SpritesController from "./SpritesController.js";
-window.imgToCode = new Vue({
+window.app = new Vue({
     el: '#app',
     data: {
         //坐标原点位置
@@ -30,6 +31,8 @@ window.imgToCode = new Vue({
         pressSpaceBtn:false,//space button
         //内容
         guidewires:null,
+        //上传的图片
+        uploadImage: null,//上传的图片
         //依赖
         'spritesController': new SpritesController()
     },
@@ -42,6 +45,10 @@ window.imgToCode = new Vue({
     },
     //监听
     watch: {
+        //绘制的图片变化了
+        "uploadImage": function () {
+            this.addImg()
+        },
     },
     //方法
     methods: {
@@ -114,12 +121,16 @@ window.imgToCode = new Vue({
         scaleStage(newScale,scalePoint){
             let addScale=newScale-1;
             this.scale+=addScale;   
-            // this.xxx=this.xxx || 0;
+
             if(this.mouseEvent.curPos){
-                let ratio_x=(this.mouseEvent.curPos.x*this.ratio/this.stageWidth);
-                let ratio_y=(this.mouseEvent.curPos.y*this.ratio/this.stageHeight);
-                // console.log(this.stageWidth*addScale*ratio_x)
-                this.coordinateOrigin.x+=tools.toInt(-(this.stageWidth+this.coordinateOrigin.x)*addScale*ratio_x/this.scale);
+                let ratio_x=(this.mouseEvent.curPos.x*this.ratio)/this.stageWidth;
+                let ratio_y=(this.mouseEvent.curPos.y*this.ratio)/this.stageHeight;
+                
+                // this.coordinateOrigin.x+=tools.toInt(-(this.stageWidth+this.coordinateOrigin.x)*addScale*ratio_x/this.scale);
+                // this.coordinateOrigin.y+=tools.toInt(-(this.stageHeight+this.coordinateOrigin.y)*addScale*ratio_y/this.scale);
+
+                
+                // this.coordinateOrigin.x+=tools.toInt(-(this.stageWidth+this.coordinateOrigin.x)*addScale*ratio_x/this.scale);
                 // this.coordinateOrigin.y+=tools.toInt(-this.stageHeight*addScale*ratio_y/this.scale);
                 // this.xxx+=tools.toInt(-this.stageWidth*addScale*1/this.scale)
                 // this.xxx+=addScale;
@@ -175,6 +186,20 @@ window.imgToCode = new Vue({
             this.guidewires.width=this.stageWidth;
             this.guidewires.height=this.stageHeight;
             this.spritesController.addSprite(this.guidewires);
+        },
+        //添加img
+        addImg(){
+            let img=this.uploadImage.img;
+            let name=this.uploadImage.name;
+            this.pageImage=new Image({x:0,y:0});
+            this.pageImage.zindex=-900000;
+            this.pageImage.width=img.width;
+            this.pageImage.height=img.height;
+            this.pageImage.img=img;
+            this.pageImage.name="page_img";
+            this.pageImage.Pname=name;
+            this.spritesController.addSprite(this.pageImage);
+            this.render();
         },
         //绘制图像
         drawShapes() {
