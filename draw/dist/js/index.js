@@ -119,22 +119,29 @@ window.app = new Vue({
          * @param {point} scalePoint  缩放点    
          */
         scaleStage(newScale,scalePoint){
-            let addScale=newScale-1;
-            this.scale+=addScale;   
-
+            // let addScale=newScale-1;
+            // let newScale=this.scale+addScale;   
+            newScale=1.2;
             if(this.mouseEvent.curPos){
                 let ratio_x=(this.mouseEvent.curPos.x*this.ratio)/this.stageWidth;
                 let ratio_y=(this.mouseEvent.curPos.y*this.ratio)/this.stageHeight;
+                //居中算法
+                ratio_x=.5;
+                ratio_y=.5;
                 
-                // this.coordinateOrigin.x+=tools.toInt(-(this.stageWidth+this.coordinateOrigin.x)*addScale*ratio_x/this.scale);
+                
+                this.coordinateOrigin.x-=tools.toInt((this.stageWidth+this.coordinateOrigin.x)*(this.scale*newScale-this.scale)*.5/(this.scale*newScale));
+                // console.log(tools.toInt((this.stageWidth+this.coordinateOrigin.x)*(this.scale*newScale-this.scale)*.2/(this.scale*newScale)))
                 // this.coordinateOrigin.y+=tools.toInt(-(this.stageHeight+this.coordinateOrigin.y)*addScale*ratio_y/this.scale);
 
+                console.log(this.scale*newScale-this.scale+","+this.coordinateOrigin.x)
                 
                 // this.coordinateOrigin.x+=tools.toInt(-(this.stageWidth+this.coordinateOrigin.x)*addScale*ratio_x/this.scale);
                 // this.coordinateOrigin.y+=tools.toInt(-this.stageHeight*addScale*ratio_y/this.scale);
                 // this.xxx+=tools.toInt(-this.stageWidth*addScale*1/this.scale)
                 // this.xxx+=addScale;
-                console.log(this.xxx)
+                this.scale*=newScale;
+                console.log(this.scale)
             }
             // //mouse
             this.mouseEvent.scale=this.scale;

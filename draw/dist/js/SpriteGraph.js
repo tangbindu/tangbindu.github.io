@@ -12,7 +12,7 @@ class Graph extends Sprite{
         this.lineWidth = 1;
         this.strokeStyle = 'rgba(255,0,0,0.5)';
         this.fillStyle = 'rgba(0,255,0,0.1)';
-        this.font = '12px STHeiti, SimHei';
+        this.font = '12px Helvetica Neue, SimHei';
         this.fontColor = 'rgba(255,0,0,1)';
         this.isFill = true;
     }
@@ -151,9 +151,9 @@ class Grid extends Graph{
     draw(ctx){
         ctx.save();
         ctx.lineWidth = 1;//线条粗细
-        ctx.strokeStyle = "rgba(0,0,0,.2)";//线条颜色
-        ctx.font = '18px STHeiti, SimHei';//字体
-        ctx.fillStyle = 'rgba(255,255,255,.2)';//字体颜色
+        ctx.strokeStyle = "rgba(255,255,255,.4)";//线条颜色
+        ctx.font = '18px Helvetica Neue, SimHei';//字体
+        ctx.fillStyle = 'rgba(255,255,255,.4)';//字体颜色
         //只画可见范围的线条
         let sx=this.x%this.gap;
         let sy=this.y%this.gap;
