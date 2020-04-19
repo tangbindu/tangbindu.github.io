@@ -14,6 +14,11 @@ window.app = new Vue({
             x: 0,
             y: 0
         },
+        //scale origin
+        scaleOrigin:{
+            x:.5,
+            y:.5
+        },
         app:null,
         //舞台
         stage: null,
@@ -77,37 +82,12 @@ window.app = new Vue({
                     self.coordinateOrigin.x+=this.moveLogicVector[0];
                     self.coordinateOrigin.y+=this.moveLogicVector[1];
                 }
-                //updateGuidewires 处理标线
-                // updateGuidewires(this,self);
-                //按住shifit
-                // switch (self.workMode) {
-                //     case "draw":
-                //         drawGraph(this,self); 
-                //         break;
-                //     case "edit":
-                //         editGraph(this,self);
-                //         break;
-                // }
+                if(this.curPos){
+                    self.scaleOrigin.x=(this.curPos.x*self.ratio)/self.stageWidth;
+                    self.scaleOrigin.y=(this.curPos.y*self.ratio)/self.stageHeight;
+                }
                 self.render();
             })
-
-            // test
-            // let test=()=>{
-            //     // this.coordinateOrigin.x+=1;
-            //     // this.coordinateOrigin.y+=1;
-            //     if(this.mouseEvent.curPos){
-            //         let ratio_x=(this.mouseEvent.curPos.x*this.ratio/this.stageWidth);
-            //         let ratio_y=(this.mouseEvent.curPos.y*this.ratio/this.stageHeight);
-            //         this.scale+=0.001;
-            //         this.coordinateOrigin.x=-this.stageWidth*(this.scale-1)*ratio_x/this.scale;
-            //         this.coordinateOrigin.y=-this.stageHeight*(this.scale-1)*ratio_y/this.scale;
-            //         this.render();
-            //     }
-            //     requestAnimationFrame(test)
-            // }
-            // test()
-
-
             //更新
             this.update();
             //渲染
@@ -119,30 +99,7 @@ window.app = new Vue({
          * @param {point} scalePoint  缩放点    
          */
         scaleStage(newScale,scalePoint){
-            // let addScale=newScale-1;
-            // let newScale=this.scale+addScale;   
-            newScale=1.2;
-            if(this.mouseEvent.curPos){
-                let ratio_x=(this.mouseEvent.curPos.x*this.ratio)/this.stageWidth;
-                let ratio_y=(this.mouseEvent.curPos.y*this.ratio)/this.stageHeight;
-                //居中算法
-                ratio_x=.5;
-                ratio_y=.5;
-                
-                
-                this.coordinateOrigin.x-=tools.toInt((this.stageWidth+this.coordinateOrigin.x)*(this.scale*newScale-this.scale)*.5/(this.scale*newScale));
-                // console.log(tools.toInt((this.stageWidth+this.coordinateOrigin.x)*(this.scale*newScale-this.scale)*.2/(this.scale*newScale)))
-                // this.coordinateOrigin.y+=tools.toInt(-(this.stageHeight+this.coordinateOrigin.y)*addScale*ratio_y/this.scale);
-
-                console.log(this.scale*newScale-this.scale+","+this.coordinateOrigin.x)
-                
-                // this.coordinateOrigin.x+=tools.toInt(-(this.stageWidth+this.coordinateOrigin.x)*addScale*ratio_x/this.scale);
-                // this.coordinateOrigin.y+=tools.toInt(-this.stageHeight*addScale*ratio_y/this.scale);
-                // this.xxx+=tools.toInt(-this.stageWidth*addScale*1/this.scale)
-                // this.xxx+=addScale;
-                this.scale*=newScale;
-                console.log(this.scale)
-            }
+            this.scale*=newScale;
             // //mouse
             this.mouseEvent.scale=this.scale;
         },
@@ -210,14 +167,17 @@ window.app = new Vue({
         },
         //绘制图像
         drawShapes() {
+            //缩放偏移
+            let a=this.scaleOrigin.x*this.stageWidth*(this.scale-1)/this.scale*-1;
+            let b=this.scaleOrigin.y*this.stageHeight*(this.scale-1)/this.scale*-1;
             //遍历精灵
             this.spritesController.sprites.map((item) => {
                 item.scale=this.scale;
-                item.x+=this.coordinateOrigin.x;
-                item.y+=this.coordinateOrigin.y;
+                item.x+=(this.coordinateOrigin.x+a);
+                item.y+=(this.coordinateOrigin.y+b);
                 item.draw(this.stageCTX);
-                item.x-=this.coordinateOrigin.x;
-                item.y-=this.coordinateOrigin.y;
+                item.x-=(this.coordinateOrigin.x+a);
+                item.y-=(this.coordinateOrigin.y+b);
             })
         },
         //清空画布
