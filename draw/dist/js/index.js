@@ -98,10 +98,22 @@ window.app = new Vue({
          * @param {number} scale  缩放点
          * @param {point} scalePoint  缩放点    
          */
-        scaleStage(newScale,scalePoint){
-            this.scale*=newScale;
-            // //mouse
-            this.mouseEvent.scale=this.scale;
+        scaleStage(scale,scalePoint){
+            scale=2.0;
+            this.scaleOrigin.x=.5;
+            //缩放偏移
+            let newScale=this.scale*scale;
+            //屏幕偏移量
+            let sx=this.scaleOrigin.x*this.stageWidth*(newScale-this.scale)/newScale*-1;
+            let sy=this.scaleOrigin.y*this.stageHeight*(newScale-this.scale)/newScale*-1;
+            this.coordinateOrigin.x+=sx;
+            this.coordinateOrigin.y+=sy;
+            console.log(sx)
+
+            this.scale=newScale;
+            this.mouseEvent.scale=newScale;
+            // console.log(this.coordinateOrigin.x);
+            // console.log((Math.abs(this.coordinateOrigin.x*2)+this.stageWidth)*this.scale)
         },
         /**
          * 集中更新
@@ -167,17 +179,14 @@ window.app = new Vue({
         },
         //绘制图像
         drawShapes() {
-            //缩放偏移
-            let a=this.scaleOrigin.x*this.stageWidth*(this.scale-1)/this.scale*-1;
-            let b=this.scaleOrigin.y*this.stageHeight*(this.scale-1)/this.scale*-1;
             //遍历精灵
             this.spritesController.sprites.map((item) => {
                 item.scale=this.scale;
-                item.x+=(this.coordinateOrigin.x+a);
-                item.y+=(this.coordinateOrigin.y+b);
+                item.x+=this.coordinateOrigin.x;
+                item.y+=this.coordinateOrigin.y;
                 item.draw(this.stageCTX);
-                item.x-=(this.coordinateOrigin.x+a);
-                item.y-=(this.coordinateOrigin.y+b);
+                item.x-=this.coordinateOrigin.x;
+                item.y-=this.coordinateOrigin.y;
             })
         },
         //清空画布
