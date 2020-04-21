@@ -1,6 +1,7 @@
 import tools from "./tools.js";
 import MouseEvent from "./MouseEvent.js"
-import interact from "./interact.js";
+import KeyBoardEvent from "./KeyBoardEvent.js"
+import DragFile from "./DragFile.js"
 import stage from "./stage.js";
 import {Grid,Guidewires} from "./SpriteGraph.js";
 import updateGuidewires from "./updateGuidewires.js"
@@ -33,13 +34,15 @@ window.app = new Vue({
         scaleLimit:10,
         //鼠标事件
         mouseEvent:null,
+        //键盘事件
+        keyBoardEvent:null,
+        //拖拽文件
+        dragFile:null,
         //精灵控制器
         spritesController: new SpritesController(),
         /**
          * 其他
          **/
-        //按下空格键
-        pressSpaceBtn:false,
         //鼠标引导线
         guidewires:null,
         //上传文件【图片】
@@ -65,13 +68,13 @@ window.app = new Vue({
             //舞台
             this.initStage();
             //键盘
-            interact(this);
-            //键盘
-            // this.initKeyBoard();
+            this.initKeyBoardEvent();
             //鼠标
             this.initMouseEvent();
+            //拖拽文件
+            this.initDragFile();
             //网格
-            this.addGrid();
+            this.initGrid();
             //辅助线
             // this.addGuidewires();
             //尺寸
@@ -94,6 +97,7 @@ window.app = new Vue({
         initMouseEvent(){
             //鼠标交互--绘图
             this.mouseEvent = new MouseEvent(
+                this,
                 this.stage.view,
                 this.ratio,
                 this.scale,
@@ -102,7 +106,7 @@ window.app = new Vue({
             let self = this;
             this.mouseEvent.handler("all",function(){
                 //拖动stage
-                if (self.pressSpaceBtn && this.type == "move" && this.isMoving) {
+                if (self.keyBoardEvent.pressSpace && this.type == "move" && this.isMoving) {
                     self.coordinateOrigin.x+=this.moveLogicVector[0];
                     self.coordinateOrigin.y+=this.moveLogicVector[1];
                 }
@@ -112,8 +116,14 @@ window.app = new Vue({
         /**
          * 初始化键盘事件
          */
-        initKeyBoard(){
-
+        initKeyBoardEvent(){
+            this.keyBoardEvent = new KeyBoardEvent(this);
+        },
+        /**
+         * 初始化拖拽文件
+         */
+        initDragFile(){
+            this.dragFile = new DragFile(this);
         },
         /**
          * 缩放舞台策略
@@ -171,8 +181,8 @@ window.app = new Vue({
                 this.drawShapes();
             })
         },
-        //添加网格
-        addGrid(){
+        //初始化网格
+        initGrid(){
             this.grid = new Grid({x:0,y:0});
             this.grid.zindex=-1000000;
             this.grid.type="tool";

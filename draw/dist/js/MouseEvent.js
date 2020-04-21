@@ -3,8 +3,9 @@ import eventTarget from "./eventTarget.js";
 
 //event
 class MouseEvent extends eventTarget{
-    constructor(ele,ratio,scale,coordinateOrigin){
+    constructor(app,ele,ratio,scale,coordinateOrigin){
         super();
+        this.app=app;
         //元素
         this.ele=ele;
         //通用
@@ -28,6 +29,10 @@ class MouseEvent extends eventTarget{
         //事件列表
         this.eventList=[];
         this.type=null;
+        //初始化
+        this.init();
+    }
+    init(){
         this.ele.addEventListener("mousedown",(event)=>{
             this.mousedown(event)
         })
@@ -37,6 +42,22 @@ class MouseEvent extends eventTarget{
         this.ele.addEventListener("mouseup",(event)=>{
             this.mouseup(event);
         })
+        //滚轮
+        document.body.onmousewheel = (event)=>{
+            if(event.deltaY>0){
+                //放大
+                this.app.scaleStage(1+event.deltaY/750);
+            }else{
+                //缩小
+                this.app.scaleStage(1+event.deltaY/750);
+            }
+        };
+        //滚轮
+        //鼠标&键盘改变尺寸
+        window.addEventListener("resize",()=>{
+            this.app.resize();
+        })
+        //鼠标&键盘改变尺寸
         this.refresh();
     }
     event(fun){
