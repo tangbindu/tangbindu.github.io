@@ -10,7 +10,7 @@ class MouseEvent extends eventTarget{
         //通用
         this.startPos=null;//开始point
         this.prevPos=null;//上一个point
-        this.curPos=null;//当前point
+        this.curPos={x:0,y:0};//当前point
         this.moveVector=null;//vector
         this.totalMoveVector=null;//总移动vector
         // this._toNextFrame=null;
@@ -22,7 +22,7 @@ class MouseEvent extends eventTarget{
         this.scale=scale || 1;
         this.coordinateOrigin=coordinateOrigin || {x:0,y:0};
         // this.realPoint=null;
-        this.curLogicPos=null;//逻辑像素
+        this.curLogicPos={x:0,y:0};//逻辑像素
         // this.moveLogicVector=null;
         // this.totalMoveLogicVector=null;
         //事件列表
@@ -40,6 +40,16 @@ class MouseEvent extends eventTarget{
     }
     event(fun){
         this.eventList.push(fun);
+    }
+    update(){
+        this.curLogicPos=tools.toLogicPixel(
+            this.curPos,
+            this.ratio,
+            this.scale,
+            this.coordinateOrigin
+        );
+        this.startPos=this.curPos;
+        this.prevPos = this.curPos;
     }
     run(type){
         this.type=type;
