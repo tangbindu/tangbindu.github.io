@@ -77,11 +77,11 @@ export default function(imgToCode){
                 event.preventDefault();
             }else if (event.keyCode == 221) {
                 //放大
-                imgToCode.scaleStage(1+2/75);
+                imgToCode.scaleStage(1+1/75);
                 event.preventDefault();
             } else if (event.keyCode == 219) {
                 //缩小
-                imgToCode.scaleStage(1-2/75);
+                imgToCode.scaleStage(1-1/75);
                 event.preventDefault();
             }else if (event.keyCode == 77){
                 //draw mode

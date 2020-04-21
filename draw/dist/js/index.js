@@ -100,9 +100,7 @@ window.app = new Vue({
          * @param {point} scalePoint  缩放点    
          */
         scaleStage(newScale,scalePoint){
-            // newScale=2.0;
             newScale=this.scale*newScale;
-
             this.mouseEvent.update();
             //缩放后，逻辑像素不能变
             //最初的逻辑像素
@@ -115,19 +113,11 @@ window.app = new Vue({
             let newCurLogicPosX=this.mouseEvent.curLogicPos.x;
             let newCurLogicPosY=this.mouseEvent.curLogicPos.y;
 
-
             
             //变化
             let changeX=(newCurLogicPosX-lastCurLogicPosX);
             let changeY=(newCurLogicPosY-lastCurLogicPosY);
             
-
-
-            // let curLogicPosX=this.mouseEvent.curLogicPos.x;
-            // let stageWidth=this.stageWidth;
-            // let transX=newScale*curLogicPosX*this.scaleOrigin.x-this.stageWidth*this.scaleOrigin.x;
-            // let transX=(newScale*curLogicPosX-curLogicPosX)*-1;
-            // console.log(newScale*curLogicPosX+","+this.stageWidth*this.scaleOrigin.x);
             this.coordinateOrigin.x+=changeX;
             this.coordinateOrigin.y+=changeY;
         },
