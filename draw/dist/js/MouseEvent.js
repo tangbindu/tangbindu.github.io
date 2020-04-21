@@ -37,11 +37,12 @@ class MouseEvent extends eventTarget{
         this.ele.addEventListener("mouseup",(event)=>{
             this.mouseup(event);
         })
+        this.refresh();
     }
     event(fun){
         this.eventList.push(fun);
     }
-    update(){
+    refresh(){
         this.curLogicPos=tools.toLogicPixel(
             this.curPos,
             this.ratio,

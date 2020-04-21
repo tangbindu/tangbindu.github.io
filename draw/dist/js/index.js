@@ -8,42 +8,40 @@ import { Image } from "./SpriteImage.js";
 import SpritesController from "./SpritesController.js";
 let bowen=true;
 window.app = new Vue({
-    el: '#app',
+    el: '#container',
     data: {
-        //坐标原点位置
+        //坐标原点
         coordinateOrigin: {
             x: 0,
             y: 0
         },
-        //scale origin
-        scaleOrigin:{
-            x:.5,
-            y:.5
-        },
-        app:null,
+        //舞台容器
+        container:null,
         //舞台
         stage: null,
+        //舞台宽
         stageWidth: null,
+        //舞台高
         stageHeight: null,
         //舞台绘图对象
         stageCTX: null,
-        //像素比
+        //像素密度
         ratio: 2.0,
         //人工缩放比
         scale: 1.0,
-        //mouseEvent
+        //鼠标事件
         mouseEvent:null,
-        //按键
-        pressSpaceBtn:false,//space button
-        //内容
+        //精灵控制器
+        spritesController: new SpritesController(),
+        /**
+         * 其他
+         **/
+        //按下空格键
+        pressSpaceBtn:false,
+        //鼠标引导线
         guidewires:null,
-        //上传的图片
-        uploadImage: null,//上传的图片
-        //依赖
-        'spritesController': new SpritesController()
-    },
-    //创建
-    created() {
+        //上传文件【图片】
+        uploadImage: null//上传的图片
     },
     //准备好
     mounted() {
@@ -60,18 +58,39 @@ window.app = new Vue({
     methods: {
         // 初始化
         init() {
-            //stage
-            this.app=document.getElementById("app");
-            this.stage=stage.createStage(app);
-            this.stageCTX = this.stage.getContext("2d");
-            //键盘交互--all
+            //初始化容器
+            this.container=document.getElementById("container");
+            //舞台
+            this.initStage();
+            //键盘
             interact(this);
-            //内容
-            this.addGrid();//网格
-            // this.addGuidewires();//辅助线
+            //鼠标
+            this.initMouseEvent();
+            //网格
+            this.addGrid();
+            //辅助线
+            // this.addGuidewires();
+            //尺寸
+            this.resize();
+            //渲染
+            this.render();
+        },
+        /**
+         * 初始化舞台
+         */
+        initStage(){
+            this.stage=new stage(this.container,this.ratio)
+            this.stageCTX = this.stage.ctx;
+            this.stageWidth = this.stage.view.width;
+            this.stageHeight = this.stage.view.height;
+        },
+        /**
+         * 初始化鼠标事件
+         */
+        initMouseEvent(){
             //鼠标交互--绘图
             this.mouseEvent = new MouseEvent(
-                this.stage,
+                this.stage.view,
                 this.ratio,
                 this.scale,
                 this.coordinateOrigin
@@ -83,16 +102,8 @@ window.app = new Vue({
                     self.coordinateOrigin.x+=this.moveLogicVector[0];
                     self.coordinateOrigin.y+=this.moveLogicVector[1];
                 }
-                if(this.curPos){
-                    self.scaleOrigin.x=(this.curPos.x*self.ratio)/self.stageWidth;
-                    self.scaleOrigin.y=(this.curPos.y*self.ratio)/self.stageHeight;
-                }
                 self.render();
             })
-            //更新
-            this.update();
-            //渲染
-            this.render();
         },
         /**
          * 缩放舞台策略
@@ -101,7 +112,7 @@ window.app = new Vue({
          */
         scaleStage(newScale,scalePoint){
             newScale=this.scale*newScale;
-            this.mouseEvent.update();
+            this.mouseEvent.refresh();
             //缩放后，逻辑像素不能变
             //最初的逻辑像素
             let lastCurLogicPosX=this.mouseEvent.curLogicPos.x;
@@ -109,15 +120,12 @@ window.app = new Vue({
             this.scale=newScale;
             this.mouseEvent.scale=newScale;
             this.mouseEvent.coordinateOrigin=this.coordinateOrigin;
-            this.mouseEvent.update();
+            this.mouseEvent.refresh();
             let newCurLogicPosX=this.mouseEvent.curLogicPos.x;
             let newCurLogicPosY=this.mouseEvent.curLogicPos.y;
-
-            
             //变化
             let changeX=(newCurLogicPosX-lastCurLogicPosX);
             let changeY=(newCurLogicPosY-lastCurLogicPosY);
-            
             this.coordinateOrigin.x+=changeX;
             this.coordinateOrigin.y+=changeY;
             //渲染
@@ -126,21 +134,16 @@ window.app = new Vue({
         /**
          * 集中更新 update 不等于 render
          */
-        update(){
+        resize(){
             //更新舞台
-            stage.updataStage(
-                this.app,
-                this.stage,
-                this.ratio
-            )
-            this.stageWidth = this.stage.width;
-            this.stageHeight = this.stage.height;
+            this.stage.resize(this.container,this.ratio)
             //更新grid
             this.grid.width=this.stageWidth;
             this.grid.height=this.stageHeight;
             //
             // this.guidewires.width=this.stageWidth;
             // this.guidewires.height=this.stageHeight;
+            this.render();
         },
         /**
          * 渲染

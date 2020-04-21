@@ -112,7 +112,7 @@ export default function(imgToCode){
             }else if(event.keyCode==32){
                 //移动
                 imgToCode.pressSpaceBtn=true;
-                imgToCode.stage.style.cursor = 'move';
+                imgToCode.stage.view.style.cursor = 'move';
             }else{
                 // console.dir(event.keyCode)
             }
@@ -124,16 +124,14 @@ export default function(imgToCode){
     document.onkeyup=function(event){
         imgToCode.pressShiftBtn=false;
         imgToCode.pressSpaceBtn=false;
-        imgToCode.stage.style.cursor = 'default';    
+        imgToCode.stage.view.style.cursor = 'default';    
         cmd=false;
         shift=false;
         //onkeyup render
         imgToCode.render();
     }
     window.addEventListener("resize",()=>{
-        imgToCode.update();
-        //onkeydown resize
-        imgToCode.render();
+        imgToCode.resize();
     })
     //
     // keyboardJS.bind('ctrl + a', function(e) {

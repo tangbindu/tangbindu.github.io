@@ -1,32 +1,33 @@
-let stage={
+class stage{
     /**
-     * 创造一个舞台
-     * @param {*} container  容器
-     */
-    createStage(container){
-        let stage=document.createElement("canvas");
-        container.appendChild(stage);
-        return stage;
-    },
-    /**
-     * 更新舞台
-     * @param {dom} container 
+     * @param {node} container 
      * @param {number} ratio 
      */
-    updataStage(container,stage,ratio){
-        let stageWidth=container.clientWidth*ratio;
-        let stageHeight=container.clientHeight*ratio;
-        stage.width=stageWidth;
-        stage.height=stageHeight;
-        stage.style.zoom=1/ratio;
-    },
+    constructor(container,ratio){
+        this.ratio=ratio;
+        this.container=container;
+        this.view=null;
+        this.ctx=null;
+        this.init();
+    }
     /**
-     * 缩放舞台
-     * @param {number} scale  缩放点
-     * @param {point} scalePoint  缩放点
+     * 初始化
      */
-    // scaleStage(scale,scalePoint){
-    //     this.scale*=scale;
-    // }
+    init(){
+        this.view=document.createElement("canvas");
+        this.ctx = this.view.getContext("2d");
+        document.getElementById("container").appendChild(this.view);
+        this.resize(this.container,this.ratio);
+    }
+    /**
+     * 重置尺寸
+     * @param {node} container 
+     * @param {number} ratio 
+     */
+    resize(container,ratio){
+        this.view.width=this.container.clientWidth*this.ratio;
+        this.view.height=this.container.clientHeight*this.ratio;
+        this.view.style.zoom=1/this.ratio;
+    }
 };
 export default stage;
