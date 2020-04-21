@@ -6,6 +6,7 @@ import {Grid,Guidewires} from "./SpriteGraph.js";
 import updateGuidewires from "./updateGuidewires.js"
 import { Image } from "./SpriteImage.js";
 import SpritesController from "./SpritesController.js";
+let bowen=true;
 window.app = new Vue({
     el: '#app',
     data: {
@@ -98,22 +99,18 @@ window.app = new Vue({
          * @param {number} scale  缩放点
          * @param {point} scalePoint  缩放点    
          */
-        scaleStage(scale,scalePoint){
-            scale=2.0;
-            this.scaleOrigin.x=.5;
+        scaleStage(newScale,scalePoint){
+            newScale=this.scale*newScale;
+            //
             //缩放偏移
-            let newScale=this.scale*scale;
-            //屏幕偏移量
-            let sx=this.scaleOrigin.x*this.stageWidth*(newScale-this.scale)/newScale*-1;
-            let sy=this.scaleOrigin.y*this.stageHeight*(newScale-this.scale)/newScale*-1;
-            this.coordinateOrigin.x+=sx;
-            this.coordinateOrigin.y+=sy;
-            console.log(sx)
-
+            let a=this.scaleOrigin.x*this.stageWidth*(newScale-this.scale)*-1;
+            let b=this.scaleOrigin.y*this.stageHeight*(newScale-this.scale)*-1;
+            console.log(a)
+            this.coordinateOrigin.x+=a;
+            this.coordinateOrigin.b+=b;
+            //新scale
             this.scale=newScale;
             this.mouseEvent.scale=newScale;
-            // console.log(this.coordinateOrigin.x);
-            // console.log((Math.abs(this.coordinateOrigin.x*2)+this.stageWidth)*this.scale)
         },
         /**
          * 集中更新
