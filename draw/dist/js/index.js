@@ -120,9 +120,11 @@ window.app = new Vue({
             
             this.coordinateOrigin.x+=changeX;
             this.coordinateOrigin.y+=changeY;
+            //渲染
+            this.render();
         },
         /**
-         * 集中更新
+         * 集中更新 update 不等于 render
          */
         update(){
             //更新舞台
@@ -144,10 +146,12 @@ window.app = new Vue({
          * 渲染
          */
         render() {
-            //清空画布
-            this.clear();
-            //绘制图像
-            this.drawShapes();
+            requestAnimationFrame(()=>{
+                //清空画布
+                this.clear();
+                //绘制图像
+                this.drawShapes();
+            })
         },
         //添加网格
         addGrid(){

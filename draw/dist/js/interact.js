@@ -1,7 +1,7 @@
 import tools from "./tools.js";
 
 export default function(imgToCode){
-    //前台-拖拽上传
+    //拖拽上传文件
     window.document.addEventListener("dragenter", function(e) {
         e.stopPropagation();
         e.preventDefault();
@@ -12,7 +12,7 @@ export default function(imgToCode){
     }, false);
     window.document.addEventListener("drop", function(e) {
         handleFile(e.dataTransfer.files);
-        //获取图片
+        //获取一张图片
         function handleFile(files) {
             var i = 0;
             var reader = new FileReader();
@@ -39,19 +39,17 @@ export default function(imgToCode){
         e.stopPropagation();
         e.preventDefault();
     }, false);
+    //是否按压了btn
     let cmd=false;
     let shift=false;
     document.body.onmousewheel = function(event) {
         if(event.deltaY>0){
             //放大
-            imgToCode.scaleStage(1+2/75);
+            imgToCode.scaleStage(1+event.deltaY/750);
         }else{
             //缩小
-            imgToCode.scaleStage(1-2/75);
+            imgToCode.scaleStage(1+event.deltaY/750);
         }
-        imgToCode.render()
-        event.preventDefault();
-        return false;
     };
     document.onkeydown = function (event) {
         // console.log(event.keyCode)
@@ -120,6 +118,7 @@ export default function(imgToCode){
             }
         } else {
         }
+        //onkeydown render
         imgToCode.render()
     }
     document.onkeyup=function(event){
@@ -128,10 +127,12 @@ export default function(imgToCode){
         imgToCode.stage.style.cursor = 'default';    
         cmd=false;
         shift=false;
+        //onkeyup render
         imgToCode.render();
     }
     window.addEventListener("resize",()=>{
         imgToCode.update();
+        //onkeydown resize
         imgToCode.render();
     })
     //
