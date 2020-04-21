@@ -29,6 +29,8 @@ window.app = new Vue({
         ratio: 2.0,
         //人工缩放比
         scale: 1.0,
+        //缩放限制
+        scaleLimit:10,
         //鼠标事件
         mouseEvent:null,
         //精灵控制器
@@ -59,11 +61,13 @@ window.app = new Vue({
         // 初始化
         init() {
             //初始化容器
-            this.container=document.getElementById("container");
+            this.container=this.$el;
             //舞台
             this.initStage();
             //键盘
             interact(this);
+            //键盘
+            // this.initKeyBoard();
             //鼠标
             this.initMouseEvent();
             //网格
@@ -106,11 +110,20 @@ window.app = new Vue({
             })
         },
         /**
+         * 初始化键盘事件
+         */
+        initKeyBoard(){
+
+        },
+        /**
          * 缩放舞台策略
          * @param {number} scale  缩放点
          * @param {point} scalePoint  缩放点    
          */
         scaleStage(newScale,scalePoint){
+            if(this.scale*newScale>10 || this.scale*newScale<.1){
+                return;
+            }
             newScale=this.scale*newScale;
             this.mouseEvent.refresh();
             //缩放后，逻辑像素不能变
@@ -137,6 +150,8 @@ window.app = new Vue({
         resize(){
             //更新舞台
             this.stage.resize(this.container,this.ratio)
+            this.stageWidth = this.stage.view.width;
+            this.stageHeight = this.stage.view.height;
             //更新grid
             this.grid.width=this.stageWidth;
             this.grid.height=this.stageHeight;

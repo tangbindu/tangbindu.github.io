@@ -178,7 +178,7 @@ class Grid extends Graph{
         ctx.textBaseline = 'top';
         ctx.textAlign = "left";
         let x = 0;
-        while (gap * x < this.width) {
+        while (gap * x < (this.width+gap)) {
             ctx.beginPath();
             ctx.moveTo(tools.toDrawVal(gap * x+sx*this.scale), 0);
             ctx.lineTo(tools.toDrawVal(gap * x+sx*this.scale), this.height);
