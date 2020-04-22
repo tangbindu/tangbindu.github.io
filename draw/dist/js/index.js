@@ -77,8 +77,8 @@ window.app = new Vue({
             this.initGrid();
             //辅助线
             // this.addGuidewires();
-            //尺寸
-            this.resize();
+            //设置尺寸
+            this.setSize();
             //渲染
             this.render();
         },
@@ -103,15 +103,19 @@ window.app = new Vue({
                 this.scale,
                 this.coordinateOrigin
             );
-            let self = this;
-            this.mouseEvent.handler("all",function(){
+            this.mouseEvent.handler("all",()=>{
                 //拖动stage
-                if (self.keyBoardEvent.pressSpace && this.type == "move" && this.isMoving) {
-                    self.coordinateOrigin.x+=this.moveLogicVector[0];
-                    self.coordinateOrigin.y+=this.moveLogicVector[1];
+                if (this.keyBoardEvent.pressSpace && this.mouseEvent.type == "move" && this.mouseEvent.isMoving) {
+                    this.coordinateOrigin.x+=this.mouseEvent.moveLogicVector[0];
+                    this.coordinateOrigin.y+=this.mouseEvent.moveLogicVector[1];
                 }
-                self.render();
+                this.render();
             })
+            this.mouseEvent.handler("resize",()=>{
+                this.setSize();
+                this.render();
+            })
+            
         },
         /**
          * 初始化键盘事件
@@ -128,47 +132,27 @@ window.app = new Vue({
         /**
          * 缩放舞台策略
          * @param {number} scale  缩放点
-         * @param {point} scalePoint  缩放点    
          */
-        scaleStage(newScale,scalePoint){
-            if(this.scale*newScale>10 || this.scale*newScale<.1){
-                return;
-            }
-            newScale=this.scale*newScale;
-            this.mouseEvent.refresh();
-            //缩放后，逻辑像素不能变
-            //最初的逻辑像素
-            let lastCurLogicPosX=this.mouseEvent.curLogicPos.x;
-            let lastCurLogicPosY=this.mouseEvent.curLogicPos.y;
-            this.scale=newScale;
-            this.mouseEvent.scale=newScale;
-            this.mouseEvent.coordinateOrigin=this.coordinateOrigin;
-            this.mouseEvent.refresh();
-            let newCurLogicPosX=this.mouseEvent.curLogicPos.x;
-            let newCurLogicPosY=this.mouseEvent.curLogicPos.y;
-            //变化
-            let changeX=(newCurLogicPosX-lastCurLogicPosX);
-            let changeY=(newCurLogicPosY-lastCurLogicPosY);
-            this.coordinateOrigin.x+=changeX;
-            this.coordinateOrigin.y+=changeY;
+        scaleStage(scale){
+            //缩放
+            this.stage.scale(scale,this)
             //渲染
             this.render();
         },
         /**
-         * 集中更新 update 不等于 render
+         * 设置尺寸
          */
-        resize(){
-            //更新舞台
-            this.stage.resize(this.container,this.ratio)
+        setSize(){
+            //setSize stage
+            this.stage.resize(this.container,this.ratio);
             this.stageWidth = this.stage.view.width;
             this.stageHeight = this.stage.view.height;
-            //更新grid
+            //setSize grid
             this.grid.width=this.stageWidth;
             this.grid.height=this.stageHeight;
-            //
+            //setSize guidewires
             // this.guidewires.width=this.stageWidth;
             // this.guidewires.height=this.stageHeight;
-            this.render();
         },
         /**
          * 渲染

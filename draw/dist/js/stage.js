@@ -20,6 +20,32 @@ class stage{
         this.resize(this.container,this.ratio);
     }
     /**
+     * 缩放舞台
+     * @param {number} scale 
+     * @param {object} app 
+     */
+    scale(scale,app){
+        //缩放后，逻辑像素不能变
+        let newScale=app.scale*scale;
+        if(newScale>10 || newScale<.1){
+            return;
+        }else{
+            app.scale=newScale;
+        }
+        //current LogicPos
+        app.mouseEvent.refresh();
+        let lastCurLogicPosX=app.mouseEvent.curLogicPos.x;
+        let lastCurLogicPosY=app.mouseEvent.curLogicPos.y;
+        //new LogicPos
+        app.mouseEvent.scale=newScale;
+        app.mouseEvent.refresh();
+        let newCurLogicPosX=app.mouseEvent.curLogicPos.x;
+        let newCurLogicPosY=app.mouseEvent.curLogicPos.y;
+        //新坐标
+        app.coordinateOrigin.x+=(newCurLogicPosX-lastCurLogicPosX);
+        app.coordinateOrigin.y+=(newCurLogicPosY-lastCurLogicPosY);
+    }
+    /**
      * 重置尺寸
      * @param {node} container 
      * @param {number} ratio 

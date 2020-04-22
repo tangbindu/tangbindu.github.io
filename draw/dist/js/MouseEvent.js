@@ -55,7 +55,7 @@ class MouseEvent extends eventTarget{
         //滚轮
         //鼠标&键盘改变尺寸
         window.addEventListener("resize",()=>{
-            this.app.resize();
+            this.trigger("resize");
         })
         //鼠标&键盘改变尺寸
         this.refresh();
