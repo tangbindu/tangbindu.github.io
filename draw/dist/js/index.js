@@ -30,7 +30,7 @@ window.app = new Vue({
         //人工缩放比
         scale: 1.0,
         //缩放限制
-        scaleLimit:10,
+        scaleLimit:20,
         //鼠标事件
         mouseEvent:null,
         //键盘事件

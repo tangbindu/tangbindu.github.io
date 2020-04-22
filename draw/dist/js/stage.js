@@ -27,7 +27,7 @@ class stage{
     scale(scale,app){
         //缩放后，逻辑像素不能变
         let newScale=app.scale*scale;
-        if(newScale>10 || newScale<.1){
+        if(newScale>app.scaleLimit || newScale<1/app.scaleLimit){
             return;
         }else{
             app.scale=newScale;
