@@ -1,11 +1,11 @@
 let tools={
     //整数策略
     toInt(val){
-        return Math.round(val)
+        return Math.floor(val)
     },
     //绘制策略
     toDrawVal(val){
-        return Math.round(val)+.5;
+        return Math.floor(val)+.5;
     },
     //绝对像素 deviceWidth*devicePixelRatio
     toPixel(point,ratio){
@@ -17,10 +17,10 @@ let tools={
     toLogicPixel(point,ratio,scale,coordinateOrigin){
         let x=(point.x*ratio)/scale-coordinateOrigin.x;
         let y=(point.y*ratio)/scale-coordinateOrigin.y;
-        return {
-            x:x,
-            y:y
-        }
+        // return {
+        //     x:x,
+        //     y:y
+        // }
         return {
             x:this.toInt(x),
             y:this.toInt(y)
