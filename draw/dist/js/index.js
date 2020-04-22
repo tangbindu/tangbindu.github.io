@@ -19,6 +19,8 @@ window.app = new Vue({
         container:null,
         //舞台
         stage: null,
+        offscreenStage: null,
+        offscreenStageCTX: null,
         //舞台宽
         stageWidth: null,
         //舞台高
@@ -89,6 +91,12 @@ window.app = new Vue({
             this.stageCTX = this.stage.ctx;
             this.stageWidth = this.stage.view.width;
             this.stageHeight = this.stage.view.height;
+            console.log(this.stageWidth)
+            //离屏
+            this.offscreenStage=document.createElement("canvas");
+            this.offscreenStage.width=this.stageWidth;
+            this.offscreenStage.height=this.stageHeight;
+            this.offscreenStageCTX=this.offscreenStage.getContext("2d");
         },
         /**
          * 初始化鼠标事件
@@ -151,15 +159,8 @@ window.app = new Vue({
             this.stage.resize(this.container,this.ratio);
             this.stageWidth = this.stage.view.width;
             this.stageHeight = this.stage.view.height;
-        },
-        /**
-         * 渲染
-         */
-        render() {
-            //清空画布
-            this.clear();
-            //绘制图像
-            this.drawShapes();
+            this.offscreenStage.width=this.stageWidth;
+            this.offscreenStage.height=this.stageHeight;
         },
         //初始化网格
         initGrid(){
@@ -193,6 +194,17 @@ window.app = new Vue({
             this.spritesController.addSprite(this.pageImage);
             this.render();
         },
+        /**
+         * 渲染
+         */
+        render() {
+            //清空画布
+            this.clear(this.stageCTX);
+            //绘制图像
+            this.drawShapes();
+            //清空离屏画布
+            this.clear(this.offscreenStageCTX);
+        },
         //绘制图像
         drawShapes() {
             //遍历精灵
@@ -200,14 +212,16 @@ window.app = new Vue({
                 item.scale=this.scale;
                 item.x+=this.coordinateOrigin.x;
                 item.y+=this.coordinateOrigin.y;
-                item.draw(this.stageCTX);
+                item.draw(this.offscreenStageCTX);
                 item.x-=this.coordinateOrigin.x;
                 item.y-=this.coordinateOrigin.y;
             })
+            this.stageCTX.drawImage(this.offscreenStage , 0 , 0);
+            tools.clear(this.offscreenStageCTX, 0, 0, this.stageWidth, this.stageHeight);
         },
         //清空画布
-        clear() {
-            tools.clear(this.stageCTX, 0, 0, this.stageWidth, this.stageHeight);
+        clear(ctx) {
+            tools.clear(ctx, 0, 0, this.stageWidth, this.stageHeight);
         }
     }
 })
