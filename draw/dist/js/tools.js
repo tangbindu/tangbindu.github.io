@@ -18,6 +18,10 @@ let tools={
         let x=(point.x*ratio)/scale-coordinateOrigin.x;
         let y=(point.y*ratio)/scale-coordinateOrigin.y;
         return {
+            x:x,
+            y:y
+        }
+        return {
             x:this.toInt(x),
             y:this.toInt(y)
         }

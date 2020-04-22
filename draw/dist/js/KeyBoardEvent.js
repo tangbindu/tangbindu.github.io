@@ -27,7 +27,6 @@ class KeyBoardEvent extends eventTarget{
                 }else if(self.pressCmd && event.keyCode == 67){
                     //复制
                     app.spritesController.copyActiveSprites();
-                    app.render();
                     event.preventDefault();
                 }else if(self.pressCmd && event.keyCode == 86){
                     //粘贴

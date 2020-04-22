@@ -130,7 +130,7 @@ class Guidewires extends Graph{
         const fontSize = 12;
         ctx.fillStyle = 'rgba(255,0,0,1)';
         ctx.font = fontSize*window.devicePixelRatio + 'px Helvetica Neue, SimHei';
-        const text = "("+tools.toInt(this.viewX) + ", " + tools.toInt(this.viewY)+")";
+        const text = "("+this.viewX + ", " + this.viewY+")";
         ctx.fillText(
             text,
             Math.min(
@@ -165,10 +165,10 @@ class Grid extends Graph{
         let y = 0;
         ctx.textBaseline = 'top';//上下对准线条
         ctx.textAlign = "left";//左右对准线条
-        while (gap * y < app.stageHeight) {
+        while (gap * y < this.app.stageHeight) {
             ctx.beginPath();
             ctx.moveTo(0, tools.toDrawVal(gap * y+sy*this.scale));
-            ctx.lineTo(app.stageWidth, tools.toDrawVal(gap * y+sy*this.scale));
+            ctx.lineTo(this.app.stageWidth, tools.toDrawVal(gap * y+sy*this.scale));
             ctx.stroke();
             ctx.fillText(
                 this.gap * y-(this.y-sy), 
@@ -181,10 +181,10 @@ class Grid extends Graph{
         ctx.textBaseline = 'top';
         ctx.textAlign = "left";
         let x = 0;
-        while (gap * x < (app.stageWidth+gap)) {
+        while (gap * x < (this.app.stageWidth+gap)) {
             ctx.beginPath();
             ctx.moveTo(tools.toDrawVal(gap * x+sx*this.scale), 0);
-            ctx.lineTo(tools.toDrawVal(gap * x+sx*this.scale), app.stageHeight);
+            ctx.lineTo(tools.toDrawVal(gap * x+sx*this.scale), this.app.stageHeight);
             ctx.stroke();
             ctx.fillText(
                 this.gap * x-(this.x-sx), 

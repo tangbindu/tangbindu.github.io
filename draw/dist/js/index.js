@@ -163,12 +163,10 @@ window.app = new Vue({
          * 渲染
          */
         render() {
-            requestAnimationFrame(()=>{
-                //清空画布
-                this.clear();
-                //绘制图像
-                this.drawShapes();
-            })
+            //清空画布
+            this.clear();
+            //绘制图像
+            this.drawShapes();
         },
         //初始化网格
         initGrid(){
