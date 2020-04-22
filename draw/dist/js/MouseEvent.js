@@ -33,10 +33,13 @@ class MouseEvent extends eventTarget{
         this.init();
     }
     init(){
+        //常规鼠标事件
         this.ele.addEventListener("mousedown",(event)=>{
             this.mousedown(event)
         })
         this.ele.addEventListener("mousemove",(event)=>{
+            //记忆一个位置
+            localStorage.setItem('mouseEvent', JSON.stringify({x:event.clientX,y:event.clientY}));
             this.mousemove(event)
         })
         this.ele.addEventListener("mouseup",(event)=>{
@@ -52,11 +55,16 @@ class MouseEvent extends eventTarget{
                 this.app.scaleStage(1+event.deltaY/750);
             }
         };
-        //滚轮
-        //鼠标&键盘改变尺寸
+        //鼠标引起的尺寸变化
         window.addEventListener("resize",()=>{
             this.trigger("resize");
         })
+        //提取记忆
+        if(localStorage.getItem('mouseEvent')){
+            this.curPos=JSON.parse(
+                localStorage.getItem('mouseEvent')
+            )
+        }
         //鼠标&键盘改变尺寸
         this.refresh();
     }
