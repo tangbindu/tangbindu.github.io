@@ -122,8 +122,8 @@ window.app = new Vue({
                 }
                 //guidewires
                 if(this.mouseEvent.type == "move"){ 
-                    this.guidewires.x=this.mouseEvent.curLogicPos.x;
-                    this.guidewires.y=this.mouseEvent.curLogicPos.y;
+                    this.guidewires.x=tools.toInt(this.mouseEvent.curLogicPos.x);
+                    this.guidewires.y=tools.toInt(this.mouseEvent.curLogicPos.y);
                 } 
                 this.render();
             })
