@@ -112,15 +112,11 @@ window.app = new Vue({
                     this.coordinateOrigin.x+=this.mouseEvent.moveLogicVector[0];
                     this.coordinateOrigin.y+=this.mouseEvent.moveLogicVector[1];
                 }
+                //guidewires
                 if(this.mouseEvent.type == "move"){ 
-                    let viewPoint=this.mouseEvent.curLogicPos;
-                    this.guidewires.x=viewPoint.x;
-                    this.guidewires.y=viewPoint.y;
-                    this.guidewires.viewX=viewPoint.x;
-                    this.guidewires.viewY=viewPoint.y;
+                    this.guidewires.x=this.mouseEvent.curLogicPos.x;
+                    this.guidewires.y=this.mouseEvent.curLogicPos.y;
                 } 
-                //guidewires 线
-                this.guidewires
                 this.render();
             })
             
@@ -155,9 +151,6 @@ window.app = new Vue({
             this.stage.resize(this.container,this.ratio);
             this.stageWidth = this.stage.view.width;
             this.stageHeight = this.stage.view.height;
-            //setSize guidewires
-            // this.guidewires.width=this.stageWidth;
-            // this.guidewires.height=this.stageHeight;
         },
         /**
          * 渲染
@@ -179,7 +172,7 @@ window.app = new Vue({
         },
         //添加引导线
         initGuidewires(){
-            this.guidewires = new Guidewires({x:0,y:0},0,0,this);
+            this.guidewires = new Guidewires({x:0,y:0},this);
             this.guidewires.allowClick=false;
             this.guidewires.zindex=1000000;
             this.guidewires.type="tool";

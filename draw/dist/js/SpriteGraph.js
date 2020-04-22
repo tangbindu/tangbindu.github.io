@@ -99,13 +99,11 @@ class Graph extends Sprite{
 * Guidewires
 */
 class Guidewires extends Graph{
-    constructor(pos,viewX,viewY,app) {
+    constructor(pos,app) {
         super(pos);
         this.app=app;
         this.points = [pos, pos, pos, pos];
         this.id = 'app_guidewires';
-        this.viewX=viewX;
-        this.viewY=viewY;
     }
     draw(ctx){
         //竖
@@ -130,7 +128,7 @@ class Guidewires extends Graph{
         const fontSize = 12;
         ctx.fillStyle = 'rgba(255,0,0,1)';
         ctx.font = fontSize*window.devicePixelRatio + 'px Helvetica Neue, SimHei';
-        const text = "("+this.viewX + ", " + this.viewY+")";
+        const text = "("+this.x + ", " + this.y+")";
         ctx.fillText(
             text,
             Math.min(
