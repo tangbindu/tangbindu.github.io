@@ -99,8 +99,9 @@ class Graph extends Sprite{
 * Guidewires
 */
 class Guidewires extends Graph{
-    constructor(pos,viewX,viewY) {
+    constructor(pos,viewX,viewY,app) {
         super(pos);
+        this.app=app;
         this.points = [pos, pos, pos, pos];
         this.id = 'app_guidewires';
         this.viewX=viewX;
@@ -113,16 +114,16 @@ class Guidewires extends Graph{
         ctx.beginPath();
         ctx.moveTo(tools.toDrawVal(this.x), tools.toDrawVal(0));
         ctx.lineTo(tools.toDrawVal(this.x+1), tools.toDrawVal(0));
-        ctx.lineTo(tools.toDrawVal(this.x+1), tools.toDrawVal(this.height));
-        ctx.lineTo(tools.toDrawVal(this.x), tools.toDrawVal(this.height));
+        ctx.lineTo(tools.toDrawVal(this.x+1), tools.toDrawVal(this.app.stageHeight));
+        ctx.lineTo(tools.toDrawVal(this.x), tools.toDrawVal(this.app.stageHeight));
         ctx.closePath();
         ctx.fill();
         //横
         ctx.beginPath();
         ctx.moveTo(tools.toDrawVal(0), tools.toDrawVal(this.y));
         ctx.lineTo(tools.toDrawVal(0), tools.toDrawVal(this.y+1));
-        ctx.lineTo(tools.toDrawVal(this.width), tools.toDrawVal(this.y+1));
-        ctx.lineTo(tools.toDrawVal(this.width), tools.toDrawVal(this.y));
+        ctx.lineTo(tools.toDrawVal(this.app.stageWidth), tools.toDrawVal(this.y+1));
+        ctx.lineTo(tools.toDrawVal(this.app.stageWidth), tools.toDrawVal(this.y));
         ctx.closePath();
         ctx.fill();
         //相对坐标
@@ -133,7 +134,7 @@ class Guidewires extends Graph{
             text,
             Math.min(
                 this.x + fontSize*window.devicePixelRatio,
-                this.width - text.length * fontSize*window.devicePixelRatio/2
+                this.app.stageWidth - text.length * fontSize*window.devicePixelRatio/2
             ) - 10,
             Math.max(this.y - 10, fontSize*window.devicePixelRatio));
         ctx.restore();
@@ -143,8 +144,9 @@ class Guidewires extends Graph{
 * 网格
 */
 class Grid extends Graph{
-    constructor(pos) {
+    constructor(pos,app) {
         super(pos);
+        this.app=app;
         this.points = [pos, pos, pos, pos];
         this.id = 'app_grid';
     }
@@ -162,10 +164,10 @@ class Grid extends Graph{
         let y = 0;
         ctx.textBaseline = 'top';//上下对准线条
         ctx.textAlign = "left";//左右对准线条
-        while (gap * y < this.height) {
+        while (gap * y < app.stageHeight) {
             ctx.beginPath();
             ctx.moveTo(0, tools.toDrawVal(gap * y+sy*this.scale));
-            ctx.lineTo(this.width, tools.toDrawVal(gap * y+sy*this.scale));
+            ctx.lineTo(app.stageWidth, tools.toDrawVal(gap * y+sy*this.scale));
             ctx.stroke();
             ctx.fillText(
                 this.gap * y-(this.y-sy), 
@@ -178,10 +180,10 @@ class Grid extends Graph{
         ctx.textBaseline = 'top';
         ctx.textAlign = "left";
         let x = 0;
-        while (gap * x < (this.width+gap)) {
+        while (gap * x < (app.stageWidth+gap)) {
             ctx.beginPath();
             ctx.moveTo(tools.toDrawVal(gap * x+sx*this.scale), 0);
-            ctx.lineTo(tools.toDrawVal(gap * x+sx*this.scale), this.height);
+            ctx.lineTo(tools.toDrawVal(gap * x+sx*this.scale), app.stageHeight);
             ctx.stroke();
             ctx.fillText(
                 this.gap * x-(this.x-sx), 

@@ -4,7 +4,6 @@ import KeyBoardEvent from "./KeyBoardEvent.js"
 import DragFile from "./DragFile.js"
 import stage from "./stage.js";
 import {Grid,Guidewires} from "./SpriteGraph.js";
-import updateGuidewires from "./updateGuidewires.js"
 import { Image } from "./SpriteImage.js";
 import SpritesController from "./SpritesController.js";
 let bowen=true;
@@ -76,7 +75,7 @@ window.app = new Vue({
             //网格
             this.initGrid();
             //辅助线
-            // this.addGuidewires();
+            this.initGuidewires();
             //设置尺寸
             this.setSize();
             //渲染
@@ -109,6 +108,16 @@ window.app = new Vue({
                     this.coordinateOrigin.x+=this.mouseEvent.moveLogicVector[0];
                     this.coordinateOrigin.y+=this.mouseEvent.moveLogicVector[1];
                 }
+                // if(this.mouseEvent.type == "move"){
+                //     let viewPoint=this.mouseEvent.curLogicPos;
+                //     let point=this.mouseEvent.deviceCurLogicPos;
+                //     this.guidewires.x=point.x;
+                //     this.guidewires.y=point.y;
+                //     this.guidewires.viewX=viewPoint.x;
+                //     this.guidewires.viewY=viewPoint.y;
+                // } 
+                //guidewires 线
+                this.guidewires
                 this.render();
             })
             this.mouseEvent.handler("resize",()=>{
@@ -147,9 +156,6 @@ window.app = new Vue({
             this.stage.resize(this.container,this.ratio);
             this.stageWidth = this.stage.view.width;
             this.stageHeight = this.stage.view.height;
-            //setSize grid
-            this.grid.width=this.stageWidth;
-            this.grid.height=this.stageHeight;
             //setSize guidewires
             // this.guidewires.width=this.stageWidth;
             // this.guidewires.height=this.stageHeight;
@@ -167,7 +173,7 @@ window.app = new Vue({
         },
         //初始化网格
         initGrid(){
-            this.grid = new Grid({x:0,y:0});
+            this.grid = new Grid({x:0,y:0},this);
             this.grid.zindex=-1000000;
             this.grid.type="tool";
             this.grid.allowClick=false;
@@ -175,14 +181,12 @@ window.app = new Vue({
             this.spritesController.addSprite(this.grid);
         },
         //添加引导线
-        addGuidewires(){
-            this.guidewires = new Guidewires({x:0,y:0},0,0);
+        initGuidewires(){
+            this.guidewires = new Guidewires({x:0,y:0},0,0,this);
             this.guidewires.allowClick=false;
             this.guidewires.zindex=1000000;
             this.guidewires.type="tool";
             this.guidewires.visible=false;
-            this.guidewires.width=this.stageWidth;
-            this.guidewires.height=this.stageHeight;
             this.spritesController.addSprite(this.guidewires);
         },
         //添加img

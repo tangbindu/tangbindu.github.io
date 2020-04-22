@@ -26,8 +26,6 @@ class MouseEvent extends eventTarget{
         this.curLogicPos={x:0,y:0};//逻辑像素
         // this.moveLogicVector=null;
         // this.totalMoveLogicVector=null;
-        //事件列表
-        this.eventList=[];
         this.type=null;
         //初始化
         this.init();
@@ -67,9 +65,6 @@ class MouseEvent extends eventTarget{
         }
         //鼠标&键盘改变尺寸
         this.refresh();
-    }
-    event(fun){
-        this.eventList.push(fun);
     }
     refresh(){
         this.curLogicPos=tools.toLogicPixel(
