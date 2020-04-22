@@ -102,26 +102,25 @@ window.app = new Vue({
                 this.scale,
                 this.coordinateOrigin
             );
+            this.mouseEvent.handler("resize",()=>{
+                this.setSize();
+                this.render();
+            })
             this.mouseEvent.handler("all",()=>{
                 //拖动stage
                 if (this.keyBoardEvent.pressSpace && this.mouseEvent.type == "move" && this.mouseEvent.isMoving) {
                     this.coordinateOrigin.x+=this.mouseEvent.moveLogicVector[0];
                     this.coordinateOrigin.y+=this.mouseEvent.moveLogicVector[1];
                 }
-                // if(this.mouseEvent.type == "move"){
-                //     let viewPoint=this.mouseEvent.curLogicPos;
-                //     let point=this.mouseEvent.deviceCurLogicPos;
-                //     this.guidewires.x=point.x;
-                //     this.guidewires.y=point.y;
-                //     this.guidewires.viewX=viewPoint.x;
-                //     this.guidewires.viewY=viewPoint.y;
-                // } 
+                if(this.mouseEvent.type == "move"){ 
+                    let viewPoint=this.mouseEvent.curLogicPos;
+                    this.guidewires.x=viewPoint.x;
+                    this.guidewires.y=viewPoint.y;
+                    this.guidewires.viewX=viewPoint.x;
+                    this.guidewires.viewY=viewPoint.y;
+                } 
                 //guidewires 线
                 this.guidewires
-                this.render();
-            })
-            this.mouseEvent.handler("resize",()=>{
-                this.setSize();
                 this.render();
             })
             

@@ -23,11 +23,11 @@ let tools={
         }
     },
     //逻辑像素到devicePixel;
-    LogicPixelToDevicePixel(point,ratio,scale,coordinateOrigin){
-        let x=point.x*scale+coordinateOrigin.x*scale;
-        let y=point.y*scale+coordinateOrigin.y*scale;
-        return {x,y}
-    },
+    // LogicPosToDevicePixel(logicPos,ratio,scale,coordinateOrigin){
+    //     let x=logicPos.x*scale+coordinateOrigin.x*scale;
+    //     let y=logicPos.y*scale+coordinateOrigin.y*scale;
+    //     return {x,y}
+    // },
     vectorToPixel(vector,ratio,scale){
         return [
             this.toInt(vector[0]*ratio/scale),

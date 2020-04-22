@@ -22,7 +22,7 @@ class MouseEvent extends eventTarget{
         this.ratio=ratio || 1;
         this.scale=scale || 1;
         this.coordinateOrigin=coordinateOrigin || {x:0,y:0};
-        // this.realPoint=null;
+        this.realPoint=null;
         this.curLogicPos={x:0,y:0};//逻辑像素
         // this.moveLogicVector=null;
         // this.totalMoveLogicVector=null;
@@ -99,7 +99,7 @@ class MouseEvent extends eventTarget{
         this.downTime=new Date().getTime();
         this.isMoving=true;
         this.curPos={x:event.clientX,y:event.clientY};
-        // this.realPoint=tools.toPixel(this.curPos,this.ratio);
+        this.realPoint=tools.toPixel(this.curPos,this.ratio);
         this.curLogicPos=tools.toLogicPixel(
             this.curPos,
             this.ratio,
@@ -113,7 +113,7 @@ class MouseEvent extends eventTarget{
     }
     mousemove(event){
         this.curPos={x:event.clientX,y:event.clientY};
-        // this.realPoint=tools.toPixel(this.curPos,this.ratio);
+        this.realPoint=tools.toPixel(this.curPos,this.ratio);
         this.curLogicPos=tools.toLogicPixel(
             this.curPos,
             this.ratio,
@@ -127,7 +127,7 @@ class MouseEvent extends eventTarget{
     }
     mouseup(event){
         this.curPos={x:event.clientX,y:event.clientY};
-        // this.realPoint=tools.toPixel(this.curPos,this.ratio);
+        this.realPoint=tools.toPixel(this.curPos,this.ratio);
         this.curLogicPos=tools.toLogicPixel(
             this.curPos,
             this.ratio,

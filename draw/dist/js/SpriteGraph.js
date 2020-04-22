@@ -110,33 +110,34 @@ class Guidewires extends Graph{
     draw(ctx){
         //竖
         ctx.save();
-        ctx.fillStyle = 'rgba(255,0,0,1)';
+        ctx.fillStyle = 'rgba(0,255,0,.7)';
         ctx.beginPath();
-        ctx.moveTo(tools.toDrawVal(this.x), tools.toDrawVal(0));
-        ctx.lineTo(tools.toDrawVal(this.x+1), tools.toDrawVal(0));
-        ctx.lineTo(tools.toDrawVal(this.x+1), tools.toDrawVal(this.app.stageHeight));
-        ctx.lineTo(tools.toDrawVal(this.x), tools.toDrawVal(this.app.stageHeight));
+        ctx.moveTo(tools.toDrawVal(this.x*this.scale), tools.toDrawVal(0));
+        ctx.lineTo(tools.toDrawVal(this.x*this.scale+Math.max(this.scale,1.0)), tools.toDrawVal(0));
+        ctx.lineTo(tools.toDrawVal(this.x*this.scale+Math.max(this.scale,1.0)), tools.toDrawVal(this.app.stageHeight));
+        ctx.lineTo(tools.toDrawVal(this.x*this.scale), tools.toDrawVal(this.app.stageHeight));
         ctx.closePath();
         ctx.fill();
         //横
         ctx.beginPath();
-        ctx.moveTo(tools.toDrawVal(0), tools.toDrawVal(this.y));
-        ctx.lineTo(tools.toDrawVal(0), tools.toDrawVal(this.y+1));
-        ctx.lineTo(tools.toDrawVal(this.app.stageWidth), tools.toDrawVal(this.y+1));
-        ctx.lineTo(tools.toDrawVal(this.app.stageWidth), tools.toDrawVal(this.y));
+        ctx.moveTo(tools.toDrawVal(0), tools.toDrawVal(this.y*this.scale));
+        ctx.lineTo(tools.toDrawVal(0), tools.toDrawVal(this.y*this.scale+Math.max(this.scale,1.0)));
+        ctx.lineTo(tools.toDrawVal(this.app.stageWidth), tools.toDrawVal(this.y*this.scale+Math.max(this.scale,1.0)));
+        ctx.lineTo(tools.toDrawVal(this.app.stageWidth), tools.toDrawVal(this.y*this.scale));
         ctx.closePath();
         ctx.fill();
         //相对坐标
         const fontSize = 12;
-        ctx.font = fontSize*window.devicePixelRatio + 'px STHeiti, SimHei';
+        ctx.fillStyle = 'rgba(255,0,0,1)';
+        ctx.font = fontSize*window.devicePixelRatio + 'px Helvetica Neue, SimHei';
         const text = "("+tools.toInt(this.viewX) + ", " + tools.toInt(this.viewY)+")";
         ctx.fillText(
             text,
             Math.min(
-                this.x + fontSize*window.devicePixelRatio,
+                this.x*this.scale + fontSize*window.devicePixelRatio,
                 this.app.stageWidth - text.length * fontSize*window.devicePixelRatio/2
             ) - 10,
-            Math.max(this.y - 10, fontSize*window.devicePixelRatio));
+            Math.max(this.y*this.scale - 10, fontSize*window.devicePixelRatio));
         ctx.restore();
     }
 }
