@@ -19,8 +19,11 @@ window.app = new Vue({
         container:null,
         //舞台
         stage: null,
+        //离屏canvas
         offscreenStage: null,
         offscreenStageCTX: null,
+        // renderTick
+        renderTick:false,
         //舞台宽
         stageWidth: null,
         //舞台高
@@ -198,12 +201,13 @@ window.app = new Vue({
          * 渲染
          */
         render() {
-            //清空画布
-            this.clear(this.stageCTX);
-            //绘制图像
-            this.drawShapes();
-            //清空离屏画布
-            this.clear(this.offscreenStageCTX);
+            this.renderTick && cancelAnimationFrame(this.renderTick);
+            this.renderTick=requestAnimationFrame(()=>{
+                //清空画布
+                this.clear(this.stageCTX);
+                //绘制图像
+                this.drawShapes();
+            })
         },
         //绘制图像
         drawShapes() {
@@ -217,7 +221,7 @@ window.app = new Vue({
                 item.y-=this.coordinateOrigin.y;
             })
             this.stageCTX.drawImage(this.offscreenStage , 0 , 0);
-            tools.clear(this.offscreenStageCTX, 0, 0, this.stageWidth, this.stageHeight);
+            this.clear(this.offscreenStageCTX);
         },
         //清空画布
         clear(ctx) {

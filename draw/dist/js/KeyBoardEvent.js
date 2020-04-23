@@ -34,11 +34,11 @@ class KeyBoardEvent extends eventTarget{
                     event.preventDefault();
                 }else if (event.keyCode == 221) {
                     //放大
-                    app.scaleStage(1+1/75);
+                    app.scaleStage(1+5/75);
                     event.preventDefault();
                 } else if (event.keyCode == 219) {
                     //缩小
-                    app.scaleStage(1-1/75);
+                    app.scaleStage(1-5/75);
                     event.preventDefault();
                 }else if (event.keyCode == 77){
                     //draw mode
