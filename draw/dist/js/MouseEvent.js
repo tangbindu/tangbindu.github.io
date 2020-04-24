@@ -83,7 +83,7 @@ class MouseEvent extends eventTarget{
                 this.curPos.x-this.prevPos.x,
                 this.curPos.y-this.prevPos.y
             ];
-            this.moveLogicVector=tools.vectorToPixel(
+            this.moveLogicVector=tools.mouseVectorToLogicVector(
                 this.moveVector,
                 this.ratio,
                 this.scale

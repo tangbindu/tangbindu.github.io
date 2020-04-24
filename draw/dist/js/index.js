@@ -94,7 +94,6 @@ window.app = new Vue({
             this.stageCTX = this.stage.ctx;
             this.stageWidth = this.stage.view.width;
             this.stageHeight = this.stage.view.height;
-            console.log(this.stageWidth)
             //离屏
             this.offscreenStage=document.createElement("canvas");
             this.offscreenStage.width=this.stageWidth;
@@ -124,13 +123,10 @@ window.app = new Vue({
                     this.coordinateOrigin.y+=this.mouseEvent.moveLogicVector[1];
                 }
                 //guidewires
-                if(this.mouseEvent.type == "move"){ 
-                    this.guidewires.x=tools.toInt(this.mouseEvent.curLogicPos.x);
-                    this.guidewires.y=tools.toInt(this.mouseEvent.curLogicPos.y);
-                } 
+                this.guidewires.x=tools.toInt(this.mouseEvent.curLogicPos.x);
+                this.guidewires.y=tools.toInt(this.mouseEvent.curLogicPos.y);
                 this.render();
             })
-            
         },
         /**
          * 初始化键盘事件

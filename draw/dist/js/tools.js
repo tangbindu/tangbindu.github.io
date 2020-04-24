@@ -1,20 +1,18 @@
 let tools={
     //整数策略
     toInt(val){
-        return val;
-        return Math.floor(val)
+        return Math.floor(val);
     },
     //绘制策略
     toDrawVal(val){
-        return val;
-        return Math.floor(val)+.5;
         return Math.floor(val)+.5;
     },
     //绝对像素 deviceWidth*devicePixelRatio
     toPixel(point,ratio){
-        let x=this.toInt(point.x*ratio);
-        let y=this.toInt(point.y*ratio);
-        return {x,y}
+        return {
+            x:point.x*ratio,
+            y:point.y*ratio
+        }
     },
     //逻辑像素
     toLogicPixel(point,ratio,scale,coordinateOrigin){
@@ -24,10 +22,6 @@ let tools={
             x:x,
             y:y
         }
-        return {
-            x:this.toInt(x),
-            y:this.toInt(y)
-        }
     },
     //逻辑像素到devicePixel;
     // LogicPosToDevicePixel(logicPos,ratio,scale,coordinateOrigin){
@@ -35,10 +29,10 @@ let tools={
     //     let y=logicPos.y*scale+coordinateOrigin.y*scale;
     //     return {x,y}
     // },
-    vectorToPixel(vector,ratio,scale){
+    mouseVectorToLogicVector(vector,ratio,scale){
         return [
-            this.toInt(vector[0]*ratio/scale),
-            this.toInt(vector[1]*ratio/scale)
+            vector[0]*ratio/scale,
+            vector[1]*ratio/scale
         ]
     },
     clear(ctx, x, y, width, height) {

@@ -21,8 +21,8 @@ class stage{
     }
     /**
      * 缩放舞台
-     * @param {number} scale 
-     * @param {object} app 
+     * @param {number} scale
+     * @param {object} app
      */
     scale(scale,app){
         //缩放后，逻辑像素不能变
