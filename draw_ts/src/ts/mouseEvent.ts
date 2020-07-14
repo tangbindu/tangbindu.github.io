@@ -1,4 +1,3 @@
-// import tools from "./tools.js";
 import eventTarget from "./eventTarget.js";
 
 function getVertexPosition(el) {
@@ -23,7 +22,7 @@ export interface point {
 }
 
 //event
-class TouchEvent extends eventTarget{
+class MouseEvent extends eventTarget{
     //元素
     element : any;
     //通用
@@ -156,7 +155,7 @@ class TouchEvent extends eventTarget{
             }
             this.isMoving=false;
         }
-        this.trigger("mixTouchEvent");
+        this.trigger("mixMouseEvent");
     }
 }
-export default TouchEvent;
+export default MouseEvent;

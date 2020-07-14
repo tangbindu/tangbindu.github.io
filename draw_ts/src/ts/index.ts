@@ -19,3 +19,4 @@ let rect=stage.addRectSprite({
     height:300,
     useDrag:true
 })
+console.log(stage)

@@ -1,8 +1,10 @@
+import tools from "./tools.js";
 import ImageSprite from "./sprite_image.js"
 import RectSprite from "./sprite_rect.js"
 import eventTarget from "./eventTarget.js"
-import TouchEvent from "./touchEvent.js"
+import MouseEvent from "./mouseEvent.js"
 import Sprite from "./sprite.js";
+import {Grid,Guidewires} from "./SpriteGraph.js";
 export class Stage extends eventTarget{
     //指canvas组件
     canvas : any;
@@ -15,7 +17,7 @@ export class Stage extends eventTarget{
     //render内容列表
     spriteList : Array<Sprite>;
     //touch event
-    touchEvent : any;
+    mouseEvent : any;
     //active sprite 
     activeSprite : Sprite;
     //backgroundColor
@@ -24,6 +26,10 @@ export class Stage extends eventTarget{
     devicePixelRatio: number;
     //isNextFrame
     isNextFrame: any;
+    //coordinateOrigin
+    coordinateOrigin: any;
+    //guidewires
+    guidewires: Sprite;
     /**
      * 构造
      */
@@ -42,33 +48,37 @@ export class Stage extends eventTarget{
         this.devicePixelRatio=Math.floor(window.devicePixelRatio || 2);
         this.width=config.width*this.devicePixelRatio || 400;
         this.height=config.height*this.devicePixelRatio || 300;
+        this.coordinateOrigin={x:0,y:0};//坐标轴原点
         this.backgroundColor=config.backgroundColor || "rgba(0,0,0,0)";
         this.canvas=document.createElement("canvas");
         this.ctx = this.canvas.getContext("2d");
         this.resize(this.width,this.height);
-        //initTouchEvent
-        this.initTouchEvent(this.canvas);
+        this.initGrid();//网格
+        this.initGuidewires();//引导线条
+        //initMouseEvent
+        this.initMouseEvent(this.canvas);
         this.render();
     }
     /**
-     * 初始化touchevent
+     * 初始化MouseEvent
      */
-    initTouchEvent(view){
-        this.touchEvent=new TouchEvent(view);
-        this.touchEvent.handler("mixTouchEvent",()=>{
-            if(this.touchEvent.eventType=="mousedown"){
+    initMouseEvent(view){
+        this.mouseEvent=new MouseEvent(view);
+        this.mouseEvent.handler("mixMouseEvent",()=>{
+            if(this.mouseEvent.eventType=="mousedown"){
                 //选择精灵
-                this.touchSprite(this.touchEvent.currentPos);
-            }else if(this.touchEvent.eventType=="mousemove"){
+                this.touchSprite(this.mouseEvent.currentPos);
+            }else if(this.mouseEvent.eventType=="mousemove"){
+                this.updataGuidewires();
                 //drag精灵
-                this.activeSprite && this.dragActiveSprite(this.activeSprite,this.touchEvent.moveVector);
-            }else if(this.touchEvent.eventType=="mouseup"){
+                this.activeSprite && this.dragActiveSprite(this.activeSprite,this.mouseEvent.moveVector);
+            }else if(this.mouseEvent.eventType=="mouseup"){
                 //释放精灵
                 this.releaseSprite();
             }
         })
-        this.touchEvent.handler("click",()=>{
-            this.clickSprite(this.touchEvent.currentPos);
+        this.mouseEvent.handler("click",()=>{
+            this.clickSprite(this.mouseEvent.currentPos);
         })
     }
     /**
@@ -123,6 +133,36 @@ export class Stage extends eventTarget{
         this.height=height;
         this.canvas.width=this.width;
         this.canvas.height=this.height;
+    }
+    //初始化网格
+    initGrid(){
+        let grid = new Grid({x:0,
+            y:0,
+            app:this,
+            gap:100
+        });
+        grid.index=-1000000;
+        grid.type="tool";
+        grid.allowClick=false;
+        this.spriteList.push(grid);
+    }
+    //添加引导线
+    initGuidewires(){
+        this.guidewires = new Guidewires({
+            x:0,
+            y:0,
+            app:this
+        });
+        this.guidewires.allowClick=false;
+        this.guidewires.index=1000000;
+        this.guidewires.type="tool";
+        this.spriteList.push(this.guidewires);
+    }
+    //更新
+    updataGuidewires(){
+        this.guidewires.x=tools.toInt(this.mouseEvent.currentPos.x);
+        this.guidewires.y=tools.toInt(this.mouseEvent.currentPos.y);
+        this.render()
     }
     /**
      * 填充颜色

@@ -36,6 +36,8 @@ class Sprite extends eventTarget{
     parent: any;
     //相对坐标
     relativePosition: any;
+    //缩放
+    scale: number;
     //构造
     constructor(config) {
         super();
@@ -61,6 +63,8 @@ class Sprite extends eventTarget{
         this.active= this.config.active || false;
         //位移
         this.translate= this.config.translate || [0,0];
+        //缩放
+        this.scale=1;
         //zindex
         this.zindex= this.config.zindex || 0;
         //useDrag

@@ -26,6 +26,8 @@ class Sprite extends eventTarget {
         this.active = this.config.active || false;
         //位移
         this.translate = this.config.translate || [0, 0];
+        //缩放
+        this.scale = 1;
         //zindex
         this.zindex = this.config.zindex || 0;
         //useDrag
@@ -79,4 +81,4 @@ class Sprite extends eventTarget {
     }
 }
 export default Sprite;
-//# sourceMappingURL=sprite.js.map
+//# sourceMappingURL=Sprite.js.map
