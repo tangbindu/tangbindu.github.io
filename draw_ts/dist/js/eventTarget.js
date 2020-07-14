@@ -1,19 +1,17 @@
 //制作事件驱动源
-class eventTarget{
-    //事件对象
-    handlers: any;
+class eventTarget {
     /**
      * 构造
      */
-    constructor(){
-        this.handlers={}
+    constructor() {
+        this.handlers = {};
     }
     /**
-     * 注册事件 
-     * @param type 
-     * @param handler 
+     * 注册事件
+     * @param type
+     * @param handler
      */
-    handler(type:string, handler:Function) {
+    handler(type, handler) {
         //添加事件对象
         if (typeof this.handlers[type] == 'undefined') {
             this.handlers[type] = new Array();
@@ -22,11 +20,13 @@ class eventTarget{
     }
     /**
      * 移除事件
-     * @param type 
-     * @param handler 
+     * @param type
+     * @param handler
      */
-    removeHandler(type:string, handler:Function) {
-        if (typeof this.handlers == "undefined") { this.handlers = {} }
+    removeHandler(type, handler) {
+        if (typeof this.handlers == "undefined") {
+            this.handlers = {};
+        }
         if (this.handlers[type] instanceof Array) {
             var handlers = this.handlers[type];
             for (var i = 0, len = handlers.length; i < len; i++) {
@@ -39,10 +39,12 @@ class eventTarget{
     }
     /**
      * 触发事件
-     * @param type 
+     * @param type
      */
-    trigger(type:string) {
-        if (typeof this.handlers == "undefined") { this.handlers = {} }
+    trigger(type) {
+        if (typeof this.handlers == "undefined") {
+            this.handlers = {};
+        }
         if (this.handlers[type] instanceof Array) {
             var handlers = this.handlers[type];
             for (var i = 0, len = handlers.length; i < len; i++) {
@@ -52,3 +54,4 @@ class eventTarget{
     }
 }
 export default eventTarget;
+//# sourceMappingURL=eventTarget.js.map

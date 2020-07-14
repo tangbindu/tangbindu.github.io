@@ -2,6 +2,7 @@ import eventTarget from "./eventTarget.js";
 
 // 绘图 
 class Sprite extends eventTarget{
+    //配置
     config: any;
     //精力类型，默认sprite
     type: string;
@@ -38,39 +39,41 @@ class Sprite extends eventTarget{
     //构造
     constructor(config) {
         super();
+        //配置
+        this.config=config|| {};
         //类型，默认sprite
-        this.type= config.type || "default";
+        this.type= this.config.type || "default";
         //id
-        this.id= config.id || "";
+        this.id= this.config.id || "";
         //name
-        this.name= config.name || "";
+        this.name= this.config.name || "";
         //x坐标
         this.x = this.config.x || 0;
         //y坐标
         this.y = this.config.y || 0;
         //width
-        this.width= config.width || 0;
+        this.width= this.config.width || 0;
         //height
-        this.height= config.height || 0;
+        this.height= this.config.height || 0;
         //层级
-        this.index= config.index || 100;
+        this.index= this.config.index || 100;
         //选中
-        this.active= config.active || false;
+        this.active= this.config.active || false;
         //位移
-        this.translate= config.translate || [0,0];
+        this.translate= this.config.translate || [0,0];
         //zindex
-        this.zindex= config.zindex || 0;
+        this.zindex= this.config.zindex || 0;
         //useDrag
-        this.useDrag= config.useDrag || false;
+        this.useDrag= this.config.useDrag || false;
         //allowClick
-        this.allowClick= config.allowClick!=undefined? this.config.allowClick : true;
+        this.allowClick= this.config.allowClick!=undefined? this.config.allowClick : true;
         //click event
         //parent 只支持一级
-        this.parent= config.parent || null;
+        this.parent= this.config.parent || null;
         //相对父元素的定位
-        this.relativePosition= config.relativePosition || [.5,.5];
+        this.relativePosition= this.config.relativePosition || [.5,.5];
         //visible 
-        this.visible= config.visible!=undefined? this.config.visible : true;
+        this.visible= this.config.visible!=undefined? this.config.visible : true;
     }
     /**
      * 移动
@@ -88,16 +91,27 @@ class Sprite extends eventTarget{
         this.y=point.y;
     }
     /**
+     * 绘制图形精灵
+     */
+    draw(ctx) {
+    }
+    /**
+     * 点击判断
+     */
+    isInPath(ctx,pos) {
+        return false;
+    }
+    /**
      * 计算相对位置
      */
-    // calculateRelativePosition(){
-    //     let offsetX=this.relativePosition[2] || 0;
-    //     let offsetY=this.relativePosition[3] || 0;
-    //     if(this.parent){
-    //         this.x=this.parent.x+this.parent.width*this.relativePosition[0]-this.width*.5+offsetX;
-    //         this.y=this.parent.y+this.parent.height*this.relativePosition[1]-this.height*.5+offsetY;
-    //     }
-    // }
+    calculateRelativePosition(){
+        let offsetX=this.relativePosition[2] || 0;
+        let offsetY=this.relativePosition[3] || 0;
+        if(this.parent){
+            this.x=this.parent.x+this.parent.width*this.relativePosition[0]-this.width*.5+offsetX;
+            this.y=this.parent.y+this.parent.height*this.relativePosition[1]-this.height*.5+offsetY;
+        }
+    }
     /**
      * 设置缩放
      * @param {numner} scaleVal
