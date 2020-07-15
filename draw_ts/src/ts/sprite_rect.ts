@@ -17,10 +17,10 @@ class RectSprite extends Sprite{
         // ctx.setLineDash([10, 10])
         // ctx.fillRect(this.x,this.y,this.width,this.height);
         ctx.strokeRect(
-            tools.toDrawVal(this.x),
-            tools.toDrawVal(this.y),
-            tools.toDrawVal(this.width),
-            tools.toDrawVal(this.height)
+            tools.toDrawVal(this.x*this.scale),
+            tools.toDrawVal(this.y*this.scale),
+            tools.toDrawVal(this.width*this.scale),
+            tools.toDrawVal(this.height*this.scale)
         );
         ctx.restore();
     }
@@ -29,10 +29,10 @@ class RectSprite extends Sprite{
         ctx.save();
         ctx.beginPath();
         ctx.rect(
-            this.x,
-            this.y,
-            this.width,
-            this.height
+            this.x*this.scale,
+            this.y*this.scale,
+            this.width*this.scale,
+            this.height*this.scale
         );
         ctx.closePath();
         ctx.restore();

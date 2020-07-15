@@ -19,8 +19,8 @@ let tools = {
         let x = (point.x * ratio) / scale - coordinateOrigin.x;
         let y = (point.y * ratio) / scale - coordinateOrigin.y;
         return {
-            x: x,
-            y: y
+            x: tools.toInt(x),
+            y: tools.toInt(y)
         };
     },
     //逻辑像素到devicePixel;
@@ -29,11 +29,11 @@ let tools = {
     //     let y=logicPos.y*scale+coordinateOrigin.y*scale;
     //     return {x,y}
     // },
-    mouseVectorToLogicVector(vector, ratio, scale) {
-        return [
-            vector[0] * ratio / scale,
-            vector[1] * ratio / scale
-        ];
+    toLogicVector(vector, ratio, scale) {
+        return {
+            x: vector.x * ratio / scale,
+            y: vector.y * ratio / scale
+        };
     },
     clear(ctx, x, y, width, height) {
         ctx.clearRect(x, y, width, height);

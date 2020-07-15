@@ -16,14 +16,14 @@ class RectSprite extends Sprite {
         // ctx.shadowColor="rgba(0,0,0,.3)";
         // ctx.setLineDash([10, 10])
         // ctx.fillRect(this.x,this.y,this.width,this.height);
-        ctx.strokeRect(tools.toDrawVal(this.x), tools.toDrawVal(this.y), tools.toDrawVal(this.width), tools.toDrawVal(this.height));
+        ctx.strokeRect(tools.toDrawVal(this.x * this.scale), tools.toDrawVal(this.y * this.scale), tools.toDrawVal(this.width * this.scale), tools.toDrawVal(this.height * this.scale));
         ctx.restore();
     }
     //点击
     isInPath(ctx, pos) {
         ctx.save();
         ctx.beginPath();
-        ctx.rect(this.x, this.y, this.width, this.height);
+        ctx.rect(this.x * this.scale, this.y * this.scale, this.width * this.scale, this.height * this.scale);
         ctx.closePath();
         ctx.restore();
         if (ctx.isPointInPath(pos.x, pos.y)) {

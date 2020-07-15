@@ -86,6 +86,12 @@ class SpritesController{
             }
         })
     }
+    //设置全部缩放
+    setAllSpriteScale(scale){
+        this.sprites.forEach(sprite=>{
+            sprite.scale=scale;
+        })
+    }    
     //复制
     copyActiveSprites(){
         // this.getActiveSprites().map((sprite)=>{

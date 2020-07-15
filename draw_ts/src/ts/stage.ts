@@ -88,18 +88,18 @@ export class Stage extends eventTarget{
         this.mouseEvent.handler("mixMouseEvent",()=>{
             if(this.mouseEvent.eventType=="mousedown"){
                 //选择精灵
-                this.mousedownSprite(this.mouseEvent.currentPos);
+                this.mousedownSprite(this.mouseEvent.currentCanvasPos);
             }else if(this.mouseEvent.eventType=="mousemove"){
                 this.updataGuidewires();
                 //drag精灵
-                this.activeSprite && this.dragActiveSprite(this.activeSprite,this.mouseEvent.moveVector);
+                this.activeSprite && this.dragActiveSprite(this.activeSprite,this.mouseEvent.moveLogicVector);
             }else if(this.mouseEvent.eventType=="mouseup"){
                 //释放精灵
                 this.releaseSprite();
             }
         })
         this.mouseEvent.handler("click",()=>{
-            this.clickSprite(this.mouseEvent.currentPos);
+            this.clickSprite(this.mouseEvent.currentCanvasPos);
         })
     }
     /**
@@ -137,6 +137,7 @@ export class Stage extends eventTarget{
      */
     setScale(scaleVal){
         this.scale+=scaleVal;
+        this.spritesController.setAllSpriteScale(this.scale);
         this.render();
     }
     //初始化网格
@@ -163,10 +164,12 @@ export class Stage extends eventTarget{
         this.guidewires.type="tool";
         this.spriteList.push(this.guidewires);
     }
-    //更新
+    /**
+     * 更新引导线
+     */
     updataGuidewires(){
-        this.guidewires.x=tools.toInt(this.mouseEvent.currentPos.x);
-        this.guidewires.y=tools.toInt(this.mouseEvent.currentPos.y);
+        this.guidewires.x=this.mouseEvent.curLogicPos.x;
+        this.guidewires.y=this.mouseEvent.curLogicPos.y;
         this.render()
     }
     /**
@@ -245,6 +248,7 @@ export class Stage extends eventTarget{
      * mousedown精灵
      */
     mousedownSprite(pos){
+        console.log(pos)
         let sprite=this.spritesController.getSpriteByPoint(this.ctx,pos);
         this.activeSprite=sprite
         console.dir(sprite)

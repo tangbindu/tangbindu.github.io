@@ -1,3 +1,4 @@
+import tools from "./tools.js";
 import eventTarget from "./eventTarget.js";
 function getVertexPosition(el) {
     let currentTarget = el;
@@ -26,8 +27,11 @@ class MouseEvent extends eventTarget {
         this.startPos = null; //开始point
         this.previousPos = null; //上一个point
         this.currentPos = { x: 0, y: 0 }; //当前point
+        this.currentCanvasPos = { x: 0, y: 0 }; //当前point
         this.moveVector = { x: 0, y: 0 }; //vector
         this.totalMoveVector = { x: 0, y: 0 }; //总移动vector
+        this.moveLogicVector = { x: 0, y: 0 }; //logic vector
+        this.totalLogicMoveVector = { x: 0, y: 0 }; //总逻辑移动vector
         this.eventType = null;
         this.isMoving = false;
         //时间
@@ -89,7 +93,7 @@ class MouseEvent extends eventTarget {
             x: event.clientX,
             y: event.clientY - this.offsetTop
         };
-        this.currentPos = this.toCanvasPixel(this.currentPos);
+        // this.currentPos=this.toCanvasPixel(this.currentPos);
         this.startPos = this.currentPos;
         this.previousPos = this.currentPos;
         this.trigger("mousedown");
@@ -103,7 +107,7 @@ class MouseEvent extends eventTarget {
             x: event.clientX,
             y: event.clientY - this.offsetTop
         };
-        this.currentPos = this.toCanvasPixel(this.currentPos);
+        // this.currentPos=this.toCanvasPixel(this.currentPos);
         this.trigger("mousemove");
         this.detailMixEvent("mousemove");
         this.previousPos = this.currentPos;
@@ -149,6 +153,10 @@ class MouseEvent extends eventTarget {
             }
             this.isMoving = false;
         }
+        this.currentCanvasPos = tools.toPixel(this.currentPos, this.app.devicePixelRatio);
+        this.curLogicPos = tools.toLogicPixel(this.currentPos, this.app.devicePixelRatio, this.app.scale, this.app.coordinateOrigin);
+        this.moveLogicVector = tools.toLogicVector(this.moveVector, this.app.devicePixelRatio, this.app.scale);
+        this.totalLogicMoveVector = tools.toLogicVector(this.totalMoveVector, this.app.devicePixelRatio, this.app.scale);
         this.trigger("mixMouseEvent");
     }
 }
