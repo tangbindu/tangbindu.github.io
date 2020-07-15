@@ -34,6 +34,7 @@ class MouseEvent extends eventTarget {
         this.totalLogicMoveVector = { x: 0, y: 0 }; //总逻辑移动vector
         this.eventType = null;
         this.isMoving = false;
+        this.leftDown = false;
         //时间
         this._mousedownTime = null;
         this._mouseupTime = null;
@@ -130,6 +131,7 @@ class MouseEvent extends eventTarget {
         if (type == "mousedown") {
             this.isMoving = false;
             this._mousedownTime = new Date().getTime();
+            this.leftDown = true;
         }
         else if (type == "mousemove") {
             this.isMoving = true;
@@ -152,6 +154,7 @@ class MouseEvent extends eventTarget {
                 this.trigger("click");
             }
             this.isMoving = false;
+            this.leftDown = false;
         }
         this.currentCanvasPos = tools.toPixel(this.currentPos, this.app.devicePixelRatio);
         this.curLogicPos = tools.toLogicPixel(this.currentPos, this.app.devicePixelRatio, this.app.scale, this.app.coordinateOrigin);

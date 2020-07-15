@@ -54,7 +54,7 @@ export class Stage extends eventTarget {
         this.mouseEvent.handler("mixMouseEvent", () => {
             if (this.mouseEvent.eventType == "mousedown") {
                 //选择精灵
-                this.mousedownSprite(this.mouseEvent.currentCanvasPos);
+                this.mousedownSprite();
             }
             else if (this.mouseEvent.eventType == "mousemove") {
                 this.updataGuidewires();
@@ -65,16 +65,22 @@ export class Stage extends eventTarget {
                 //释放精灵
                 this.releaseSprite();
             }
+            //拖动stage
+            if (this.keyBoardEvent.pressSpace && this.mouseEvent.leftDown && this.mouseEvent.isMoving) {
+                this.coordinateOrigin.x += this.mouseEvent.moveLogicVector.x;
+                this.coordinateOrigin.y += this.mouseEvent.moveLogicVector.y;
+                this.render();
+            }
         });
         this.mouseEvent.handler("click", () => {
-            this.clickSprite(this.mouseEvent.currentCanvasPos);
+            this.clickSprite();
         });
     }
     /**
      * drag精灵
      */
     dragActiveSprite(activeSprite, moveVector) {
-        if (activeSprite.useDrag) {
+        if (activeSprite.useDrag && !this.keyBoardEvent.pressSpace) {
             activeSprite.x += moveVector.x;
             activeSprite.y += moveVector.y;
             this.activeSprite.trigger("dragging");
@@ -215,9 +221,13 @@ export class Stage extends eventTarget {
     /**
      * mousedown精灵
      */
-    mousedownSprite(pos) {
-        console.log(pos);
-        let sprite = this.spritesController.getSpriteByPoint(this.ctx, pos);
+    mousedownSprite() {
+        let pos = this.mouseEvent.currentCanvasPos;
+        console.log(pos.x, this.coordinateOrigin.x);
+        let sprite = this.spritesController.getSpriteByPoint(this.ctx, {
+            x: pos.x + this.coordinateOrigin.x,
+            y: pos.y + this.coordinateOrigin.y
+        });
         this.activeSprite = sprite;
         console.dir(sprite);
         // this.activeSprite && this.activeSprite.trigger("mousedown")
@@ -226,8 +236,12 @@ export class Stage extends eventTarget {
     /**
      * click精灵
      */
-    clickSprite(pos) {
-        let sprite = this.spritesController.getSpriteByPoint(this.ctx, pos);
+    clickSprite() {
+        let pos = this.mouseEvent.currentCanvasPos;
+        let sprite = this.spritesController.getSpriteByPoint(this.ctx, {
+            x: pos.x + this.coordinateOrigin.x,
+            y: pos.y + this.coordinateOrigin.y
+        });
         console.dir(sprite);
         this.render();
     }
@@ -247,7 +261,11 @@ export class Stage extends eventTarget {
             this.spriteList.forEach(sprite => {
                 //计算定位
                 sprite.calculateRelativePosition();
+                sprite.x += this.coordinateOrigin.x;
+                sprite.y += this.coordinateOrigin.y;
                 sprite.visible && sprite.draw(this.ctx);
+                sprite.x -= this.coordinateOrigin.x;
+                sprite.y -= this.coordinateOrigin.y;
             });
         });
     }

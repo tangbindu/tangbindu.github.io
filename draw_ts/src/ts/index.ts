@@ -16,7 +16,7 @@ let rect=stage.addRectSprite({
     x:100,
     y:100,
     width:500,
-    height:300,
+    height:500,
     useDrag:true
 })
 console.log(stage)
