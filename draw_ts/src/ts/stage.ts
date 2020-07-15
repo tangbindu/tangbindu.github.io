@@ -3,6 +3,7 @@ import ImageSprite from "./sprite_image.js"
 import RectSprite from "./sprite_rect.js"
 import eventTarget from "./eventTarget.js"
 import MouseEvent from "./mouseEvent.js"
+import KeyBoardEvent from "./KeyBoardEvent.js"
 import Sprite from "./sprite.js";
 import {Grid,Guidewires} from "./SpriteGraph.js";
 export class Stage extends eventTarget{
@@ -14,16 +15,20 @@ export class Stage extends eventTarget{
     width : number;
     //stage的高
     height : number;
+    //ratio
+    devicePixelRatio: number;
+    //scale
+    scale: number;
     //render内容列表
     spriteList : Array<Sprite>;
     //touch event
     mouseEvent : any;
+    //keyBoardEvent 
+    keyBoardEvent: any;
     //active sprite 
     activeSprite : Sprite;
     //backgroundColor
     backgroundColor : string;
-    //ratio
-    devicePixelRatio: number;
     //isNextFrame
     isNextFrame: any;
     //coordinateOrigin
@@ -57,6 +62,8 @@ export class Stage extends eventTarget{
         this.initGuidewires();//引导线条
         //initMouseEvent
         this.initMouseEvent(this.canvas);
+        //initKeyBoardEvent
+        this.keyBoardEvent = new KeyBoardEvent(this)
         this.render();
     }
     /**

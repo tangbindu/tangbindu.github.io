@@ -3,6 +3,7 @@ import ImageSprite from "./sprite_image.js";
 import RectSprite from "./sprite_rect.js";
 import eventTarget from "./eventTarget.js";
 import MouseEvent from "./mouseEvent.js";
+import KeyBoardEvent from "./KeyBoardEvent.js";
 import { Grid, Guidewires } from "./SpriteGraph.js";
 export class Stage extends eventTarget {
     /**
@@ -32,6 +33,8 @@ export class Stage extends eventTarget {
         this.initGuidewires(); //引导线条
         //initMouseEvent
         this.initMouseEvent(this.canvas);
+        //initKeyBoardEvent
+        this.keyBoardEvent = new KeyBoardEvent(this);
         this.render();
     }
     /**

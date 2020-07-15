@@ -81,4 +81,4 @@ class Sprite extends eventTarget {
     }
 }
 export default Sprite;
-//# sourceMappingURL=Sprite.js.map
+//# sourceMappingURL=sprite.js.map

@@ -1,11 +1,11 @@
 {
     "compilerOptions": {
-        "target": "es2015", // 编译目标平台
+        "target": "es2015", 
         "outDir": "dist/js",
         "rootDir": "src/ts",
         "sourceMap": true,
         "moduleResolution": "node" ,
-        "lib": [ // 添加需要的解析的语法，否则TS会检测出错
+        "lib": [ 
             "es2016",
             "dom"
         ]
