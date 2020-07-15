@@ -1,24 +1,41 @@
 import tools from "./tools.js";
 
 class SpritesController{
-    constructor(){
+    //最后一个精灵
+    lastSprite: any;
+    //所有的精灵
+    sprites: any[];
+    //支持多选精灵
+    supportMultipleClick: boolean;
+    //构造
+    constructor(sprites:any){
         //click的元素
         this.lastSprite=null;
-        this.sprites=[];
+        this.sprites=sprites || [];
         this.supportMultipleClick=false;
     }
     //队列问题
     //删除问题
     //全选
-    //选择-id
+    /**
+     * 获取精灵byid
+     */
     getSpriteById(id){
-        var sprite=null;
-        this.sprites.map((item) => {
+        return this.sprites.filter(item=>{
             if(item.id==id){
-               sprite=item;
-            }
+                return item
+            } 
+        })[0]
+    }
+    /**
+     * 获取精灵byname
+     */
+    getSpriteByName(name){
+        return this.sprites.filter(item=>{
+            if(item.name==name){
+                return item
+            } 
         })
-        return sprite;
     }
     //通过一点获取sprite
     getSpriteByPoint(ctx,point){
@@ -43,6 +60,16 @@ class SpritesController{
         })
         this.lastSprite=sprite;
     }
+    /**
+     * 移除精灵
+     */
+    removeSprite(sprite){
+        let beforeLength=this.sprites.length;
+        this.sprites=this.sprites.filter(item=>{
+            return item!=sprite
+        })
+        return beforeLength===this.sprites.length;
+    }
     //全选
     selectAll(){
         this.sprites.map((sprite)=>{
@@ -61,17 +88,17 @@ class SpritesController{
     }
     //复制
     copyActiveSprites(){
-        this.getActiveSprites().map((sprite)=>{
-            if(sprite.type=="default" && sprite.name=="rect"){
-                let cloneSprite=new Rect({x:sprite.x,y:sprite.y});
-                for(let i in sprite){
-                    cloneSprite[i]=tools.deepClone(sprite[i]);
-                }
-                cloneSprite.active=true;
-                this.sprites.push(cloneSprite);
-                sprite.active=false;
-            }
-        })
+        // this.getActiveSprites().map((sprite)=>{
+        //     if(sprite.type=="default" && sprite.name=="rect"){
+        //         let cloneSprite=new Rect({x:sprite.x,y:sprite.y});
+        //         for(let i in sprite){
+        //             cloneSprite[i]=tools.deepClone(sprite[i]);
+        //         }
+        //         cloneSprite.active=true;
+        //         this.sprites.push(cloneSprite);
+        //         sprite.active=false;
+        //     }
+        // })
     }
     //粘贴
     pasteActiveSprites(){

@@ -85,7 +85,7 @@ class KeyBoardEvent extends eventTarget {
                 else if (event.keyCode == 32) {
                     //移动
                     self.pressSpace = true;
-                    app.stage.view.style.cursor = 'move';
+                    app.canvas.style.cursor = 'move';
                 }
                 else {
                     // console.dir(event.keyCode)
@@ -97,7 +97,7 @@ class KeyBoardEvent extends eventTarget {
             app.render();
         };
         document.onkeyup = function (event) {
-            app.stage.view.style.cursor = 'default';
+            app.canvas.style.cursor = 'default';
             self.pressCmd = false;
             self.pressShift = false;
             self.pressSpace = false;
@@ -107,4 +107,4 @@ class KeyBoardEvent extends eventTarget {
     }
 }
 export default KeyBoardEvent;
-//# sourceMappingURL=keyboardEvent.js.map
+//# sourceMappingURL=KeyBoardEvent.js.map

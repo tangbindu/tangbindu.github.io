@@ -5,6 +5,7 @@ import eventTarget from "./eventTarget.js";
 import MouseEvent from "./mouseEvent.js";
 import KeyBoardEvent from "./KeyBoardEvent.js";
 import { Grid, Guidewires } from "./SpriteGraph.js";
+import SpritesController from "./spritesController.js";
 export class Stage extends eventTarget {
     /**
      * 构造
@@ -21,6 +22,7 @@ export class Stage extends eventTarget {
         config = config || {};
         this.isNextFrame = null;
         this.spriteList = [];
+        this.scale = 1;
         this.devicePixelRatio = Math.floor(window.devicePixelRatio || 2);
         this.width = config.width * this.devicePixelRatio || 400;
         this.height = config.height * this.devicePixelRatio || 300;
@@ -29,23 +31,31 @@ export class Stage extends eventTarget {
         this.canvas = document.createElement("canvas");
         this.ctx = this.canvas.getContext("2d");
         this.resize(this.width, this.height);
-        this.initGrid(); //网格
+        //初始化网格线
+        this.initGrid();
+        //初始化引导线
         this.initGuidewires(); //引导线条
-        //initMouseEvent
-        this.initMouseEvent(this.canvas);
-        //initKeyBoardEvent
+        //初始化鼠标事件
+        this.initMouseEvent();
+        //初始化键盘快捷
         this.keyBoardEvent = new KeyBoardEvent(this);
+        //初始化精灵控制器
+        this.spritesController = new SpritesController(this.spriteList);
+        //绘制
         this.render();
     }
     /**
      * 初始化MouseEvent
      */
-    initMouseEvent(view) {
-        this.mouseEvent = new MouseEvent(view);
+    initMouseEvent() {
+        this.mouseEvent = new MouseEvent({
+            element: this.canvas,
+            app: this
+        });
         this.mouseEvent.handler("mixMouseEvent", () => {
             if (this.mouseEvent.eventType == "mousedown") {
                 //选择精灵
-                this.touchSprite(this.mouseEvent.currentPos);
+                this.mousedownSprite(this.mouseEvent.currentPos);
             }
             else if (this.mouseEvent.eventType == "mousemove") {
                 this.updataGuidewires();
@@ -60,31 +70,6 @@ export class Stage extends eventTarget {
         this.mouseEvent.handler("click", () => {
             this.clickSprite(this.mouseEvent.currentPos);
         });
-    }
-    /**
-     * touch精灵
-     */
-    touchSprite(pos) {
-        this.spriteList.forEach(sprite => {
-            if (sprite.isInPath(this.ctx, pos) && sprite.allowClick) {
-                this.activeSprite = sprite;
-            }
-        });
-        this.activeSprite && this.activeSprite.trigger("mousedown");
-        this.render();
-    }
-    /**
-     * click精灵
-     */
-    clickSprite(pos) {
-        let clicksprite = null;
-        this.spriteList.forEach(item => {
-            if (item.isInPath(this.ctx, pos) && item.allowClick) {
-                clicksprite = item;
-            }
-        });
-        clicksprite && clicksprite.trigger("click");
-        this.render();
     }
     /**
      * drag精灵
@@ -113,18 +98,27 @@ export class Stage extends eventTarget {
         this.height = height;
         this.canvas.width = this.width;
         this.canvas.height = this.height;
+        this.render();
+    }
+    /**
+     * 缩放app
+     * @param scaleVal
+     */
+    setScale(scaleVal) {
+        this.scale += scaleVal;
+        this.render();
     }
     //初始化网格
     initGrid() {
-        let grid = new Grid({ x: 0,
+        this.grid = new Grid({ x: 0,
             y: 0,
             app: this,
             gap: 100
         });
-        grid.index = -1000000;
-        grid.type = "tool";
-        grid.allowClick = false;
-        this.spriteList.push(grid);
+        this.grid.index = -1000000;
+        this.grid.type = "tool";
+        this.grid.allowClick = false;
+        this.spriteList.push(this.grid);
     }
     //添加引导线
     initGuidewires() {
@@ -194,38 +188,45 @@ export class Stage extends eventTarget {
         return sprite;
     }
     /**
-     * 移除精灵
-     */
-    removeSprite(sprite) {
-        this.spriteList.forEach((item, index) => {
-            if (item == sprite) {
-                this.spriteList.splice(index, 1);
-                this.trigger("removeSprite");
-                item.trigger("remove");
-                this.render();
-                sprite = null;
-            }
-        });
-    }
-    /**
      * 获取精灵byid
      */
     getSpriteById(id) {
-        return this.spriteList.filter(item => {
-            if (item.id == id) {
-                return item;
-            }
-        })[0];
+        let sprite = this.spritesController.getSpriteById(id);
+        console.dir(sprite);
+        this.render();
     }
     /**
      * 获取精灵byname
      */
     getSpriteByName(name) {
-        return this.spriteList.filter(item => {
-            if (item.name == name) {
-                return item;
-            }
-        });
+        let sprites = this.spritesController.getSpriteById(name);
+        console.dir(sprites);
+        this.render();
+    }
+    /**
+     * 移除精灵
+     */
+    removeSprite(sprite) {
+        let res = this.spritesController.removeSprite(sprite);
+        console.log(res);
+    }
+    /**
+     * mousedown精灵
+     */
+    mousedownSprite(pos) {
+        let sprite = this.spritesController.getSpriteByPoint(this.ctx, pos);
+        this.activeSprite = sprite;
+        console.dir(sprite);
+        // this.activeSprite && this.activeSprite.trigger("mousedown")
+        this.render();
+    }
+    /**
+     * click精灵
+     */
+    clickSprite(pos) {
+        let sprite = this.spritesController.getSpriteByPoint(this.ctx, pos);
+        console.dir(sprite);
+        this.render();
     }
     /**
      * 渲染舞台内容

@@ -37,14 +37,17 @@ class MouseEvent extends eventTarget{
     _mousedownTime : any;
     _mouseupTime : any;
     offsetTop: number;
+    app: any;
     /**
      * 构造
      * @param {html node} element
      */
-    constructor(element){
+    constructor(config){
         super();
         //元素
-        this.element=element;
+        this.element=config.element;
+        //app
+        this.app=config.app;
         //通用
         this.startPos=null;//开始point
         this.previousPos=null;//上一个point
@@ -77,6 +80,20 @@ class MouseEvent extends eventTarget{
         this.element.addEventListener("mouseup",(event)=>{
             this.eventType="mouseup"
             this.mouseup(event);
+        })
+        //滚轮
+        document.body.onmousewheel = (event)=>{
+            if(event.deltaY>0){
+                //放大
+                this.app.setScale(event.deltaY/750);
+            }else{
+                //缩小
+                this.app.setScale(event.deltaY/750);
+            }
+        };
+        //鼠标引起的尺寸变化
+        window.addEventListener("resize",()=>{
+            this.trigger("resize");
         })
     }
     /**
