@@ -73,7 +73,7 @@ export class Stage extends eventTarget{
         //初始化键盘快捷
         this.keyBoardEvent = new KeyBoardEvent(this);
         //初始化精灵控制器
-        this.spritesController=new SpritesController(this.spriteList)
+        this.spritesController=new SpritesController({app:this})
         //绘制
         this.render();
     }
@@ -254,7 +254,7 @@ export class Stage extends eventTarget{
      * mousedown精灵
      */
     mousedownSprite(){
-        let pos=this.mouseEvent.currentCanvasPos;
+        let pos=this.mouseEvent.curLogicPos;
         console.log(pos.x,this.coordinateOrigin.x)
         let sprite=this.spritesController.getSpriteByPoint(this.ctx,{
             x:pos.x+this.coordinateOrigin.x,
@@ -269,7 +269,7 @@ export class Stage extends eventTarget{
      * click精灵
      */
     clickSprite(){
-        let pos=this.mouseEvent.currentCanvasPos;
+        let pos=this.mouseEvent.curLogicPos;
         let sprite=this.spritesController.getSpriteByPoint(this.ctx,{
             x:pos.x+this.coordinateOrigin.x,
             y:pos.y+this.coordinateOrigin.y

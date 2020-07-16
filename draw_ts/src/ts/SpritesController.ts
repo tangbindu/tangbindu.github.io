@@ -7,11 +7,14 @@ class SpritesController{
     sprites: any[];
     //支持多选精灵
     supportMultipleClick: boolean;
+    //app
+    app : any;
     //构造
-    constructor(sprites:any){
+    constructor(config){
         //click的元素
+        this.app=config.app;
         this.lastSprite=null;
-        this.sprites=sprites || [];
+        this.sprites=config.app.spriteList || [];
         this.supportMultipleClick=false;
     }
     //队列问题
@@ -44,8 +47,12 @@ class SpritesController{
             if(!this.sprites[i].allowClick){
                 continue;
             }
-            this.sprites[i].draw(ctx);  
-            if (this.sprites[i].isInPath(ctx, point)) {
+            this.sprites[i].x+=this.app.coordinateOrigin.x;
+            this.sprites[i].y+=this.app.coordinateOrigin.y;
+            let check=this.sprites[i].isInPath(ctx, point);
+            this.sprites[i].x-=this.app.coordinateOrigin.x;
+            this.sprites[i].y-=this.app.coordinateOrigin.y;
+            if (check) {
                 sprite=this.sprites[i];
                 break;
             }
