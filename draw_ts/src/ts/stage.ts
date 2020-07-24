@@ -271,9 +271,11 @@ export class Stage extends eventTarget{
     clickSprite(){
         let pos=this.mouseEvent.curLogicPos;
         let sprite=this.spritesController.getSpriteByPoint(this.ctx,{
-            x:pos.x+this.x,
-            y:pos.y+this.y
+            x:pos.x,
+            y:pos.y
         });
+        console.log(pos)
+        sprite && console.dir(sprite)
         this.render();
     }
     /**

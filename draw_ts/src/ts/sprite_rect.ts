@@ -40,7 +40,7 @@ class RectSprite extends Sprite{
         );
         ctx.closePath();
         ctx.restore();
-        if(ctx.isPointInPath(pos.x, pos.y)){
+        if(ctx.isPointInPath(pos.x*scale, pos.y*scale)){
             return true;
         }else{
             return false

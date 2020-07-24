@@ -37,11 +37,7 @@ class SpritesController {
             if (!this.sprites[i].allowClick) {
                 continue;
             }
-            this.sprites[i].x += this.app.x;
-            this.sprites[i].y += this.app.y;
             let check = this.sprites[i].isInPath(ctx, point);
-            this.sprites[i].x -= this.app.x;
-            this.sprites[i].y -= this.app.y;
             if (check) {
                 sprite = this.sprites[i];
                 break;
