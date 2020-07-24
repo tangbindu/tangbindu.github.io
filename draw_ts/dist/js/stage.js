@@ -111,10 +111,18 @@ export class Stage extends eventTarget {
      * @param scaleVal
      */
     setScale(scaleVal) {
+        this.mouseEvent.refresh();
+        let lastCurLogicPosX = this.mouseEvent.curLogicPos.x;
+        let lastCurLogicPosY = this.mouseEvent.curLogicPos.y;
         this.scale += scaleVal;
         this.scale = this.scale < .1 ? .1 : this.scale;
         this.scale = this.scale > 10 ? 10 : this.scale;
-        // this.spritesController.setAllSpriteScale(this.scale);
+        this.mouseEvent.refresh();
+        let newCurLogicPosX = this.mouseEvent.curLogicPos.x;
+        let newCurLogicPosY = this.mouseEvent.curLogicPos.y;
+        //新坐标
+        this.x += (newCurLogicPosX - lastCurLogicPosX);
+        this.y += (newCurLogicPosY - lastCurLogicPosY);
         this.render();
     }
     //初始化网格

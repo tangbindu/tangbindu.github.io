@@ -162,6 +162,11 @@ class MouseEvent extends eventTarget {
         this.totalLogicMoveVector = tools.toLogicVector(this.totalMoveVector, this.app.devicePixelRatio, this.app.scale);
         this.trigger("mixMouseEvent");
     }
+    refresh() {
+        this.curLogicPos = tools.toLogicPixel(this.currentPos, this.app.devicePixelRatio, this.app.scale, this.app.x, this.app.y);
+        this.startPos = this.currentPos;
+        this.previousPos = this.currentPos;
+    }
 }
 export default MouseEvent;
 //# sourceMappingURL=mouseEvent.js.map
