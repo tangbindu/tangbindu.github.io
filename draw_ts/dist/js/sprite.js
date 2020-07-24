@@ -79,6 +79,18 @@ class Sprite extends eventTarget {
             this.y = this.parent.y + this.parent.height * this.relativePosition[1] - this.height * .5 + offsetY;
         }
     }
+    /**
+     * 获取缩放
+     */
+    getScale() {
+        let scaleVal = this.scale;
+        let node = this;
+        while (node.parent) {
+            scaleVal *= node.parent.scale;
+            node = node.parent;
+        }
+        return scaleVal;
+    }
 }
 export default Sprite;
 //# sourceMappingURL=sprite.js.map

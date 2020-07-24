@@ -141,19 +141,21 @@ class Grid extends Graph {
         ctx.font = '18px Helvetica Neue, SimHei'; //字体
         ctx.fillStyle = 'rgba(255,255,255,.4)'; //字体颜色
         //只画可见范围的线条
+        let scale = this.getScale();
         let sx = this.x % this.gap;
         let sy = this.y % this.gap;
-        let gap = this.gap * this.scale;
+        let gap = this.gap * scale;
         //横轴
         let y = 0;
         ctx.textBaseline = 'top'; //上下对准线条
         ctx.textAlign = "left"; //左右对准线条
         while (gap * y < this.app.height) {
+            console.log(gap * y);
             ctx.beginPath();
-            ctx.moveTo(0, tools.toDrawVal(gap * y + sy * this.scale));
-            ctx.lineTo(this.app.width, tools.toDrawVal(gap * y + sy * this.scale));
+            ctx.moveTo(0, tools.toDrawVal(gap * y + sy * scale));
+            ctx.lineTo(this.app.width, tools.toDrawVal(gap * y + sy * scale));
             ctx.stroke();
-            ctx.fillText(this.gap * y - (this.y - sy), 0, gap * y + sy * this.scale);
+            ctx.fillText(this.gap * y - (this.y - sy), 0, gap * y + sy * scale);
             ++y;
         }
         //纵轴
@@ -162,10 +164,10 @@ class Grid extends Graph {
         let x = 0;
         while (gap * x < (this.app.width + gap)) {
             ctx.beginPath();
-            ctx.moveTo(tools.toDrawVal(gap * x + sx * this.scale), 0);
-            ctx.lineTo(tools.toDrawVal(gap * x + sx * this.scale), this.app.height);
+            ctx.moveTo(tools.toDrawVal(gap * x + sx * scale), 0);
+            ctx.lineTo(tools.toDrawVal(gap * x + sx * scale), this.app.height);
             ctx.stroke();
-            ctx.fillText(this.gap * x - (this.x - sx), gap * x + sx * this.scale, 0);
+            ctx.fillText(this.gap * x - (this.x - sx), gap * x + sx * scale, 0);
             ++x;
         }
         ctx.restore();

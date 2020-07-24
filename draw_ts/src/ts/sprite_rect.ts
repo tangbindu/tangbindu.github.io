@@ -16,11 +16,12 @@ class RectSprite extends Sprite{
         // ctx.shadowColor="rgba(0,0,0,.3)";
         // ctx.setLineDash([10, 10])
         // ctx.fillRect(this.x,this.y,this.width,this.height);
+        let scale=this.getScale();
         ctx.strokeRect(
-            tools.toDrawVal(this.x*this.scale),
-            tools.toDrawVal(this.y*this.scale),
-            tools.toDrawVal(this.width*this.scale),
-            tools.toDrawVal(this.height*this.scale)
+            tools.toDrawVal(this.x*scale),
+            tools.toDrawVal(this.y*scale),
+            tools.toDrawVal(this.width*scale),
+            tools.toDrawVal(this.height*scale)
         );
         ctx.restore();
     }
@@ -28,11 +29,12 @@ class RectSprite extends Sprite{
     isInPath(ctx,pos) {
         ctx.save();
         ctx.beginPath();
+        let scale=this.getScale();
         ctx.rect(
-            this.x*this.scale,
-            this.y*this.scale,
-            this.width*this.scale,
-            this.height*this.scale
+            this.x*scale,
+            this.y*scale,
+            this.width*scale,
+            this.height*scale
         );
         ctx.closePath();
         ctx.restore();

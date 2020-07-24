@@ -117,6 +117,18 @@ class Sprite extends eventTarget{
         }
     }
     /**
+     * 获取缩放
+     */
+    getScale(){
+        let scaleVal=this.scale;
+        let node=this;
+        while(node.parent){
+            scaleVal*=node.parent.scale;
+            node=node.parent;
+        }
+        return scaleVal;
+    }
+    /**
      * 设置缩放
      * @param {numner} scaleVal
      */

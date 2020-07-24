@@ -111,7 +111,9 @@ export class Stage extends eventTarget {
      */
     setScale(scaleVal) {
         this.scale += scaleVal;
-        this.spritesController.setAllSpriteScale(this.scale);
+        this.scale = this.scale < .1 ? .1 : this.scale;
+        this.scale = this.scale > 10 ? 10 : this.scale;
+        // this.spritesController.setAllSpriteScale(this.scale);
         this.render();
     }
     //初始化网格
