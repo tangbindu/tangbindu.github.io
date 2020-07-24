@@ -124,7 +124,7 @@ export class Stage extends eventTarget {
         this.grid.index = -1000000;
         this.grid.type = "tool";
         this.grid.allowClick = false;
-        this.spriteList.push(this.grid);
+        return this.addSprite(this.grid);
     }
     //添加引导线
     initGuidewires() {
@@ -136,7 +136,7 @@ export class Stage extends eventTarget {
         this.guidewires.allowClick = false;
         this.guidewires.index = 1000000;
         this.guidewires.type = "tool";
-        this.spriteList.push(this.guidewires);
+        return this.addSprite(this.guidewires);
     }
     /**
      * 更新引导线
@@ -172,27 +172,26 @@ export class Stage extends eventTarget {
      */
     addImageSprite(imagePath, config) {
         let sprite = new ImageSprite(imagePath, config);
-        this.spriteList.push(sprite);
         sprite.handler("imgLoaded", () => {
             this.trigger("addSprite");
             this.render();
         });
-        return sprite;
+        return this.addSprite(sprite);
     }
     /**
      * 添加RectSprite精灵
      */
     addRectSprite(config) {
         let sprite = new RectSprite(config);
-        this.spriteList.push(sprite);
-        this.render();
-        return sprite;
+        return this.addSprite(sprite);
     }
     /**
      * 添加普通精灵
      */
     addSprite(sprite) {
         this.spriteList.push(sprite);
+        sprite.parent = this;
+        this.render();
         return sprite;
     }
     /**
@@ -260,7 +259,7 @@ export class Stage extends eventTarget {
             //绘制
             this.spriteList.forEach(sprite => {
                 //计算定位
-                sprite.calculateRelativePosition();
+                // sprite.calculateRelativePosition();
                 sprite.x += this.coordinateOrigin.x;
                 sprite.y += this.coordinateOrigin.y;
                 sprite.visible && sprite.draw(this.ctx);

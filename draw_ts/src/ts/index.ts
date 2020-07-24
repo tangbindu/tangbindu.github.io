@@ -20,3 +20,4 @@ let rect=stage.addRectSprite({
     useDrag:true
 })
 console.log(stage)
+window.stage=stage;
