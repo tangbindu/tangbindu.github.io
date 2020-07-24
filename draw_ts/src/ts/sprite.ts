@@ -35,7 +35,7 @@ class Sprite extends eventTarget{
     //父亲
     parent: any;
     //相对坐标
-    relativePosition: any;
+    // relativePosition: any;
     //缩放
     scale: number;
     //构造
@@ -75,7 +75,7 @@ class Sprite extends eventTarget{
         //parent 只支持一级
         this.parent= this.config.parent || null;
         //相对父元素的定位
-        this.relativePosition= this.config.relativePosition || [.5,.5];
+        // this.relativePosition= this.config.relativePosition || [.5,.5];
         //visible 
         this.visible= this.config.visible!=undefined? this.config.visible : true;
     }
@@ -108,14 +108,14 @@ class Sprite extends eventTarget{
     /**
      * 计算相对位置
      */
-    calculateRelativePosition(){
-        let offsetX=this.relativePosition[2] || 0;
-        let offsetY=this.relativePosition[3] || 0;
-        if(this.parent){
-            this.x=this.parent.x+this.parent.width*this.relativePosition[0]-this.width*.5+offsetX;
-            this.y=this.parent.y+this.parent.height*this.relativePosition[1]-this.height*.5+offsetY;
-        }
-    }
+    // calculateRelativePosition(){
+    //     let offsetX=this.relativePosition[2] || 0;
+    //     let offsetY=this.relativePosition[3] || 0;
+    //     if(this.parent){
+    //         this.x=this.parent.x+this.parent.width*this.relativePosition[0]-this.width*.5+offsetX;
+    //         this.y=this.parent.y+this.parent.height*this.relativePosition[1]-this.height*.5+offsetY;
+    //     }
+    // }
     /**
      * 获取缩放
      */

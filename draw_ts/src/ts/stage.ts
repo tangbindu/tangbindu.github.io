@@ -256,13 +256,11 @@ export class Stage extends eventTarget{
      */
     mousedownSprite(){
         let pos=this.mouseEvent.curLogicPos;
-        console.log(pos.x,this.coordinateOrigin.x)
         let sprite=this.spritesController.getSpriteByPoint(this.ctx,{
             x:pos.x+this.coordinateOrigin.x,
             y:pos.y+this.coordinateOrigin.y
         });
         this.activeSprite=sprite
-        console.dir(sprite)
         // this.activeSprite && this.activeSprite.trigger("mousedown")
         this.render();
     }
@@ -275,7 +273,6 @@ export class Stage extends eventTarget{
             x:pos.x+this.coordinateOrigin.x,
             y:pos.y+this.coordinateOrigin.y
         });
-        console.dir(sprite)
         this.render();
     }
     /**
