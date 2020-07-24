@@ -115,36 +115,37 @@ class Guidewires extends Graph{
     }
     draw(ctx){  
         let scale=this.getScale();
+        let getPosition=this.getPosition();
         //竖
         ctx.save();
         ctx.fillStyle = 'rgba(0,255,0,.7)';
         ctx.beginPath();
-        ctx.moveTo(tools.toDrawVal(this.x*scale), tools.toDrawVal(0));
-        ctx.lineTo(tools.toDrawVal(this.x*scale+Math.max(scale,1.0)), tools.toDrawVal(0));
-        ctx.lineTo(tools.toDrawVal(this.x*scale+Math.max(scale,1.0)), tools.toDrawVal(this.app.height));
-        ctx.lineTo(tools.toDrawVal(this.x*scale), tools.toDrawVal(this.app.height));
+        ctx.moveTo(tools.toDrawVal(getPosition.x*scale), tools.toDrawVal(0));
+        ctx.lineTo(tools.toDrawVal(getPosition.x*scale+Math.max(scale,1.0)), tools.toDrawVal(0));
+        ctx.lineTo(tools.toDrawVal(getPosition.x*scale+Math.max(scale,1.0)), tools.toDrawVal(this.app.height));
+        ctx.lineTo(tools.toDrawVal(getPosition.x*scale), tools.toDrawVal(this.app.height));
         ctx.closePath();
         ctx.fill();
         //横
         ctx.beginPath();
-        ctx.moveTo(tools.toDrawVal(0), tools.toDrawVal(this.y*scale));
-        ctx.lineTo(tools.toDrawVal(0), tools.toDrawVal(this.y*scale+Math.max(scale,1.0)));
-        ctx.lineTo(tools.toDrawVal(this.app.width), tools.toDrawVal(this.y*scale+Math.max(scale,1.0)));
-        ctx.lineTo(tools.toDrawVal(this.app.width), tools.toDrawVal(this.y*scale));
+        ctx.moveTo(tools.toDrawVal(0), tools.toDrawVal(getPosition.y*scale));
+        ctx.lineTo(tools.toDrawVal(0), tools.toDrawVal(getPosition.y*scale+Math.max(scale,1.0)));
+        ctx.lineTo(tools.toDrawVal(this.app.width), tools.toDrawVal(getPosition.y*scale+Math.max(scale,1.0)));
+        ctx.lineTo(tools.toDrawVal(this.app.width), tools.toDrawVal(getPosition.y*scale));
         ctx.closePath();
         ctx.fill();
         //相对坐标
         const fontSize = 12;
         ctx.fillStyle = 'rgba(255,0,0,1)';
         ctx.font = fontSize*window.devicePixelRatio + 'px Helvetica Neue, SimHei';
-        const text = "("+tools.toInt(this.x-this.app.x+1) + ", " + tools.toInt(this.y-this.app.y+1)+")";
+        const text = "("+tools.toInt(getPosition.x-this.app.x+1) + ", " + tools.toInt(getPosition.y-this.app.y+1)+")";
         ctx.fillText(
             text,
             Math.min(
-                this.x*scale + fontSize*window.devicePixelRatio,
+                getPosition.x*scale + fontSize*window.devicePixelRatio,
                 this.app.width - text.length * fontSize*window.devicePixelRatio/2
             ) - 10,
-            Math.max(this.y*scale - 10, fontSize*window.devicePixelRatio));
+            Math.max(getPosition.y*scale - 10, fontSize*window.devicePixelRatio));
         ctx.restore();
     }
 }
@@ -171,8 +172,9 @@ class Grid extends Graph{
 
         //只画可见范围的线条
         let scale=this.getScale();
-        let sx=this.x%this.gap;
-        let sy=this.y%this.gap;
+        let getPosition=this.getPosition();
+        let sx=getPosition.x%this.gap;
+        let sy=getPosition.y%this.gap;
         let gap=this.gap*scale;
         //横轴
         let y = 0;
@@ -184,7 +186,7 @@ class Grid extends Graph{
             ctx.lineTo(this.app.width, tools.toDrawVal(gap * y+sy*scale));
             ctx.stroke();
             ctx.fillText(
-                this.gap * y-(this.y-sy), 
+                this.gap * y-(getPosition.y-sy), 
                 0, 
                 gap * y+sy*scale
             );
@@ -200,7 +202,7 @@ class Grid extends Graph{
             ctx.lineTo(tools.toDrawVal(gap * x+sx*scale), this.app.height);
             ctx.stroke();
             ctx.fillText(
-                this.gap * x-(this.x-sx), 
+                this.gap * x-(getPosition.x-sx), 
                 gap * x+sx*scale, 
                 0
             );

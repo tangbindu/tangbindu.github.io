@@ -91,6 +91,19 @@ class Sprite extends eventTarget {
         }
         return scaleVal;
     }
+    /**
+     * 获取缩放
+     */
+    getPosition() {
+        let position = { x: this.x, y: this.y };
+        let node = this;
+        while (node.parent) {
+            position.x += node.parent.x;
+            position.y += node.parent.y;
+            node = node.parent;
+        }
+        return position;
+    }
 }
 export default Sprite;
 //# sourceMappingURL=sprite.js.map

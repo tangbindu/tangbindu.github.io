@@ -17,7 +17,8 @@ class RectSprite extends Sprite {
         // ctx.setLineDash([10, 10])
         // ctx.fillRect(this.x,this.y,this.width,this.height);
         let scale = this.getScale();
-        ctx.strokeRect(tools.toDrawVal(this.x * scale), tools.toDrawVal(this.y * scale), tools.toDrawVal(this.width * scale), tools.toDrawVal(this.height * scale));
+        let getPosition = this.getPosition();
+        ctx.strokeRect(tools.toDrawVal(getPosition.x * scale), tools.toDrawVal(getPosition.y * scale), tools.toDrawVal(this.width * scale), tools.toDrawVal(this.height * scale));
         ctx.restore();
     }
     //点击
@@ -25,7 +26,8 @@ class RectSprite extends Sprite {
         ctx.save();
         ctx.beginPath();
         let scale = this.getScale();
-        ctx.rect(this.x * scale, this.y * scale, this.width * scale, this.height * scale);
+        let getPosition = this.getPosition();
+        ctx.rect(getPosition.x * scale, getPosition.y * scale, this.width * scale, this.height * scale);
         ctx.closePath();
         ctx.restore();
         if (ctx.isPointInPath(pos.x, pos.y)) {
