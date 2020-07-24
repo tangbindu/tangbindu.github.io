@@ -114,22 +114,23 @@ class Guidewires extends Graph{
         this.id = 'app_guidewires';
     }
     draw(ctx){  
+        let scale=this.getScale();
         //竖
         ctx.save();
         ctx.fillStyle = 'rgba(0,255,0,.7)';
         ctx.beginPath();
-        ctx.moveTo(tools.toDrawVal(this.x*this.scale), tools.toDrawVal(0));
-        ctx.lineTo(tools.toDrawVal(this.x*this.scale+Math.max(this.scale,1.0)), tools.toDrawVal(0));
-        ctx.lineTo(tools.toDrawVal(this.x*this.scale+Math.max(this.scale,1.0)), tools.toDrawVal(this.app.height));
-        ctx.lineTo(tools.toDrawVal(this.x*this.scale), tools.toDrawVal(this.app.height));
+        ctx.moveTo(tools.toDrawVal(this.x*scale), tools.toDrawVal(0));
+        ctx.lineTo(tools.toDrawVal(this.x*scale+Math.max(scale,1.0)), tools.toDrawVal(0));
+        ctx.lineTo(tools.toDrawVal(this.x*scale+Math.max(scale,1.0)), tools.toDrawVal(this.app.height));
+        ctx.lineTo(tools.toDrawVal(this.x*scale), tools.toDrawVal(this.app.height));
         ctx.closePath();
         ctx.fill();
         //横
         ctx.beginPath();
-        ctx.moveTo(tools.toDrawVal(0), tools.toDrawVal(this.y*this.scale));
-        ctx.lineTo(tools.toDrawVal(0), tools.toDrawVal(this.y*this.scale+Math.max(this.scale,1.0)));
-        ctx.lineTo(tools.toDrawVal(this.app.width), tools.toDrawVal(this.y*this.scale+Math.max(this.scale,1.0)));
-        ctx.lineTo(tools.toDrawVal(this.app.width), tools.toDrawVal(this.y*this.scale));
+        ctx.moveTo(tools.toDrawVal(0), tools.toDrawVal(this.y*scale));
+        ctx.lineTo(tools.toDrawVal(0), tools.toDrawVal(this.y*scale+Math.max(scale,1.0)));
+        ctx.lineTo(tools.toDrawVal(this.app.width), tools.toDrawVal(this.y*scale+Math.max(scale,1.0)));
+        ctx.lineTo(tools.toDrawVal(this.app.width), tools.toDrawVal(this.y*scale));
         ctx.closePath();
         ctx.fill();
         //相对坐标
@@ -140,10 +141,10 @@ class Guidewires extends Graph{
         ctx.fillText(
             text,
             Math.min(
-                this.x*this.scale + fontSize*window.devicePixelRatio,
+                this.x*scale + fontSize*window.devicePixelRatio,
                 this.app.width - text.length * fontSize*window.devicePixelRatio/2
             ) - 10,
-            Math.max(this.y*this.scale - 10, fontSize*window.devicePixelRatio));
+            Math.max(this.y*scale - 10, fontSize*window.devicePixelRatio));
         ctx.restore();
     }
 }
