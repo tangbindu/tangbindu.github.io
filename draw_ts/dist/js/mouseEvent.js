@@ -157,7 +157,7 @@ class MouseEvent extends eventTarget {
             this.leftDown = false;
         }
         this.currentCanvasPos = tools.toPixel(this.currentPos, this.app.devicePixelRatio);
-        this.curLogicPos = tools.toLogicPixel(this.currentPos, this.app.devicePixelRatio, this.app.scale, this.app.coordinateOrigin);
+        this.curLogicPos = tools.toLogicPixel(this.currentPos, this.app.devicePixelRatio, this.app.scale, this.app.x, this.app.y);
         this.moveLogicVector = tools.toLogicVector(this.moveVector, this.app.devicePixelRatio, this.app.scale);
         this.totalLogicMoveVector = tools.toLogicVector(this.totalMoveVector, this.app.devicePixelRatio, this.app.scale);
         this.trigger("mixMouseEvent");

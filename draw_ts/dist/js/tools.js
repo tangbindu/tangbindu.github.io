@@ -15,19 +15,16 @@ let tools = {
         };
     },
     //逻辑像素
-    toLogicPixel(point, ratio, scale, coordinateOrigin) {
-        let x = (point.x * ratio) / scale - coordinateOrigin.x;
-        let y = (point.y * ratio) / scale - coordinateOrigin.y;
+    toLogicPixel(point, ratio, scale, px, py) {
+        let x = (point.x * ratio) / scale - px;
+        let y = (point.y * ratio) / scale - py;
         return {
             x: tools.toInt(x),
             y: tools.toInt(y)
         };
     },
     //逻辑像素到devicePixel;
-    // LogicPosToDevicePixel(logicPos,ratio,scale,coordinateOrigin){
-    //     let x=logicPos.x*scale+coordinateOrigin.x*scale;
-    //     let y=logicPos.y*scale+coordinateOrigin.y*scale;
-    //     return {x,y}
+    // LogicPosToDevicePixel(){
     // },
     toLogicVector(vector, ratio, scale) {
         return {

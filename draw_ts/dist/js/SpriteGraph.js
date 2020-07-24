@@ -118,7 +118,7 @@ class Guidewires extends Graph {
         const fontSize = 12;
         ctx.fillStyle = 'rgba(255,0,0,1)';
         ctx.font = fontSize * window.devicePixelRatio + 'px Helvetica Neue, SimHei';
-        const text = "(" + tools.toInt(this.x - this.app.coordinateOrigin.x + 1) + ", " + tools.toInt(this.y - this.app.coordinateOrigin.y + 1) + ")";
+        const text = "(" + tools.toInt(this.x - this.app.x + 1) + ", " + tools.toInt(this.y - this.app.y + 1) + ")";
         ctx.fillText(text, Math.min(this.x * scale + fontSize * window.devicePixelRatio, this.app.width - text.length * fontSize * window.devicePixelRatio / 2) - 10, Math.max(this.y * scale - 10, fontSize * window.devicePixelRatio));
         ctx.restore();
     }

@@ -23,9 +23,10 @@ export class Stage extends eventTarget {
         this.spriteList = [];
         this.scale = 1;
         this.devicePixelRatio = Math.floor(window.devicePixelRatio || 2);
+        this.x = 0;
+        this.y = 0;
         this.width = config.width * this.devicePixelRatio || 400;
         this.height = config.height * this.devicePixelRatio || 300;
-        this.coordinateOrigin = { x: 0, y: 0 }; //坐标轴原点
         this.backgroundColor = config.backgroundColor || "rgba(0,0,0,0)";
         this.canvas = document.createElement("canvas");
         this.ctx = this.canvas.getContext("2d");
@@ -67,8 +68,8 @@ export class Stage extends eventTarget {
             }
             //拖动stage
             if (this.keyBoardEvent.pressSpace && this.mouseEvent.leftDown && this.mouseEvent.isMoving) {
-                this.coordinateOrigin.x += this.mouseEvent.moveLogicVector.x;
-                this.coordinateOrigin.y += this.mouseEvent.moveLogicVector.y;
+                this.x += this.mouseEvent.moveLogicVector.x;
+                this.y += this.mouseEvent.moveLogicVector.y;
                 this.render();
             }
         });
@@ -225,8 +226,8 @@ export class Stage extends eventTarget {
     mousedownSprite() {
         let pos = this.mouseEvent.curLogicPos;
         let sprite = this.spritesController.getSpriteByPoint(this.ctx, {
-            x: pos.x + this.coordinateOrigin.x,
-            y: pos.y + this.coordinateOrigin.y
+            x: pos.x + this.x,
+            y: pos.y + this.y
         });
         this.activeSprite = sprite;
         // this.activeSprite && this.activeSprite.trigger("mousedown")
@@ -238,8 +239,8 @@ export class Stage extends eventTarget {
     clickSprite() {
         let pos = this.mouseEvent.curLogicPos;
         let sprite = this.spritesController.getSpriteByPoint(this.ctx, {
-            x: pos.x + this.coordinateOrigin.x,
-            y: pos.y + this.coordinateOrigin.y
+            x: pos.x + this.x,
+            y: pos.y + this.y
         });
         this.render();
     }
@@ -259,11 +260,11 @@ export class Stage extends eventTarget {
             this.spriteList.forEach(sprite => {
                 //计算定位
                 // sprite.calculateRelativePosition();
-                sprite.x += this.coordinateOrigin.x;
-                sprite.y += this.coordinateOrigin.y;
+                sprite.x += this.x;
+                sprite.y += this.y;
                 sprite.visible && sprite.draw(this.ctx);
-                sprite.x -= this.coordinateOrigin.x;
-                sprite.y -= this.coordinateOrigin.y;
+                sprite.x -= this.x;
+                sprite.y -= this.y;
             });
         });
     }
