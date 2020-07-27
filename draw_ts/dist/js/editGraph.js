@@ -1,5 +1,5 @@
 let activeSprite;
-let newSprite = false;
+let newActiveSprite = false;
 let editGraph = (app) => {
     if (app.mouseEvent.eventType == "mousedown") {
         let pos = app.mouseEvent.curLogicPos;
@@ -9,10 +9,10 @@ let editGraph = (app) => {
         });
         if (activeSprite && !activeSprite.active) {
             app.spritesController.addActiveSprite(activeSprite);
-            newSprite = true;
+            newActiveSprite = true;
         }
         else {
-            newSprite = false;
+            newActiveSprite = false;
         }
         if (app.spritesController.activeSprites.length > 1 && !app.keyBoardEvent.pressCmd) {
             app.spritesController.releaseActiveSprites();
@@ -26,7 +26,7 @@ let editGraph = (app) => {
     if (app.mouseEvent.eventType == "mouseup") {
     }
     if (app.mouseEvent.eventType == "click") {
-        !newSprite && activeSprite && activeSprite.active && app.spritesController.releaseActiveSprites(activeSprite);
+        !newActiveSprite && activeSprite && activeSprite.active && app.spritesController.releaseActiveSprites(activeSprite);
     }
 };
 export default editGraph;

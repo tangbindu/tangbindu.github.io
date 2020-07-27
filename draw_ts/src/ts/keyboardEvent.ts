@@ -24,8 +24,8 @@ class KeyBoardEvent extends eventTarget{
                     app.spritesController.selectAll();
                     event.preventDefault();
                 }else if(self.pressCmd && event.keyCode == 68){
-                    //反选
-                    app.spritesController.reverseSelect();
+                    //全部取消选择
+                    app.spritesController.cancelSelect();
                     event.preventDefault();
                 }else if(self.pressCmd && event.keyCode == 67){
                     //复制
