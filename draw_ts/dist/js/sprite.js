@@ -104,6 +104,11 @@ class Sprite extends eventTarget {
         }
         return position;
     }
+    /**
+     * 设置按压态
+     */
+    setActiveStyle(ctx) {
+    }
 }
 export default Sprite;
 //# sourceMappingURL=sprite.js.map

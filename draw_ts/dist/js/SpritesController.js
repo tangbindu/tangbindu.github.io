@@ -3,6 +3,7 @@ class SpritesController {
     constructor(config) {
         //click的元素
         this.app = config.app;
+        this.activeSprites = [];
         this.lastSprite = null;
         this.sprites = config.app.spriteList || [];
         this.supportMultipleClick = false;
@@ -118,6 +119,33 @@ class SpritesController {
         this.sprites = this.sprites.filter((sprite) => {
             return !sprite.active;
         });
+    }
+    //add Active sprite
+    addActiveSprite(sprite) {
+        let hasSprite = this.activeSprites.filter(item => {
+            return item == sprite;
+        });
+        if (hasSprite.length === 0) {
+            sprite.active = true;
+            this.activeSprites.push(sprite);
+        }
+    }
+    /**
+     * 释放精灵
+     */
+    releaseActiveSprites(sprite) {
+        if (sprite) {
+            this.activeSprites = this.activeSprites.filter(item => {
+                return item != sprite;
+            });
+            sprite.active = false;
+        }
+        else {
+            this.activeSprites.forEach(item => {
+                item.active = false;
+            });
+            this.activeSprites = [];
+        }
     }
     //获取active
     getActiveSprites() {

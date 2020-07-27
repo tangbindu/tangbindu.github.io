@@ -142,6 +142,12 @@ class Sprite extends eventTarget{
         return position;
     }
     /**
+     * 设置按压态
+     */
+    setActiveStyle(ctx){
+        
+    }
+    /**
      * 设置缩放
      * @param {numner} scaleVal
      */

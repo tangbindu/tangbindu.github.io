@@ -16,6 +16,7 @@ class RectSprite extends Sprite{
         // ctx.shadowColor="rgba(0,0,0,.3)";
         // ctx.setLineDash([10, 10])
         // ctx.fillRect(this.x,this.y,this.width,this.height);
+        this.active && this.setActiveStyle(ctx);
         let scale=this.getScale();
         let getPosition=this.getPosition();
         ctx.strokeRect(
@@ -45,6 +46,10 @@ class RectSprite extends Sprite{
         }else{
             return false
         }
+    }
+    //setActiveStyle
+    setActiveStyle(ctx){
+        ctx.strokeStyle = '#13F6ff';
     }
 }
 

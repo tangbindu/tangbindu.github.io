@@ -20,17 +20,20 @@ export class Stage extends eventTarget {
     init(config) {
         config = config || {};
         this.isNextFrame = null;
-        this.spriteList = [];
         this.scale = 1;
         this.devicePixelRatio = Math.floor(window.devicePixelRatio || 2);
-        this.x = 0;
-        this.y = 0;
+        this.x = 500;
+        this.y = 500;
         this.width = config.width * this.devicePixelRatio || 400;
         this.height = config.height * this.devicePixelRatio || 300;
         this.backgroundColor = config.backgroundColor || "rgba(0,0,0,0)";
         this.canvas = document.createElement("canvas");
         this.ctx = this.canvas.getContext("2d");
+        this.createSprite = null;
+        //尺寸
         this.resize(this.width, this.height);
+        //初始化精灵控制器
+        this.spritesController = new SpritesController({ app: this });
         //初始化网格线
         this.initGrid();
         //初始化引导线
@@ -39,8 +42,6 @@ export class Stage extends eventTarget {
         this.initMouseEvent();
         //初始化键盘快捷
         this.keyBoardEvent = new KeyBoardEvent(this);
-        //初始化精灵控制器
-        this.spritesController = new SpritesController({ app: this });
         //绘制
         this.render();
     }
@@ -55,16 +56,14 @@ export class Stage extends eventTarget {
         this.mouseEvent.handler("mixMouseEvent", () => {
             if (this.mouseEvent.eventType == "mousedown") {
                 //选择精灵
-                this.mousedownSprite();
+                this.mousedown();
             }
             else if (this.mouseEvent.eventType == "mousemove") {
-                this.updataGuidewires();
-                //drag精灵
-                this.activeSprite && this.dragActiveSprite(this.activeSprite, this.mouseEvent.moveLogicVector);
+                //选择精灵
+                this.mousemove();
             }
             else if (this.mouseEvent.eventType == "mouseup") {
-                //释放精灵
-                this.releaseSprite();
+                this.mouseup();
             }
             //拖动stage
             if (this.keyBoardEvent.pressSpace && this.mouseEvent.leftDown && this.mouseEvent.isMoving) {
@@ -80,19 +79,14 @@ export class Stage extends eventTarget {
     /**
      * drag精灵
      */
-    dragActiveSprite(activeSprite, moveVector) {
-        if (activeSprite.useDrag && !this.keyBoardEvent.pressSpace) {
-            activeSprite.x += moveVector.x;
-            activeSprite.y += moveVector.y;
-            this.activeSprite.trigger("dragging");
-            this.render();
-        }
-    }
-    /**
-     * 释放精灵
-     */
-    releaseSprite() {
-        this.activeSprite = null;
+    dragActiveSprite(activeSprites, moveVector) {
+        activeSprites.forEach(sprite => {
+            if (sprite.useDrag && !this.keyBoardEvent.pressSpace) {
+                sprite.x += moveVector.x;
+                sprite.y += moveVector.y;
+            }
+        });
+        this.render();
     }
     /**
      * 重置尺寸
@@ -200,7 +194,7 @@ export class Stage extends eventTarget {
      * 添加普通精灵
      */
     addSprite(sprite) {
-        this.spriteList.push(sprite);
+        this.spritesController.addSprite(sprite);
         sprite.parent = this;
         this.render();
         return sprite;
@@ -229,17 +223,50 @@ export class Stage extends eventTarget {
         console.log(res);
     }
     /**
-     * mousedown精灵
+     * mousedown
      */
-    mousedownSprite() {
+    mousedown() {
         let pos = this.mouseEvent.curLogicPos;
-        let sprite = this.spritesController.getSpriteByPoint(this.ctx, {
-            x: pos.x + this.x,
-            y: pos.y + this.y
+        // 没有选中的，就是编辑模式
+        if (this.spritesController.activeSprites.length > 0) {
+            return;
+        }
+        //new 图形
+        this.createSprite = this.addRectSprite({
+            x: pos.x,
+            y: pos.y,
+            width: 0,
+            height: 0,
+            useDrag: true
         });
-        this.activeSprite = sprite;
-        // this.activeSprite && this.activeSprite.trigger("mousedown")
-        this.render();
+    }
+    /**
+     * mousemove
+     */
+    mousemove() {
+        //update guidewires
+        this.updataGuidewires();
+        //drag精灵
+        this.mouseEvent.leftDown && this.dragActiveSprite(this.spritesController.activeSprites, this.mouseEvent.moveLogicVector);
+        // 创建的sprite
+        if (this.createSprite) {
+            this.createSprite.width = this.mouseEvent.totalLogicMoveVector.x;
+            this.createSprite.height = this.mouseEvent.totalLogicMoveVector.y;
+        }
+    }
+    /**
+     * mouseup
+     */
+    mouseup() {
+        //释放精灵
+        // this.spritesController.releaseActiveSprites();
+        //创建精灵成功 检查createSprite
+        if (this.createSprite) {
+            if (this.createSprite.width < 10 && this.createSprite.height < 10) {
+                console.log(this.spritesController.removeSprite(this.createSprite));
+            }
+            this.createSprite = null;
+        }
     }
     /**
      * click精灵
@@ -247,11 +274,18 @@ export class Stage extends eventTarget {
     clickSprite() {
         let pos = this.mouseEvent.curLogicPos;
         let sprite = this.spritesController.getSpriteByPoint(this.ctx, {
-            x: pos.x,
-            y: pos.y
+            x: pos.x + this.x,
+            y: pos.y + this.y
         });
-        console.log(pos);
-        sprite && console.dir(sprite);
+        if (sprite && !sprite.active) {
+            this.spritesController.addActiveSprite(sprite);
+        }
+        else if (sprite) {
+            this.spritesController.releaseActiveSprites(sprite);
+        }
+        else {
+            this.spritesController.releaseActiveSprites();
+        }
         this.render();
     }
     /**
@@ -263,11 +297,11 @@ export class Stage extends eventTarget {
             //绘制背景
             this.drawBackground();
             //排序
-            this.spriteList.sort((a, b) => {
+            this.spritesController.sprites.sort((a, b) => {
                 return a.zindex - b.zindex;
             });
             //绘制
-            this.spriteList.forEach(sprite => {
+            this.spritesController.sprites.forEach(sprite => {
                 //计算定位
                 // sprite.calculateRelativePosition();
                 // sprite.x+=this.x;
