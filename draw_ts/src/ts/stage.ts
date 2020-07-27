@@ -338,11 +338,7 @@ export class Stage extends eventTarget{
             this.spritesController.sprites.forEach(sprite=>{
                 //计算定位
                 // sprite.calculateRelativePosition();
-                // sprite.x+=this.x;
-                // sprite.y+=this.y;
                 sprite.visible && sprite.draw(this.ctx);
-                // sprite.x-=this.x;
-                // sprite.y-=this.y;
             })
         })
     }

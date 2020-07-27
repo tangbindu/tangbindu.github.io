@@ -10,13 +10,5 @@ let stage = new Stage({
 });
 stageWrap.appendChild(stage.canvas);
 //工作台
-let rect = stage.addRectSprite({
-    x: 0,
-    y: 0,
-    width: 500,
-    height: 500,
-    useDrag: true
-});
-console.log(stage);
 window.stage = stage;
 //# sourceMappingURL=index.js.map
