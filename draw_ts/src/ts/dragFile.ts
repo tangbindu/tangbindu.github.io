@@ -2,47 +2,37 @@ import eventTarget from "./eventTarget.js";
 
 //event
 class DragFile extends eventTarget{
-    constructor(app){
+    constructor(){
         super();
-        this.app=app;
         this.init();
     }
     init(){
-        let app=this.app;
         //拖拽上传文件
-        window.document.addEventListener("dragenter", function(e) {
+        window.document.addEventListener("dragenter", (e)=>{
             e.stopPropagation();
             e.preventDefault();
         }, false);
-        window.document.addEventListener("dragover", function(e) {
+        window.document.addEventListener("dragover", (e)=>{
             e.stopPropagation();
             e.preventDefault();
         }, false);
-        window.document.addEventListener("drop", function(e) {
-            handleFile(e.dataTransfer.files);
+        window.document.addEventListener("drop", (e)=>{
             //获取一张图片
-            function handleFile(files) {
-                var i = 0;
-                var reader = new FileReader();
-                function readerFiles(i) {
-                    var file = files[i];
-                    if (i == files.length) { return false; }
-                    reader.onload = (function(theFile) {
-                        var imgData = theFile.srcElement.result;
-                        //这里接受图片
-                        const img=new Image();
-                        img.onload=()=>{
-                            app.uploadImage={
-                                img:img,
-                                name:file.name
-                            }
-                        }
-                        img.src=imgData;
+            let handleFile=(files)=>{
+                let i = 0;
+                let readerFiles=(file)=>{
+                    let reader = new FileReader();
+                    reader.onload = ((theFile)=>{
+                        let imgData = theFile.srcElement.result;
+                        this.trigger("files",imgData)
                     })
                     reader.readAsDataURL(file);
                 }
-                readerFiles(i);
+                for(let i=0;i<files.length;i++){
+                    readerFiles(files[i]);
+                }
             }
+            handleFile(e.dataTransfer.files);
             e.stopPropagation();
             e.preventDefault();
         }, false);

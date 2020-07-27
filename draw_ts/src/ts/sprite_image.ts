@@ -32,41 +32,64 @@ class ImageSprite extends Sprite{
             return;
         }
         ctx.save();
+        let scale=this.getScale();
+        let getPosition=this.getPosition();
         //是否重复填充背景
         if(this.repeat){
             //模型
             let pattern = ctx.createPattern(this.img, "repeat");
             ctx.fillStyle=pattern;
-            ctx.fillRect(this.x,this.y,this.width,this.height);
+            ctx.fillRect(
+                getPosition.x*scale,
+                getPosition.y*scale,
+                this.width*scale,
+                this.height*scale
+            );
         }else{
             //普通绘制
             ctx.drawImage(
                 this.img,
-                this.x,
-                this.y,
-                this.width,
-                this.height
+                getPosition.x*scale,
+                getPosition.y*scale,
+                this.width*scale,
+                this.height*scale
             );
         }
+        this.active && this.setActiveStyle(ctx);
         ctx.restore();
     }
     //点击
     isInPath(ctx,pos) {
         ctx.save();
+        let scale=this.getScale();
+        let getPosition=this.getPosition();
         ctx.beginPath();
         ctx.rect(
-            this.x,
-            this.y,
-            this.width,
-            this.height
+            getPosition.x*scale,
+            getPosition.y*scale,
+            this.width*scale,
+            this.height*scale
         );
         ctx.closePath();
         ctx.restore();
-        if(ctx.isPointInPath(pos.x, pos.y)){
+        if(ctx.isPointInPath(pos.x*scale, pos.y*scale)){
             return true;
         }else{
             return false
         }
+    }
+    //setActiveStyle
+    setActiveStyle(ctx){
+        let scale=this.getScale();
+        let getPosition=this.getPosition();
+        ctx.lineWidth = Math.max(scale,1);
+        ctx.strokeStyle = 'rgba(0,255,0,.3)';
+        ctx.strokeRect(
+            getPosition.x*scale,
+            getPosition.y*scale,
+            this.width*scale,
+            this.height*scale
+        );
     }
 }
 

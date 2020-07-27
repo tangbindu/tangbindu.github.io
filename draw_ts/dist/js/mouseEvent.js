@@ -64,11 +64,11 @@ class MouseEvent extends eventTarget {
         document.body.onmousewheel = (event) => {
             if (event.deltaY > 0) {
                 //放大
-                this.app.setScale(event.deltaY / 750);
+                this.app.setScale(event.deltaY / 1200);
             }
             else {
                 //缩小
-                this.app.setScale(event.deltaY / 750);
+                this.app.setScale(event.deltaY / 1200);
             }
         };
         //鼠标引起的尺寸变化

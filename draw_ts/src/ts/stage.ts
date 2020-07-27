@@ -7,6 +7,12 @@ import KeyBoardEvent from "./KeyBoardEvent.js"
 import Sprite from "./sprite.js";
 import {Grid,Guidewires} from "./SpriteGraph.js";
 import SpritesController from "./spritesController.js"
+import DragFile from "./dragFile.js"
+
+//层级约定
+//image 0-10000;
+//rect  10000-20000;
+//control  20000-30000;
 export class Stage extends eventTarget{
     //指canvas组件
     canvas : any;
@@ -26,6 +32,8 @@ export class Stage extends eventTarget{
     mouseEvent : any;
     //键盘事件 
     keyBoardEvent: any;
+    // dragfile
+    dragFile : any;
     //引导线
     guidewires: Sprite;
     //网格
@@ -76,8 +84,28 @@ export class Stage extends eventTarget{
         this.initMouseEvent();
         //初始化键盘快捷
         this.keyBoardEvent = new KeyBoardEvent(this);
+        //初始化拖拽文件
+        this.initDragFile();
         //绘制
         this.render();
+    }
+    /**
+     * initDragFile
+     */
+    initDragFile(){
+        this.dragFile = new DragFile();
+        this.dragFile.handler("files",(data)=>{
+            let pos=this.mouseEvent.curLogicPos;
+            //假定data为img
+            this.addImageSprite(data,{
+                x:pos.x,
+                y:pos.y,
+                zindex:0,
+                width:data.width,
+                height:data.height,
+                useDrag:true
+            })
+        })
     }
     /**
      * 初始化MouseEvent
@@ -106,6 +134,12 @@ export class Stage extends eventTarget{
         })
         this.mouseEvent.handler("click",()=>{
             this.clickSprite();
+        })
+        this.mouseEvent.handler("resize",()=>{
+            this.resize(
+                this.canvas.parentNode.clientWidth*this.devicePixelRatio,
+                this.canvas.parentNode.clientHeight*this.devicePixelRatio
+            );
         })
     }
     /**
@@ -153,8 +187,10 @@ export class Stage extends eventTarget{
     }
     //初始化网格
     initGrid(){
-        this.grid = new Grid({x:0,
+        this.grid = new Grid({
+            x:0,
             y:0,
+            zindex:30000,
             app:this,
             gap:100
         });
@@ -168,6 +204,7 @@ export class Stage extends eventTarget{
         this.guidewires = new Guidewires({
             x:0,
             y:0,
+            zindex:30000,
             app:this
         });
         this.guidewires.allowClick=false;
@@ -267,6 +304,7 @@ export class Stage extends eventTarget{
         this.createSprite=this.addRectSprite({
             x:pos.x,
             y:pos.y,
+            zindex:10000,
             width:0,
             height:0,
             useDrag:true
