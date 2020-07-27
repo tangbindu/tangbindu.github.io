@@ -41,14 +41,14 @@ class eventTarget {
      * 触发事件
      * @param type
      */
-    trigger(type, data) {
+    trigger(type, data1, data2) {
         if (typeof this.handlers == "undefined") {
             this.handlers = {};
         }
         if (this.handlers[type] instanceof Array) {
             var handlers = this.handlers[type];
             for (var i = 0, len = handlers.length; i < len; i++) {
-                handlers[i].call(this, data);
+                handlers[i].call(this, data1, data2);
             }
         }
     }

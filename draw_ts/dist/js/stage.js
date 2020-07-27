@@ -1,3 +1,4 @@
+import tools from "./tools.js";
 import ImageSprite from "./sprite_image.js";
 import RectSprite from "./sprite_rect.js";
 import eventTarget from "./eventTarget.js";
@@ -57,12 +58,14 @@ export class Stage extends eventTarget {
      */
     initDragFile() {
         this.dragFile = new DragFile();
-        this.dragFile.handler("files", (data) => {
+        this.dragFile.handler("files", (data, e) => {
+            console.log(e);
             let pos = this.mouseEvent.curLogicPos;
+            let dragPos = tools.toLogicPixel({ x: e.layerX, y: e.layerY }, this.devicePixelRatio, this.scale, this.x, this.y);
             //假定data为img
             this.addImageSprite(data, {
-                x: pos.x,
-                y: pos.y,
+                x: dragPos.x,
+                y: dragPos.y,
                 zindex: 0,
                 width: data.width,
                 height: data.height,

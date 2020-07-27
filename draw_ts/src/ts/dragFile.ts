@@ -24,7 +24,7 @@ class DragFile extends eventTarget{
                     let reader = new FileReader();
                     reader.onload = ((theFile)=>{
                         let imgData = theFile.srcElement.result;
-                        this.trigger("files",imgData)
+                        this.trigger("files",imgData,e)
                     })
                     reader.readAsDataURL(file);
                 }
