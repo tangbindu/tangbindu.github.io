@@ -9,7 +9,9 @@ class RectSprite extends Sprite{
     //绘制图形精灵
     draw(ctx) {
         ctx.save();
-        ctx.lineWidth = 4;
+        let scale=this.getScale();
+        let getPosition=this.getPosition();
+        ctx.lineWidth = Math.max(scale,1);
         ctx.strokeStyle = '#6346ff';
         // ctx.fillStyle = 'rgba(0,233,0,.1)';
         // ctx.shadowBlur=3;
@@ -17,8 +19,6 @@ class RectSprite extends Sprite{
         // ctx.setLineDash([10, 10])
         // ctx.fillRect(this.x,this.y,this.width,this.height);
         this.active && this.setActiveStyle(ctx);
-        let scale=this.getScale();
-        let getPosition=this.getPosition();
         ctx.strokeRect(
             tools.toDrawVal(getPosition.x*scale),
             tools.toDrawVal(getPosition.y*scale),

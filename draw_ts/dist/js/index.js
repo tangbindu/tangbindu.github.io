@@ -10,5 +10,14 @@ let stage = new Stage({
 });
 stageWrap.appendChild(stage.canvas);
 //工作台
+for (let i = 0; i < 10; i++) {
+    let rect = stage.addRectSprite({
+        x: Math.random() * stage.width,
+        y: Math.random() * stage.height,
+        width: Math.random() * stage.height,
+        height: 500,
+        useDrag: Math.random() * stage.width
+    });
+}
 window.stage = stage;
 //# sourceMappingURL=index.js.map

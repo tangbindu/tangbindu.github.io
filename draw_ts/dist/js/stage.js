@@ -22,8 +22,8 @@ export class Stage extends eventTarget {
         this.isNextFrame = null;
         this.scale = 1;
         this.devicePixelRatio = Math.floor(window.devicePixelRatio || 2);
-        this.x = 500;
-        this.y = 500;
+        this.x = 0;
+        this.y = 0;
         this.width = config.width * this.devicePixelRatio || 400;
         this.height = config.height * this.devicePixelRatio || 300;
         this.backgroundColor = config.backgroundColor || "rgba(0,0,0,0)";
@@ -110,7 +110,7 @@ export class Stage extends eventTarget {
         let lastCurLogicPosY = this.mouseEvent.curLogicPos.y;
         this.scale += scaleVal;
         this.scale = this.scale < .1 ? .1 : this.scale;
-        this.scale = this.scale > 10 ? 10 : this.scale;
+        this.scale = this.scale > 20 ? 20 : this.scale;
         this.mouseEvent.refresh();
         let newCurLogicPosX = this.mouseEvent.curLogicPos.x;
         let newCurLogicPosY = this.mouseEvent.curLogicPos.y;
