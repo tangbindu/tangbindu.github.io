@@ -4,9 +4,9 @@ class ImageSprite extends Sprite {
     constructor(imagePath, config) {
         super(config);
         this.config = config;
-        this.imagePath = imagePath || this.imagePath;
+        this.imagePath = imagePath;
         this.img = null;
-        this.name = this.config.name || this.name;
+        this.name = this.config.name || "image";
         this.repeat = typeof this.config.repeat === "undefined" ? this.repeat : false;
         this.init();
     }

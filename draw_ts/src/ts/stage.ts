@@ -101,7 +101,7 @@ export class Stage extends eventTarget{
         this.dragFile.handler("files",(data)=>{
             let pos=this.mouseEvent.curLogicPos;
             //假定data为img
-            this.addImageSprite(data,{
+            let imgSprite=this.addImageSprite(data,{
                 x:pos.x,
                 y:pos.y,
                 zindex:0,
@@ -109,6 +109,14 @@ export class Stage extends eventTarget{
                 height:data.height,
                 useDrag:true
             })
+            imgSprite.handler("imgLoaded",()=>{
+                let width=0;
+                this.spritesController.getSpriteByName("image").forEach(img=>{
+                    width+=(img.width*1.01);
+                })
+                imgSprite.x+=(width-imgSprite.width)
+            })
+
         })
     }
     /**

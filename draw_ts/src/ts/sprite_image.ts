@@ -3,15 +3,15 @@ import Sprite from "./sprite.js";
 class ImageSprite extends Sprite{
     imagePath: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
     img : any;
-    name : "unnamed"
+    name : string
     repeat: false;
     config : any;
     constructor(imagePath,config) {
         super(config);
         this.config=config;
-        this.imagePath=imagePath || this.imagePath;
+        this.imagePath=imagePath;
         this.img=null;
-        this.name = this.config.name || this.name;
+        this.name = this.config.name || "image";
         this.repeat= typeof this.config.repeat==="undefined" ? this.repeat : false;
         this.init();
     }
