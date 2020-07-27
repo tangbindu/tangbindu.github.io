@@ -20,5 +20,25 @@ stageWrap.appendChild(stage.canvas);
 //         useDrag:Math.random()*stage.width
 //     })
 // }
+for (let i = 0; i < 0; i++) {
+    stage.addImageSprite("../img/a.png", {
+        x: Math.random() * 3000,
+        y: Math.random() * 1000,
+        zindex: 0,
+        useDrag: true
+    });
+    stage.addImageSprite("../img/b.png", {
+        x: Math.random() * 3000,
+        y: Math.random() * 1000,
+        zindex: 0,
+        useDrag: true
+    });
+    stage.addImageSprite("../img/c.png", {
+        x: Math.random() * 3000,
+        y: Math.random() * 1000,
+        zindex: 0,
+        useDrag: true
+    });
+}
 window.stage = stage;
 //# sourceMappingURL=index.js.map

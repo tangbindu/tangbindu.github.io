@@ -151,6 +151,7 @@ class MouseEvent extends eventTarget {
         else if (type == "mouseup") {
             this._mouseupTime = new Date().getTime();
             if ((this._mouseupTime - this._mousedownTime) < 400 && !this.isMoving) {
+                this.eventType = "click";
                 this.trigger("click");
             }
             this.isMoving = false;

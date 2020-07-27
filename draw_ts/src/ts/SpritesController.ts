@@ -147,7 +147,7 @@ class SpritesController{
     /**
      * 释放精灵
      */
-    releaseActiveSprites(sprite){
+    releaseActiveSprites(sprite?:any){
         if(sprite){
             this.activeSprites=this.activeSprites.filter(item=>{
                 return item!=sprite;
