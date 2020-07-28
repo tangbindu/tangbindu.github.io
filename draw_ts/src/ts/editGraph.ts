@@ -10,8 +10,10 @@ let editGraph=(app)=>{
         if(activeSprite && !activeSprite.active){
             app.spritesController.addActiveSprite(activeSprite);
             newActiveSprite=true;
-        }else{
+        }else if(activeSprite){
             newActiveSprite=false;
+        }else{
+            app.spritesController.releaseActiveSprites()
         }
         if(app.spritesController.activeSprites.length>1 && !app.keyBoardEvent.pressCmd){
             app.spritesController.releaseActiveSprites();

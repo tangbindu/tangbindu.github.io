@@ -37,7 +37,7 @@ export class Stage extends eventTarget {
         this.backgroundColor = config.backgroundColor || "rgba(0,0,0,0)";
         this.canvas = document.createElement("canvas");
         this.ctx = this.canvas.getContext("2d");
-        this.workMode = "draw";
+        this.workMode = "edit";
         //尺寸
         this.resize(this.width, this.height);
         //初始化精灵控制器
@@ -139,6 +139,7 @@ export class Stage extends eventTarget {
     }
     //绘图模式
     drawMode() {
+        this.spritesController.releaseActiveSprites();
         //显示鼠标标线
         this.guidewires.visible = true;
         this.canvas.style.cursor = 'crosshair';
