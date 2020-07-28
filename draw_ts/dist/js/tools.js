@@ -47,11 +47,15 @@ let tools = {
         }));
     },
     //获取中心点
-    getCenterFromRect(rectShape) {
+    getCenterFromRect(rectShape, scale) {
         return {
-            x: rectShape.points[0].x + (rectShape.points[1].x - rectShape.points[0].x) * .5,
-            y: rectShape.points[0].y + (rectShape.points[2].y - rectShape.points[0].y) * .5
+            x: rectShape.width * .5 * scale,
+            y: rectShape.height * .5 * scale
         };
+        // return {
+        //     x:rectShape.points[0].x+(rectShape.points[1].x-rectShape.points[0].x)*.5,
+        //     y:rectShape.points[0].y+(rectShape.points[2].y-rectShape.points[0].y)*.5
+        // }
     },
     //缩放ract的size
     scaleRectPoint(points, num) {

@@ -73,7 +73,7 @@ export class Stage extends eventTarget{
         this.backgroundColor=config.backgroundColor || "rgba(0,0,0,0)";
         this.canvas=document.createElement("canvas");
         this.ctx = this.canvas.getContext("2d");
-        this.workMode="edit";
+        this.workMode="draw";
         //尺寸
         this.resize(this.width,this.height);
         //初始化精灵控制器

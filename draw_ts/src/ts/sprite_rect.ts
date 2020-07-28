@@ -2,9 +2,22 @@ import Sprite from "./sprite.js";
 import tools from "./tools.js";
 // 绘图 
 class RectSprite extends Sprite{
+    lineWidth: number;
+    strokeStyle: string;
+    fillStyle: string;
+    font: string;
+    fontColor: string;
+    isFill: boolean;
     constructor(config) {
         super(config);
         this.config=config || {};
+        //draw config
+        this.lineWidth = 1;
+        this.strokeStyle = 'rgba(255,0,0,0.5)';
+        this.fillStyle = 'rgba(0,255,0,0.1)';
+        this.font = '12px STHeiti, SimHei';
+        this.fontColor = 'rgba(255,0,0,1)';
+        this.isFill = true;
     }
     //绘制图形精灵
     draw(ctx) {
@@ -12,12 +25,7 @@ class RectSprite extends Sprite{
         let scale=this.getScale();
         let getPosition=this.getPosition();
         ctx.lineWidth = Math.max(scale,1);
-        ctx.strokeStyle = '#6346ff';
-        // ctx.fillStyle = 'rgba(0,233,0,.1)';
-        // ctx.shadowBlur=3;
-        // ctx.shadowColor="rgba(0,0,0,.3)";
-        // ctx.setLineDash([10, 10])
-        // ctx.fillRect(this.x,this.y,this.width,this.height);
+        ctx.strokeStyle = this.strokeStyle;
         this.active && this.setActiveStyle(ctx);
         ctx.strokeRect(
             tools.toDrawVal(getPosition.x*scale),
@@ -25,7 +33,34 @@ class RectSprite extends Sprite{
             tools.toDrawVal(this.width*scale),
             tools.toDrawVal(this.height*scale)
         );
+        this.drawText(ctx,scale,getPosition);
         ctx.restore();
+    }
+    //绘制文本
+    drawText(ctx,scale,getPosition){
+        ctx.font = this.font;
+        ctx.fillStyle = this.fontColor;
+        let center=tools.getCenterFromRect(this,scale);
+        let fontSize=Math.min(
+            this.width*.15,
+            this.height*.8
+        );
+        ctx.font = Math.min(10*window.devicePixelRatio,fontSize*scale)+'px STHeiti, SimHei';
+        ctx.textBaseline = 'top';
+        ctx.textAlign = "left";
+        ctx.fillText(
+            tools.toInt(this.x)+","+tools.toInt(this.y), 
+            getPosition.x*scale+4, 
+            getPosition.y*scale+4
+        );
+        ctx.font = fontSize*scale+'px STHeiti, SimHei';
+        ctx.textBaseline = 'middle';
+        ctx.textAlign = "center";
+        ctx.fillText(
+            tools.toInt(this.width)+"x"+tools.toInt(this.height), 
+            getPosition.x*scale+center.x, 
+            getPosition.y*scale+center.y
+        );
     }
     //点击
     isInPath(ctx,pos) {
