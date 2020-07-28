@@ -83,8 +83,8 @@ class ImageSprite extends Sprite{
         let scale=this.getScale();
         let getPosition=this.getPosition();
         ctx.lineWidth = Math.max(scale,1);
-        ctx.strokeStyle = 'rgba(0,255,0,1)';
-        ctx.strokeRect(
+        ctx.fillStyle = 'rgba(0,0,0,.25)';
+        ctx.fillRect(
             getPosition.x*scale,
             getPosition.y*scale,
             this.width*scale,
