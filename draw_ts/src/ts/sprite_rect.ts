@@ -14,7 +14,7 @@ class RectSprite extends Sprite{
         //draw config
         this.lineWidth = 1;
         this.strokeStyle = 'rgba(255,0,0,0.5)';
-        this.fillStyle = 'rgba(0,255,255,.1)';
+        this.fillStyle = 'rgba(0,0,0,.6)';
         this.font = '12px STHeiti, SimHei';
         this.fontColor = 'rgba(255,0,0,1)';
         this.isFill = true;

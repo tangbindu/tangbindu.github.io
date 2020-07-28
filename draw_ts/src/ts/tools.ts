@@ -1,11 +1,11 @@
 let tools={
     //整数策略
     toInt(val){
-        return Math.floor(val);
+        return Math.round(val);
     },
     //绘制策略
     toDrawVal(val){
-        return Math.floor(val)+.5;
+        return Math.round(val)+.5;
     },
     //绝对像素 deviceWidth*devicePixelRatio
     toPixel(point,ratio){

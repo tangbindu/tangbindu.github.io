@@ -1,3 +1,4 @@
+import tools from "./tools.js";
 let createSprite;
 //event
 let drawGraph=(app)=>{
@@ -21,8 +22,8 @@ let drawGraph=(app)=>{
     if (app.mouseEvent.eventType  == "mousemove" && app.mouseEvent.isMoving) {
         // 创建的sprite
         if(createSprite){
-            createSprite.width=app.mouseEvent.totalLogicMoveVector.x;
-            createSprite.height=app.mouseEvent.totalLogicMoveVector.y;
+            createSprite.width=tools.toInt(app.mouseEvent.totalLogicMoveVector.x);
+            createSprite.height=tools.toInt(app.mouseEvent.totalLogicMoveVector.y);
         }
     }
     if (app.mouseEvent.eventType  == "mouseup") {

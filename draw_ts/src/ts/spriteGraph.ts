@@ -118,27 +118,52 @@ class Guidewires extends Graph{
         let getPosition=this.getPosition();
         //竖
         ctx.save();
-        ctx.fillStyle = 'rgba(0,255,0,.7)';
+        ctx.fillStyle = 'rgba(0,255,0,.5)';
         ctx.beginPath();
-        ctx.moveTo(tools.toDrawVal(getPosition.x*scale), tools.toDrawVal(0));
-        ctx.lineTo(tools.toDrawVal(getPosition.x*scale+Math.max(scale,1.0)), tools.toDrawVal(0));
-        ctx.lineTo(tools.toDrawVal(getPosition.x*scale+Math.max(scale,1.0)), tools.toDrawVal(this.app.height));
-        ctx.lineTo(tools.toDrawVal(getPosition.x*scale), tools.toDrawVal(this.app.height));
+        ctx.moveTo(
+            tools.toDrawVal(getPosition.x*scale), 
+            tools.toDrawVal(0)
+        );
+        ctx.lineTo(
+            tools.toDrawVal(getPosition.x*scale+Math.max(scale,1.0)), 
+            tools.toDrawVal(0)
+        );
+        ctx.lineTo(
+            tools.toDrawVal(getPosition.x*scale+Math.max(scale,1.0)), 
+            tools.toDrawVal(this.app.height)
+        );
+        ctx.lineTo(
+            tools.toDrawVal(getPosition.x*scale), 
+            tools.toDrawVal(this.app.height)
+        );
         ctx.closePath();
         ctx.fill();
         //横
         ctx.beginPath();
-        ctx.moveTo(tools.toDrawVal(0), tools.toDrawVal(getPosition.y*scale));
-        ctx.lineTo(tools.toDrawVal(0), tools.toDrawVal(getPosition.y*scale+Math.max(scale,1.0)));
-        ctx.lineTo(tools.toDrawVal(this.app.width), tools.toDrawVal(getPosition.y*scale+Math.max(scale,1.0)));
-        ctx.lineTo(tools.toDrawVal(this.app.width), tools.toDrawVal(getPosition.y*scale));
+        ctx.moveTo(
+            tools.toDrawVal(0),
+            tools.toDrawVal(getPosition.y*scale)
+        );
+        ctx.lineTo(
+            tools.toDrawVal(0), 
+            tools.toDrawVal(getPosition.y*scale+Math.max(scale,1.0))
+        );
+        ctx.lineTo(
+            tools.toDrawVal(this.app.width), 
+            tools.toDrawVal(getPosition.y*scale+Math.max(scale,1.0))
+        );
+        ctx.lineTo(
+            tools.toDrawVal(this.app.width), 
+            tools.toDrawVal(getPosition.y*scale)
+        );
         ctx.closePath();
         ctx.fill();
         //相对坐标
         const fontSize = 12;
         ctx.fillStyle = 'rgba(255,0,0,1)';
         ctx.font = fontSize*window.devicePixelRatio + 'px Helvetica Neue, SimHei';
-        const text = "("+tools.toInt(getPosition.x-this.app.x+1) + ", " + tools.toInt(getPosition.y-this.app.y+1)+")";
+        // const text = "("+tools.toInt(getPosition.x-this.app.x+1) + ", " + tools.toInt(getPosition.y-this.app.y+1)+")";
+        const text = "("+(this.app.mouseEvent.curLogicPos.x)+ ", " + (this.app.mouseEvent.curLogicPos.y)+")";
         ctx.fillText(
             text,
             Math.min(
@@ -166,8 +191,8 @@ class Grid extends Graph{
     draw(ctx){
         ctx.save();
         ctx.lineWidth = 1;//线条粗细
-        ctx.strokeStyle = "rgba(255,255,255,.1)";//线条颜色
-        ctx.font = '18px Helvetica Neue, SimHei';//字体
+        ctx.strokeStyle = "rgba(255,255,255,.4)";//线条颜色
+        ctx.font = '20px Helvetica Neue, SimHei';//字体
         ctx.fillStyle = 'rgba(255,255,255,.4)';//字体颜色
 
         //只画可见范围的线条

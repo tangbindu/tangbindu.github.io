@@ -99,7 +99,7 @@ class Guidewires extends Graph {
         let getPosition = this.getPosition();
         //竖
         ctx.save();
-        ctx.fillStyle = 'rgba(0,255,0,.7)';
+        ctx.fillStyle = 'rgba(0,255,0,.5)';
         ctx.beginPath();
         ctx.moveTo(tools.toDrawVal(getPosition.x * scale), tools.toDrawVal(0));
         ctx.lineTo(tools.toDrawVal(getPosition.x * scale + Math.max(scale, 1.0)), tools.toDrawVal(0));
@@ -119,7 +119,8 @@ class Guidewires extends Graph {
         const fontSize = 12;
         ctx.fillStyle = 'rgba(255,0,0,1)';
         ctx.font = fontSize * window.devicePixelRatio + 'px Helvetica Neue, SimHei';
-        const text = "(" + tools.toInt(getPosition.x - this.app.x + 1) + ", " + tools.toInt(getPosition.y - this.app.y + 1) + ")";
+        // const text = "("+tools.toInt(getPosition.x-this.app.x+1) + ", " + tools.toInt(getPosition.y-this.app.y+1)+")";
+        const text = "(" + (this.app.mouseEvent.curLogicPos.x) + ", " + (this.app.mouseEvent.curLogicPos.y) + ")";
         ctx.fillText(text, Math.min(getPosition.x * scale + fontSize * window.devicePixelRatio, this.app.width - text.length * fontSize * window.devicePixelRatio / 2) - 10, Math.max(getPosition.y * scale - 10, fontSize * window.devicePixelRatio));
         ctx.restore();
     }
@@ -139,8 +140,8 @@ class Grid extends Graph {
     draw(ctx) {
         ctx.save();
         ctx.lineWidth = 1; //线条粗细
-        ctx.strokeStyle = "rgba(255,255,255,.1)"; //线条颜色
-        ctx.font = '18px Helvetica Neue, SimHei'; //字体
+        ctx.strokeStyle = "rgba(255,255,255,.4)"; //线条颜色
+        ctx.font = '20px Helvetica Neue, SimHei'; //字体
         ctx.fillStyle = 'rgba(255,255,255,.4)'; //字体颜色
         //只画可见范围的线条
         let scale = this.getScale();
