@@ -1,5 +1,6 @@
 let activeSprite;
 let newActiveSprite = false;
+let hasMoving = false; //为了区分mouseup and click
 let editGraph = (app) => {
     if (app.mouseEvent.eventType == "mousedown") {
         let pos = app.mouseEvent.curLogicPos;
@@ -25,11 +26,13 @@ let editGraph = (app) => {
     if (app.mouseEvent.eventType == "mousemove" && app.mouseEvent.isMoving) {
         //drag精灵
         app.mouseEvent.leftDown && app.dragActiveSprite(app.spritesController.activeSprites, app.mouseEvent.moveLogicVector);
+        if (app.mouseEvent.leftDown && app.mouseEvent.isMoving) {
+            hasMoving = true;
+        }
     }
     if (app.mouseEvent.eventType == "mouseup") {
-    }
-    if (app.mouseEvent.eventType == "click") {
-        !newActiveSprite && activeSprite && activeSprite.active && app.spritesController.releaseActiveSprites(activeSprite);
+        !newActiveSprite && activeSprite && activeSprite.active && !hasMoving && app.spritesController.releaseActiveSprites(activeSprite);
+        hasMoving = false;
     }
 };
 export default editGraph;
