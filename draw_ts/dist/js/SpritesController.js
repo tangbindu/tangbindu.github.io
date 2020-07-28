@@ -66,19 +66,23 @@ class SpritesController {
     }
     //全选
     selectAll() {
-        this.sprites.map((sprite) => {
+        this.sprites.forEach((sprite) => {
             if (sprite.allowClick) {
                 sprite.active = true;
             }
         });
+        this.activeSprites = this.sprites.filter(sprite => {
+            return sprite.allowClick;
+        });
     }
-    //反选择
-    reverseSelect() {
+    //取消选择
+    cancelSelect() {
         this.sprites.map((sprite) => {
             if (sprite.allowClick) {
                 sprite.active = false;
             }
         });
+        this.activeSprites = [];
     }
     //设置全部缩放
     setAllSpriteScale(scale) {

@@ -24,8 +24,8 @@ class KeyBoardEvent extends eventTarget{
                     app.spritesController.selectAll();
                     event.preventDefault();
                 }else if(self.pressCmd && event.keyCode == 68){
-                    //反选
-                    app.spritesController.reverseSelect();
+                    //全部取消选择
+                    app.spritesController.cancelSelect();
                     event.preventDefault();
                 }else if(self.pressCmd && event.keyCode == 67){
                     //复制
@@ -37,22 +37,22 @@ class KeyBoardEvent extends eventTarget{
                     event.preventDefault();
                 }else if (event.keyCode == 221) {
                     //放大
-                    app.scaleStage(1+5/75);
+                    app.setScale(5/120);
                     event.preventDefault();
                 } else if (event.keyCode == 219) {
                     //缩小
-                    app.scaleStage(1-5/75);
+                    app.setScale(-5/120);
                     event.preventDefault();
                 }else if (event.keyCode == 77){
-                    //draw mode
+                    //draw mode m
                     app.executeMode("draw");
                     event.preventDefault();
                 }else if (event.keyCode == 86){
-                    //edit mode
+                    //edit mode v
                     app.executeMode("edit");
                 }else if(event.keyCode == 8){
                     //删除
-                    app.deleteSprites();
+                    app.spritesController.deleteSprites();
                 }else if(event.keyCode == 16){
                     //shift
                     self.pressShift=true;

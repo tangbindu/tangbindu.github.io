@@ -5,6 +5,8 @@ import eventTarget from "./eventTarget.js"
 import MouseEvent from "./mouseEvent.js"
 import KeyBoardEvent from "./KeyBoardEvent.js"
 import Sprite from "./sprite.js";
+import drawGraph from "./drawGraph.js"
+import editGraph from "./editGraph.js"
 import {Grid,Guidewires} from "./SpriteGraph.js";
 import SpritesController from "./spritesController.js"
 import DragFile from "./dragFile.js"
@@ -46,8 +48,8 @@ export class Stage extends eventTarget{
     backgroundColor : string;
     //isNextFrame
     isNextFrame: any;
-    //create Sprite
-    createSprite: Sprite;
+    //workMode
+    workMode: string;
     /**
      * 构造
      */
@@ -71,7 +73,7 @@ export class Stage extends eventTarget{
         this.backgroundColor=config.backgroundColor || "rgba(0,0,0,0)";
         this.canvas=document.createElement("canvas");
         this.ctx = this.canvas.getContext("2d");
-        this.createSprite=null;
+        this.workMode="draw";
         //尺寸
         this.resize(this.width,this.height);
         //初始化精灵控制器
@@ -86,6 +88,8 @@ export class Stage extends eventTarget{
         this.keyBoardEvent = new KeyBoardEvent(this);
         //初始化拖拽文件
         this.initDragFile();
+        //executeMode
+        this.executeMode(this.workMode)
         //绘制
         this.render();
     }
@@ -95,8 +99,6 @@ export class Stage extends eventTarget{
     initDragFile(){
         this.dragFile = new DragFile();
         this.dragFile.handler("files",(data,e)=>{
-            console.log(e)
-            let pos=this.mouseEvent.curLogicPos;
             let dragPos=tools.toLogicPixel(
                 {x:e.layerX,y:e.layerY},
                 this.devicePixelRatio,
@@ -105,7 +107,7 @@ export class Stage extends eventTarget{
                 this.y
             );
             //假定data为img
-            this.addImageSprite(data,{
+            let imgSprite=this.addImageSprite(data,{
                 x:dragPos.x,
                 y:dragPos.y,
                 zindex:0,
@@ -113,6 +115,14 @@ export class Stage extends eventTarget{
                 height:data.height,
                 useDrag:true
             })
+            imgSprite.handler("imgLoaded",()=>{
+                let width=0;
+                this.spritesController.getSpriteByName("image").forEach(img=>{
+                    width+=(img.width*1.01);
+                })
+                imgSprite.x+=(width-imgSprite.width)
+            })
+
         })
     }
     /**
@@ -124,24 +134,22 @@ export class Stage extends eventTarget{
             app:this
         });
         this.mouseEvent.handler("mixMouseEvent",()=>{
-            if(this.mouseEvent.eventType=="mousedown"){
-                //选择精灵
-                this.mousedown();
-            }else if(this.mouseEvent.eventType=="mousemove"){
-                //选择精灵
-                this.mousemove();
-            }else if(this.mouseEvent.eventType=="mouseup"){
-                this.mouseup();
-            }
             //拖动stage
             if (this.keyBoardEvent.pressSpace && this.mouseEvent.leftDown && this.mouseEvent.isMoving) {
                 this.x+=this.mouseEvent.moveLogicVector.x;
                 this.y+=this.mouseEvent.moveLogicVector.y;
-                this.render();
             }
+            switch (this.workMode) {
+                case "draw":
+                    drawGraph(this); 
+                    break;
+                case "edit":
+                    editGraph(this);
+                    break;
+            }
+            this.render()
         })
         this.mouseEvent.handler("click",()=>{
-            this.clickSprite();
         })
         this.mouseEvent.handler("resize",()=>{
             this.resize(
@@ -161,6 +169,31 @@ export class Stage extends eventTarget{
             }
         });
         this.render();
+    }
+    //模式
+    executeMode(mode){
+        switch (mode) {
+            case "draw":
+                this.drawMode();
+                break;
+            case "edit":
+                this.editMode();
+                break;
+        }
+        this.render();
+        this.workMode=mode;
+    }
+    //绘图模式
+    drawMode() {
+        //显示鼠标标线
+        this.guidewires.visible=true;
+        this.canvas.style.cursor = 'crosshair';
+    }
+    //编辑模式
+    editMode() {
+        //隐藏鼠标标线
+        this.guidewires.visible=false;
+        this.canvas.style.cursor = 'default';
     }
     /**
      * 重置尺寸
@@ -298,74 +331,6 @@ export class Stage extends eventTarget{
     removeSprite(sprite){
         let res=this.spritesController.removeSprite(sprite);
         console.log(res)
-    }
-    /**
-     * mousedown
-     */
-    mousedown(){
-        let pos=this.mouseEvent.curLogicPos;
-        // 没有选中的，就是编辑模式
-        if(this.spritesController.activeSprites.length>0){
-            return;
-        }
-        //new 图形
-        this.createSprite=this.addRectSprite({
-            x:pos.x,
-            y:pos.y,
-            zindex:10000,
-            width:0,
-            height:0,
-            useDrag:true
-        });
-    }
-    /**
-     * mousemove
-     */
-    mousemove(){
-        //update guidewires
-        this.updataGuidewires();
-        //drag精灵
-        this.mouseEvent.leftDown && this.dragActiveSprite(
-            this.spritesController.activeSprites,
-            this.mouseEvent.moveLogicVector
-        );
-        // 创建的sprite
-        if(this.createSprite){
-            this.createSprite.width=this.mouseEvent.totalLogicMoveVector.x;
-            this.createSprite.height=this.mouseEvent.totalLogicMoveVector.y;
-        }
-    }
-    /**
-     * mouseup
-     */
-    mouseup(){
-        //释放精灵
-        // this.spritesController.releaseActiveSprites();
-        //创建精灵成功 检查createSprite
-        if(this.createSprite){
-            if(this.createSprite.width<10 && this.createSprite.height<10){
-                console.log(this.spritesController.removeSprite(this.createSprite))
-            }
-            this.createSprite=null;
-        }
-    }
-    /**
-     * click精灵
-     */
-    clickSprite(){
-        let pos=this.mouseEvent.curLogicPos;
-        let sprite=this.spritesController.getSpriteByPoint(this.ctx,{
-            x:pos.x+this.x,
-            y:pos.y+this.y
-        });
-        if(sprite && !sprite.active){
-            this.spritesController.addActiveSprite(sprite)
-        }else if(sprite){
-            this.spritesController.releaseActiveSprites(sprite)
-        }else{
-            this.spritesController.releaseActiveSprites()
-        }
-        this.render();
     }
     /**
      * 渲染舞台内容
