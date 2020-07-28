@@ -6,7 +6,7 @@ let drawGraph=(app)=>{
     //坐标转换
     //update guidewires
     app.updataGuidewires();
-    if (app.mouseEvent.eventType == "mousedown") {
+    if (!app.keyBoardEvent.pressSpace && (app.mouseEvent.eventType == "mousedown")) {
         //new 图形
         createSprite=app.addRectSprite({
             x:pos.x,

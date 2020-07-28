@@ -180,7 +180,7 @@ class Grid extends Graph{
         let y = 0;
         ctx.textBaseline = 'top';//上下对准线条
         ctx.textAlign = "left";//左右对准线条
-        while (gap * y < this.app.height) {
+        while (gap * y < (this.app.height+gap)) {
             ctx.beginPath();
             ctx.moveTo(0, tools.toDrawVal(gap * y+sy*scale));
             ctx.lineTo(this.app.width, tools.toDrawVal(gap * y+sy*scale));

@@ -8,7 +8,7 @@ class RectSprite extends Sprite {
         //draw config
         this.lineWidth = 1;
         this.strokeStyle = 'rgba(255,0,0,0.5)';
-        this.fillStyle = 'rgba(0,255,0,0.1)';
+        this.fillStyle = 'rgba(0,255,255,.1)';
         this.font = '12px STHeiti, SimHei';
         this.fontColor = 'rgba(255,0,0,1)';
         this.isFill = true;
@@ -21,7 +21,14 @@ class RectSprite extends Sprite {
         ctx.lineWidth = Math.max(scale, 1);
         ctx.strokeStyle = this.strokeStyle;
         this.active && this.setActiveStyle(ctx);
-        ctx.strokeRect(tools.toDrawVal(getPosition.x * scale), tools.toDrawVal(getPosition.y * scale), tools.toDrawVal(this.width * scale), tools.toDrawVal(this.height * scale));
+        ctx.fillStyle = this.fillStyle;
+        ctx.fillRect(tools.toDrawVal(getPosition.x * scale), tools.toDrawVal(getPosition.y * scale), tools.toDrawVal(this.width * scale), tools.toDrawVal(this.height * scale));
+        // ctx.strokeRect(
+        //     tools.toDrawVal(getPosition.x*scale),
+        //     tools.toDrawVal(getPosition.y*scale),
+        //     tools.toDrawVal(this.width*scale),
+        //     tools.toDrawVal(this.height*scale)
+        // );
         this.drawText(ctx, scale, getPosition);
         ctx.restore();
     }
