@@ -9,6 +9,7 @@ class RectSprite extends Sprite {
         this.lineWidth = 1;
         this.strokeStyle = 'rgba(255,0,0,0.5)';
         this.fillStyle = 'rgba(0,0,0,.6)';
+        this.activeFillStyle = 'rgba(0,90,90,.6)';
         this.font = '12px STHeiti, SimHei';
         this.fontColor = 'rgba(255,0,0,1)';
         this.isFill = true;
@@ -19,9 +20,9 @@ class RectSprite extends Sprite {
         let scale = this.getScale();
         let getPosition = this.getPosition();
         ctx.lineWidth = Math.max(scale, 1);
-        ctx.strokeStyle = this.strokeStyle;
-        this.active && this.setActiveStyle(ctx);
+        // ctx.strokeStyle = this.strokeStyle;
         ctx.fillStyle = this.fillStyle;
+        this.active && this.setActiveStyle(ctx);
         ctx.fillRect(tools.toDrawVal(getPosition.x * scale), tools.toDrawVal(getPosition.y * scale), tools.toDrawVal(this.width * scale), tools.toDrawVal(this.height * scale));
         // ctx.strokeRect(
         //     tools.toDrawVal(getPosition.x*scale),
@@ -65,7 +66,7 @@ class RectSprite extends Sprite {
     }
     //setActiveStyle
     setActiveStyle(ctx) {
-        ctx.strokeStyle = '#13F6ff';
+        ctx.fillStyle = this.activeFillStyle;
     }
 }
 export default RectSprite;

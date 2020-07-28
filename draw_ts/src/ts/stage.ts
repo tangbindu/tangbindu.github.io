@@ -232,11 +232,10 @@ export class Stage extends eventTarget{
         this.grid = new Grid({
             x:0,
             y:0,
-            zindex:30000,
+            zindex:-30000,
             app:this,
             gap:100
         });
-        this.grid.index=-1000000;
         this.grid.type="tool";
         this.grid.allowClick=false;
         return this.addSprite(this.grid);
