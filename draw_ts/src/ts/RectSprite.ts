@@ -1,4 +1,4 @@
-import Sprite from "./sprite.js";
+import Sprite from "./Sprite.js";
 import tools from "./tools.js";
 // 绘图 
 class RectSprite extends Sprite{

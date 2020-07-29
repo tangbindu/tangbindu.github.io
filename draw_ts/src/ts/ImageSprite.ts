@@ -1,4 +1,4 @@
-import Sprite from "./sprite.js";
+import Sprite from "./Sprite.js";
 // 绘图 
 class ImageSprite extends Sprite{
     imagePath: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";

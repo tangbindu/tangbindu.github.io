@@ -1,5 +1,5 @@
 //制作事件驱动源
-class eventTarget{
+class EventTarget{
     //事件对象
     handlers: any;
     /**
@@ -51,4 +51,4 @@ class eventTarget{
         }
     }
 }
-export default eventTarget;
+export default EventTarget;

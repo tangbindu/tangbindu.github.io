@@ -1,6 +1,6 @@
-import eventTarget from "./eventTarget.js";
+import EventTarget from "./EventTarget.js";
 // 绘图 
-class Sprite extends eventTarget {
+class Sprite extends EventTarget {
     //构造
     constructor(config) {
         super();
@@ -119,4 +119,4 @@ class Sprite extends eventTarget {
     }
 }
 export default Sprite;
-//# sourceMappingURL=sprite.js.map
+//# sourceMappingURL=Sprite.js.map

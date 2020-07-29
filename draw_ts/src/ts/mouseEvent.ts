@@ -1,5 +1,5 @@
 import tools from "./tools.js";
-import eventTarget from "./eventTarget.js";
+import EventTarget from "./EventTarget.js";
 
 function getVertexPosition(el) {
     let currentTarget = el
@@ -23,7 +23,7 @@ export interface point {
 }
 
 //event
-class MouseEvent extends eventTarget{
+class MouseEvent extends EventTarget{
     //元素
     element : any;
     //通用

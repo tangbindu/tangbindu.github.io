@@ -1,6 +1,6 @@
-import eventTarget from "./eventTarget.js";
+import EventTarget from "./EventTarget.js";
 //event
-class KeyBoardEvent extends eventTarget {
+class KeyBoardEvent extends EventTarget {
     constructor(app) {
         super();
         this.app = app;

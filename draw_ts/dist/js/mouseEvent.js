@@ -1,5 +1,5 @@
 import tools from "./tools.js";
-import eventTarget from "./eventTarget.js";
+import EventTarget from "./EventTarget.js";
 function getVertexPosition(el) {
     let currentTarget = el;
     let top = 0;
@@ -12,7 +12,7 @@ function getVertexPosition(el) {
     return { top, left };
 }
 //event
-class MouseEvent extends eventTarget {
+class MouseEvent extends EventTarget {
     /**
      * 构造
      * @param {html node} element
@@ -171,4 +171,4 @@ class MouseEvent extends eventTarget {
     }
 }
 export default MouseEvent;
-//# sourceMappingURL=mouseEvent.js.map
+//# sourceMappingURL=MouseEvent.js.map

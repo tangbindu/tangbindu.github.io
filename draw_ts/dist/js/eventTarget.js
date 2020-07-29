@@ -1,5 +1,5 @@
 //制作事件驱动源
-class eventTarget {
+class EventTarget {
     /**
      * 构造
      */
@@ -53,5 +53,5 @@ class eventTarget {
         }
     }
 }
-export default eventTarget;
-//# sourceMappingURL=eventTarget.js.map
+export default EventTarget;
+//# sourceMappingURL=EventTarget.js.map

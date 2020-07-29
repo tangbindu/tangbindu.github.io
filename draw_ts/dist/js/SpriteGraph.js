@@ -49,26 +49,10 @@ class Graph extends Sprite {
     }
     //绘制文本
     drawText(ctx) {
-        ctx.font = this.font;
-        ctx.fillStyle = this.fontColor;
-        let loc = this.x + "," + this.y;
-        let size = this.width + "x" + this.height;
-        let center = tools.getCenterFromRect(this);
-        let fontSize = Math.min((this.points[1].x - this.points[0].x) * .15, (this.points[3].y - this.points[1].y) * .8);
-        ctx.font = 10 * window.devicePixelRatio + 'px STHeiti, SimHei';
-        ctx.textBaseline = 'top';
-        ctx.textAlign = "left";
-        ctx.fillText(loc, (this.points[0].x * this.scale + this.translate.x * this.scale + 5), (this.points[0].y * this.scale + this.translate.y * this.scale + 5));
-        ctx.font = fontSize * this.scale + 'px STHeiti, SimHei';
-        ctx.textBaseline = 'middle';
-        ctx.textAlign = "center";
-        ctx.fillText(size, center.x * this.scale + this.translate.x * this.scale, center.y * this.scale + this.translate.y * this.scale);
     }
     //判断点击
     isInPath(ctx, pos) {
-        if (ctx.isPointInPath(pos.x, pos.y)) {
-            return true;
-        }
+        return false;
     }
     //创建代码
     createCode() {

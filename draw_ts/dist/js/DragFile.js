@@ -1,6 +1,6 @@
-import eventTarget from "./eventTarget.js";
+import EventTarget from "./EventTarget.js";
 //event
-class DragFile extends eventTarget {
+class DragFile extends EventTarget {
     constructor() {
         super();
         this.init();
@@ -38,4 +38,4 @@ class DragFile extends eventTarget {
     }
 }
 export default DragFile;
-//# sourceMappingURL=dragFile.js.map
+//# sourceMappingURL=DragFile.js.map

@@ -1,4 +1,4 @@
-import Sprite from "./sprite.js";
+import Sprite from "./Sprite.js";
 // 绘图 
 class RoundRectSprite extends Sprite{
     radius: number;//半径

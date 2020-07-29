@@ -1,7 +1,7 @@
-import eventTarget from "./eventTarget.js";
+import EventTarget from "./EventTarget.js";
 
 //event
-class KeyBoardEvent extends eventTarget{
+class KeyBoardEvent extends EventTarget{
     app: any;
     pressCmd: boolean;
     pressShift: boolean;

@@ -1,21 +1,21 @@
 import tools from "./tools.js";
-import ImageSprite from "./sprite_image.js"
-import RectSprite from "./sprite_rect.js"
-import eventTarget from "./eventTarget.js"
-import MouseEvent from "./mouseEvent.js"
+import ImageSprite from "./ImageSprite.js"
+import RectSprite from "./RectSprite.js"
+import EventTarget from "./EventTarget.js"
+import MouseEvent from "./MouseEvent.js"
 import KeyBoardEvent from "./KeyBoardEvent.js"
-import Sprite from "./sprite.js";
+import Sprite from "./Sprite.js";
 import drawGraph from "./drawGraph.js"
 import editGraph from "./editGraph.js"
 import {Grid,Guidewires} from "./SpriteGraph.js";
-import SpritesController from "./spritesController.js"
-import DragFile from "./dragFile.js"
+import SpritesController from "./SpritesController.js"
+import DragFile from "./DragFile.js"
 
 //层级约定
 //image 0-10000;
 //rect  10000-20000;
 //control  20000-30000;
-export class Stage extends eventTarget{
+export class Stage extends EventTarget{
     //指canvas组件
     canvas : any;
     //绘图上下文

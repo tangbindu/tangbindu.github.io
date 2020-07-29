@@ -1,7 +1,7 @@
-import eventTarget from "./eventTarget.js";
+import EventTarget from "./EventTarget.js";
 
 //event
-class DragFile extends eventTarget{
+class DragFile extends EventTarget{
     constructor(){
         super();
         this.init();

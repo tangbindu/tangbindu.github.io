@@ -1,7 +1,7 @@
-import eventTarget from "./eventTarget.js";
+import EventTarget from "./EventTarget.js";
 
 // 绘图 
-class Sprite extends eventTarget{
+class Sprite extends EventTarget{
     //配置
     config: any;
     //精力类型，默认sprite

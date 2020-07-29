@@ -1,5 +1,5 @@
 //引入依赖模块
-import { Stage } from "./stage.js";
+import { Stage } from "./Stage.js";
 import storage from "./storage.js";
 //工作台
 window.onload = function () {
