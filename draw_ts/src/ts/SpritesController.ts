@@ -104,17 +104,23 @@ class SpritesController{
     }    
     //复制
     copyActiveSprites(){
-        // this.getActiveSprites().map((sprite)=>{
-        //     if(sprite.type=="default" && sprite.name=="rect"){
-        //         let cloneSprite=new Rect({x:sprite.x,y:sprite.y});
-        //         for(let i in sprite){
-        //             cloneSprite[i]=tools.deepClone(sprite[i]);
-        //         }
-        //         cloneSprite.active=true;
-        //         this.sprites.push(cloneSprite);
-        //         sprite.active=false;
-        //     }
-        // })
+        this.getActiveSprites().forEach((sprite)=>{
+            if(["RectSprite","ImageSprite"].indexOf(sprite.type)>-1){
+                let cloneSprite=null;
+                switch(sprite.type) {
+                    case "RectSprite":
+                        cloneSprite=this.app.addRectSprite(sprite)
+                    break;
+                    case "ImageSprite":
+                        cloneSprite=this.app.addImageSprite(sprite.imagePath,sprite)
+                        break;
+                    default:
+                        void(0)
+                }
+                this.releaseActiveSprites(sprite)
+                this.addActiveSprite(cloneSprite)
+            }
+        })
     }
     //粘贴
     pasteActiveSprites(){
@@ -176,6 +182,12 @@ class SpritesController{
                 item.active=false
             }
         })
+    }
+    //调整尺寸
+    adjustSpritesSize(size){
+        this.sprites.map((item)=>{
+            item.active && item.adjustSize(size);
+        });
     }
     //移动
     moveSprites(moveVector){

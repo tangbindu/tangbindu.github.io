@@ -43,12 +43,20 @@ class Sprite extends eventTarget {
         this.visible = this.config.visible != undefined ? this.config.visible : true;
     }
     /**
+     * 调整尺寸
+     * @param {size}
+     */
+    adjustSize(size) {
+        this.width += size.width;
+        this.height += size.height;
+    }
+    /**
      * 移动
      * @param {vector} vector
      */
     move(vector) {
-        this.x += vector[0];
-        this.y += vector[1];
+        this.x += vector.x;
+        this.y += vector.y;
     }
     /**
      * 移动到一个点

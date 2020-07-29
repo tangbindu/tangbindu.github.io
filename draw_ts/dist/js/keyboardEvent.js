@@ -31,8 +31,32 @@ class KeyBoardEvent extends eventTarget {
                 }
                 else if (self.pressCmd && event.keyCode == 86) {
                     //粘贴
-                    app.spritesController.pasteActiveSprites();
+                    // app.spritesController.pasteActiveSprites();
+                    // event.preventDefault();
+                    //组合adjustSize
+                }
+                else if (self.pressCmd && event.keyCode == 37) {
+                    //left37
+                    // app.spritesController.moveSprites({x:-1,y:0})
+                    app.spritesController.adjustSpritesSize({ width: -1, height: 0 });
                     event.preventDefault();
+                }
+                else if (self.pressCmd && event.keyCode == 39) {
+                    //right39
+                    app.spritesController.adjustSpritesSize({ width: 1, height: 0 });
+                    event.preventDefault();
+                }
+                else if (self.pressCmd && event.keyCode == 38) {
+                    //top38
+                    // app.spritesController.moveSprites({x:0,y:-1})
+                    app.spritesController.adjustSpritesSize({ width: 0, height: -1 });
+                    event.preventDefault();
+                }
+                else if (self.pressCmd && event.keyCode == 40) {
+                    //bottom40
+                    app.spritesController.adjustSpritesSize({ width: 0, height: 1 });
+                    event.preventDefault();
+                    //组合adjustSize
                 }
                 else if (event.keyCode == 221) {
                     //放大
@@ -64,15 +88,19 @@ class KeyBoardEvent extends eventTarget {
                 }
                 else if (event.keyCode == 37) {
                     //left37
+                    app.spritesController.moveSprites({ x: -1, y: 0 });
                 }
                 else if (event.keyCode == 39) {
                     //right39
+                    app.spritesController.moveSprites({ x: 1, y: 0 });
                 }
                 else if (event.keyCode == 38) {
-                    //right38
+                    //top38
+                    app.spritesController.moveSprites({ x: 0, y: -1 });
                 }
                 else if (event.keyCode == 40) {
                     //bottom40
+                    app.spritesController.moveSprites({ x: 0, y: 1 });
                 }
                 else if (event.keyCode == 91) {
                     //command
@@ -108,4 +136,5 @@ class KeyBoardEvent extends eventTarget {
     }
 }
 export default KeyBoardEvent;
+// adjustSize
 //# sourceMappingURL=KeyBoardEvent.js.map
