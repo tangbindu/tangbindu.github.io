@@ -17,16 +17,18 @@ window.onload=function(){
     stageWrap.appendChild(stage.canvas);
     //记忆sprites
     stageData.sprites.forEach(spriteConfig => {
+        let sprite=null;
         switch(spriteConfig.type) {
             case "RectSprite":
-               stage.addRectSprite(spriteConfig)
+                sprite=stage.addRectSprite(spriteConfig)
                break;
             case "ImageSprite":
-                stage.addImageSprite(spriteConfig.imagePath,spriteConfig)
+                sprite=stage.addImageSprite(spriteConfig.imagePath,spriteConfig)
                 break;
             default:
                void(0)
-       } 
+       }
+       sprite && sprite.active && stage.spritesController.addActiveSprite(sprite)
     });
     let timmer=null;
     //记忆体-存储
