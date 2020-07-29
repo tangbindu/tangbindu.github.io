@@ -96,7 +96,7 @@ export class Stage extends eventTarget {
                 this.x += this.mouseEvent.moveLogicVector.x;
                 this.y += this.mouseEvent.moveLogicVector.y;
             }
-            switch (this.workMode) {
+            switch (!this.keyBoardEvent.pressSpace && this.workMode) {
                 case "draw":
                     drawGraph(this);
                     break;
