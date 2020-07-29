@@ -30,7 +30,6 @@ let drawGraph=(app)=>{
         // 剔除过小的图形
         if(createSprite){
             if(createSprite.width<10 && createSprite.height<10){
-                console.log("删除")
                 app.spritesController.removeSprite(createSprite)
             }
             createSprite=null;

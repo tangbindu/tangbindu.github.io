@@ -140,9 +140,9 @@ class Grid extends Graph {
     draw(ctx) {
         ctx.save();
         ctx.lineWidth = 1; //线条粗细
-        ctx.strokeStyle = "rgba(255,255,255,.4)"; //线条颜色
+        ctx.strokeStyle = "rgba(255,255,255,.25)"; //线条颜色
         ctx.font = '20px Helvetica Neue, SimHei'; //字体
-        ctx.fillStyle = 'rgba(255,255,255,.4)'; //字体颜色
+        ctx.fillStyle = 'rgba(255,255,255,.25)'; //字体颜色
         //只画可见范围的线条
         let scale = this.getScale();
         let getPosition = this.getPosition();

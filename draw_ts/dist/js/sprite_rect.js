@@ -6,7 +6,8 @@ class RectSprite extends Sprite {
         super(config);
         this.config = config || {};
         //draw config
-        this.lineWidth = 1;
+        this.type = "RectSprite", //等于类名字
+            this.lineWidth = 1;
         this.strokeStyle = 'rgba(255,0,0,0.5)';
         this.fillStyle = 'rgba(0,0,0,.6)';
         this.activeFillStyle = 'rgba(0,90,90,.6)';

@@ -9,6 +9,7 @@ class ImageSprite extends Sprite{
     constructor(imagePath,config) {
         super(config);
         this.config=config;
+        this.type="ImageSprite",//等于类名字
         this.imagePath=imagePath;
         this.img=null;
         this.name = this.config.name || "image";
@@ -83,7 +84,7 @@ class ImageSprite extends Sprite{
         let scale=this.getScale();
         let getPosition=this.getPosition();
         ctx.lineWidth = Math.max(scale,1);
-        ctx.fillStyle = 'rgba(0,0,0,.25)';
+        ctx.fillStyle = 'rgba(0,90,90,.6)';
         ctx.fillRect(
             getPosition.x*scale,
             getPosition.y*scale,

@@ -84,6 +84,7 @@ class KeyBoardEvent extends eventTarget{
             app.render()
         }
         document.onkeyup=function(event){
+            self.trigger("keyup")
             app.canvas.style.cursor = 'default';    
             self.pressCmd=false;
             self.pressShift=false;

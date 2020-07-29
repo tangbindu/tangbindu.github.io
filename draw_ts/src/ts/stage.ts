@@ -64,16 +64,16 @@ export class Stage extends eventTarget{
     init(config){
         config = config || {};
         this.isNextFrame=null;
-        this.scale=1;
+        this.scale=config.scale || 1;
         this.devicePixelRatio=Math.floor(window.devicePixelRatio || 2);
-        this.x=0;
-        this.y=0;
+        this.x=config.x || 0;
+        this.y=config.y || 0;
         this.width=config.width*this.devicePixelRatio || 400;
         this.height=config.height*this.devicePixelRatio || 300;
         this.backgroundColor=config.backgroundColor || "rgba(0,0,0,0)";
         this.canvas=document.createElement("canvas");
         this.ctx = this.canvas.getContext("2d");
-        this.workMode="draw";
+        this.workMode=config.workMode || "draw";
         //尺寸
         this.resize(this.width,this.height);
         //初始化精灵控制器
@@ -149,8 +149,7 @@ export class Stage extends eventTarget{
             }
             this.render()
         })
-        this.mouseEvent.handler("click",()=>{
-        })
+        
         this.mouseEvent.handler("resize",()=>{
             this.resize(
                 this.canvas.parentNode.clientWidth*this.devicePixelRatio,
@@ -236,7 +235,7 @@ export class Stage extends eventTarget{
             app:this,
             gap:100
         });
-        this.grid.type="tool";
+        this.grid.type="app_assist";
         this.grid.allowClick=false;
         return this.addSprite(this.grid);
     }
@@ -250,7 +249,7 @@ export class Stage extends eventTarget{
         });
         this.guidewires.allowClick=false;
         this.guidewires.index=1000000;
-        this.guidewires.type="tool";
+        this.guidewires.type="app_assist";
         return this.addSprite(this.guidewires);
     }
     /**

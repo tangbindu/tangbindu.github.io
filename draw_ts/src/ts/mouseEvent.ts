@@ -100,6 +100,7 @@ class MouseEvent extends eventTarget{
                 //缩小
                 this.app.setScale(event.deltaY/1200);
             }
+            this.trigger("mousewheel");
         };
         //鼠标引起的尺寸变化
         window.addEventListener("resize",()=>{
