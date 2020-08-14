@@ -38,4 +38,4 @@ class DragFile extends EventTarget {
     }
 }
 export default DragFile;
-//# sourceMappingURL=DragFile.js.map
+//# sourceMappingURL=dragFile.js.map

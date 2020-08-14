@@ -1,3 +1,4 @@
+import tools from "./tools.js";
 let activeSprite;
 let newActiveSprite = false;
 let hasMoving = false; //为了区分mouseup and click
@@ -31,6 +32,12 @@ let editGraph = (app) => {
         }
     }
     if (app.mouseEvent.eventType == "mouseup") {
+        app.spritesController.getActiveSprites().forEach(sprite => {
+            sprite.x = tools.toInt(sprite.x);
+            sprite.y = tools.toInt(sprite.y);
+            sprite.width = tools.toInt(sprite.width);
+            sprite.height = tools.toInt(sprite.height);
+        });
         !newActiveSprite && activeSprite && activeSprite.active && !hasMoving && app.spritesController.releaseActiveSprites(activeSprite);
         hasMoving = false;
     }
