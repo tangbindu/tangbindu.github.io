@@ -64,14 +64,7 @@ class MouseEvent extends EventTarget {
         });
         //滚轮
         document.body.onmousewheel = (event) => {
-            if (event.deltaY > 0) {
-                //放大
-                this.app.setScale(event.deltaY / 1200);
-            }
-            else {
-                //缩小
-                this.app.setScale(event.deltaY / 1200);
-            }
+            this.app.setScale(tools.expandValue(event.deltaY / 3000));
             this.trigger("mousewheel");
         };
         //鼠标引起的尺寸变化

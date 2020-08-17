@@ -83,7 +83,7 @@ class MouseEvent extends EventTarget{
      */
     init(){
         //常规鼠标事件
-        this.element.addEventListener("mousedown",(event)=>{
+        this.element.addEventListener("mousedown", (event) => {
             this.eventType="mousedown";
             this.mousedown(event)
         })
@@ -96,14 +96,8 @@ class MouseEvent extends EventTarget{
             this.mouseup(event);
         })
         //滚轮
-        document.body.onmousewheel = (event)=>{
-            if(event.deltaY>0){
-                //放大
-                this.app.setScale(event.deltaY/1200);
-            }else{
-                //缩小
-                this.app.setScale(event.deltaY/1200);
-            }
+        document.body.onmousewheel = (event) => {
+            this.app.setScale(tools.expandValue(event.deltaY / 3000));
             this.trigger("mousewheel");
         };
         //鼠标引起的尺寸变化

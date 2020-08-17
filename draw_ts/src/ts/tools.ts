@@ -119,6 +119,21 @@ let tools={
         return {
             x,y
         }
+    },
+    expandValueCount: 0,
+    expandValueTimmer: 0,
+    expandRatio: 0,
+    //scaleValue
+    expandValue(value) {
+        tools.expandValueCount += 1;
+        tools.expandRatio = Math.pow(1.2, tools.expandValueCount);
+        tools.expandRatio = tools.expandRatio > 20 ? 20 : tools.expandRatio;
+        value = value * tools.expandRatio;
+        tools.expandValueTimmer && clearTimeout(tools.expandValueTimmer);
+        tools.expandValueTimmer = setTimeout(function () { 
+            tools.expandValueCount = 0;
+        },200);
+        return value
     }
 };
 export default tools;

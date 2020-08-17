@@ -1,4 +1,5 @@
 import EventTarget from "./EventTarget.js";
+import tools from "./tools.js";
 
 //event
 class KeyBoardEvent extends EventTarget{
@@ -39,20 +40,20 @@ class KeyBoardEvent extends EventTarget{
                 }else if(self.pressCmd && event.keyCode == 37){
                     //left37
                     // app.spritesController.moveSprites({x:-1,y:0})
-                    app.spritesController.adjustSpritesSize({width:-1,height:0})
+                    app.spritesController.adjustSpritesSize({ width: tools.toInt(tools.expandValue(-1)),height:0})
                     event.preventDefault();
                 }else if(self.pressCmd && event.keyCode == 39){
                     //right39
-                    app.spritesController.adjustSpritesSize({width:1,height:0})
+                    app.spritesController.adjustSpritesSize({ width: tools.toInt(tools.expandValue(1)),height:0})
                     event.preventDefault();
                 }else if(self.pressCmd && event.keyCode == 38){
                     //top38
                     // app.spritesController.moveSprites({x:0,y:-1})
-                    app.spritesController.adjustSpritesSize({width:0,height:-1})
+                    app.spritesController.adjustSpritesSize({ width: 0, height: tools.toInt(tools.expandValue(-1))})
                     event.preventDefault();
                 }else if(self.pressCmd && event.keyCode == 40){
                     //bottom40
-                    app.spritesController.adjustSpritesSize({width:0,height:1})
+                    app.spritesController.adjustSpritesSize({ width: 0, height: tools.toInt(tools.expandValue(1))})
                     event.preventDefault();
                 //组合adjustSize
                 }else if (event.keyCode == 221) {
@@ -79,19 +80,19 @@ class KeyBoardEvent extends EventTarget{
                     event.preventDefault();
                 }else if(event.keyCode == 37){
                     //left37
-                    app.spritesController.moveSprites({x:-1,y:0})
+                    app.spritesController.moveSprites({ x: tools.toInt(tools.expandValue(-1)),y:0})
                 }else if(event.keyCode == 39){
                     //right39
-                    app.spritesController.moveSprites({x:1,y:0})
+                    app.spritesController.moveSprites({ x: tools.toInt(tools.expandValue(1)),y:0})
                 }else if(event.keyCode == 38){
                     //top38
-                    app.spritesController.moveSprites({x:0,y:-1})
+                    app.spritesController.moveSprites({ x: 0, y: tools.toInt(tools.expandValue(-1))})
                 }else if(event.keyCode == 40){
                     //bottom40
-                    app.spritesController.moveSprites({x:0,y:1})
+                    app.spritesController.moveSprites({ x: 0, y: tools.toInt(tools.expandValue(1))})
                 }else if(event.keyCode == 91){
                     //command
-                    self.pressCmd=true;
+                    self.pressCmd = true;
                     event.preventDefault();
                 }else if(event.keyCode==57){
                     //布局
