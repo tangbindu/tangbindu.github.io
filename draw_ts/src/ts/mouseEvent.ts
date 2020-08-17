@@ -34,7 +34,7 @@ class MouseEvent extends EventTarget{
     moveVector : vec2;//[0,0];//vector
     moveLogicVector: vec2;//[0,0];//vector
     moveStepLogicVector: vec2;//[0,0];//vector
-    moveStepLogicVector_cache: vec2;//[0,0];//vector
+    _vector_cache: vec2;//[0,0];//vector
     totalMoveVector : vec2;// [0,0];//总移动vector
     totalLogicMoveVector : vec2;// [0,0];//总逻辑移动vector
     eventType : string;
@@ -65,7 +65,7 @@ class MouseEvent extends EventTarget{
         this.totalMoveVector={x:0,y:0};//总移动vector
         this.moveLogicVector = { x: 0, y: 0 };//logic vector
         this.moveStepLogicVector = { x: 0, y: 0 };//step logic vector
-        this.moveStepLogicVector_cache = { x: 0, y: 0 };//step logic vector_cache
+        this._vector_cache = { x: 0, y: 0 };//step logic vector_cache
         this.totalLogicMoveVector={x:0,y:0};//总逻辑移动vector
         this.eventType=null;
         this.isMoving=false;
@@ -169,8 +169,8 @@ class MouseEvent extends EventTarget{
             this._mousedownTime=new Date().getTime();
             this.leftDown = true;
             //步进策略
-            this.moveStepLogicVector_cache.x = 0;
-            this.moveStepLogicVector_cache.y = 0;
+            this._vector_cache.x = 0;
+            this._vector_cache.y = 0;
         }else if(type=="mousemove"){
             this.isMoving=true;
             if(this.previousPos){
@@ -194,10 +194,12 @@ class MouseEvent extends EventTarget{
             this.isMoving=false;
             this.leftDown=false;
         }
+        // 当前canvas像素位置 currentCanvasPos
         this.currentCanvasPos=tools.toPixel(
             this.currentPos,
             this.app.devicePixelRatio
         )
+        //当前逻辑像素 curLogicPos
         this.curLogicPos=tools.toLogicPixel(
             this.currentPos,
             this.app.devicePixelRatio,
@@ -205,25 +207,25 @@ class MouseEvent extends EventTarget{
             this.app.x,
             this.app.y
         );
+        // 移动逻辑像素 moveLogicVector
         this.moveLogicVector=tools.toLogicVector(
             this.moveVector,
             this.app.devicePixelRatio,
             this.app.scale
         )
-        // 步进策略 -X
-        this.moveStepLogicVector_cache.x += this.moveLogicVector.x;
-        let stepX = Math.round(this.moveStepLogicVector_cache.x);// 取步
-        let lossX = this.moveStepLogicVector_cache.x - stepX;// 损失
+        // 步进策略 moveStepLogicVector
+        this._vector_cache.x += this.moveLogicVector.x;
+        let stepX = Math.round(this._vector_cache.x);// 取步
+        let lossX = this._vector_cache.x - stepX;// 损失
         this.moveStepLogicVector.x = stepX;
-        this.moveStepLogicVector_cache.x = lossX;
-        // 步进策略 -Y
-        this.moveStepLogicVector_cache.y += this.moveLogicVector.y;
-        let stepY = Math.round(this.moveStepLogicVector_cache.y);// 取步
-        let lossY = this.moveStepLogicVector_cache.y - stepY;// 损失
+        this._vector_cache.x = lossX;
+        this._vector_cache.y += this.moveLogicVector.y;
+        let stepY = Math.round(this._vector_cache.y);
+        let lossY = this._vector_cache.y - stepY;
         this.moveStepLogicVector.y = stepY;
-        this.moveStepLogicVector_cache.y = lossY;
+        this._vector_cache.y = lossY;
 
-        //总逻辑矢量
+        //总逻辑矢量 totalLogicMoveVector
         this.totalLogicMoveVector=tools.toLogicVector(
             this.totalMoveVector,
             this.app.devicePixelRatio,
