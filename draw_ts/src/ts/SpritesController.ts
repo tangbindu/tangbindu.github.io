@@ -17,7 +17,7 @@ class SpritesController{
         this.app=config.app;
         this.activeSprites=[];
         this.lastSprite=null;
-        this.sprites=config.app.spriteList || [];
+        this.sprites=[];
         this.supportMultipleClick=false;
     }
     //队列问题
@@ -43,6 +43,12 @@ class SpritesController{
             } 
         })
     }
+    /*获取和代码相关的节点*/
+    getNodes() { 
+        return this.sprites.filter(item => { 
+            return ["RectSprite"].includes(item.type)
+        })
+    }
     //通过一点获取sprite
     getSpriteByPoint(ctx,point){
         let sprite=null;
@@ -57,6 +63,25 @@ class SpritesController{
             }
         }
         return sprite;
+    }
+
+    //通过rect获取sprite
+    selectSpriteByRect(parentRect) {
+        let sprites = this.getNodes();
+        let px = parentRect.x;
+        let py = parentRect.y;
+        let pwidth = parentRect.width;
+        let pheight = parentRect.height;
+        sprites.forEach(sprite => {
+            if (
+                sprite.x >= px &&
+                sprite.y >= py &&
+                (sprite.x + sprite.width) <= (px+pwidth) &&
+                (sprite.y+sprite.height) <= (py+pheight)
+            ) {
+                this.addActiveSprite(sprite);
+            } 
+        })
     }
     //增加
     addSprite(sprite){

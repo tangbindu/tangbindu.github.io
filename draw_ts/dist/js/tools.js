@@ -135,7 +135,7 @@ let tools = {
             tools.expandValueCount = 0;
         }, 200);
         return value;
-    }
+    },
 };
 export default tools;
 //# sourceMappingURL=tools.js.map

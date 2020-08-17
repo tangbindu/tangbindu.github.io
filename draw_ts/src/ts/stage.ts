@@ -1,6 +1,7 @@
 import tools from "./tools.js";
 import ImageSprite from "./ImageSprite.js"
 import RectSprite from "./RectSprite.js"
+import SelectRectSprite from "./SelectRectSprite.js"
 import EventTarget from "./EventTarget.js"
 import MouseEvent from "./MouseEvent.js"
 import KeyBoardEvent from "./KeyBoardEvent.js"
@@ -298,7 +299,13 @@ export class Stage extends EventTarget{
         let sprite=new RectSprite(config);
         return this.addSprite(sprite);
     }
-
+    /**
+     * 添加selectSprite精灵
+     */
+    addSelectRectSprite(config) {
+        let sprite = new SelectRectSprite(config);
+        return this.addSprite(sprite);
+    }
     /**
      * 添加普通精灵
      */

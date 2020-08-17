@@ -17,7 +17,6 @@ let drawGraph=(app)=>{
             height:0,
             useDrag:true
         });
-        
     }
     if (app.mouseEvent.eventType  == "mousemove" && app.mouseEvent.isMoving) {
         // 创建的sprite
