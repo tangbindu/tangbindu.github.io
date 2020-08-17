@@ -158,13 +158,13 @@ export class Stage extends EventTarget{
         })
     }
     /**
-     * drag精灵
+     * moveSprites 精灵
      */
-    dragActiveSprite(activeSprites,moveVector){
-        activeSprites.forEach(sprite => {
-            if(sprite.useDrag && !this.keyBoardEvent.pressSpace){
-                sprite.x+=moveVector.x
-                sprite.y+=moveVector.y
+    moveSprites(sprites, moveVector) {
+        // 整数移动
+        sprites.forEach(sprite => {
+            if (sprite.useDrag) {
+                sprite.move(moveVector)
             }
         });
         this.render();

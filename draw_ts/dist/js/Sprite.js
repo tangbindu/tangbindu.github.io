@@ -113,6 +113,15 @@ class Sprite extends EventTarget {
         return position;
     }
     /**
+     * 重新计算值
+     */
+    // recalculateValue() { 
+    //     this.x = tools.toInt(this.x);
+    //     this.y = tools.toInt(this.y);
+    //     this.width = tools.toInt(this.width);
+    //     this.height = tools.toInt(this.height);
+    // }
+    /**
      * 设置按压态
      */
     setActiveStyle(ctx) {
