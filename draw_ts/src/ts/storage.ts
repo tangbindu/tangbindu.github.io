@@ -9,7 +9,10 @@ let storage={
         //save stage
         for(let name in stage){
             if(typeof stage[name]!="object"){
-                this.stage[name]=stage[name]
+                this.stage[name] = stage[name]
+                this.stage.x = 0;
+                this.stage.y = 0;
+                this.stage.scale = 1;
             }
         }
         //sage sprite
