@@ -9,7 +9,7 @@ class RectSprite extends Sprite {
         this.type = "RectSprite", //等于类名字
             this.lineWidth = 1;
         this.strokeStyle = 'rgba(255,0,0,0.5)';
-        this.fillStyle = 'rgba(0,0,0,.6)';
+        this.fillStyle = 'rgba(0,0,0,.25)';
         this.activeFillStyle = 'rgba(0,90,90,.6)';
         this.font = '12px STHeiti, SimHei';
         this.fontColor = 'rgba(255,0,0,1)';
