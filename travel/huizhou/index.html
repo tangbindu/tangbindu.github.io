@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="description" content="">
     <meta name="keywords" content="">
-    <title>默认标题</title>
+    <title>糖糖-惠州TravelRoute</title>
     <link rel="stylesheet" href="./css/index.css">
     <script type="text/javascript" src="https://api.map.baidu.com/api?v=1.0&amp;type=webgl&amp;ak=ISAD2DsOTmTavIx4MPdU5IKjXd4PDvie"></script>
   </head>
@@ -26,8 +26,8 @@
       map.addControl(scaleCtrl);
       const zoomCtrl = new BMapGL.ZoomControl();  // 添加缩放控件
       map.addControl(zoomCtrl);
-      const cityCtrl = new BMapGL.CityListControl();  // 添加城市列表控件
-      map.addControl(cityCtrl);
+      //- const cityCtrl = new BMapGL.CityListControl();  // 添加城市列表控件
+      //- map.addControl(cityCtrl);
       // 初始化地图，设置中心点坐标和地图级别 
       map.setMapType(BMAP_EARTH_MAP);
       
@@ -35,47 +35,38 @@
       const myGeo = new BMapGL.Geocoder();
       // 将地址解析结果显示在地图上，并调整地图视野
       //- myGeo.getPoint('惠州西湖', function(point){
-      //-   map.centerAndZoom(point, 16);
       //-   map.addOverlay(new BMapGL.Marker(point))
       //-   map.addOverlay(new BMapGL.Label("惠州西湖", {position: point})); 
       //- }, '惠州市')
       //- myGeo.getPoint('丰渚园', function(point){
-      //-   map.centerAndZoom(point, 16);
       //-   map.addOverlay(new BMapGL.Marker(point))
       //-   map.addOverlay(new BMapGL.Label("丰渚园", {position: point})); 
       //- }, '惠州市')
       //- myGeo.getPoint('红花湖', function(point){
-      //-   map.centerAndZoom(point, 16);
       //-   map.addOverlay(new BMapGL.Marker(point))
       //-   map.addOverlay(new BMapGL.Label("红花湖", {position: point})); 
       //- }, '惠州市')
       //- myGeo.getPoint('高榜山', function(point){
-      //-   map.centerAndZoom(point, 16);
       //-   map.addOverlay(new BMapGL.Marker(point))
       //-   map.addOverlay(new BMapGL.Label("高榜山", {position: point})); 
       //- }, '惠州市')
       //- myGeo.getPoint('合江楼', function(point){
-      //-   map.centerAndZoom(point, 16);
       //-   map.addOverlay(new BMapGL.Marker(point))
       //-   map.addOverlay(new BMapGL.Label("合江楼", {position: point})); 
       //- }, '惠州市')
       //- myGeo.getPoint('龙岩禅寺', function(point){
-      //-   map.centerAndZoom(point, 16);
       //-   map.addOverlay(new BMapGL.Marker(point))
       //-   map.addOverlay(new BMapGL.Label("龙岩禅寺", {position: point})); 
       //- }, '惠州市')
       //- myGeo.getPoint('象头山国家级自然保护区', function(point){
-      //-   map.centerAndZoom(point, 16);
       //-   map.addOverlay(new BMapGL.Marker(point))
       //-   map.addOverlay(new BMapGL.Label("象头山国家级自然保护区", {position: point})); 
       //- }, '惠州市')
       //- myGeo.getPoint('龙华旭日古村落', function(point){
-      //-   map.centerAndZoom(point, 16);
       //-   map.addOverlay(new BMapGL.Marker(point))
       //-   map.addOverlay(new BMapGL.Label("龙华旭日古村落", {position: point})); 
       //- }, '惠州市')
       //- myGeo.getPoint('观音阁马鞍山', function(point){
-      //-   map.centerAndZoom(point, 16);
       //-   map.addOverlay(new BMapGL.Marker(point, {title: '12观音阁马鞍山'}))
       //-   map.addOverlay(new BMapGL.Label("观音阁马鞍山", {position: point})); 
       //- }, '惠州市')
@@ -83,7 +74,6 @@
       
       
       //- myGeo.getPoint('博罗县东樵山', function(point){
-      //-   map.centerAndZoom(point, 16);
       //-   map.addOverlay(new BMapGL.Marker(point, {title: '博罗县东樵山'}))
       //-   map.addOverlay(new BMapGL.Label("博罗县东樵山", {position: point})); 
       //- }, '惠州市')
@@ -91,21 +81,18 @@
       
       
       //- myGeo.getPoint('南昆山-自驾，登山，美食', function(point){
-      //-   map.centerAndZoom(point, 16);
       //-   map.addOverlay(new BMapGL.Marker(point, {title: '南昆山-自驾，登山，美食'}))
       //-   map.addOverlay(new BMapGL.Label("南昆山-自驾，登山，美食", {position: point})); 
       //- }, '惠州市')
       
       
       //- myGeo.getPoint('中信惠州汤泉', function(point){
-      //-   map.centerAndZoom(point, 16);
       //-   map.addOverlay(new BMapGL.Marker(point, {title: '中信惠州汤泉'}))
       //-   map.addOverlay(new BMapGL.Label("中信惠州汤泉", {position: point})); 
       //- }, '惠州市')
       
       
       //- myGeo.getPoint('梁化国家森林公园', function(point){
-      //-   map.centerAndZoom(point, 16);
       //-   map.addOverlay(new BMapGL.Marker(point, {title: '梁化国家森林公园'}))
       //-   map.addOverlay(new BMapGL.Label("梁化国家森林公园-广东最大赏花景点", {position: point})); 
       //- }, '惠州市')
@@ -113,7 +100,7 @@
       
       let promise1=new Promise((resolve)=>{
         myGeo.getPoint('大学城', function(point){
-          map.centerAndZoom(point, 16);
+          map.centerAndZoom(point, 15);   ///////////////////////>>>>>
           map.addOverlay(new BMapGL.Marker(point))
           map.addOverlay(new BMapGL.Label("大学城", {position: point})); 
           resolve(point)
@@ -121,7 +108,6 @@
       })
       let promise3=new Promise((resolve)=>{
         myGeo.getPoint('巽寮湾', function(point){
-          map.centerAndZoom(point, 16);
           map.addOverlay(new BMapGL.Marker(point))
           map.addOverlay(new BMapGL.Label("巽寮湾", {position: point})); 
           resolve(point)
@@ -129,7 +115,6 @@
       })
       let promise4=new Promise((resolve)=>{
         myGeo.getPoint('巽寮湾', function(point){
-          map.centerAndZoom(point, 16);
           map.addOverlay(new BMapGL.Marker(point))
           map.addOverlay(new BMapGL.Label("巽寮湾[2:30~3:00小时", {position: point})); 
           resolve(point)
@@ -137,7 +122,6 @@
       })
       let promise5=new Promise((resolve)=>{
         myGeo.getPoint('平海古城', function(point){
-          map.centerAndZoom(point, 16);
           map.addOverlay(new BMapGL.Marker(point))
           map.addOverlay(new BMapGL.Label("平海古城", {position: point})); 
           resolve(point)
@@ -145,7 +129,6 @@
       })
       let promise6=new Promise((resolve)=>{
         myGeo.getPoint('双月湾', function(point){
-          map.centerAndZoom(point, 16);
           map.addOverlay(new BMapGL.Marker(point))
           map.addOverlay(new BMapGL.Label("双月湾", {position: point})); 
           resolve(point)
@@ -153,7 +136,6 @@
       })
       let promise7=new Promise((resolve)=>{
         myGeo.getPoint('盐洲岛', function(point){
-          map.centerAndZoom(point, 16);
           map.addOverlay(new BMapGL.Marker(point))
           map.addOverlay(new BMapGL.Label("盐洲岛-自驾推荐", {position: point})); 
           resolve(point)
