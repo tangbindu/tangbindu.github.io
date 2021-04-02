@@ -121,21 +121,21 @@ html(data-use-rem)
       let promise5=new Promise((resolve)=>{
         myGeo.getPoint('平海古城', function(point){
           map.addOverlay(new BMapGL.Marker(point))
-          map.addOverlay(new BMapGL.Label("平海古城", {position: point})); 
+          map.addOverlay(new BMapGL.Label("平海古城(小吃，游玩)", {position: point})); 
           resolve(point)
         }, '惠州市')
       })
       let promise6=new Promise((resolve)=>{
         myGeo.getPoint('双月湾', function(point){
           map.addOverlay(new BMapGL.Marker(point))
-          map.addOverlay(new BMapGL.Label("双月湾", {position: point})); 
+          map.addOverlay(new BMapGL.Label("双月湾(糖糖玩沙子|睡觉)", {position: point})); 
           resolve(point)
         }, '惠州市')
       })
       let promise7=new Promise((resolve)=>{
         myGeo.getPoint('盐洲岛', function(point){
           map.addOverlay(new BMapGL.Marker(point))
-          map.addOverlay(new BMapGL.Label("盐洲岛-自驾推荐", {position: point})); 
+          map.addOverlay(new BMapGL.Label("盐洲岛-自驾玩", {position: point})); 
           resolve(point)
         }, '惠州市')
       })
