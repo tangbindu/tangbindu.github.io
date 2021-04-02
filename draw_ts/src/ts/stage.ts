@@ -274,7 +274,7 @@ export class Stage extends EventTarget{
     drawBackground(){
         if(this.backgroundColor){
             //清空画布
-            this.ctx.clearRect( 0, 0, this.width, this.height);
+            this.ctx.clearRect(0, 0, this.width, this.height);
             this.ctx.fillStyle=this.backgroundColor;
             this.ctx.fillRect(0,0,this.width,this.height);
         }else{
