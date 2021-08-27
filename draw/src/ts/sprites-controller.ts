@@ -6,6 +6,7 @@
  * @Description: 
  */
 import tools from "./tools.js";
+import potpack from './potpack.js'
 
 class SpritesController{
   //active sprites
@@ -174,6 +175,12 @@ class SpritesController{
     this.sprites=this.sprites.filter((sprite)=>{
       return !sprite.active;
     })
+  }
+  packSprites(){
+    let activeSprites=this.sprites.filter((sprite)=>{
+      return sprite.active;
+    })
+    potpack(activeSprites)
   }
   //add Active sprite
   addActiveSprite(sprite){

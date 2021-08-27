@@ -28,11 +28,11 @@ class KeyBoardEvent extends EventTarget{
     document.onkeydown = function (event) {
       if (/Mac/.test(navigator.platform)) {
         if(self.pressCmd && event.keyCode == 65){
-          //全选
+          //全选 ctrl+a
           app.spritesController.selectAll();
           event.preventDefault();
         }else if(self.pressCmd && event.keyCode == 68){
-          //全部取消选择
+          //全部取消选择  ctrl+s
           app.spritesController.cancelSelect();
           event.preventDefault();
         }else if(self.pressCmd && event.keyCode == 67){
@@ -63,6 +63,10 @@ class KeyBoardEvent extends EventTarget{
           app.spritesController.adjustSpritesSize({ width: 0, height: tools.toInt(tools.expandValue(1))})
           event.preventDefault();
         //组合adjustSize
+        }else if(self.pressCmd && event.keyCode == 80){
+          //ctrl+p
+          app.spritesController.packSprites();
+          event.preventDefault();
         }else if (event.keyCode == 221) {
           //放大
           app.setScale(5/120);

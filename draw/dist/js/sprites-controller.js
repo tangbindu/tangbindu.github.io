@@ -1,3 +1,4 @@
+import potpack from './potpack.js';
 class SpritesController {
     //构造
     constructor(config) {
@@ -151,6 +152,12 @@ class SpritesController {
         this.sprites = this.sprites.filter((sprite) => {
             return !sprite.active;
         });
+    }
+    packSprites() {
+        let activeSprites = this.sprites.filter((sprite) => {
+            return sprite.active;
+        });
+        potpack(activeSprites);
     }
     //add Active sprite
     addActiveSprite(sprite) {

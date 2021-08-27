@@ -5,18 +5,18 @@
  * @FilePath: /draw/src/ts/stage.ts
  * @Description: 
  */
-import tools from "./tools.js";
-import ImageSprite from "./Image-sprite.js";
-import RectSprite from "./rect-sprite.js";
-import SelectRectSprite from "./select-rect-sprite.js";
-import EventTarget from "./event-target.js";
-import MouseEvent from "./mouse-event.js";
-import KeyBoardEvent from "./key-board-event.js";
-import Sprite from "./sprite";
-import drawGraph from "./draw-graph.js";
-import editGraph from "./edit-graph.js";
-import {Grid,Guidewires} from "./sprite-graph.js";
-import SpritesController from "./sprites-controller.js";
+import tools from './tools.js';
+import ImageSprite from './Image-sprite.js';
+import RectSprite from './rect-sprite.js';
+import SelectRectSprite from './select-rect-sprite.js';
+import EventTarget from './event-target.js';
+import MouseEvent from './mouse-event.js';
+import KeyBoardEvent from './key-board-event.js';
+import Sprite from './sprite';
+import drawGraph from './draw-graph.js';
+import editGraph from './edit-graph.js';
+import {Grid,Guidewires} from './sprite-graph.js';
+import SpritesController from './sprites-controller.js';
 import DragFile from "./drag-file.js";
 
 //层级约定
