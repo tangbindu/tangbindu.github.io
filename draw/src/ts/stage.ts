@@ -1,8 +1,8 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-08-27 19:20:25
- * @FilePath: /draw_ts/src/ts/stage.ts
+ * @LastEditTime: 2021-08-27 19:58:42
+ * @FilePath: /draw/src/ts/stage.ts
  * @Description: 
  */
 import tools from "./tools.js";
@@ -125,7 +125,6 @@ export class Stage extends EventTarget{
         })
         imgSprite.x+=(width-imgSprite.width)
       })
-
     })
   }    
   /**
@@ -143,12 +142,19 @@ export class Stage extends EventTarget{
             let imgData = theFile.srcElement.result;
             //假定data为img
             let imgSprite=this.addImageSprite(imgData,{
-              x:this.mouseEvent.curLogicPos.x || 0,
-              y:this.mouseEvent.curLogicPos.y || 0,
+              x:this.mouseEvent?.curLogicPos?.x || 0,
+              y:this.mouseEvent?.curLogicPos?.y || 0,
               zindex:0,
               width:imgData.width,
               height:imgData.height,
               useDrag:true
+            })
+            imgSprite.handler("imgLoaded",()=>{
+              let width=0;
+              this.spritesController.getSpriteByName("image").forEach(img=>{
+                width+=(img.width+2);
+              })
+              imgSprite.x+=(width-imgSprite.width)
             })
           })
           reader.readAsDataURL(file);

@@ -1,8 +1,8 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-08-27 19:18:42
- * @FilePath: /draw_ts/src/ts/index.ts
+ * @LastEditTime: 2021-08-27 19:57:56
+ * @FilePath: /draw/src/ts/index.ts
  * @Description:
  */
 //引入依赖模块
@@ -28,7 +28,7 @@ window.onload = function () {
                 sprite = stage.addRectSprite(spriteConfig);
                 break;
             case "ImageSprite":
-                sprite = stage.addImageSprite(spriteConfig.imagePath, spriteConfig);
+                // sprite=stage.addImageSprite(spriteConfig.imagePath,spriteConfig)  // 图片暂时缓存不了
                 break;
             default:
                 void (0);

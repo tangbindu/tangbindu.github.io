@@ -1,8 +1,8 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-08-27 19:18:02
- * @FilePath: /draw_ts/src/ts/editGraph.ts
+ * @LastEditTime: 2021-08-27 19:41:35
+ * @FilePath: /draw/src/ts/editGraph.ts
  * @Description:
  */
 import tools from "./tools.js";
@@ -74,9 +74,9 @@ let editGraph = (app) => {
         !newActiveSprite && activeSprite && activeSprite.active && !hasMoving && app.spritesController.releaseActiveSprites(activeSprite);
         hasMoving = false;
         //计算选择
-        app.spritesController.selectSpriteByRect(selectSpriteRect);
+        selectSpriteRect && app.spritesController.selectSpriteByRect(selectSpriteRect);
         //移除框
-        app.spritesController.removeSprite(selectSpriteRect);
+        selectSpriteRect && app.spritesController.removeSprite(selectSpriteRect);
     }
 };
 export default editGraph;

@@ -1,8 +1,8 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-08-27 19:20:13
- * @FilePath: /draw_ts/src/ts/SpritesController.ts
+ * @LastEditTime: 2021-08-27 19:49:14
+ * @FilePath: /draw/src/ts/SpritesController.ts
  * @Description: 
  */
 import tools from "./tools.js";

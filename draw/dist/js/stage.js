@@ -95,15 +95,23 @@ export class Stage extends EventTarget {
                     let reader = new FileReader();
                     let file = e.clipboardData.items[i].getAsFile();
                     reader.onload = ((theFile) => {
+                        var _a, _b, _c, _d;
                         let imgData = theFile.srcElement.result;
                         //假定data为img
                         let imgSprite = this.addImageSprite(imgData, {
-                            x: this.mouseEvent.curLogicPos.x || 0,
-                            y: this.mouseEvent.curLogicPos.y || 0,
+                            x: ((_b = (_a = this.mouseEvent) === null || _a === void 0 ? void 0 : _a.curLogicPos) === null || _b === void 0 ? void 0 : _b.x) || 0,
+                            y: ((_d = (_c = this.mouseEvent) === null || _c === void 0 ? void 0 : _c.curLogicPos) === null || _d === void 0 ? void 0 : _d.y) || 0,
                             zindex: 0,
                             width: imgData.width,
                             height: imgData.height,
                             useDrag: true
+                        });
+                        imgSprite.handler("imgLoaded", () => {
+                            let width = 0;
+                            this.spritesController.getSpriteByName("image").forEach(img => {
+                                width += (img.width + 2);
+                            });
+                            imgSprite.x += (width - imgSprite.width);
                         });
                     });
                     reader.readAsDataURL(file);

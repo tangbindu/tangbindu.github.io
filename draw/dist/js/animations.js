@@ -1,8 +1,8 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 18:45:08
- * @LastEditTime: 2021-08-27 19:17:19
- * @FilePath: /draw_ts/src/ts/animations.ts
+ * @LastEditTime: 2021-08-27 19:35:27
+ * @FilePath: /draw/src/ts/animations.ts
  * @Description:
  */
 export default {
