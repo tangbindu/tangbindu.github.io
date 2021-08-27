@@ -1,3 +1,10 @@
+/*
+ * @Author: bowentang
+ * @Date: 2021-08-27 15:25:32
+ * @LastEditTime: 2021-08-27 19:18:06
+ * @FilePath: /draw_ts/src/ts/eventTarget.ts
+ * @Description:
+ */
 //制作事件驱动源
 class EventTarget {
     /**

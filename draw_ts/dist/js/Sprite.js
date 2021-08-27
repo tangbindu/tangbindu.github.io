@@ -1,3 +1,10 @@
+/*
+ * @Author: bowentang
+ * @Date: 2021-08-27 15:25:32
+ * @LastEditTime: 2021-08-27 19:19:58
+ * @FilePath: /draw_ts/src/ts/sprite.ts
+ * @Description:
+ */
 import EventTarget from "./EventTarget.js";
 // 绘图 
 class Sprite extends EventTarget {

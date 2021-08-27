@@ -1,3 +1,10 @@
+/*
+ * @Author: bowentang
+ * @Date: 2021-08-27 15:25:32
+ * @LastEditTime: 2021-08-27 19:20:30
+ * @FilePath: /draw_ts/src/ts/storage.ts
+ * @Description:
+ */
 let storage = {
     //stage
     stage: {},

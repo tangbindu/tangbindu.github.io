@@ -1,3 +1,10 @@
+/*
+ * @Author: bowentang
+ * @Date: 2021-08-27 15:25:32
+ * @LastEditTime: 2021-08-27 19:18:42
+ * @FilePath: /draw_ts/src/ts/index.ts
+ * @Description:
+ */
 //引入依赖模块
 import { Stage } from "./Stage.js";
 import storage from "./storage.js";

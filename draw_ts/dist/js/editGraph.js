@@ -1,3 +1,10 @@
+/*
+ * @Author: bowentang
+ * @Date: 2021-08-27 15:25:32
+ * @LastEditTime: 2021-08-27 19:18:02
+ * @FilePath: /draw_ts/src/ts/editGraph.ts
+ * @Description:
+ */
 import tools from "./tools.js";
 let activeSprite;
 let newActiveSprite = false; //处理多选，取消单个的问题

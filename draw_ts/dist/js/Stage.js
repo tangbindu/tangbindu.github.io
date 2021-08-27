@@ -1,4 +1,3 @@
-import tools from "./tools.js";
 import ImageSprite from "./ImageSprite.js";
 import RectSprite from "./RectSprite.js";
 import SelectRectSprite from "./SelectRectSprite.js";
@@ -53,6 +52,8 @@ export class Stage extends EventTarget {
         this.keyBoardEvent = new KeyBoardEvent(this);
         //初始化拖拽文件
         this.initDragFile();
+        // 粘贴的图片
+        this.pasteImage();
         //executeMode
         this.executeMode(this.workMode);
         //绘制
@@ -64,11 +65,10 @@ export class Stage extends EventTarget {
     initDragFile() {
         this.dragFile = new DragFile();
         this.dragFile.handler("files", (data, e) => {
-            let dragPos = tools.toLogicPixel({ x: e.layerX, y: e.layerY }, this.devicePixelRatio, this.scale, this.x, this.y);
             //假定data为img
             let imgSprite = this.addImageSprite(data, {
-                x: dragPos.x,
-                y: dragPos.y,
+                x: this.mouseEvent.curLogicPos.x,
+                y: this.mouseEvent.curLogicPos.y,
                 zindex: 0,
                 width: data.width,
                 height: data.height,
@@ -82,6 +82,34 @@ export class Stage extends EventTarget {
                 imgSprite.x += (width - imgSprite.width);
             });
         });
+    }
+    /**
+    * pasteImage
+    */
+    pasteImage() {
+        //查找box元素,检测当粘贴时候,
+        document.addEventListener('paste', (e) => {
+            for (let i = 0; i < e.clipboardData.items.length; i++) {
+                //判断是否是粘贴图片
+                if (e.clipboardData && e.clipboardData.items[i].type.indexOf('image') > -1) {
+                    let reader = new FileReader();
+                    let file = e.clipboardData.items[i].getAsFile();
+                    reader.onload = ((theFile) => {
+                        let imgData = theFile.srcElement.result;
+                        //假定data为img
+                        let imgSprite = this.addImageSprite(imgData, {
+                            x: this.mouseEvent.curLogicPos.x || 0,
+                            y: this.mouseEvent.curLogicPos.y || 0,
+                            zindex: 0,
+                            width: imgData.width,
+                            height: imgData.height,
+                            useDrag: true
+                        });
+                    });
+                    reader.readAsDataURL(file);
+                }
+            }
+        }, false);
     }
     /**
      * 初始化MouseEvent

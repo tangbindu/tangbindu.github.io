@@ -1,3 +1,10 @@
+/*
+ * @Author: bowentang
+ * @Date: 2021-08-27 15:25:32
+ * @LastEditTime: 2021-08-27 19:18:14
+ * @FilePath: /draw_ts/src/ts/ImageSprite.ts
+ * @Description:
+ */
 import Sprite from "./Sprite.js";
 // 绘图 
 class ImageSprite extends Sprite {

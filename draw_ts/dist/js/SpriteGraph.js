@@ -1,3 +1,10 @@
+/*
+ * @Author: bowentang
+ * @Date: 2021-08-27 15:25:32
+ * @LastEditTime: 2021-08-27 19:20:08
+ * @FilePath: /draw_ts/src/ts/spriteGraph.ts
+ * @Description:
+ */
 import tools from "./tools.js";
 import Sprite from "./Sprite.js";
 // 绘图 

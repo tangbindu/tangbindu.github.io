@@ -1,3 +1,10 @@
+/*
+ * @Author: bowentang
+ * @Date: 2021-08-27 15:25:32
+ * @LastEditTime: 2021-08-27 19:20:45
+ * @FilePath: /draw_ts/src/ts/tools.ts
+ * @Description:
+ */
 let tools = {
     //整数策略
     toInt(val) {
