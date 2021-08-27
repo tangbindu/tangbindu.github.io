@@ -168,4 +168,4 @@ class Grid extends Graph {
     }
 }
 export { Grid, Guidewires };
-//# sourceMappingURL=SpriteGraph.js.map
+//# sourceMappingURL=sprite-graph.js.map

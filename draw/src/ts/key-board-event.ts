@@ -5,7 +5,7 @@
  * @FilePath: /draw/src/ts/keyboardEvent.ts
  * @Description: 
  */
-import EventTarget from "./EventTarget.js";
+import EventTarget from "./event-target.js";
 import tools from "./tools.js";
 
 //event

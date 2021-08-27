@@ -5,7 +5,7 @@
  * @FilePath: /draw/src/ts/sprite.ts
  * @Description: 
  */
-import EventTarget from "./EventTarget.js";
+import EventTarget from "./event-target.js";
 import tools from "./tools.js";
 
 // 绘图 

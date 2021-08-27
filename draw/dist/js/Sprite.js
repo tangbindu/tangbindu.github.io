@@ -5,7 +5,7 @@
  * @FilePath: /draw/src/ts/sprite.ts
  * @Description:
  */
-import EventTarget from "./EventTarget.js";
+import EventTarget from "./event-target.js";
 // 绘图 
 class Sprite extends EventTarget {
     //构造

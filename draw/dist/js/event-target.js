@@ -61,4 +61,4 @@ class EventTarget {
     }
 }
 export default EventTarget;
-//# sourceMappingURL=EventTarget.js.map
+//# sourceMappingURL=event-target.js.map

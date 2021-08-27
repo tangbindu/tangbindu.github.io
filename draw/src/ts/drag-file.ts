@@ -5,7 +5,7 @@
  * @FilePath: /draw/src/ts/dragFile.ts
  * @Description: 
  */
-import EventTarget from "./EventTarget.js";
+import EventTarget from "./event-target.js";
 
 //event
 class DragFile extends EventTarget{

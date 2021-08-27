@@ -6,7 +6,7 @@
  * @Description: 
  */
 import tools from "./tools.js";
-import EventTarget from "./EventTarget.js";
+import EventTarget from "./event-target.js";
 
 function getVertexPosition(el) {
   let currentTarget = el

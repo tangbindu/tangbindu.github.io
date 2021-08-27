@@ -80,4 +80,4 @@ let editGraph = (app) => {
     }
 };
 export default editGraph;
-//# sourceMappingURL=editGraph.js.map
+//# sourceMappingURL=edit-graph.js.map

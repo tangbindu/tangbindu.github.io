@@ -6,18 +6,18 @@
  * @Description: 
  */
 import tools from "./tools.js";
-import ImageSprite from "./ImageSprite.js";
-import RectSprite from "./RectSprite.js";
-import SelectRectSprite from "./SelectRectSprite.js";
-import EventTarget from "./EventTarget.js";
-import MouseEvent from "./MouseEvent.js";
-import KeyBoardEvent from "./KeyBoardEvent.js";
+import ImageSprite from "./Image-sprite.js";
+import RectSprite from "./rect-sprite.js";
+import SelectRectSprite from "./select-rect-sprite.js";
+import EventTarget from "./event-target.js";
+import MouseEvent from "./mouse-event.js";
+import KeyBoardEvent from "./key-board-event.js";
 import Sprite from "./sprite";
-import drawGraph from "./drawGraph.js";
-import editGraph from "./editGraph.js";
-import {Grid,Guidewires} from "./SpriteGraph.js";
-import SpritesController from "./SpritesController.js";
-import DragFile from "./DragFile.js";
+import drawGraph from "./draw-graph.js";
+import editGraph from "./edit-graph.js";
+import {Grid,Guidewires} from "./sprite-graph.js";
+import SpritesController from "./sprites-controller.js";
+import DragFile from "./drag-file.js";
 
 //层级约定
 //image 0-10000;

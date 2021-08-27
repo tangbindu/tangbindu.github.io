@@ -40,4 +40,4 @@ class SelectRectSprite extends Sprite {
     }
 }
 export default SelectRectSprite;
-//# sourceMappingURL=SelectRectSprite.js.map
+//# sourceMappingURL=select-rect-sprite.js.map

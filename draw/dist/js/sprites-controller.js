@@ -207,4 +207,4 @@ class SpritesController {
     }
 }
 export default SpritesController;
-//# sourceMappingURL=SpritesController.js.map
+//# sourceMappingURL=sprites-controller.js.map

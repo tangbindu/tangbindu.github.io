@@ -77,4 +77,4 @@ class ImageSprite extends Sprite {
     }
 }
 export default ImageSprite;
-//# sourceMappingURL=ImageSprite.js.map
+//# sourceMappingURL=Image-sprite.js.map

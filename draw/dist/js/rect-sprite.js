@@ -78,4 +78,4 @@ class RectSprite extends Sprite {
     }
 }
 export default RectSprite;
-//# sourceMappingURL=RectSprite.js.map
+//# sourceMappingURL=rect-sprite.js.map

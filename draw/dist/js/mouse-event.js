@@ -6,7 +6,7 @@
  * @Description:
  */
 import tools from "./tools.js";
-import EventTarget from "./EventTarget.js";
+import EventTarget from "./event-target.js";
 function getVertexPosition(el) {
     let currentTarget = el;
     let top = 0;
@@ -191,4 +191,4 @@ class MouseEvent extends EventTarget {
     }
 }
 export default MouseEvent;
-//# sourceMappingURL=MouseEvent.js.map
+//# sourceMappingURL=mouse-event.js.map

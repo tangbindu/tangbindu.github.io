@@ -46,4 +46,4 @@ class RoundRectSprite extends Sprite {
     }
 }
 export default RoundRectSprite;
-//# sourceMappingURL=RoundRectSprite.js.map
+//# sourceMappingURL=round-rect-sprite.js.map
