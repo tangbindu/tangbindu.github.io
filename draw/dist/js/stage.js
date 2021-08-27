@@ -349,4 +349,4 @@ export class Stage extends EventTarget {
         });
     }
 }
-//# sourceMappingURL=Stage.js.map
+//# sourceMappingURL=stage.js.map

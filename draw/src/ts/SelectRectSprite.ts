@@ -1,8 +1,8 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-08-27 19:19:50
- * @FilePath: /draw_ts/src/ts/SelectRectSprite.ts
+ * @LastEditTime: 2021-08-27 20:17:45
+ * @FilePath: /draw/src/ts/SelectRectSprite.ts
  * @Description: 
  */
 /*
@@ -12,7 +12,7 @@
  * @FilePath: /draw_ts/src/ts/SelectRectSprite.ts
  * @Description: 
  */
-import Sprite from "./Sprite.js";
+import Sprite from "./sprite.js";
 import tools from "./tools.js";
 // 绘图 
 class SelectRectSprite extends Sprite {

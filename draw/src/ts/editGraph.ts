@@ -1,12 +1,12 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-08-27 19:41:35
+ * @LastEditTime: 2021-08-27 20:16:57
  * @FilePath: /draw/src/ts/editGraph.ts
  * @Description: 
  */
 
-import Sprite from "./Sprite";
+import Sprite from "./sprite.js";
 import tools from "./tools.js";
 
 let activeSprite;

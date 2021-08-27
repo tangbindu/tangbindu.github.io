@@ -1,8 +1,8 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-08-27 19:17:50
- * @FilePath: /draw_ts/src/ts/drawGraph.ts
+ * @LastEditTime: 2021-08-27 20:14:35
+ * @FilePath: /draw/src/ts/drawGraph.ts
  * @Description: 
  */
 import tools from "./tools.js";

@@ -1,8 +1,8 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-08-27 19:17:43
- * @FilePath: /draw_ts/src/ts/dragFile.ts
+ * @LastEditTime: 2021-08-27 20:17:30
+ * @FilePath: /draw/src/ts/dragFile.ts
  * @Description: 
  */
 import EventTarget from "./EventTarget.js";

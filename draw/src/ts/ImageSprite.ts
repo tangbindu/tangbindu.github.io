@@ -1,11 +1,11 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-08-27 19:18:14
- * @FilePath: /draw_ts/src/ts/ImageSprite.ts
+ * @LastEditTime: 2021-08-27 20:14:40
+ * @FilePath: /draw/src/ts/ImageSprite.ts
  * @Description: 
  */
-import Sprite from "./Sprite.js";
+import Sprite from "./sprite.js";
 // 绘图 
 class ImageSprite extends Sprite{
   imagePath: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";

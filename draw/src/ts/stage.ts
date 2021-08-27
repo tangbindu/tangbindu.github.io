@@ -1,23 +1,23 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-08-27 19:58:42
+ * @LastEditTime: 2021-08-27 20:15:26
  * @FilePath: /draw/src/ts/stage.ts
  * @Description: 
  */
 import tools from "./tools.js";
-import ImageSprite from "./ImageSprite.js"
-import RectSprite from "./RectSprite.js"
-import SelectRectSprite from "./SelectRectSprite.js"
-import EventTarget from "./EventTarget.js"
-import MouseEvent from "./MouseEvent.js"
-import KeyBoardEvent from "./KeyBoardEvent.js"
-import Sprite from "./Sprite.js";
-import drawGraph from "./drawGraph.js"
-import editGraph from "./editGraph.js"
+import ImageSprite from "./ImageSprite.js";
+import RectSprite from "./RectSprite.js";
+import SelectRectSprite from "./SelectRectSprite.js";
+import EventTarget from "./EventTarget.js";
+import MouseEvent from "./MouseEvent.js";
+import KeyBoardEvent from "./KeyBoardEvent.js";
+import Sprite from "./sprite";
+import drawGraph from "./drawGraph.js";
+import editGraph from "./editGraph.js";
 import {Grid,Guidewires} from "./SpriteGraph.js";
-import SpritesController from "./SpritesController.js"
-import DragFile from "./DragFile.js"
+import SpritesController from "./SpritesController.js";
+import DragFile from "./DragFile.js";
 
 //层级约定
 //image 0-10000;

@@ -1,12 +1,12 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-08-27 19:57:56
+ * @LastEditTime: 2021-08-27 20:14:43
  * @FilePath: /draw/src/ts/index.ts
  * @Description:
  */
 //引入依赖模块
-import { Stage } from "./Stage.js";
+import { Stage } from "./stage.js";
 import storage from "./storage.js";
 //工作台
 window.onload = function () {
