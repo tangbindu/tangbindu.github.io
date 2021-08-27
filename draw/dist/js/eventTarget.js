@@ -1,8 +1,23 @@
+/*
+ * @Author: bowentang
+ * @Date: 2021-08-27 15:25:32
+ * @LastEditTime: 2021-08-27 19:18:06
+ * @FilePath: /draw_ts/src/ts/eventTarget.ts
+ * @Description:
+ */
 //制作事件驱动源
-class eventTarget{
-    constructor(){
-        this.handlers={};
+class EventTarget {
+    /**
+     * 构造
+     */
+    constructor() {
+        this.handlers = {};
     }
+    /**
+     * 注册事件
+     * @param type
+     * @param handler
+     */
     handler(type, handler) {
         //添加事件对象
         if (typeof this.handlers[type] == 'undefined') {
@@ -10,8 +25,15 @@ class eventTarget{
         }
         this.handlers[type] = this.handlers[type].concat(handler);
     }
+    /**
+     * 移除事件
+     * @param type
+     * @param handler
+     */
     removeHandler(type, handler) {
-        if (typeof this.handlers == "undefined") { this.handlers = {} }
+        if (typeof this.handlers == "undefined") {
+            this.handlers = {};
+        }
         if (this.handlers[type] instanceof Array) {
             var handlers = this.handlers[type];
             for (var i = 0, len = handlers.length; i < len; i++) {
@@ -22,14 +44,21 @@ class eventTarget{
             }
         }
     }
-    trigger(type) {
-        if (typeof this.handlers == "undefined") { this.handlers = {} }
+    /**
+     * 触发事件
+     * @param type
+     */
+    trigger(type, data1, data2) {
+        if (typeof this.handlers == "undefined") {
+            this.handlers = {};
+        }
         if (this.handlers[type] instanceof Array) {
             var handlers = this.handlers[type];
             for (var i = 0, len = handlers.length; i < len; i++) {
-                handlers[i].call(this, this);
+                handlers[i].call(this, data1, data2);
             }
         }
     }
-};
-export default eventTarget;
+}
+export default EventTarget;
+//# sourceMappingURL=EventTarget.js.map

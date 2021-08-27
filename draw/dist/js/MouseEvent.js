@@ -1,153 +1,194 @@
+/*
+ * @Author: bowentang
+ * @Date: 2021-08-27 15:25:32
+ * @LastEditTime: 2021-08-27 19:19:15
+ * @FilePath: /draw_ts/src/ts/MouseEvent.ts
+ * @Description:
+ */
 import tools from "./tools.js";
-import eventTarget from "./eventTarget.js";
-
+import EventTarget from "./EventTarget.js";
+function getVertexPosition(el) {
+    let currentTarget = el;
+    let top = 0;
+    let left = 0;
+    while (currentTarget !== null) {
+        top += currentTarget.offsetTop;
+        left += currentTarget.offsetLeft;
+        currentTarget = currentTarget.offsetParent;
+    }
+    return { top, left };
+}
 //event
-class MouseEvent extends eventTarget{
-    constructor(app,ele,ratio,scale,coordinateOrigin){
+class MouseEvent extends EventTarget {
+    /**
+     * 构造
+     * @param {html node} element
+     */
+    constructor(config) {
         super();
-        this.app=app;
         //元素
-        this.ele=ele;
+        this.element = config.element;
+        //app
+        this.app = config.app;
         //通用
-        this.startPos=null;//开始point
-        this.prevPos=null;//上一个point
-        this.curPos={x:0,y:0};//当前point
-        this.moveVector=null;//vector
-        this.totalMoveVector=null;//总移动vector
-        // this._toNextFrame=null;
-        this.isMoving=false;
-        this.downTime=null;
-        this.upTime=null;
-        //特殊
-        this.ratio=ratio || 1;
-        this.scale=scale || 1;
-        this.coordinateOrigin=coordinateOrigin || {x:0,y:0};
-        this.realPoint=null;
-        this.curLogicPos={x:0,y:0};//逻辑像素
-        // this.moveLogicVector=null;
-        // this.totalMoveLogicVector=null;
-        this.type=null;
+        this.startPos = null; //开始point
+        this.previousPos = null; //上一个point
+        this.currentPos = { x: 0, y: 0 }; //当前point
+        this.currentCanvasPos = { x: 0, y: 0 }; //当前point
+        this.moveVector = { x: 0, y: 0 }; //vector
+        this.totalMoveVector = { x: 0, y: 0 }; //总移动vector
+        this.moveLogicVector = { x: 0, y: 0 }; //logic vector
+        this.moveStepLogicVector = { x: 0, y: 0 }; //step logic vector
+        this._vector_cache = { x: 0, y: 0 }; //step logic vector_cache
+        this.totalLogicMoveVector = { x: 0, y: 0 }; //总逻辑移动vector
+        this.eventType = null;
+        this.isMoving = false;
+        this.leftDown = false;
+        //时间
+        this._mousedownTime = null;
+        this._mouseupTime = null;
         //初始化
         this.init();
+        //
+        this.offsetTop = 0;
     }
-    init(){
+    /**
+     * init
+     */
+    init() {
         //常规鼠标事件
-        this.ele.addEventListener("mousedown",(event)=>{
-            this.mousedown(event)
-        })
-        this.ele.addEventListener("mousemove",(event)=>{
-            //记忆一个位置
-            localStorage.setItem('mouseEvent', JSON.stringify({x:event.clientX,y:event.clientY}));
-            this.mousemove(event)
-        })
-        this.ele.addEventListener("mouseup",(event)=>{
+        this.element.addEventListener("mousedown", (event) => {
+            this.eventType = "mousedown";
+            this.mousedown(event);
+        });
+        this.element.addEventListener("mousemove", (event) => {
+            this.eventType = "mousemove";
+            this.mousemove(event);
+        });
+        this.element.addEventListener("mouseup", (event) => {
+            this.eventType = "mouseup";
             this.mouseup(event);
-        })
+        });
         //滚轮
-        document.body.onmousewheel = (event)=>{
-            if(event.deltaY>0){
-                //放大
-                this.app.scaleStage(1+event.deltaY/750);
-            }else{
-                //缩小
-                this.app.scaleStage(1+event.deltaY/750);
-            }
+        document.body.onmousewheel = (event) => {
+            this.app.setScale(tools.expandValue(event.deltaY / 3000));
+            this.trigger("mousewheel");
         };
         //鼠标引起的尺寸变化
-        window.addEventListener("resize",()=>{
+        window.addEventListener("resize", () => {
             this.trigger("resize");
-        })
-        //提取记忆
-        if(localStorage.getItem('mouseEvent')){
-            this.curPos=JSON.parse(
-                localStorage.getItem('mouseEvent')
-            )
-        }
-        //鼠标&键盘改变尺寸
-        this.refresh();
+        });
     }
-    refresh(){
-        this.curLogicPos=tools.toLogicPixel(
-            this.curPos,
-            this.ratio,
-            this.scale,
-            this.coordinateOrigin
-        );
-        this.startPos=this.curPos;
-        this.prevPos = this.curPos;
+    /**
+     * 工具方法，转换clientX到canvas pixel
+     */
+    toCanvasPixel(pos) {
+        return {
+            x: pos.x / this.element.clientWidth * this.element.width,
+            y: pos.y / this.element.clientHeight * this.element.height
+        };
     }
-    run(type){
-        this.type=type;
-        if(this.startPos && this.prevPos){
-            this.moveVector=[
-                this.curPos.x-this.prevPos.x,
-                this.curPos.y-this.prevPos.y
-            ];
-            this.moveLogicVector=tools.mouseVectorToLogicVector(
-                this.moveVector,
-                this.ratio,
-                this.scale
-            );
-            // this.totalMoveVector=[
-            //     this.curPos.x-this.startPos.x,
-            //     this.curPos.y-this.startPos.y
-            // ];
-        }
-        this.trigger("all");
+    /**
+     * mousedown
+     */
+    mousedown(event) {
+        this.offsetTop = getVertexPosition(this.element).top;
+        this.currentPos = {
+            x: event.clientX,
+            y: event.clientY - this.offsetTop
+        };
+        // this.currentPos=this.toCanvasPixel(this.currentPos);
+        this.startPos = this.currentPos;
+        this.previousPos = this.currentPos;
+        this.trigger("mousedown");
+        this.detailMixEvent("mousedown");
     }
-    mousedown(event){
-        this.downTime=new Date().getTime();
-        this.isMoving=true;
-        this.curPos={x:event.clientX,y:event.clientY};
-        this.realPoint=tools.toPixel(this.curPos,this.ratio);
-        this.curLogicPos=tools.toLogicPixel(
-            this.curPos,
-            this.ratio,
-            this.scale,
-            this.coordinateOrigin
-        );
-        this.startPos=this.curPos;
-        this.prevPos = this.curPos;
-        this.trigger("down");
-        this.run("down");
+    /**
+     * mousemove
+     */
+    mousemove(event) {
+        this.currentPos = {
+            x: event.clientX,
+            y: event.clientY - this.offsetTop
+        };
+        // this.currentPos=this.toCanvasPixel(this.currentPos);
+        this.trigger("mousemove");
+        this.detailMixEvent("mousemove");
+        this.previousPos = this.currentPos;
     }
-    mousemove(event){
-        this.curPos={x:event.clientX,y:event.clientY};
-        this.realPoint=tools.toPixel(this.curPos,this.ratio);
-        this.curLogicPos=tools.toLogicPixel(
-            this.curPos,
-            this.ratio,
-            this.scale,
-            this.coordinateOrigin
-        );
-        this.trigger("move");
-        this.run("move");
-        this.prevPos=this.curPos;
+    /**
+     * mouseup
+     */
+    mouseup(event) {
+        this.trigger("mouseup");
+        this.detailMixEvent("mouseup");
+        this.startPos = null;
+        this.previousPos = null;
+        this.currentPos = null;
         event.preventDefault();
     }
-    mouseup(event){
-        this.curPos={x:event.clientX,y:event.clientY};
-        this.realPoint=tools.toPixel(this.curPos,this.ratio);
-        this.curLogicPos=tools.toLogicPixel(
-            this.curPos,
-            this.ratio,
-            this.scale,
-            this.coordinateOrigin
-        );
-        this.trigger("up");
-        this.run("up");
-        this.upTime=new Date().getTime();
-        if(
-            (this.upTime-this.downTime)<200 &&
-            this.curPos.x==this.startPos.x &&
-            this.curPos.y==this.startPos.y
-        ){
-            this.trigger("click");
+    /**
+     * 处理混合情况
+     */
+    detailMixEvent(type) {
+        if (type == "mousedown") {
+            this.isMoving = false;
+            this._mousedownTime = new Date().getTime();
+            this.leftDown = true;
+            //步进策略
+            this._vector_cache.x = 0;
+            this._vector_cache.y = 0;
         }
-        this.startPos=null;
-        this.prevPos=null;
-        this.isMoving=false;
-        event.preventDefault();
+        else if (type == "mousemove") {
+            this.isMoving = true;
+            if (this.previousPos) {
+                this.moveVector = {
+                    x: this.currentPos.x - this.previousPos.x,
+                    y: this.currentPos.y - this.previousPos.y
+                };
+            }
+            if (this.startPos) {
+                this.totalMoveVector = {
+                    x: this.currentPos.x - this.startPos.x,
+                    y: this.currentPos.y - this.startPos.y
+                };
+            }
+        }
+        else if (type == "mouseup") {
+            this._mouseupTime = new Date().getTime();
+            if ((this._mouseupTime - this._mousedownTime) < 400 && !this.isMoving) {
+                // this.eventType="click"
+                this.trigger("click");
+            }
+            this.isMoving = false;
+            this.leftDown = false;
+        }
+        // 当前canvas像素位置 currentCanvasPos
+        this.currentCanvasPos = tools.toPixel(this.currentPos, this.app.devicePixelRatio);
+        //当前逻辑像素 curLogicPos
+        this.curLogicPos = tools.toLogicPixel(this.currentPos, this.app.devicePixelRatio, this.app.scale, this.app.x, this.app.y);
+        // 移动逻辑像素 moveLogicVector
+        this.moveLogicVector = tools.toLogicVector(this.moveVector, this.app.devicePixelRatio, this.app.scale);
+        // 步进策略 moveStepLogicVector
+        this._vector_cache.x += this.moveLogicVector.x;
+        let stepX = Math.round(this._vector_cache.x); // 取步
+        let lossX = this._vector_cache.x - stepX; // 损失
+        this.moveStepLogicVector.x = stepX;
+        this._vector_cache.x = lossX;
+        this._vector_cache.y += this.moveLogicVector.y;
+        let stepY = Math.round(this._vector_cache.y);
+        let lossY = this._vector_cache.y - stepY;
+        this.moveStepLogicVector.y = stepY;
+        this._vector_cache.y = lossY;
+        //总逻辑矢量 totalLogicMoveVector
+        this.totalLogicMoveVector = tools.toLogicVector(this.totalMoveVector, this.app.devicePixelRatio, this.app.scale);
+        this.trigger("mixMouseEvent");
+    }
+    refresh() {
+        this.curLogicPos = tools.toLogicPixel(this.currentPos, this.app.devicePixelRatio, this.app.scale, this.app.x, this.app.y);
+        this.startPos = this.currentPos;
+        this.previousPos = this.currentPos;
     }
 }
 export default MouseEvent;
+//# sourceMappingURL=MouseEvent.js.map

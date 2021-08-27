@@ -1,52 +1,48 @@
-import eventTarget from "./eventTarget.js";
-
+/*
+ * @Author: bowentang
+ * @Date: 2021-08-27 15:25:32
+ * @LastEditTime: 2021-08-27 19:17:43
+ * @FilePath: /draw_ts/src/ts/dragFile.ts
+ * @Description:
+ */
+import EventTarget from "./EventTarget.js";
 //event
-class DragFile extends eventTarget{
-    constructor(app){
+class DragFile extends EventTarget {
+    constructor() {
         super();
-        this.app=app;
         this.init();
     }
-    init(){
-        let app=this.app;
+    init() {
         //拖拽上传文件
-        window.document.addEventListener("dragenter", function(e) {
+        window.document.addEventListener("dragenter", (e) => {
             e.stopPropagation();
             e.preventDefault();
         }, false);
-        window.document.addEventListener("dragover", function(e) {
+        window.document.addEventListener("dragover", (e) => {
             e.stopPropagation();
             e.preventDefault();
         }, false);
-        window.document.addEventListener("drop", function(e) {
-            handleFile(e.dataTransfer.files);
+        window.document.addEventListener("drop", (e) => {
             //获取一张图片
-            function handleFile(files) {
-                var i = 0;
-                var reader = new FileReader();
-                function readerFiles(i) {
-                    var file = files[i];
-                    if (i == files.length) { return false; }
-                    reader.onload = (function(theFile) {
-                        var imgData = theFile.srcElement.result;
-                        //这里接受图片
-                        const img=new Image();
-                        img.onload=()=>{
-                            app.uploadImage={
-                                img:img,
-                                name:file.name
-                            }
-                        }
-                        img.src=imgData;
-                        // readerFiles(++i);
-                    })
+            let handleFile = (files) => {
+                let i = 0;
+                let readerFiles = (file) => {
+                    let reader = new FileReader();
+                    reader.onload = ((theFile) => {
+                        let imgData = theFile.srcElement.result;
+                        this.trigger("files", imgData, e);
+                    });
                     reader.readAsDataURL(file);
+                };
+                for (let i = 0; i < files.length; i++) {
+                    readerFiles(files[i]);
                 }
-                readerFiles(i);
-            }
+            };
+            handleFile(e.dataTransfer.files);
             e.stopPropagation();
             e.preventDefault();
         }, false);
     }
 }
 export default DragFile;
+//# sourceMappingURL=dragFile.js.map
