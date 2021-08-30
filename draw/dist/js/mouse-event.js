@@ -71,7 +71,7 @@ class MouseEvent extends EventTarget {
         });
         //滚轮
         document.body.onmousewheel = (event) => {
-            this.app.setScale(tools.expandValue(event.deltaY / 3000));
+            this.app.setScale(tools.expandValue(event.deltaY / 60000));
             this.trigger("mousewheel");
         };
         //鼠标引起的尺寸变化
