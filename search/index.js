@@ -25,12 +25,14 @@ let searchList=[
     name: "translate",
     // regExp:/[^\w\s\.\/]/g,
     list:{
-      youtubetranslate: "https://www.youtube.com/results?search_query=",
-      googleImagetranslate: "https://www.google.com/search?tbm=isch&q=",
-      // wikipediatranslate: "https://en.wikipedia.org/wiki/",
-      quoratranslate: "https://www.quora.com/search?q=",
-      baidutranslate: "https://fanyi.baidu.com/#en/zh/",
-      googlePronunciationtranslate: "https://www.google.com/search?&q=pronunciation+",
+      oxford: "https://www.oxfordlearnersdictionaries.com/definition/english/",
+      youglish: "https://youglish.com/pronounce/china",
+      youtube: "https://www.youtube.com/results?search_query=",
+      googleImage: "https://www.google.com/search?tbm=isch&q=",
+      wikipediatranslate: "https://en.wikipedia.org/wiki/",
+      quora: "https://www.quora.com/search?q=",
+      baidufanyi: "https://fanyi.baidu.com/#en/zh/",
+      googlePronunce: "https://www.google.com/search?&q=pronunciation+",
       googletranslate: "https://translate.google.com/?tl=zh-CN&text="
     }
   },
@@ -38,13 +40,13 @@ let searchList=[
     name: "search",
     // regExp:/[^\w\s\.\/]/g,
     list:{
+      google: "https://www.google.com/search?q=",
+      baidu: "https://www.baidu.com/s?wd=japan",
       quora: "https://www.quora.com/search?q=",
       bing: "http://www.bing.com/search?q=",
       yahoo: "https://search.yahoo.com/search?p=",
       wikipedia: "https://en.wikipedia.org/wiki/",
-      baidu: "https://www.baidu.com/s?wd=japan",
       duckduckgo: "https://duckduckgo.com/?q=",
-      google: "https://www.google.com/search?q="
     }
   },
   {
@@ -120,9 +122,16 @@ function favoriteSites(){
     {
       name: "花圃",
       href: "https://tangbindu.github.io/huapu/"
+    },
+    {
+      name: "draw",
+      href: "https://tangbindu.github.io/draw/"
     },{
       name: "CUI",
       href: "https://tangbindu.github.io/cui/demo/dist/html/demo.html"
+    },{
+      name: "javascript",
+      href: "https://tangbindu.github.io/knowledge/?javascript"
     },{
       name: "knowledge",
       href: "https://tangbindu.github.io/knowledge/"
