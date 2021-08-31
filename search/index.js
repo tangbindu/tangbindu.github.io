@@ -124,7 +124,7 @@ function favoriteSites(){
     },
     {
       name: "draw",
-      href: "https://tangbindu.github.io/draw/"
+      href: "https://tangbindu.github.io/draw/dist/html/index.html"
     },{
       name: "CUI",
       href: "https://tangbindu.github.io/cui/demo/dist/html/demo.html"
