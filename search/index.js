@@ -33,7 +33,6 @@ let searchList=[
       quora: "https://www.quora.com/search?q=",
       baidufanyi: "https://fanyi.baidu.com/#en/zh/",
       googlePronunce: "https://www.google.com/search?&q=pronunciation+",
-      googletranslate: "https://translate.google.com/?tl=zh-CN&text="
     }
   },
   {
