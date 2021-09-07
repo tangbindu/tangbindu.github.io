@@ -1,52 +1,52 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-08-27 20:26:31
+ * @LastEditTime: 2021-09-07 17:19:15
  * @FilePath: /draw/src/ts/sprite.ts
  * @Description:
  */
-import EventTarget from "./event-target.js";
-// 绘图 
+import EventTarget from './event-target.js';
+// 绘图
 class Sprite extends EventTarget {
-    //构造
+    // 构造
     constructor(config) {
         super();
-        //配置
+        // 配置
         this.config = config || {};
-        //类型，默认sprite
-        this.type = this.config.type || "default";
-        //id
-        this.id = this.config.id || "";
-        //name
-        this.name = this.config.name || "";
-        //x坐标
+        // 类型，默认sprite
+        this.type = this.config.type || 'default';
+        // id
+        this.id = this.config.id || '';
+        // name
+        this.name = this.config.name || '';
+        // x坐标
         this.x = this.config.x || 0;
-        //y坐标
+        // y坐标
         this.y = this.config.y || 0;
-        //width
+        // width
         this.width = this.config.width || 0;
-        //height
+        // height
         this.height = this.config.height || 0;
-        //层级
+        // 层级
         this.index = this.config.index || 100;
-        //选中
+        // 选中
         this.active = this.config.active || false;
-        //位移
+        // 位移
         this.translate = this.config.translate || [0, 0];
-        //缩放
+        // 缩放
         this.scale = 1;
-        //zindex
+        // zindex
         this.zindex = this.config.zindex || 0;
-        //useDrag
+        // useDrag
         this.useDrag = this.config.useDrag || false;
-        //allowClick
+        // allowClick
         this.allowClick = this.config.allowClick != undefined ? this.config.allowClick : true;
-        //click event
-        //parent 只支持一级
+        // click event
+        // parent 只支持一级
         this.parent = this.config.parent || null;
-        //相对父元素的定位
+        // 相对父元素的定位
         // this.relativePosition= this.config.relativePosition || [.5,.5];
-        //visible 
+        // visible
         this.visible = this.config.visible != undefined ? this.config.visible : true;
     }
     /**
@@ -75,14 +75,14 @@ class Sprite extends EventTarget {
     /**
      * 绘制图形精灵
      */
-    draw(ctx) {
-    }
+    // draw(ctx) {
+    // }
     /**
      * 点击判断
      */
-    isInPath(ctx, pos) {
-        return false;
-    }
+    // isInPath(ctx, pos) {
+    //   return false;
+    // }
     /**
      * 计算相对位置
      */
@@ -99,10 +99,10 @@ class Sprite extends EventTarget {
      */
     getScale() {
         let scaleVal = this.scale;
-        let node = this;
-        while (node.parent) {
-            scaleVal *= node.parent.scale;
-            node = node.parent;
+        let { parent } = this;
+        while (parent) {
+            scaleVal *= parent.scale;
+            parent = parent.parent;
         }
         return scaleVal;
     }
@@ -110,7 +110,7 @@ class Sprite extends EventTarget {
      * 获取缩放
      */
     getPosition() {
-        let position = { x: this.x, y: this.y };
+        const position = { x: this.x, y: this.y };
         let node = this;
         while (node.parent) {
             position.x += node.parent.x;
@@ -118,11 +118,6 @@ class Sprite extends EventTarget {
             node = node.parent;
         }
         return position;
-    }
-    /**
-     * 设置按压态
-     */
-    setActiveStyle(ctx) {
     }
 }
 export default Sprite;

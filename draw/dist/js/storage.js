@@ -5,32 +5,32 @@
  * @FilePath: /draw_ts/src/ts/storage.ts
  * @Description:
  */
-let storage = {
-    //stage
+const storage = {
+    // stage
     stage: {},
-    //sprites
+    // sprites
     sprites: [],
     saveStage(stage) {
         this.stage = {};
         this.sprites = [];
-        //save stage
-        for (let name in stage) {
-            if (typeof stage[name] != "object") {
+        // save stage
+        for (const name in stage) {
+            if (typeof stage[name] !== 'object') {
                 this.stage[name] = stage[name];
                 this.stage.x = 0;
                 this.stage.y = 0;
                 this.stage.scale = 1;
             }
         }
-        //sage sprite
-        stage.spritesController.sprites.forEach(sprite => {
-            if (sprite.type != "app_assist") {
-                let spriteConfig = {};
-                for (let proName in sprite) {
-                    if (typeof sprite[proName] != "object") {
-                        if (proName == "imagePath" && (sprite[proName].length > 200)) {
-                            //不存了
-                            spriteConfig[proName] = "#";
+        // sage sprite
+        stage.spritesController.sprites.forEach((sprite) => {
+            if (sprite.type != 'app_assist') {
+                const spriteConfig = {};
+                for (const proName in sprite) {
+                    if (typeof sprite[proName] !== 'object') {
+                        if (proName === 'imagePath' && (sprite[proName].length > 200)) {
+                            // 不存了
+                            spriteConfig[proName] = '#';
                         }
                         else {
                             spriteConfig[proName] = sprite[proName];
@@ -48,7 +48,7 @@ let storage = {
             stage: JSON.parse(localStorage.getItem('stage')) || {},
             sprites: JSON.parse(localStorage.getItem('sprites')) || [],
         };
-    }
+    },
 };
 export default storage;
 //# sourceMappingURL=storage.js.map

@@ -67,7 +67,7 @@ export default function potpack(boxes) {
                     x: space.x + box.width,
                     y: space.y,
                     width: space.width - box.width,
-                    height: box.height
+                    height: box.height,
                 });
                 space.y += box.height;
                 space.height -= box.height;
@@ -78,7 +78,7 @@ export default function potpack(boxes) {
     return {
         w: width,
         h: height,
-        fill: (area / (width * height)) || 0 // space utilization
+        fill: (area / (width * height)) || 0,
     };
 }
 //# sourceMappingURL=potpack.js.map

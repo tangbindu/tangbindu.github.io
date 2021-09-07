@@ -5,16 +5,16 @@
  * @FilePath: /draw/src/ts/RoundRectSprite.ts
  * @Description:
  */
-import Sprite from "./sprite.js";
-// 绘图 
+import Sprite from './sprite.js';
+// 绘图
 class RoundRectSprite extends Sprite {
     constructor(config) {
         super(config);
         this.config = config || {};
         this.radius = this.config.radius || 0;
-        this.fillStyle = this.config.fillStyle || "rgba(0,0,0,.5)";
+        this.fillStyle = this.config.fillStyle || 'rgba(0,0,0,.5)';
     }
-    //绘制图形精灵
+    // 绘制图形精灵
     draw(ctx) {
         ctx.save();
         ctx.fillStyle = this.fillStyle;
@@ -30,7 +30,7 @@ class RoundRectSprite extends Sprite {
         ctx.fill();
         ctx.restore();
     }
-    //点击
+    // 点击
     isInPath(ctx, pos) {
         ctx.save();
         ctx.beginPath();
@@ -40,9 +40,7 @@ class RoundRectSprite extends Sprite {
         if (ctx.isPointInPath(pos.x, pos.y)) {
             return true;
         }
-        else {
-            return false;
-        }
+        return false;
     }
 }
 export default RoundRectSprite;

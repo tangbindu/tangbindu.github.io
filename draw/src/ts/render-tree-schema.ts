@@ -3,7 +3,7 @@
  * @Date: 2021-08-27 15:25:32
  * @LastEditTime: 2021-08-27 19:19:30
  * @FilePath: /draw_ts/src/ts/renderTreeSchema.ts
- * @Description: 
+ * @Description:
  */
 // 节点类型
 export type NodeType = 'QText' | 'QImage' | 'QLayer' | 'QBody';
@@ -19,8 +19,7 @@ export type JustifyContentType = 'start' | 'center' | 'end' | 'between' | 'aroun
 export type AlignItemsType = 'top' | 'center' | 'bottom' | 'between' | 'around';
 
 
-
-//节点描述
+// 节点描述
 export interface NodeSchema {
   // id
   id: string;
@@ -28,12 +27,12 @@ export interface NodeSchema {
   nodeType: NodeType;
   // 节点坐标尺寸
   rect?: Rect;
-  // 节点样式属性   
+  // 节点样式属性
   props?: NodeProps;
   // 子节点
   children?: NodeSchema[];
   // 子节点循环
-  childrenLoop?: boolean; //(讨论)
+  childrenLoop?: boolean; // (讨论)
   // 特性
   features?: Features;
 }
@@ -50,52 +49,52 @@ export interface Rect {
 export interface NodeProps {
   // 节点样式
   style?: {
-    //position
+    // position
     position?: PositionType;
-    //x
+    // x
     x?: number;
-    //y
+    // y
     y?: number;
-    //width
+    // width
     width?: number;
-    //height
+    // height
     height?: number;
-    //display
+    // display
     display?: DisplayType;
-    //padding   
+    // padding
     padding?: Padding;
-    //margin
+    // margin
     margin?: Margin;
-    //lineHeight
+    // lineHeight
     lineHeight?: number;
-    //opacity
+    // opacity
     opacity?: number;
-    //borderRadius
+    // borderRadius
     borderRadius?: BorderRadius;
-    //linearGradient
+    // linearGradient
     linearGradient?: LinearGradient;
-    //RadiusGradient
+    // RadiusGradient
     radiusGradient?: RadiusGradient;
-    //flexLayout
+    // flexLayout
     flexLayout?: {
-      //direction
+      // direction
       flexDirection: FlexDirectionType;
-      //justifyContent
+      // justifyContent
       justifyContent: JustifyContentType;
-      //alignItems
+      // alignItems
       alignItems: AlignItemsType;
     };
-    //fontSize
+    // fontSize
     fontSize?: number;
-    //fontColor
+    // fontColor
     fontColor?: Color;
-    //backgroundColor
+    // backgroundColor
     backgroundColor?: Color;
     [key: string]: any;
   };
   // 图片
   src?: string;
-  // 文本  
+  // 文本
   text?: string;
   // class类名
   className?: string;
@@ -104,8 +103,8 @@ export interface NodeProps {
 }
 
 // 节点特征，是否循环，成组，组件特征等
-export interface Features {//（待讨论）
-  // 循环 
+export interface Features {// （待讨论）
+  // 循环
   repeat: {
     repeatId: number;
     repeatIndex: number;
@@ -118,7 +117,7 @@ export interface Features {//（待讨论）
   componentType: string[];  // ['button','list','banner']
 }
 
-//--------------细化style---------------
+// --------------细化style---------------
 // color  rgba
 export interface Color {
   red: number;
@@ -127,7 +126,7 @@ export interface Color {
   alpha: number;
 }
 
-// padding 
+// padding
 export interface Padding {
   top: number;
   right: number;
@@ -135,7 +134,7 @@ export interface Padding {
   left: number;
 }
 
-// margin 
+// margin
 export interface Margin {
   top: number;
   right: number;
@@ -174,7 +173,5 @@ export interface RadiusGradient {
   position?: RadiusGradientPosition;
   colorStops: ColorStop[];
 }
-
-
 
 

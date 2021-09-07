@@ -5,11 +5,6 @@
         "rootDir": "src/ts",
         "sourceMap": true,
         "moduleResolution": "node" ,  
-        "paths": { // 指定模块的路径，和baseUrl有关联，和webpack中resolve.alias配置一样
-            "src": [ //指定后可以在文件之直接 import * from 'src';
-                "./src"
-            ],
-        },      
         "lib": [ 
             "es2016",
             "dom"

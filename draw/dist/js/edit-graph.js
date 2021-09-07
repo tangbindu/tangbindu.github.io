@@ -5,19 +5,19 @@
  * @FilePath: /draw/src/ts/editGraph.ts
  * @Description:
  */
-import tools from "./tools.js";
+import tools from './tools.js';
 let activeSprite;
-let newActiveSprite = false; //处理多选，取消单个的问题
-let hasMoving = false; //为了区分mouseup and click
-let selectSpriteRect; //选择精灵框
-let editGraph = (app) => {
+let newActiveSprite = false; // 处理多选，取消单个的问题
+let hasMoving = false; // 为了区分mouseup and click
+let selectSpriteRect; // 选择精灵框
+const editGraph = (app) => {
     // 选择精灵
-    if (app.mouseEvent.eventType == "mousedown") {
-        let pos = app.mouseEvent.curLogicPos;
+    if (app.mouseEvent.eventType === 'mousedown') {
+        const pos = app.mouseEvent.curLogicPos;
         // 点到一个元素
         activeSprite = app.spritesController.getSpriteByPoint(app.ctx, {
             x: pos.x + app.x,
-            y: pos.y + app.y
+            y: pos.y + app.y,
         });
         // 添新active元素，并且之前没有active，添加他
         if (activeSprite && !activeSprite.active) {
@@ -35,20 +35,20 @@ let editGraph = (app) => {
         else {
             // 什么对象都没有点到
             app.spritesController.releaseActiveSprites();
-            //选择框
-            //new 图形
+            // 选择框
+            // new 图形
             selectSpriteRect = app.addSelectRectSprite({
                 x: pos.x,
                 y: pos.y,
                 zindex: 10000,
                 width: 0,
                 height: 0,
-                useDrag: true
+                useDrag: true,
             });
         }
     }
     // 移动精灵
-    if (app.mouseEvent.eventType === "mousemove" && app.mouseEvent.isMoving) {
+    if (app.mouseEvent.eventType === 'mousemove' && app.mouseEvent.isMoving) {
         // 步进策略
         // drag精灵
         app.mouseEvent.leftDown && app.moveSprites(app.spritesController.activeSprites, app.mouseEvent.moveStepLogicVector);
@@ -62,8 +62,8 @@ let editGraph = (app) => {
         }
     }
     // 其他处理
-    if (app.mouseEvent.eventType === "mouseup") {
-        app.spritesController.getActiveSprites().forEach(sprite => {
+    if (app.mouseEvent.eventType === 'mouseup') {
+        app.spritesController.getActiveSprites().forEach((sprite) => {
             // 重新计算值
             sprite.x = sprite.x;
             sprite.y = sprite.y;
@@ -73,9 +73,9 @@ let editGraph = (app) => {
         // 释放多选状态下，被点击的active元素
         !newActiveSprite && activeSprite && activeSprite.active && !hasMoving && app.spritesController.releaseActiveSprites(activeSprite);
         hasMoving = false;
-        //计算选择
+        // 计算选择
         selectSpriteRect && app.spritesController.selectSpriteByRect(selectSpriteRect);
-        //移除框
+        // 移除框
         selectSpriteRect && app.spritesController.removeSprite(selectSpriteRect);
     }
 };

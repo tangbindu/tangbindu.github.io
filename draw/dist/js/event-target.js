@@ -5,7 +5,7 @@
  * @FilePath: /draw/src/ts/EventTarget.ts
  * @Description:
  */
-//制作事件驱动源
+// 制作事件驱动源
 class EventTarget {
     /**
      * 构造
@@ -19,9 +19,9 @@ class EventTarget {
      * @param handler
      */
     handler(type, handler) {
-        //添加事件对象
-        if (typeof this.handlers[type] == 'undefined') {
-            this.handlers[type] = new Array();
+        // 添加事件对象
+        if (typeof this.handlers[type] === 'undefined') {
+            this.handlers[type] = [];
         }
         this.handlers[type] = this.handlers[type].concat(handler);
     }
@@ -31,13 +31,13 @@ class EventTarget {
      * @param handler
      */
     removeHandler(type, handler) {
-        if (typeof this.handlers == "undefined") {
+        if (typeof this.handlers === 'undefined') {
             this.handlers = {};
         }
         if (this.handlers[type] instanceof Array) {
-            var handlers = this.handlers[type];
-            for (var i = 0, len = handlers.length; i < len; i++) {
-                if (handler[i] == handler) {
+            const handlers = this.handlers[type];
+            for (let i = 0, len = handlers.length; i < len; i++) {
+                if (handler[i] === handler) {
                     handlers.splice(i, 1);
                     break;
                 }
@@ -49,12 +49,12 @@ class EventTarget {
      * @param type
      */
     trigger(type, data1, data2) {
-        if (typeof this.handlers == "undefined") {
+        if (typeof this.handlers === 'undefined') {
             this.handlers = {};
         }
         if (this.handlers[type] instanceof Array) {
-            var handlers = this.handlers[type];
-            for (var i = 0, len = handlers.length; i < len; i++) {
+            const handlers = this.handlers[type];
+            for (let i = 0, len = handlers.length; i < len; i++) {
                 handlers[i].call(this, data1, data2);
             }
         }

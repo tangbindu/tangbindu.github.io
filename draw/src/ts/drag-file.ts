@@ -1,44 +1,43 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-08-27 20:17:30
- * @FilePath: /draw/src/ts/dragFile.ts
- * @Description: 
+ * @LastEditTime: 2021-09-07 17:33:09
+ * @FilePath: /draw/src/ts/drag-file.ts
+ * @Description:
  */
-import EventTarget from "./event-target.js";
+import EventTarget from './event-target.js';
 
-//event
-class DragFile extends EventTarget{
-  constructor(){
+// event
+class DragFile extends EventTarget {
+  constructor() {
     super();
     this.init();
   }
-  init(){
-    //拖拽上传文件
-    window.document.addEventListener("dragenter", (e)=>{
+  init() {
+    // 拖拽上传文件
+    window.document.addEventListener('dragenter', (e) => {
       e.stopPropagation();
       e.preventDefault();
     }, false);
-    window.document.addEventListener("dragover", (e)=>{
+    window.document.addEventListener('dragover', (e) => {
       e.stopPropagation();
       e.preventDefault();
     }, false);
-    window.document.addEventListener("drop", (e)=>{
-      //获取一张图片
-      let handleFile=(files)=>{
-        let i = 0;
-        let readerFiles=(file)=>{
-          let reader = new FileReader();
-          reader.onload = ((theFile)=>{
-            let imgData = theFile.srcElement.result;
-            this.trigger("files",imgData,e)
-          })
+    window.document.addEventListener('drop', (e) => {
+      // 获取一张图片
+      const handleFile = (files) => {
+        const readerFiles = (file) => {
+          const reader = new FileReader();
+          reader.onload = (() => {
+            const imgData = reader.result;
+            this.trigger('files', imgData, e);
+          });
           reader.readAsDataURL(file);
-        }
-        for(let i=0;i<files.length;i++){
+        };
+        for (let i = 0;i < files.length;i++) {
           readerFiles(files[i]);
         }
-      }
+      };
       handleFile(e.dataTransfer.files);
       e.stopPropagation();
       e.preventDefault();
