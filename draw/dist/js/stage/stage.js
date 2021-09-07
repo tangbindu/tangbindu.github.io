@@ -1,21 +1,21 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-09-08 02:17:21
+ * @LastEditTime: 2021-09-08 02:01:23
  * @FilePath: /draw/src/ts/stage.ts
  * @Description:
  */
-import ImageSprite from './sprite/Image-sprite.js';
-import RectSprite from './sprite/rect-sprite.js';
-import SelectRectSprite from './sprite/select-rect-sprite.js';
-import EventTarget from './tools/event-target.js';
-import MouseEvent from './mouse-event/mouse-event.js';
-import KeyBoardEvent from './keyboard-event/key-board-event.js';
-import drawGraph from './draw-mode/draw-graph.js';
-import editGraph from './edit-mode/edit-graph.js';
-import { Grid, Guidewires } from './sprite/sprite-graph.js';
-import SpritesController from './director/sprites-controller.js';
-import DragFile from './file/drag-file.js';
+import ImageSprite from '../sprite/Image-sprite.js';
+import RectSprite from '../sprite/rect-sprite.js';
+import SelectRectSprite from '../sprite/select-rect-sprite.js';
+import EventTarget from '../tools/event-target.js';
+import MouseEvent from '../mouse-event/mouse-event.js';
+import KeyBoardEvent from '../keyboard-event/key-board-event.js';
+import drawGraph from '../draw-mode/draw-graph.js';
+import editGraph from '../edit-mode/edit-graph.js';
+import { Grid, Guidewires } from '../sprite/sprite-graph.js';
+import SpritesController from '../director/sprites-controller.js';
+import DragFile from '../file/drag-file.js';
 // 层级约定
 // image 0-10000;
 // rect  10000-20000;

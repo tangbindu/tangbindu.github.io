@@ -1,7 +1,7 @@
 /*
  * @Author: bowentang
  * @Date: 2021-09-07 16:01:08
- * @LastEditTime: 2021-09-08 00:50:45
+ * @LastEditTime: 2021-09-08 02:12:21
  * @FilePath: /draw/src/ts/activity-history.ts
  * @Description:
  */
@@ -29,16 +29,19 @@ const rememberActivity = (stage) => {
     });
 };
 export const rememberStage = (stage) => {
+    var _a;
     // 记忆
     rememberActivity(stage);
     // 获取
     const stageData = storage.getStage();
-    stageData.stage.width = document.body.clientWidth;
-    stageData.stage.height = document.body.clientHeight;
-    stage.resize(stageData.stage.width, stageData.stage.height);
-    stage.backgroundColor = stageData.stage.backgroundColor || '#2c3448';
+    if (Object.keys(stageData.stage).length > 0) {
+        stage.width = stageData.stage.width;
+        stage.height = stageData.stage.height;
+        stage.resize(stage.width, stage.height);
+        stage.backgroundColor = stageData.stage.backgroundColor || '#2c3448';
+    }
     // 恢复
-    stageData.sprites.forEach((spriteConfig) => {
+    (_a = stageData.sprites) === null || _a === void 0 ? void 0 : _a.forEach((spriteConfig) => {
         let sprite = null;
         switch (spriteConfig.type) {
             case 'RectSprite':

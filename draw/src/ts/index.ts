@@ -1,7 +1,7 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-09-08 00:53:58
+ * @LastEditTime: 2021-09-08 02:07:56
  * @FilePath: /draw/src/ts/index.ts
  * @Description:
  */
@@ -15,7 +15,7 @@ window.onload = function () {
   // 舞台
   const stage = new Stage({});
   // 记忆 stage
-  // rememberStage(stage);
+  rememberStage(stage);
   // 安置stage
   const stageWrap = document.getElementById('stageWrap');
   stageWrap.appendChild(stage.canvas);
