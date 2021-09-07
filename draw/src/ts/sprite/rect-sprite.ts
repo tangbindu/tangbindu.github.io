@@ -1,12 +1,12 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-08-27 20:14:53
+ * @LastEditTime: 2021-09-08 00:07:25
  * @FilePath: /draw/src/ts/RectSprite.ts
  * @Description:
  */
 import Sprite from './sprite.js';
-import tools from './tools.js';
+import tools from '../tools/tools.js';
 // 绘图
 class RectSprite extends Sprite {
   lineWidth: number;

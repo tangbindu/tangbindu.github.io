@@ -1,11 +1,11 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-09-07 23:18:44
+ * @LastEditTime: 2021-09-08 00:07:34
  * @FilePath: /draw/src/ts/sprites-controller.ts
  * @Description:
  */
-import potpack from './potpack.js';
+import potpack from '../tools/potpack.js';
 class SpritesController {
     // 构造
     constructor(stage) {

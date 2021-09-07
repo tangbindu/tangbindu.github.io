@@ -1,19 +1,12 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-08-27 20:17:45
+ * @LastEditTime: 2021-09-08 00:07:28
  * @FilePath: /draw/src/ts/SelectRectSprite.ts
  * @Description:
  */
-/*
- * @Author: bowentang
- * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-08-27 19:19:48
- * @FilePath: /draw_ts/src/ts/SelectRectSprite.ts
- * @Description:
- */
 import Sprite from './sprite.js';
-import tools from './tools.js';
+import tools from '../tools/tools.js';
 // 绘图
 class SelectRectSprite extends Sprite {
   lineWidth: number;

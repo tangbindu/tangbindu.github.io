@@ -1,11 +1,11 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-09-07 17:19:15
+ * @LastEditTime: 2021-09-08 00:07:42
  * @FilePath: /draw/src/ts/sprite.ts
  * @Description:
  */
-import EventTarget from './event-target.js';
+import EventTarget from '../tools/event-target.js';
 
 // 绘图
 class Sprite extends EventTarget {

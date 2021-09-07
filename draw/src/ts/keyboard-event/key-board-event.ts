@@ -1,12 +1,12 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-09-07 17:20:05
+ * @LastEditTime: 2021-09-08 00:07:39
  * @FilePath: /draw/src/ts/key-board-event.ts
  * @Description:
  */
-import EventTarget from './event-target.js';
-import tools from './tools.js';
+import EventTarget from '../tools/event-target.js';
+import tools from '../tools/tools.js';
 
 // event
 class KeyBoardEvent extends EventTarget {

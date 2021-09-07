@@ -1,12 +1,12 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-09-07 23:59:16
+ * @LastEditTime: 2021-09-08 00:07:44
  * @FilePath: /draw/src/ts/mouseEvent.ts
  * @Description:
  */
-import tools from './tools.js';
-import EventTarget from './mouse-event/event-target.js';
+import tools from '../tools/tools.js';
+import EventTarget from '../tools/event-target.js';
 function getVertexPosition(el) {
     let currentTarget = el;
     let top = 0;

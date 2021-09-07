@@ -1,12 +1,12 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-08-27 20:16:57
+ * @LastEditTime: 2021-09-08 00:07:30
  * @FilePath: /draw/src/ts/editGraph.ts
  * @Description:
  */
 
-import tools from './tools.js';
+import tools from '../tools/tools.js';
 
 let activeSprite;
 let newActiveSprite = false; // 处理多选，取消单个的问题

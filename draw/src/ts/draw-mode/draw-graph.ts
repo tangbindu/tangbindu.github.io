@@ -1,11 +1,11 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-09-07 17:05:28
+ * @LastEditTime: 2021-09-08 00:07:32
  * @FilePath: /draw/src/ts/draw-graph.ts
  * @Description:
  */
-import tools from './tools.js';
+import tools from '../tools/tools.js';
 let createSprite;
 // event
 const drawGraph = (app) => {

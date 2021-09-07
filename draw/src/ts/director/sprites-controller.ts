@@ -1,11 +1,11 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-09-07 20:34:38
+ * @LastEditTime: 2021-09-08 00:07:34
  * @FilePath: /draw/src/ts/sprites-controller.ts
  * @Description:
  */
-import potpack from './potpack.js';
+import potpack from '../tools/potpack.js';
 
 class SpritesController {
   // active sprites
@@ -17,12 +17,12 @@ class SpritesController {
   // 支持多选精灵
   supportMultipleClick: boolean;
   // app
-  stage: any;
+  app: any;
   // 构造
   constructor(stage) {
     // click的元素
-    this.stage = stage;
-    this.sprites = this.stage.sprites;
+    this.app = stage;
+    this.sprites = this.app.sprites;
     this.activeSprites = [];
     this.lastSprite = null;
     this.sprites = [];

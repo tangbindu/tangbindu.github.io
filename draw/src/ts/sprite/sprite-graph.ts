@@ -1,11 +1,11 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-09-07 20:29:25
+ * @LastEditTime: 2021-09-08 00:07:27
  * @FilePath: /draw/src/ts/sprite-graph.ts
  * @Description: 绘图文件
  */
-import tools from './tools.js';
+import tools from '../tools/tools.js';
 import Sprite from './sprite.js';
 // 绘图
 class Graph extends Sprite {

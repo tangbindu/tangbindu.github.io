@@ -1,22 +1,22 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-09-07 20:34:50
+ * @LastEditTime: 2021-09-08 00:50:03
  * @FilePath: /draw/src/ts/stage.ts
  * @Description:
  */
-import ImageSprite from './Image-sprite.js';
-import RectSprite from './rect-sprite.js';
-import SelectRectSprite from './select-rect-sprite.js';
-import EventTarget from './event-target.js';
-import MouseEvent from './mouse-event.js';
-import KeyBoardEvent from './key-board-event.js';
-import Sprite from './sprite';
-import drawGraph from './draw-graph.js';
-import editGraph from './edit-graph.js';
-import { Grid, Guidewires } from './sprite-graph.js';
-import SpritesController from './sprites-controller.js';
-import DragFile from './drag-file.js';
+import ImageSprite from './sprite/Image-sprite.js';
+import RectSprite from './sprite/rect-sprite.js';
+import SelectRectSprite from './sprite/select-rect-sprite.js';
+import EventTarget from './tools/event-target.js';
+import MouseEvent from './mouse-event/mouse-event.js';
+import KeyBoardEvent from './keyboard-event/key-board-event.js';
+import Sprite from './sprite/sprite';
+import drawGraph from './draw-mode/draw-graph.js';
+import editGraph from './edit-mode/edit-graph.js';
+import { Grid, Guidewires } from './sprite/sprite-graph.js';
+import SpritesController from './director/sprites-controller.js';
+import DragFile from './file/drag-file.js';
 
 // 层级约定
 // image 0-10000;
@@ -77,9 +77,9 @@ export class Stage extends EventTarget {
     this.devicePixelRatio = Math.floor(window.devicePixelRatio || 2);
     this.x = config.x || 0;
     this.y = config.y || 0;
-    this.width = config.width * this.devicePixelRatio || 400;
-    this.height = config.height * this.devicePixelRatio || 300;
-    this.backgroundColor = config.backgroundColor || 'rgba(0,0,0,0)';
+    this.width = config.width || document.body.clientWidth * this.devicePixelRatio;
+    this.height = config.height || document.body.clientHeight * this.devicePixelRatio;
+    this.backgroundColor = config.backgroundColor || '#2c3448';
     this.canvas = document.createElement('canvas');
     this.ctx = this.canvas.getContext('2d');
     this.workMode = config.workMode || 'draw';
@@ -313,6 +313,7 @@ export class Stage extends EventTarget {
       // 清空画布
       this.ctx.clearRect(0, 0, this.width, this.height);
       this.ctx.fillStyle = this.backgroundColor;
+      console.log(this.backgroundColor)
       this.ctx.fillRect(0, 0, this.width, this.height);
     } else {
       this.ctx.clearRect(0, 0, this.width, this.height);
