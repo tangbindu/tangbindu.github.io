@@ -1,7 +1,7 @@
 /*
  * @Author: bowentang
  * @Date: 2021-09-07 16:01:08
- * @LastEditTime: 2021-09-08 02:12:21
+ * @LastEditTime: 2021-09-09 01:14:42
  * @FilePath: /draw/src/ts/activity-history.ts
  * @Description:
  */
@@ -26,6 +26,9 @@ const rememberActivity = (stage) => {
         timmer = setTimeout(() => {
             storage.saveStage(stage);
         }, 200);
+    });
+    stage.mouseEvent.handler('resize', () => {
+        storage.saveStage(stage);
     });
 };
 export const rememberStage = (stage) => {
