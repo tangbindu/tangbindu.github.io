@@ -1,7 +1,7 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-09-08 02:17:21
+ * @LastEditTime: 2021-09-08 19:08:22
  * @FilePath: /draw/src/ts/stage.ts
  * @Description:
  */
@@ -13,7 +13,8 @@ import MouseEvent from './mouse-event/mouse-event.js';
 import KeyBoardEvent from './keyboard-event/key-board-event.js';
 import drawGraph from './draw-mode/draw-graph.js';
 import editGraph from './edit-mode/edit-graph.js';
-import { Grid, Guidewires } from './sprite/sprite-graph.js';
+import { guideWire } from './director/director.js';
+import { Grid } from './sprite/sprite-graph.js';
 import SpritesController from './director/sprites-controller.js';
 import DragFile from './file/drag-file.js';
 // 层级约定
@@ -54,7 +55,8 @@ export class Stage extends EventTarget {
         // 初始化网格线
         this.initGrid();
         // 初始化引导线
-        this.initGuidewires(); // 引导线条
+        // this.initGuidewires(); // 引导线条
+        this.guidewires = guideWire(this);
         // 初始化鼠标事件
         this.initMouseEvent();
         // 初始化键盘快捷
@@ -237,18 +239,18 @@ export class Stage extends EventTarget {
         return this.addSprite(this.grid);
     }
     // 添加引导线
-    initGuidewires() {
-        this.guidewires = new Guidewires({
-            x: 0,
-            y: 0,
-            zindex: 30000,
-            app: this,
-        });
-        this.guidewires.allowClick = false;
-        this.guidewires.index = 1000000;
-        this.guidewires.type = 'app_assist';
-        return this.addSprite(this.guidewires);
-    }
+    // initGuidewires() {
+    //   this.guidewires = new Guidewires({
+    //     x: 0,
+    //     y: 0,
+    //     zindex: 30000,
+    //     app: this,
+    //   });
+    //   this.guidewires.allowClick = false;
+    //   this.guidewires.index = 1000000;
+    //   this.guidewires.type = 'app_assist';
+    //   return this.addSprite(this.guidewires);
+    // }
     /**
      * 更新引导线
      */

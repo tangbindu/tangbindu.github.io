@@ -1,7 +1,7 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-09-08 00:07:27
+ * @LastEditTime: 2021-09-08 18:53:17
  * @FilePath: /draw/src/ts/sprite-graph.ts
  * @Description: 绘图文件
  */
@@ -217,4 +217,4 @@ class Grid extends Graph {
     ctx.restore();
   }
 }
-export { Grid, Guidewires };
+export { Graph, Grid, Guidewires };
