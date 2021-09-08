@@ -1,7 +1,7 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-09-09 01:08:55
+ * @LastEditTime: 2021-09-09 01:27:16
  * @FilePath: /draw/src/ts/stage.ts
  * @Description:
  */
@@ -161,7 +161,6 @@ export class Stage extends EventTarget {
             // 清空画布
             this.ctx.clearRect(0, 0, this.width, this.height);
             this.ctx.fillStyle = this.backgroundColor;
-            console.log(this.backgroundColor);
             this.ctx.fillRect(0, 0, this.width, this.height);
         }
         else {
@@ -221,7 +220,6 @@ export class Stage extends EventTarget {
      */
     removeSprite(sprite) {
         const res = this.spritesController.removeSprite(sprite);
-        console.log(res);
     }
     /**
      * 渲染舞台内容
@@ -229,6 +227,7 @@ export class Stage extends EventTarget {
     render() {
         this.isNextFrame && cancelAnimationFrame(this.isNextFrame);
         this.isNextFrame = requestAnimationFrame(() => {
+            let count = 0;
             // 绘制背景
             this.drawBackground();
             // 排序
@@ -238,7 +237,11 @@ export class Stage extends EventTarget {
                 // 计算定位
                 // sprite.calculateRelativePosition();
                 sprite.visible && sprite.draw(this.ctx);
+                if (sprite.visible) {
+                    count++;
+                }
             });
+            document.title = `draw:${count}`;
         });
     }
 }

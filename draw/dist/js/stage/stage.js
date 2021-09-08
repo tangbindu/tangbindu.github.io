@@ -1,7 +1,7 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-09-08 02:01:23
+ * @LastEditTime: 2021-09-09 01:25:09
  * @FilePath: /draw/src/ts/stage.ts
  * @Description:
  */
@@ -272,7 +272,6 @@ export class Stage extends EventTarget {
             // 清空画布
             this.ctx.clearRect(0, 0, this.width, this.height);
             this.ctx.fillStyle = this.backgroundColor;
-            console.log(this.backgroundColor);
             this.ctx.fillRect(0, 0, this.width, this.height);
         }
         else {
@@ -318,7 +317,6 @@ export class Stage extends EventTarget {
      */
     getSpriteById(id) {
         const sprite = this.spritesController.getSpriteById(id);
-        console.dir(sprite);
         this.render();
     }
     /**
@@ -326,15 +324,13 @@ export class Stage extends EventTarget {
      */
     getSpriteByName(name) {
         const sprites = this.spritesController.getSpriteById(name);
-        console.dir(sprites);
         this.render();
     }
     /**
      * 移除精灵
      */
     removeSprite(sprite) {
-        const res = this.spritesController.removeSprite(sprite);
-        console.log(res);
+        const sprite = this.spritesController.removeSprite(sprite);
     }
     /**
      * 渲染舞台内容
