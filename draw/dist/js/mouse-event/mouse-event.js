@@ -1,12 +1,14 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-09-08 00:07:44
+ * @LastEditTime: 2021-09-09 00:57:45
  * @FilePath: /draw/src/ts/mouseEvent.ts
  * @Description:
  */
 import tools from '../tools/tools.js';
 import EventTarget from '../tools/event-target.js';
+import drawGraph from '../draw-mode/draw-graph.js';
+import editGraph from '../edit-mode/edit-graph.js';
 function getVertexPosition(el) {
     let currentTarget = el;
     let top = 0;
@@ -19,7 +21,7 @@ function getVertexPosition(el) {
     return { top, left };
 }
 // event
-class MouseEvent extends EventTarget {
+export class MouseEvent extends EventTarget {
     /**
      * 构造
      * @param {html node} element
@@ -190,5 +192,30 @@ class MouseEvent extends EventTarget {
         this.previousPos = this.currentPos;
     }
 }
-export default MouseEvent;
+export const mouseEvent = (stage) => {
+    const mouseEvent = new MouseEvent({
+        element: stage.canvas,
+        app: stage,
+    });
+    mouseEvent.handler('mixMouseEvent', () => {
+        // 拖动stage
+        if (stage.keyBoardEvent.pressSpace && mouseEvent.leftDown && mouseEvent.isMoving) {
+            stage.x += mouseEvent.moveLogicVector.x;
+            stage.y += mouseEvent.moveLogicVector.y;
+        }
+        switch (!stage.keyBoardEvent.pressSpace && stage.workMode) {
+            case 'draw':
+                drawGraph(stage);
+                break;
+            case 'edit':
+                editGraph(stage);
+                break;
+        }
+        stage.render();
+    });
+    mouseEvent.handler('resize', () => {
+        stage.resize(stage.canvas.parentNode.clientWidth * stage.devicePixelRatio, stage.canvas.parentNode.clientHeight * stage.devicePixelRatio);
+    });
+    return mouseEvent;
+};
 //# sourceMappingURL=mouse-event.js.map

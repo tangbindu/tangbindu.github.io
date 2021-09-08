@@ -158,25 +158,5 @@ class Sprite extends EventTarget {
     }
     return position;
   }
-  /**
-   * 设置按压态
-   */
-  // setActiveStyle(ctx) {
-
-  // }
-  /**
-   * 设置缩放
-   * @param {numner} scaleVal
-   */
-  // setScale(scaleVal){
-  //     //考虑缩放点
-  //     this.scale=scaleVal;
-  //     let ow=this.width;
-  //     let oh=this.height;
-  //     this.width=this.width*scaleVal;
-  //     this.height=this.height*scaleVal;
-  //     this.x-=((this.width-ow)*this.rotationOrigin[0])
-  //     this.y-=((this.height-oh)*this.rotationOrigin[1])
-  // }
 }
 export default Sprite;

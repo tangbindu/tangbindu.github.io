@@ -78,7 +78,7 @@ export default function potpack(boxes) {
     return {
         w: width,
         h: height,
-        fill: (area / (width * height)) || 0,
+        fill: (area / (width * height)) || 0, // space utilization
     };
 }
 //# sourceMappingURL=potpack.js.map

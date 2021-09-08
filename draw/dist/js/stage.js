@@ -1,7 +1,7 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-09-08 19:08:22
+ * @LastEditTime: 2021-09-09 01:08:55
  * @FilePath: /draw/src/ts/stage.ts
  * @Description:
  */
@@ -9,14 +9,12 @@ import ImageSprite from './sprite/Image-sprite.js';
 import RectSprite from './sprite/rect-sprite.js';
 import SelectRectSprite from './sprite/select-rect-sprite.js';
 import EventTarget from './tools/event-target.js';
-import MouseEvent from './mouse-event/mouse-event.js';
+import { mouseEvent } from './mouse-event/mouse-event.js';
 import KeyBoardEvent from './keyboard-event/key-board-event.js';
-import drawGraph from './draw-mode/draw-graph.js';
-import editGraph from './edit-mode/edit-graph.js';
-import { guideWire } from './director/director.js';
-import { Grid } from './sprite/sprite-graph.js';
+import { grid, guideWire } from './director/director.js';
 import SpritesController from './director/sprites-controller.js';
-import DragFile from './file/drag-file.js';
+// import DragFile from './file/drag-file.js';
+import { DragFile, pasteImage } from './file/file.js';
 // 层级约定
 // image 0-10000;
 // rect  10000-20000;
@@ -53,108 +51,23 @@ export class Stage extends EventTarget {
         // 初始化精灵控制器
         this.spritesController = new SpritesController(this);
         // 初始化网格线
-        this.initGrid();
+        this.grid = grid(this);
         // 初始化引导线
-        // this.initGuidewires(); // 引导线条
         this.guidewires = guideWire(this);
         // 初始化鼠标事件
-        this.initMouseEvent();
+        this.mouseEvent = mouseEvent(this);
+        // this.initMouseEvent();
         // 初始化键盘快捷
         this.keyBoardEvent = new KeyBoardEvent(this);
         // 初始化拖拽文件
-        this.initDragFile();
+        // this.initDragFile();
+        this.dragFile = new DragFile(this);
         // 粘贴的图片
-        this.pasteImage();
+        pasteImage(this);
         // executeMode
         this.executeMode(this.workMode);
         // 绘制
         this.render();
-    }
-    /**
-     * initDragFile
-     */
-    initDragFile() {
-        this.dragFile = new DragFile();
-        this.dragFile.handler('files', (data) => {
-            // 假定data为img
-            const imgSprite = this.addImageSprite(data, {
-                x: this.mouseEvent.curLogicPos.x,
-                y: this.mouseEvent.curLogicPos.y,
-                zindex: 0,
-                width: data.width,
-                height: data.height,
-                useDrag: true,
-            });
-            imgSprite.handler('imgLoaded', () => {
-                let width = 0;
-                this.spritesController.getSpriteByName('image').forEach((img) => {
-                    width += (img.width * 1.01);
-                });
-                imgSprite.x += (width - imgSprite.width);
-            });
-        });
-    }
-    /**
-    * pasteImage
-    */
-    pasteImage() {
-        // 查找box元素,检测当粘贴时候,
-        document.addEventListener('paste', (e) => {
-            for (let i = 0; i < e.clipboardData.items.length; i++) {
-                // 判断是否是粘贴图片
-                if (e.clipboardData && e.clipboardData.items[i].type.indexOf('image') > -1) {
-                    const reader = new FileReader();
-                    const file = e.clipboardData.items[i].getAsFile();
-                    reader.onload = (() => {
-                        var _a, _b, _c, _d;
-                        const imgData = reader.result;
-                        // 假定data为img
-                        const imgSprite = this.addImageSprite(imgData, {
-                            x: ((_b = (_a = this.mouseEvent) === null || _a === void 0 ? void 0 : _a.curLogicPos) === null || _b === void 0 ? void 0 : _b.x) || 0,
-                            y: ((_d = (_c = this.mouseEvent) === null || _c === void 0 ? void 0 : _c.curLogicPos) === null || _d === void 0 ? void 0 : _d.y) || 0,
-                            zindex: 0,
-                            useDrag: true,
-                        });
-                        imgSprite.handler('imgLoaded', () => {
-                            let width = 0;
-                            this.spritesController.getSpriteByName('image').forEach((img) => {
-                                width += (img.width + 2);
-                            });
-                            imgSprite.x += (width - imgSprite.width);
-                        });
-                    });
-                    reader.readAsDataURL(file);
-                }
-            }
-        }, false);
-    }
-    /**
-     * 初始化MouseEvent
-     */
-    initMouseEvent() {
-        this.mouseEvent = new MouseEvent({
-            element: this.canvas,
-            app: this,
-        });
-        this.mouseEvent.handler('mixMouseEvent', () => {
-            // 拖动stage
-            if (this.keyBoardEvent.pressSpace && this.mouseEvent.leftDown && this.mouseEvent.isMoving) {
-                this.x += this.mouseEvent.moveLogicVector.x;
-                this.y += this.mouseEvent.moveLogicVector.y;
-            }
-            switch (!this.keyBoardEvent.pressSpace && this.workMode) {
-                case 'draw':
-                    drawGraph(this);
-                    break;
-                case 'edit':
-                    editGraph(this);
-                    break;
-            }
-            this.render();
-        });
-        this.mouseEvent.handler('resize', () => {
-            this.resize(this.canvas.parentNode.clientWidth * this.devicePixelRatio, this.canvas.parentNode.clientHeight * this.devicePixelRatio);
-        });
     }
     /**
      * moveSprites 精灵
@@ -225,32 +138,6 @@ export class Stage extends EventTarget {
         this.y += (newCurLogicPosY - lastCurLogicPosY);
         this.render();
     }
-    // 初始化网格
-    initGrid() {
-        this.grid = new Grid({
-            x: 0,
-            y: 0,
-            zindex: -30000,
-            app: this,
-            gap: 100,
-        });
-        this.grid.type = 'app_assist';
-        this.grid.allowClick = false;
-        return this.addSprite(this.grid);
-    }
-    // 添加引导线
-    // initGuidewires() {
-    //   this.guidewires = new Guidewires({
-    //     x: 0,
-    //     y: 0,
-    //     zindex: 30000,
-    //     app: this,
-    //   });
-    //   this.guidewires.allowClick = false;
-    //   this.guidewires.index = 1000000;
-    //   this.guidewires.type = 'app_assist';
-    //   return this.addSprite(this.guidewires);
-    // }
     /**
      * 更新引导线
      */
@@ -320,15 +207,13 @@ export class Stage extends EventTarget {
      */
     getSpriteById(id) {
         const sprite = this.spritesController.getSpriteById(id);
-        console.dir(sprite);
         this.render();
     }
     /**
      * 获取精灵byname
      */
     getSpriteByName(name) {
-        const sprites = this.spritesController.getSpriteById(name);
-        console.dir(sprites);
+        const sprites = this.spritesController.getSpriteByName(name);
         this.render();
     }
     /**
