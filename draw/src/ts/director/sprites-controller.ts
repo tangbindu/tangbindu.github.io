@@ -1,7 +1,7 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-09-08 00:07:34
+ * @LastEditTime: 2021-09-09 01:21:19
  * @FilePath: /draw/src/ts/sprites-controller.ts
  * @Description:
  */
@@ -25,7 +25,6 @@ class SpritesController {
     this.sprites = this.app.sprites;
     this.activeSprites = [];
     this.lastSprite = null;
-    this.sprites = [];
     this.supportMultipleClick = false;
   }
   // 队列问题
