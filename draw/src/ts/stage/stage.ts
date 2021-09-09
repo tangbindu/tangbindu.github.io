@@ -1,30 +1,30 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-09-09 16:34:47
+ * @LastEditTime: 2021-09-09 21:11:17
  * @FilePath: /draw/src/ts/stage.ts
  * @Description:
  */
 // 精灵
-import Sprite from './sprite/sprite';
+import Sprite from '../sprite/sprite';
 
-import ImageSprite from './sprite/Image-sprite.js';
-import RectSprite from './sprite/rect-sprite.js';
-import SelectRectSprite from './sprite/select-rect-sprite.js';
-import EventBus from './tools/event-target.js';
-import { mouseEvent } from './mouse-event/mouse-event.js';
-import KeyBoardEvent from './keyboard-event/key-board-event.js';
+import ImageSprite from '../sprite/Image-sprite.js';
+import RectSprite from '../sprite/rect-sprite.js';
+import SelectRectSprite from '../sprite/select-rect-sprite.js';
+import EventBus from '../tools/event-target.js';
+import { mouseEvent } from '../mouse-event/mouse-event.js';
+import KeyBoardEvent from '../keyboard-event/key-board-event.js';
 // 历史
-import { rememberStage } from './history/activity-history.js';
+// import { rememberStage } from '../history/activity-history.js';
 import {
   grid,
   guideWire,
   SpritesController,
-} from './director/director.js';
+} from '../director/director.js';
 import {
   DragFile,
   pasteImage,
-} from './file/file.js';
+} from '../file/file.js';
 
 // 层级约定
 // image 0-10000;
@@ -54,7 +54,7 @@ export class Stage extends EventBus {
   // 引导线
   public guidewires: Sprite;
   // 网格
-  public grid: Sprite;
+  // public grid: Sprite;
   // 全部精灵
   public sprites: Sprite[];
   // 精灵控制器
@@ -79,15 +79,16 @@ export class Stage extends EventBus {
    * 初始化
    */
   init(config) {
+    const devicePixelRatio = Math.floor(window.devicePixelRatio || 2);
     const defaultConfig = {
+      devicePixelRatio,
       scale: 1,
       x: 0,
       y: 0,
-      width: document.body.clientWidth * this.devicePixelRatio,
-      height: document.body.clientHeight * this.devicePixelRatio,
+      width: document.body.clientWidth * devicePixelRatio,
+      height: document.body.clientHeight * devicePixelRatio,
       backgroundColor: '#2c3448',
       canvas: document.createElement('canvas'),
-      devicePixelRatio: Math.floor(window.devicePixelRatio || 2),
       workMode: 'draw',
     };
     config = { ...defaultConfig, ...config };
@@ -109,7 +110,7 @@ export class Stage extends EventBus {
     // 初始化精灵控制器
     this.spritesController = new SpritesController(this);
     // 初始化网格线
-    this.grid = grid(this);
+    // this.grid = grid(this);
     // 初始化引导线
     this.guidewires = guideWire(this);
     // 初始化鼠标事件
@@ -126,8 +127,6 @@ export class Stage extends EventBus {
     this.executeMode(this.workMode);
     // 绘制
     this.render();
-    // 记忆 stage
-    rememberStage(this);
   }
   /**
    * moveSprites 精灵
@@ -304,3 +303,4 @@ export class Stage extends EventBus {
     });
   }
 }
+export default Stage;

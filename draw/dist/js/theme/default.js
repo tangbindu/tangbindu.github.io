@@ -11,6 +11,5 @@ export default {
     gridLineColor: 'rgba(255,255,255,.25)',
     gridLineRowNumStyle: '20px Helvetica Neue, SimHei',
     gridLineRowNumColor: 'rgba(255,255,255,.25)',
-    // 游标线|数字
 };
 //# sourceMappingURL=default.js.map
