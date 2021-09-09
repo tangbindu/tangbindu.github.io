@@ -2,11 +2,11 @@
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
  * @LastEditTime: 2021-08-27 20:37:56
- * @FilePath: /draw/src/ts/EventTarget.ts
+ * @FilePath: /draw/src/ts/EventBus.ts
  * @Description:
  */
 // 制作事件驱动源
-class EventTarget {
+class EventBus {
   // 事件对象
   handlers: any;
   /**
@@ -62,4 +62,4 @@ class EventTarget {
     }
   }
 }
-export default EventTarget;
+export default EventBus;

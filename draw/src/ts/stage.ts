@@ -1,64 +1,72 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-09-09 01:27:16
+ * @LastEditTime: 2021-09-09 16:34:47
  * @FilePath: /draw/src/ts/stage.ts
  * @Description:
  */
+// 精灵
+import Sprite from './sprite/sprite';
+
 import ImageSprite from './sprite/Image-sprite.js';
 import RectSprite from './sprite/rect-sprite.js';
 import SelectRectSprite from './sprite/select-rect-sprite.js';
-import EventTarget from './tools/event-target.js';
-import {mouseEvent} from './mouse-event/mouse-event.js';
+import EventBus from './tools/event-target.js';
+import { mouseEvent } from './mouse-event/mouse-event.js';
 import KeyBoardEvent from './keyboard-event/key-board-event.js';
-import Sprite from './sprite/sprite';
-import { grid, guideWire } from './director/director.js';
-import { Grid } from './sprite/sprite-graph.js';
-import SpritesController from './director/sprites-controller.js';
-// import DragFile from './file/drag-file.js';
-import {DragFile,pasteImage} from './file/file.js';
+// 历史
+import { rememberStage } from './history/activity-history.js';
+import {
+  grid,
+  guideWire,
+  SpritesController,
+} from './director/director.js';
+import {
+  DragFile,
+  pasteImage,
+} from './file/file.js';
 
 // 层级约定
 // image 0-10000;
 // rect  10000-20000;
 // control  20000-30000;
-export class Stage extends EventTarget {
+export class Stage extends EventBus {
   // 指canvas组件
-  canvas: any;
+  public canvas: any;
   // 绘图上下文
-  ctx: any;
-  x: number;
-  y: number;
+  public ctx: any;
+  public x: number;
+  public y: number;
   // stage的width
-  width: number;
+  public width: number;
   // stage的高
-  height: number;
+  public height: number;
   // ratio
-  devicePixelRatio: number;
+  public devicePixelRatio: number;
   // scale
-  scale: number;
+  public scale: number;
   // 鼠标事件
-  mouseEvent: any;
+  public mouseEvent: any;
   // 键盘事件
-  keyBoardEvent: any;
+  public keyBoardEvent: any;
   // dragfile
-  dragFile: any;
+  public dragFile: any;
   // 引导线
-  guidewires: Sprite;
+  public guidewires: Sprite;
   // 网格
-  grid: Sprite;
+  public grid: Sprite;
   // 全部精灵
-  sprites: Sprite[];
+  public sprites: Sprite[];
   // 精灵控制器
-  spritesController: SpritesController;
+  public spritesController: SpritesController;
   // active sprite
   // activeSprite : Sprite;
   // backgroundColor
-  backgroundColor: string;
+  public backgroundColor: string;
   // isNextFrame
-  isNextFrame: any;
+  public isNextFrame: any;
   // workMode
-  workMode: string;
+  public workMode: string;
   /**
    * 构造
    */
@@ -71,18 +79,29 @@ export class Stage extends EventTarget {
    * 初始化
    */
   init(config) {
-    config = config || {};
+    const defaultConfig = {
+      scale: 1,
+      x: 0,
+      y: 0,
+      width: document.body.clientWidth * this.devicePixelRatio,
+      height: document.body.clientHeight * this.devicePixelRatio,
+      backgroundColor: '#2c3448',
+      canvas: document.createElement('canvas'),
+      devicePixelRatio: Math.floor(window.devicePixelRatio || 2),
+      workMode: 'draw',
+    };
+    config = { ...defaultConfig, ...config };
     this.isNextFrame = null;
-    this.scale = config.scale || 1;
-    this.devicePixelRatio = Math.floor(window.devicePixelRatio || 2);
-    this.x = config.x || 0;
-    this.y = config.y || 0;
-    this.width = config.width || document.body.clientWidth * this.devicePixelRatio;
-    this.height = config.height || document.body.clientHeight * this.devicePixelRatio;
-    this.backgroundColor = config.backgroundColor || '#2c3448';
-    this.canvas = document.createElement('canvas');
-    this.ctx = this.canvas.getContext('2d');
-    this.workMode = config.workMode || 'draw';
+    this.scale = config.scale;
+    this.devicePixelRatio = config.devicePixelRatio;
+    this.x = config.x;
+    this.y = config.y;
+    this.width = config.width;
+    this.height = config.height;
+    this.backgroundColor = config.backgroundColor;
+    this.canvas = config.canvas;
+    this.ctx = config.canvas.getContext('2d');
+    this.workMode = config.workMode;
     // 尺寸
     this.resize(this.width, this.height);
     // 精灵
@@ -90,7 +109,7 @@ export class Stage extends EventTarget {
     // 初始化精灵控制器
     this.spritesController = new SpritesController(this);
     // 初始化网格线
-    this.grid=grid(this);
+    this.grid = grid(this);
     // 初始化引导线
     this.guidewires = guideWire(this);
     // 初始化鼠标事件
@@ -100,13 +119,15 @@ export class Stage extends EventTarget {
     this.keyBoardEvent = new KeyBoardEvent(this);
     // 初始化拖拽文件
     // this.initDragFile();
-    this.dragFile=new DragFile(this)
+    this.dragFile = new DragFile(this);
     // 粘贴的图片
     pasteImage(this);
     // executeMode
     this.executeMode(this.workMode);
     // 绘制
     this.render();
+    // 记忆 stage
+    rememberStage(this);
   }
   /**
    * moveSprites 精灵
@@ -243,21 +264,21 @@ export class Stage extends EventTarget {
    * 获取精灵byid
    */
   getSpriteById(id) {
-    const sprite = this.spritesController.getSpriteById(id);
+    this.spritesController.getSpriteById(id);
     this.render();
   }
   /**
    * 获取精灵byname
    */
   getSpriteByName(name) {
-    const sprites = this.spritesController.getSpriteByName(name);
+    this.spritesController.getSpriteByName(name);
     this.render();
   }
   /**
    * 移除精灵
    */
   removeSprite(sprite) {
-    const res = this.spritesController.removeSprite(sprite);
+    this.spritesController.removeSprite(sprite);
   }
   /**
    * 渲染舞台内容
@@ -265,22 +286,21 @@ export class Stage extends EventTarget {
   render() {
     this.isNextFrame && cancelAnimationFrame(this.isNextFrame);
     this.isNextFrame = requestAnimationFrame(() => {
-      let count=0;
+      let renderSpriteCount = 0;
       // 绘制背景
       this.drawBackground();
       // 排序
       this.spritesController.sprites.sort((a, b) => a.zindex - b.zindex);
-
       // 绘制
       this.spritesController.sprites.forEach((sprite) => {
         // 计算定位
         // sprite.calculateRelativePosition();
         sprite.visible && sprite.draw(this.ctx);
-        if(sprite.visible){
-          count++;
+        if (sprite.visible) {
+          renderSpriteCount += 1;
         }
       });
-      document.title=`draw:${count}`;
+      document.title = `draw:${renderSpriteCount}`;
     });
   }
 }

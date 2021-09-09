@@ -1,12 +1,12 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-09-09 00:57:45
+ * @LastEditTime: 2021-09-09 10:56:27
  * @FilePath: /draw/src/ts/mouseEvent.ts
  * @Description:
  */
 import tools from '../tools/tools.js';
-import EventTarget from '../tools/event-target.js';
+import EventBus from '../tools/event-target.js';
 import drawGraph from '../draw-mode/draw-graph.js';
 import editGraph from '../edit-mode/edit-graph.js';
 function getVertexPosition(el) {
@@ -21,7 +21,7 @@ function getVertexPosition(el) {
     return { top, left };
 }
 // event
-export class MouseEvent extends EventTarget {
+export class MouseEvent extends EventBus {
     /**
      * 构造
      * @param {html node} element

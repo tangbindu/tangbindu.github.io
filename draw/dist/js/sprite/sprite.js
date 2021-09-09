@@ -5,9 +5,9 @@
  * @FilePath: /draw/src/ts/sprite.ts
  * @Description:
  */
-import EventTarget from '../tools/event-target.js';
+import EventBus from '../tools/event-target.js';
 // 绘图
-class Sprite extends EventTarget {
+class Sprite extends EventBus {
     // 构造
     constructor(config) {
         super();

@@ -1,7 +1,7 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-09-08 18:53:17
+ * @LastEditTime: 2021-09-09 10:56:45
  * @FilePath: /draw/src/ts/sprite-graph.ts
  * @Description: 绘图文件
  */
@@ -196,7 +196,7 @@ class Grid extends Graph {
         0,
         gap * y + sy * scale
       );
-      ++y;
+      y += 1;
     }
     // 纵轴
     ctx.textBaseline = 'top';
@@ -212,7 +212,7 @@ class Grid extends Graph {
         gap * x + sx * scale,
         0
       );
-      ++x;
+      x += 1;
     }
     ctx.restore();
   }

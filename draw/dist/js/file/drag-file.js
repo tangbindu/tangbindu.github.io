@@ -5,9 +5,9 @@
  * @FilePath: /draw/src/ts/drag-file.ts
  * @Description:
  */
-import EventTarget from '../tools/event-target.js';
+import EventBus from '../tools/event-target.js';
 // event
-class DragFile extends EventTarget {
+class DragFile extends EventBus {
     constructor(stage) {
         super();
         this.handler('files', (data) => {
