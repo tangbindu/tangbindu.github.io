@@ -11,7 +11,7 @@
     <title>笔记</title>
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="./app144x144.png">
     <link rel="apple-touch-icon-precomposed" sizes="120x120" href="./app120x120.png">
-    <link rel="stylesheet" href="https://tangbindu.github.io/static/css/code.css">
+    <link rel="stylesheet" href="./static/css/code.css">
     <link rel="stylesheet" href="./index.css">
   </head>
   <body ontouchstart="">
@@ -35,15 +35,16 @@
       <div class="item">mock</div>
       <div class="item">book</div>
       <div class="item">linux</div>
+      <div class="item">shell</div>
       <div id="touch"></div>
     </div>
     <div id="content" class="markdown-body"></div>
-    <script src="https://tangbindu.github.io/static/js/zepto.min.js"></script>
-    <script src="https://tangbindu.github.io/static/js/marked.min.js"></script>
+    <script src="./static/js/zepto.min.js"></script>
+    <script src="./static/js/marked.min.js"></script>
     <script>
       function run(){
         var s=document.createElement("script");
-        s.setAttribute("src","https://tangbindu.github.io/static/js/run_prettify.js");
+        s.setAttribute("src","./static/js/run_prettify.js");
         document.body.appendChild(s);
       }
       $("#touch").bind("click",function(){
