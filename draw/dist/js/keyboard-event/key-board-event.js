@@ -5,10 +5,10 @@
  * @FilePath: /draw/src/ts/key-board-event.ts
  * @Description:
  */
-import EventTarget from '../tools/event-target.js';
+import EventBus from '../tools/event-target.js';
 import tools from '../tools/tools.js';
 // event
-class KeyBoardEvent extends EventTarget {
+class KeyBoardEvent extends EventBus {
     constructor(app) {
         super();
         this.app = app;

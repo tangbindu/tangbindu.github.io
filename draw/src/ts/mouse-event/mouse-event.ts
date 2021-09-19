@@ -1,12 +1,12 @@
 /*
  * @Author: bowentang
  * @Date: 2021-08-27 15:25:32
- * @LastEditTime: 2021-09-09 00:57:45
+ * @LastEditTime: 2021-09-09 10:56:27
  * @FilePath: /draw/src/ts/mouseEvent.ts
  * @Description:
  */
 import tools from '../tools/tools.js';
-import EventTarget from '../tools/event-target.js';
+import EventBus from '../tools/event-target.js';
 import drawGraph from '../draw-mode/draw-graph.js';
 import editGraph from '../edit-mode/edit-graph.js';
 
@@ -32,7 +32,7 @@ export interface point {
 }
 
 // event
-export class MouseEvent extends EventTarget {
+export class MouseEvent extends EventBus {
   // 元素
   element: any;
   // 通用
@@ -249,7 +249,7 @@ export class MouseEvent extends EventTarget {
 }
 
 
-export const mouseEvent = (stage) =>{
+export const mouseEvent = (stage) => {
   const mouseEvent = new MouseEvent({
     element: stage.canvas,
     app: stage,
@@ -270,7 +270,7 @@ export const mouseEvent = (stage) =>{
     }
     stage.render();
   });
-  
+
   mouseEvent.handler('resize', () => {
     stage.resize(
       stage.canvas.parentNode.clientWidth * stage.devicePixelRatio,
@@ -278,6 +278,4 @@ export const mouseEvent = (stage) =>{
     );
   });
   return mouseEvent;
-}
-
-
+};
